@@ -1,4 +1,18 @@
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+.button {
+    display: flex;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s ease;
+}
+
+.button:hover {
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    transition: all .3s ease;
+}
