@@ -5,15 +5,7 @@ import { SizeButton } from "./components/atoms/SizeButton"
 
 
 function App() {
-  return (
-    <>
-      <SizeButton
-        style={ButtonStyle.SMALL}
-        palette={{ backgroundColor: ColorPalette.PRIMARY }}
-        text="Click"
-        onClick={() => console.log("Works!")}
-      />
-    </>
+  return (<></>
   )
 }
 

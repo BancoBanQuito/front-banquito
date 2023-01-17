@@ -1,15 +1,13 @@
 import React from 'react'
-import { ColorPalette } from '../../style/ColorPalette';
-import { Box, Button, Container, Grid, Typography } from '@mui/material';
-import CustomButton from './CustomButton';
+import { Box, Button, Grid, styled } from '@mui/material';
 import { ButtonStyle } from '../../style/ButtonStyle';
 
 interface Props {
   text: string,
   style: ButtonStyle,
   palette: {
-    backgroundColor: ColorPalette,
-    accent?: ColorPalette,
+    backgroundColor: string,
+    accent?: string,
   },
   onClick: () => void,
   column?: boolean,
@@ -19,6 +17,16 @@ interface Props {
     height: number | string
   }
 }
+
+const CustomButton = styled(Button)`
+&{
+  border-radius: 10px;
+  transition: all .3s ease-out;
+}
+&:hover{
+  filter: opacity(0.75);
+  transition: all .3s ease-in-out;
+}`;
 
 export const SizeButton = (props: Props) => {
 
@@ -50,7 +58,7 @@ export const SizeButton = (props: Props) => {
         disableElevation
         sx={{
           backgroundColor: props.palette.backgroundColor,
-          color: props.palette.accent ? props.palette.accent : ColorPalette.ACCENT,
+          color: props.palette.accent ? props.palette.accent : '#F1FAEE',
           width: configureWidth,
           ':hover': {
             backgroundColor: props.palette.accent ? props.palette.accent : 'transparent',
