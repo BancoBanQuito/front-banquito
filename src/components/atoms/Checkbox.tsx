@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Checkbox as MuiCheckbox } from "@mui/material";
+import { Box, Checkbox as MuiCheckbox, FormControlLabel } from "@mui/material";
 
 /* Example of how to use this atom:
 
@@ -42,16 +42,18 @@ export const Checkbox = (props: CheckboxProps) => {
   };
 
   return (
-    <Box>
-      <MuiCheckbox
-        size={props.size || "medium"}
-        sx={MuiCheckboxStyles(props)}
-        onChange={handleChange}
-        color="primary"
-        inputProps={{ "aria-label": label }}
-        defaultChecked={defaultChecked}
-      />
-      {label}
-    </Box>
+    <FormControlLabel
+      label={label}
+      control={
+        <MuiCheckbox
+          size={props.size || "medium"}
+          sx={MuiCheckboxStyles(props)}
+          onChange={handleChange}
+          color="primary"
+          inputProps={{ "aria-label": label }}
+          defaultChecked={defaultChecked}
+        />
+      }
+    ></FormControlLabel>
   );
 };
