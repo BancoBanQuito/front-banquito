@@ -5,20 +5,41 @@ import HomeClient from "./pages/HomeClient"
 import HomeUser from "./pages/HomeUser"
 import Login from "./pages/Login"
 import Layout from "./templates/Layout"
+import { NumberField } from './components/atoms/NumberField';
+import { useState } from "react"
+
 
 
 const App = () => {
+
+  // set test value
+  const [test, setTest] = useState(0);
+
+
+
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="" element={<Layout />}>
-          <Route index element={<Login />} />
+        <Route path="" >
+          <Route index />
           <Route path="user" element={<HomeUser />} />
           <Route path="client" element={<HomeClient />} />
           <Route path="atm" element={<HomeATM />} />
         </Route>
         <Route path="*" element={<Error404 />} />
       </Routes>
+      <NumberField
+        label="Interes"
+        value={test}
+        action={
+          (value: any) => {
+            setTest(value);
+            console.log(test);
+          }
+        }
+
+      />
     </BrowserRouter>
   )
 }
