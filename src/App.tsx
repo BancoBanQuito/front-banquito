@@ -1,16 +1,18 @@
 import Code from "@mui/icons-material/Code"
-import ButtonBig from "./components/atoms/ButtonBig"
-import { ButtonMedium } from "./components/atoms/ButtonMedium"
-import ButtonSmall from "./components/atoms/ButtonSmall"
 import { ColorPalette } from "./style/ColorPalette"
-import { Box } from "@mui/material"
+import { ButtonStyle } from "./style/ButtonStyle"
+import { SizeButton } from "./components/atoms/SizeButton"
 
 
 function App() {
   return (
     <>
-    
-
+      <SizeButton
+        style={ButtonStyle.SMALL}
+        palette={{ backgroundColor: ColorPalette.PRIMARY }}
+        text="Click"
+        onClick={() => console.log("Works!")}
+      />
     </>
   )
 }
