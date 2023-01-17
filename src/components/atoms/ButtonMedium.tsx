@@ -1,35 +1,39 @@
 import React from 'react'
 import { ColorPalette } from '../../style/ColorPalette';
-
-const style: React.CSSProperties = {
-  padding: "20px 10px",
-  margin: "10px",
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-between",
-}
+import { Button, Container, Typography } from '@mui/material';
+import CustomButton from './CustomButton';
 
 interface Props {
   text: string,
   icon: any,
-  style: {
+  sx: {
     backgroundColor: ColorPalette,
-    width?: number | string,
-    height?: number | string,
-    maxWidth?: number | string,
-    maxHeight?: number | string,
-    fontSize?: number | string,
     color?: ColorPalette
   }
   onClick: () => void;
 }
 
-
 export const ButtonMedium = (props: Props) => {
   return (
     <>
-      <button
+      <CustomButton
+        variant='contained'
+        disableElevation
+        sx={{
+          backgroundColor: props.sx.backgroundColor,
+          color: props.sx.color ? props.sx.color : ColorPalette.ACCENT,
+          ':hover': {
+            backgroundColor: props.sx.color ? props.sx.color : ColorPalette.ACCENT,
+            color: props.sx.backgroundColor,
+          }
+        }}
+        onClick={props.onClick}
+        startIcon={props.icon}>
+        <Typography variant='body1'>
+          {props.text}
+        </Typography>
+      </CustomButton>
+      {/* <button
         className='button'
         onClick={props.onClick}
         style={{
@@ -54,7 +58,7 @@ export const ButtonMedium = (props: Props) => {
         }>
           {props.text}
         </div>
-      </button>
+      </button> */}
     </>
   )
 }

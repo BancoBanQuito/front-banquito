@@ -1,23 +1,14 @@
 import React from 'react'
 import { ColorPalette } from '../../style/ColorPalette';
-import CodeIcon from '@mui/icons-material/Code';
-
-const style: React.CSSProperties = {
-  width: "100%",
-  height: "100vh",
-  padding: "20px",
-  margin: "10px",
-  display: "flex",
-  flexDirection: "column",
-}
+import { Box, Button, Grid, Typography } from '@mui/material';
+import CustomButton from './CustomButton';
 
 interface Props {
   text: string,
   icon: any,
-  style: {
+  sx: {
     backgroundColor: ColorPalette,
-    size?: number,
-    fontSize?: number | string,
+    size?: number | string,
     color?: ColorPalette
   }
   onClick: () => void;
@@ -25,20 +16,57 @@ interface Props {
 
 const ButtonBig = (props: Props) => {
   return (
-    <button
-      className='button'
-      onClick={props.onClick}
-      style={{
-        backgroundColor: props.style.backgroundColor,
-        fontSize: props.style.fontSize ? props.style.fontSize : "15px",
-        maxWidth: props.style.size ? props.style.size : "50px",
-        maxHeight: props.style.size ? props.style.size : "50px",
-        color: props.style.color ? props.style.color : ColorPalette.ACCENT,
-        ...style
-      }}>
-      <props.icon style={{ width: "100%", height: "100%", maxWidth: "100px", maxHeight: "100px" }} />
-      {props.text}
-    </button>
+    <>
+      <CustomButton
+        variant='contained'
+        disableElevation
+        sx={{
+          backgroundColor: props.sx.backgroundColor,
+          color: props.sx.color ? props.sx.color : ColorPalette.ACCENT,
+          ':hover': {
+            backgroundColor: props.sx.color ? props.sx.color : ColorPalette.ACCENT,
+            color: props.sx.backgroundColor,
+          }
+        }}
+        onClick={props.onClick}>
+        <Grid
+          container
+          direction='column'
+          justifyContent='center'
+          alignItems='center'>
+          <Grid item xs={1} lg={1} xl={1}>
+            <Box
+              sx={{
+                width: {
+                  xs: "calc(100% - 4px)",
+                  lg: "calc(100% - 4px)",
+                  xl: "100%"
+                },
+                height: 'auto',
+                aspectRatio: 1,
+              }}>
+              {props.icon}
+            </Box>
+          </Grid>
+          <Grid item xs={1} lg={1} xl={1}>
+            <Box
+              sx={{
+                width: {
+                  xs: "calc(100% - 10px)",
+                  lg: "calc(100% - 10px)",
+                  xl: "100%"
+                },
+                height: 'auto',
+                aspectRatio: 1,
+              }}>
+              <Typography variant='body2' component='h6'>
+                {props.text}
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
+      </CustomButton>
+    </>
   )
 }
 
