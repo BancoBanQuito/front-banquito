@@ -2,7 +2,7 @@ import { TableCell } from '@mui/material';
 
 interface TableCellProps {
   type: 'header' | 'simple',
-  text: string,
+  children: JSX.Element,
 }
 
 const TableCellStyle = (type: string) => ({
@@ -12,12 +12,12 @@ const TableCellStyle = (type: string) => ({
   fontWeight: `${type === 'header' && 'bold'}`
 });
 
-const TableCellAtom = ({ type, text }: TableCellProps) => {
+const TableCellAtom = ({ type, children }: TableCellProps) => {
   return (
     <TableCell
       align='center'
       sx={TableCellStyle(type)}
-    >{text}</TableCell>
+    >{children}</TableCell>
   )
 }
 

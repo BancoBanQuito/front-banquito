@@ -5,24 +5,24 @@ import TableCellAtom from '../atoms/TableCellAtom';
 Example of use:
 
   const headersMock = [
-    'header 1',
-    'header 2',
-    'header 3',
-    'header 4'
+    <Typography>Header 1</Typography>,
+    <Typography>Header 2</Typography>,
+    <Typography>Header 3</Typography>,
+    <Typography>Header 4</Typography>,
   ]
 
   const rowsMock = [
     [
-      'row 1',
-      'row 2',
-      'row 3',
-      'row 4'
+      <Typography>Cell 1</Typography>,
+      <Typography>Cell 2</Typography>,
+      <Typography>Cell 3</Typography>,
+      <Dropdown label='Cell 4' items={['Cell 1']} width={200} height={50} />
     ],
     [
-      'row 5',
-      'row 6',
-      'row 7',
-      'row 8'
+      <Typography>Cell 5</Typography>,
+      <Typography>Cell 6</Typography>,
+      <Typography>Cell 7</Typography>,
+      <Button variant='contained'>Cell 8</Button>
     ]
   ]
 
@@ -31,8 +31,8 @@ Example of use:
 */
 
 interface TableProps {
-  headers: string[],
-  rows: string[][],
+  headers: JSX.Element[],
+  rows: JSX.Element[][],
 }
 
 const TableStyle = {
@@ -45,10 +45,10 @@ const TableMolecule = ({ headers, rows }: TableProps) => {
       <Table >
         <TableHead>
           <TableRow>
-            {headers.map((header, index) => (
+            {headers.map((component, index) => (
               <TableCellAtom
                 key={index}
-                text={header}
+                children={component}
                 type="header"
               />
             ))}
@@ -57,10 +57,10 @@ const TableMolecule = ({ headers, rows }: TableProps) => {
         <TableBody>
           {rows.map((row, index) => (
             <TableRow key={index}>
-              {row.map((data, index) => (
+              {row.map((component, index) => (
                 <TableCellAtom
                   key={index}
-                  text={data}
+                  children={component}
                   type="simple"
                 />
               ))}
