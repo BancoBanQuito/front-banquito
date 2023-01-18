@@ -4,15 +4,7 @@ import { ColorPalette } from "./style/ColorPalette";
 
 function App() {
 
-  return (
-    <>
-    <ButtonIcon 
-      color={ColorPalette.SECONDARY}
-      icon={<Code />}
-      onClick={() => console.log("first")}
-    />
-    </>
-  )
+  return (<></>)
 }
 
 export default App
