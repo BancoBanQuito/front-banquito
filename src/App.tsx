@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import DatePickerAtom from "./components/atoms/DatePicker"
 import Error404 from "./pages/Error404"
 import HomeATM from "./pages/HomeATM"
 import HomeClient from "./pages/HomeClient"
@@ -18,7 +19,10 @@ const App = () => {
         </Route>
         <Route path="*" element={<Error404 />} />
       </Routes>
+      {/* <DatePickerAtom label= "string" value={} onChange = {() => console.log("Hola")} /> */}
+      <DatePickerAtom label="string" onChange={() => console.log("Hola")} />
     </BrowserRouter>
+    
   )
 }
 
