@@ -18,16 +18,6 @@ interface Props {
   }
 }
 
-const CustomButton = styled(Button)`
-&{
-  border-radius: 10px;
-  transition: all .3s ease-out;
-}
-&:hover{
-  filter: opacity(0.75);
-  transition: all .3s ease-in-out;
-}`;
-
 export const SizeButton = (props: Props) => {
 
   const configureWidth = () => {
@@ -53,16 +43,20 @@ export const SizeButton = (props: Props) => {
 
   return (
     <>
-      <CustomButton
+      <Button
         variant='contained'
         disableElevation
         sx={{
           backgroundColor: props.palette.backgroundColor,
           color: props.palette.accent ? props.palette.accent : '#F1FAEE',
+          borderRadius: "10px",
+          transition: "all .3s ease- out",
           width: configureWidth,
           ':hover': {
             backgroundColor: props.palette.accent ? props.palette.accent : 'transparent',
             color: props.palette.backgroundColor,
+            filter: "opacity(0.75)",
+            transition: "all .3s ease-in-out"
           }
         }}
         onClick={props.onClick}>
@@ -75,7 +69,7 @@ export const SizeButton = (props: Props) => {
           {props.icon ? <Box display='flex' flexDirection={(props.column != null) ? 'column' : 'row'} justifyContent='center' alignItems='center' sx={{ width: "100%", height: "100%" }}>{props.icon}</Box> : null}
           <Box display='flex' flexDirection={(props.column != null) ? 'column' : 'row'} justifyContent='center' alignItems='center' sx={{ width: "100%", height: "100%" }}>{props.text}</Box>
         </Grid>
-      </CustomButton>
+      </Button>
     </>
   )
 }
