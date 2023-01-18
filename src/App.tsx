@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import DatePickerAtom from "./components/atoms/DatePicker"
 import Error404 from "./pages/Error404"
 import HomeATM from "./pages/HomeATM"
 import HomeClient from "./pages/HomeClient"

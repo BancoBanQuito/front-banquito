@@ -7,21 +7,22 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 interface Props {
   label: string;
-  value?: Dayjs;
+  value: Dayjs|null;
   onChange: (newValue: Dayjs | null) => void;
 }
 
+
 const DatePickerAtom = (props: Props) => {
-  const [value, setValue] = React.useState<Dayjs>();
+  const handleChange = (newValue: Dayjs | null) => {
+    props.onChange(newValue);
+  };
+  
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
         label={props.label}
-        value={value as Dayjs}
-        onChange={(newValue) => {
-          setValue(newValue as Dayjs);
-          props.onChange(newValue);
-        }}
+        value={props.value}
+        onChange={handleChange}
         renderInput={(params) => <TextField {...params} />}
       />
     </LocalizationProvider>
