@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconButton, styled } from '@mui/material';
+import { Avatar, Button } from '@mui/material';
 
 interface Props {
     color: string,
@@ -13,37 +13,28 @@ interface Props {
     size?: number | string
 }
 
-const CustomButton = styled(IconButton)`
-&{
-    padding: 0.5rem;
-    margin: 0.5rem;
-}
-&.float{
-    padding: 0.5rem;
-}
-& > svg{
-    width: 100%;
-    height: 100%;
-}
-`;
-
 const ButtonIcon = (props: Props) => {
 
     return (
         <>
-            <CustomButton
+            <Button
                 sx={{
+                    borderRadius: '100%',
                     position: props.float ? 'absolute' : 'relative',
                     top: props.top ? 0 : 'auto',
                     bottom: props.bottom ? 0 : 'auto',
                     left: props.left ? 0 : 'auto',
                     right: props.right ? 0 : 'auto',
-                    color: props.color,
-                    width: props.size ? props.size : '50px',
-                    height: props.size ? props.size : '50px',
+                    width: props.size ? props.size : '60px',
+                    height: props.size ? props.size : '60px',
+                    '.MuiTouchRipple-child': {
+                        backgroundColor: props.color
+                    }
                 }}>
-                {props.icon}
-            </CustomButton>
+                <Avatar sx={{ color: props.color, bgcolor: 'transparent', padding: 0}}>
+                    {props.icon}
+                </Avatar>
+            </Button>
         </>
     )
 }
