@@ -19,8 +19,6 @@ const App = () => {
         </Route>
         <Route path="*" element={<Error404 />} />
       </Routes>
-      {/* <DatePickerAtom label= "string" value={} onChange = {() => console.log("Hola")} /> */}
-      <DatePickerAtom label="string" onChange={() => console.log("Hola")} />
     </BrowserRouter>
     
   )
