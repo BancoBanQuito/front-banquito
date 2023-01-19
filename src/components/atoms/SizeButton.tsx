@@ -9,7 +9,8 @@ interface Props {
     backgroundColor: string,
     accent?: string,
   },
-  onClick: () => void,
+  submit?: boolean
+  onClick?: () => void,
   column?: boolean,
   icon?: any,
   size?: {
@@ -45,6 +46,7 @@ export const SizeButton = (props: Props) => {
     <>
       <Button
         variant='contained'
+        type={(!!props.submit ? 'submit' : 'button')}
         disableElevation
         sx={{
           backgroundColor: props.palette.backgroundColor,
