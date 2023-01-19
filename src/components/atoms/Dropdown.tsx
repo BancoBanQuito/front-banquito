@@ -5,10 +5,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 interface DropdownProps {
-  label: string | "Dropdown";
-  items: string[] | ["Item 1", "Item 2", "Item 3"];
-  width: number | 200;
-  height: number | 50;
+  label: string;
+  items: string[];
+  width: number | string;
+  height: number | string;
   backgroundColor?: string | "white";
   onChange?: (value: string) => void;
 }

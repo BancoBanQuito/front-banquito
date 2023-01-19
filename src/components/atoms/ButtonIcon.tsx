@@ -3,6 +3,7 @@ import { Avatar, Button } from '@mui/material';
 
 interface Props {
     color: string,
+    backgroundColor?: string | 'transparent',
     icon: any,
     onClick: () => void,
     float?: boolean,
@@ -29,8 +30,10 @@ const ButtonIcon = (props: Props) => {
                 '.MuiTouchRipple-child': {
                     backgroundColor: props.color
                 }
-            }}>
-            <Avatar sx={{ color: props.color, bgcolor: 'transparent', padding: 0 }}>
+            }}
+            onClick={props.onClick}
+        >
+            <Avatar sx={{ color: props.color, bgcolor: props.backgroundColor, padding: 0 }}>
                 {props.icon}
             </Avatar>
         </Button>
