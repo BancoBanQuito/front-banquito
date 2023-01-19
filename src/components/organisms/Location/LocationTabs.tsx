@@ -12,11 +12,11 @@ export const LocationTabs = (props: LocationTabsProps) => {
   const StyledTabs = styled(Tabs)(() => ({
     "& .MuiTab-root": {
       backgroundColor: "#1D3557",
-      color: "white",
+      color: "white !important",
     },
     "& .Mui-selected": {
       backgroundColor: "#457B9D",
-      color: "white",
+      color: "white !important",
     },
   }));
 
