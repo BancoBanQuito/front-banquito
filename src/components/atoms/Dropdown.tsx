@@ -5,22 +5,26 @@ import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 interface DropdownProps {
-  label: string;
+  label: string | "Dropdown";
   items: string[];
-  width: number | string;
-  height: number | string;
+  width?: number | 200;
+  height?: number | 50;
   backgroundColor?: string | "white";
+  selectedTextColor?: string | "white";
   onChange?: (value: string) => void;
+  inputLabelColor?: string | "white";
+  inputFocusedLabelColor?: string | "#4B4B4B";
 }
 
 const formControlStyles = (props: DropdownProps) => ({
-  width: props.width,
-  height: props.height,
+  width: props.width || 200,
+  height: props.height || 50,
 });
 
 const selectStyles = (props: DropdownProps) => ({
   "& .MuiSelect-select": {
     backgroundColor: props.backgroundColor,
+    color: props.selectedTextColor,
   },
   "& .MuiSelect-icon": {
     color: "white",
@@ -37,11 +41,13 @@ const selectStyles = (props: DropdownProps) => ({
   },
 });
 
-const inputLabelStyles = () => ({
-  color: "white",
+const inputLabelStyles = (props: DropdownProps) => ({
+  color: props.inputLabelColor || "white",
   fontSize: "1rem",
+
   "&.Mui-focused": {
-    color: "black",
+    color: props.inputFocusedLabelColor || "#6a6161",
+    fontWeight: "bold",
   },
 });
 
@@ -54,7 +60,7 @@ export const Dropdown = (props: DropdownProps) => {
 
   return (
     <FormControl sx={formControlStyles(props)}>
-      <InputLabel sx={inputLabelStyles}>{label}</InputLabel>
+      <InputLabel sx={inputLabelStyles(props)}>{label}</InputLabel>
       <Select sx={selectStyles(props)} label={label} onChange={handleChange}>
         {items.map((item, index) => (
           <MenuItem key={index} value={item}>
