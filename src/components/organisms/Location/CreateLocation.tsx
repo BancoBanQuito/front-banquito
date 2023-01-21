@@ -50,6 +50,7 @@ export const CreateLocation = () => {
         width={200}
         height={50}
         onChange={handleOnChange}
+        inputLabelColor="white"
       />
 
       {dropdownValue === "Provincia" ? (
