@@ -1,0 +1,56 @@
+[
+    {
+        "codeProductType": "1",
+        "name": "Interes",
+        "products": [
+            {
+                "name": "Interes 1",
+                "codeProduct": "12345"
+            },
+            {
+                "name": "Interes 2",
+                "codeProduct": "12345"
+            },
+            {
+                "name": "Interes 3",
+                "codeProduct": "12345"
+            }
+        ]
+    },
+    {
+        "codeProductType": "2",
+        "name": "Ahorros",
+        "products": [
+            {
+                "name": "Ahorros 1",
+                "codeProduct": "12345"
+            },
+            {
+                "name": "Ahorros 2",
+                "codeProduct": "12345"
+            },
+            {
+                "name": "Ahorros 3",
+                "codeProduct": "12345"
+            }
+        ]
+    },
+    {
+        "codeProductType": "3",
+        "name": "Corriente",
+        "products": [
+            {
+                "name": "Corriente 1",
+                "codeProduct": "12345"
+            },
+            {
+                "name": "Corriente 2",
+                "codeProduct": "12345"
+            },
+            {
+                "name": "Corriente 3",
+                "codeProduct": "12345"
+            }
+        ]
+    }
+]

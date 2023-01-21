@@ -6,6 +6,7 @@ import HomeUser from "./pages/UserPages/HomeUser";
 import Login from "./pages/Login";
 import Layout from "./templates/Layout";
 import { Location } from "./pages/UserPages/Locations/Location";
+import AccountCreateUser from "./pages/AccountCreateUser";
 
 const App = () => {
   return (
@@ -37,6 +38,10 @@ const userRoutes = [
   {
     path: "ubicaciones",
     element: <Location />,
+  },
+  {
+    path: "cuenta/crear",
+    element: <AccountCreateUser />,
   },
 ];
 

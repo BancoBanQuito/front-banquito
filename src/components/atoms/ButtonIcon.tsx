@@ -5,7 +5,8 @@ interface Props {
     color: string,
     backgroundColor?: string | 'transparent',
     icon: any,
-    onClick: () => void,
+    disabled?: boolean,
+    onClick?: () => void,
     float?: boolean,
     top?: boolean,
     bottom?: boolean,
@@ -15,6 +16,10 @@ interface Props {
 }
 
 const ButtonIcon = (props: Props) => {
+
+    const handleClick = () => {
+        props.onClick && props.onClick();
+    }
 
     return (
         <Button
@@ -26,14 +31,11 @@ const ButtonIcon = (props: Props) => {
                 left: props.left ? 0 : 'auto',
                 right: props.right ? 0 : 'auto',
                 width: props.size ? props.size : '60px',
-                height: props.size ? props.size : '60px',
-                '.MuiTouchRipple-child': {
-                    backgroundColor: props.color
-                }
+                height: props.size ? props.size : '60px'
             }}
-            onClick={props.onClick}
-        >
-            <Avatar sx={{ color: props.color, bgcolor: props.backgroundColor, padding: 0 }}>
+            disabled={!!props.disabled}
+            onClick={handleClick}>
+            <Avatar sx={{ color: props.color, bgcolor: 'transparent', padding: 0 }}>
                 {props.icon}
             </Avatar>
         </Button>

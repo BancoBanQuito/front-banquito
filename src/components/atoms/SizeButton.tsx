@@ -38,7 +38,6 @@ export const SizeButton = (props: Props) => {
           break;
       }
     }
-
     return width;
   }
 
@@ -54,6 +53,7 @@ export const SizeButton = (props: Props) => {
           borderRadius: "10px",
           transition: "all .3s ease- out",
           width: configureWidth,
+          height: props.size?.height ? props.size.height : 'auto',
           ':hover': {
             backgroundColor: props.palette.accent ? props.palette.accent : 'transparent',
             color: props.palette.backgroundColor,
