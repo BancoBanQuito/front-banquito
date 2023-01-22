@@ -1,11 +1,20 @@
 import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import { Dropdown } from "../../atoms/Dropdown";
 import TextFieldAtom from "../../atoms/TextFieldAtom";
 import { SizeButton } from "../../atoms/SizeButton";
 import { ButtonStyle } from "../../../style/ButtonStyle";
+import { createCanton, createParish, createProvince } from "./functions";
 
 export const CreateLocation = () => {
+  const boxStyles = () => ({
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "2rem",
+  });
+
   const mockedItems = [
     {
       name: "Provincia",
@@ -21,21 +30,35 @@ export const CreateLocation = () => {
     },
   ];
 
-  const boxStyles = () => ({
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "2rem",
-  });
+  const [dropdownValue, setDropdownValue] = useState("");
+  const [provinceName, setProvinceName] = useState("");
+  const [cantonName, setCantonName] = useState("");
+  const [parishName, setParishName] = useState("");
+  const [zipCode, setZipCode] = useState("");
 
   const handleClick = () => {
-    console.log("Click");
+    dropdownValue === "Provincia"
+      ? provinceName
+        ? createProvince(provinceName)
+        : alert("Ingrese un nombre de provincia")
+      : dropdownValue === "Cantón"
+      ? provinceName && cantonName
+        ? createCanton(provinceName, cantonName)
+        : alert("Ingrese un nombre de provincia y cantón")
+      : dropdownValue === "Parroquia"
+      ? provinceName && cantonName && parishName && zipCode
+        ? createParish(provinceName, cantonName, parishName, zipCode)
+        : alert(
+            "Ingrese un nombre de provincia, cantón, parroquia y código postal"
+          )
+      : alert("Seleccione una jerarquía");
   };
 
-  const [dropdownValue, setDropdownValue] = useState("");
-
   const handleOnChange = (value: string) => {
+    setProvinceName("");
+    setCantonName("");
+    setParishName("");
+    setZipCode("");
     setDropdownValue(value);
   };
 
@@ -54,40 +77,73 @@ export const CreateLocation = () => {
       />
 
       {dropdownValue === "Provincia" ? (
-        <TextFieldAtom
+        <TextField
           id="outlined-basic"
-          label="Nombre"
+          label="Nombre de provincia"
           color="primary"
           type="text"
-          placeholder="Nombre"
           variant="outlined"
+          value={provinceName}
+          onChange={(e) => setProvinceName(e.target.value)}
         />
       ) : dropdownValue === "Cantón" ? (
-        <TextFieldAtom
-          id="outlined-basic"
-          label="Nombre"
-          color="primary"
-          type="text"
-          placeholder="Nombre"
-          variant="outlined"
-        />
-      ) : dropdownValue === "Parroquia" ? (
         <>
-          <TextFieldAtom
+          <TextField
             id="outlined-basic"
-            label="Nombre"
+            label="Nombre de provincia"
             color="primary"
             type="text"
-            placeholder="Nombre"
             variant="outlined"
+            value={provinceName}
+            onChange={(e) => setProvinceName(e.target.value)}
           />
-          <TextFieldAtom
+          <TextField
+            id="outlined-basic"
+            label="Nombre de cantón"
+            color="primary"
+            type="text"
+            variant="outlined"
+            value={cantonName}
+            onChange={(e) => setCantonName(e.target.value)}
+          />
+        </>
+      ) : dropdownValue === "Parroquia" ? (
+        <>
+          <TextField
+            id="outlined-basic"
+            label="Nombre de provincia"
+            color="primary"
+            type="text"
+            variant="outlined"
+            value={provinceName}
+            onChange={(e) => setProvinceName(e.target.value)}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Nombre de cantón"
+            color="primary"
+            type="text"
+            variant="outlined"
+            value={cantonName}
+            onChange={(e) => setCantonName(e.target.value)}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Nombre de parroquia"
+            color="primary"
+            type="text"
+            variant="outlined"
+            value={parishName}
+            onChange={(e) => setParishName(e.target.value)}
+          />
+          <TextField
             id="outlined-basic"
             label="Codigo Postal"
             color="primary"
             type="text"
-            placeholder="Codigo Postal"
             variant="outlined"
+            value={zipCode}
+            onChange={(e) => setZipCode(e.target.value)}
           />
         </>
       ) : null}
