@@ -14,7 +14,6 @@ import { NumberField } from '../../atoms/NumberField';
 
 import Snackbar from '@mui/material/Snackbar';
 import InterestRateService from '../../../services/product/interestrate/interestRate.service';
-import IInterestRateValue from '../../../services/product/models/interestRate.model';
 
 // stilo que envia contenido a la derecha
 const ContentFormLog = styled(ContentForm)`
@@ -85,7 +84,7 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
             setOpen(true);
         } else {
             // buscar id por la posicion del array
-            let data: IInterestRateValue = {
+            let data = {
                 id: nameSelect,
                 value: value,
             }
@@ -97,9 +96,9 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
                 setOpen(true);
                 setVal(!isCreate)
                 // setear los valores a 0
-                setValue(0);    
+                setValue(0);
                 setNameSelect('');
-                
+
             } else {
                 setMessage('Error al registrar');
                 setSeverity('error');
