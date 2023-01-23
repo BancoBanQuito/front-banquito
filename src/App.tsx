@@ -20,6 +20,7 @@ import Branch from "./pages/ClientPages/Branches/Branch";
 import AccountStatementBank from "./pages/UserPages/AccountStatement/AccountStatementBank";
 import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
+import CreateUser from "./components/organisms/Login/CreateUser";
 
 const App = () => {
 
@@ -114,6 +115,10 @@ const clientRoutes = [
   {
     path: "transaccion",
     element: <TransferUser />,
+  },
+  {
+    path: "singup",
+    element: <CreateUser />,
   },
 ]
 
