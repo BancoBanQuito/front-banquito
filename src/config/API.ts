@@ -27,6 +27,9 @@ export const GET_ACCOUNT_ID_API = (identificationType: string, identification: s
 
 export const GET_ACCOUNT_CODE_API = (codeLocalAccount: string, codeInternationalAccount: string) =>
     `${HOST}/api/account/code/${codeLocalAccount}/${codeInternationalAccount}`;
+
+export const GET_ACCOUNT_SIMPLE_API = (codeLocalAccount: string) =>
+    `${HOST}/api/account/code/${codeLocalAccount}`;
 //#endregion
 
 //#region ACCOUNT SIGNATURE
