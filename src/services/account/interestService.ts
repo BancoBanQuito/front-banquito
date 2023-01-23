@@ -1,11 +1,9 @@
 import axios from "axios";
-// import { GET_ACCOUNT_CONTROLLER_API, GET_INVESTMENT_INTEREST_CONTROLLER_API, POST_INTEREST_API } from "../../config/API";
 import { ResponseFormat } from "../ResponseFormat";
 import { InterestPost } from "./model/InterestPost";
 import { GET_INTEREST_FROM_TO_API, GET_INTEREST_INVESTMENT_API, POST_INTEREST_API } from "../../config/API";
 import { InterestSavingsAccount } from "./model/InterestSavingsAccount";
 import { InterestInvestment } from "./model/InterestInvestment";
-// import { InterestInvestmentPolicies, InterestPost } from "./model/InterestPost";
 
 export class InterestService {
 
