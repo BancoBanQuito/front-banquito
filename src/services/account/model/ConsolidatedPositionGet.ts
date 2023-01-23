@@ -1,4 +1,4 @@
-export interface ConsolidatedPosition {
+export interface ConsolidatedPositionGet {
     accountNumber: string
     accountType: string
     state: string,
