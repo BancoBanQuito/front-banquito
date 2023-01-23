@@ -115,7 +115,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
 
     const getAssociatedService = async () => {
         try {
-            const response = await fetch(`http://localhost:8081/api/product/associatedServices`, {
+            const response = await fetch(`http://localhost:8087/api/associatedServices`, {
                 method: 'GET',
             });
             const data = await response.json();
@@ -131,11 +131,11 @@ const CreateRequestService = ({ openDialog }: Props) => {
 
             const requestService = {
                 accountNumber: "22265622",
-                fullName: "sssss",
-                nameAssociatedService: "pepe1",
+                fullName: "prueba 2",
+                nameAssociatedService: data.requestService,
             }
 
-            await fetch(`http://localhost:8081/api/request-service`, {
+            await fetch(`http://localhost:8087/api/request-service`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -238,6 +238,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
                                                     >
                                                         {associtedService.map((service: any) => (
                                                             <MenuItem id={service.id} value={service.name}>{service.name}</MenuItem>
+                                                            
                                                         ))}
                                                     </Select>
                                                 </Stack>
