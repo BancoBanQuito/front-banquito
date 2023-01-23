@@ -7,10 +7,10 @@ import { ThemeProvider } from "@mui/material";
 import HomeATM from "./pages/ATMPages/HomeATM";
 import HomeClient from "./pages/ClientPages/HomeClient";
 import HomeUser from "./pages/UserPages/HomeUser";
-import Login from "./pages/ClientPages/Account/Login";
-import CreateSignature from "./pages/ClientPages/Account/AccountCreateSignature";
-import EditAccountSignature from "./pages/ClientPages/Account/EditAccountSignature";
-import CancelAccount from "./pages/ClientPages/Account/CancelAccount";
+import CreateSignature from "./pages/AccountCreateSignature";
+import EditAccountSignature from "./pages/EditAccountSignature";
+import CancelAccount from "./pages/CancelAccount";
+import Login from "./pages/Login";
 import Layout from "./template/Layout";
 import AccountCreateUser from "./pages/UserPages/AccountCreate/AccountCreateUser";
 import TransferUser from "./pages/UserPages/Transferences/TransferUser";
@@ -20,6 +20,7 @@ import Branch from "./pages/ClientPages/Branches/Branch";
 import AccountStatementBank from "./pages/UserPages/AccountStatement/AccountStatementBank";
 import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
+import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
 import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
 import Home from "./pages/Home";
 
@@ -95,13 +96,17 @@ const userRoutes = [
     element: <CancelAccount />,
   },
   {
+    path: "transaccion/dates",
+    element: <TransactionBeetwenDates />,
+  },
+  {
     path: "interest-rate",
     element: <InterestRateLog />,
   },
   {
     path: "agregar/tipo-de-producto",
     element: <AccountCreateUser />,
-  },
+  }
 ];
 
 const clientRoutes = [
