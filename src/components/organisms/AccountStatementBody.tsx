@@ -51,7 +51,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                                     }}>
                                         <div style={{ height: '80%', width: '100%' }}>
                                             <Typography variant='h6'>
-                                                {/* {props.accountStatement?.fullname} */}Juanito Perez
+                                                Juanito Perez
                                             </Typography>
                                             <Typography variant='body1'>
                                                 Cuenta: {props.accountStatement?.localCodeAccount}
@@ -59,7 +59,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                                         </div>
                                         <div style={{ height: '20%', width: '100%' }}>
                                             <Typography variant='body1'>
-                                                {/* CI: {props.accountStatement?.clientIdentification} */}XXXXXXXXXX
+                                                XXXXXXXXXX
                                             </Typography>
                                         </div>
                                     </Box>
@@ -169,10 +169,10 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                                         padding: 1
                                     }}>
                                         <Typography sx={{ width: '50%' }} variant='h6'>
-                                            {/* {props.accountStatement?.fullname} */}Juanito Perez
+                                            Juanito Perez
                                         </Typography>
                                         <Typography sx={{ width: '50%', textAlign: 'end' }} variant='body1'>
-                                            {/* CI: {props.accountStatement?.clientIdentification} */} XXXXXXXXXX
+                                             XXXXXXXXXX
                                         </Typography>
                                         <Typography variant='body1'>
                                             Cuenta: {props.accountStatement?.localCodeAccount}
