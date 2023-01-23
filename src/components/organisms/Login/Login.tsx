@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Container, FormLabel, TextField, Typography } from '@mui/material';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { Dayjs } from 'dayjs';
-
-import { Canton, Province } from '../Location/types';
-import LoginBox from './LoginBox';
 import Button from '@mui/material/Button';
 
 
@@ -21,18 +15,14 @@ const Login: React.FC = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
                 body: JSON.stringify({
-                    {
-
-                        userName: "abigail.cabascango@espe.edu.ec",
-                        password: "1230"
-                
-                    }
+                        userName: userName,
+                        password: password
                 })
             })
             if (!response.ok) {
                 throw new Error(response.statusText)
             }
-            alert("Creado con éxito")
+            alert("Ingresa con éxito")
         } catch (error) {
             console.error(error)
         }
@@ -48,7 +38,7 @@ const Login: React.FC = () => {
             <Container sx={containerStyles}>
             </Container >
             <Container sx={containerTextFieldStyles}>
-                <FormLabel sx={formLabelStyles}>Email de usuario:</FormLabel>
+                <FormLabel sx={formLabelStyles}>Email:</FormLabel>
                 <TextField
                     value={userName}
                     onChange={(event) => setUsername(event.target.value)}

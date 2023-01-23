@@ -7,7 +7,7 @@ import { ThemeProvider } from "@mui/material";
 import HomeATM from "./pages/ATMPages/HomeATM";
 import HomeClient from "./pages/ClientPages/HomeClient";
 import HomeUser from "./pages/UserPages/HomeUser";
-import Login from "./pages/Login";
+import Login from "./components/organisms/Login/Login";
 import CreateSignature from "./pages/AccountCreateSignature";
 import EditAccountSignature from "./pages/EditAccountSignature";
 import CancelAccount from "./pages/CancelAccount";
@@ -119,6 +119,10 @@ const clientRoutes = [
   {
     path: "singup",
     element: <CreateUser />,
+  },
+  {
+    path: "login",
+    element: <Login />,
   },
 ]
 
