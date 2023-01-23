@@ -4,15 +4,10 @@ import { ButtonStyle } from '../../../style/ButtonStyle'
 import { ColorPalette } from '../../../style/ColorPalette'
 import { SizeButton } from '../../atoms/SizeButton'
 import TableMolecule from '../../molecules/TableMolecule'
+import { AccountSignature } from '../../../services/account/model/AccountSignature'
 
 interface AccountSignatureTableOranismProps {
-    accountSignature: {
-        identification: string,
-        identifucationType: string,
-        name: string,
-        rol: string,
-        status: string
-    }[],
+    accountSignature: AccountSignature[],
     onClick?: (data: any) => void;
 }
 
@@ -30,7 +25,7 @@ const AccountSignatureTableOranism = (props: AccountSignatureTableOranismProps) 
                 palette={{
                     backgroundColor: ColorPalette.PRIMARY,
                 }}
-                onClick={() => props.onClick?.(null)} />
+                onClick={() => props.onClick?.(data)} />
         ]
     }
 

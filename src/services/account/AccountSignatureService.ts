@@ -1,6 +1,8 @@
 import axios from "axios";
 import { AccountSignaturePost } from "./model/AccountSignaturePost";
 import { GET_ACCOUNT_SIGNATURE_API, GET_ACCOUNT_SIGNATURE_TEST_API, POST_ACCOUNT_SIGNATURE_API, PUT_ACCOUNT_SIGNATURE_API } from "../../config/API";
+import { ResponseFormat } from "../ResponseFormat";
+import { AccountSignature } from "./model/AccountSignature";
 
 export class AccountSignatureService {
   public static async putAccountSignature(identificationType: string, identification: string, codeLocalAccount: string, codeInternationalAccount: string, body: { role: string, status: string }) {
@@ -21,7 +23,7 @@ export class AccountSignatureService {
 
   public static async getAccountSignature(identificationType: string, identification: string) {
     try {
-      return await axios.get(GET_ACCOUNT_SIGNATURE_API(identificationType, identification));
+      return await axios.get<ResponseFormat<AccountSignature[]>>(GET_ACCOUNT_SIGNATURE_API(identificationType, identification));
     } catch (error) {
       throw error;
     }

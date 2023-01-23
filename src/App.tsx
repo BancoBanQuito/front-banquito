@@ -21,6 +21,7 @@ import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountSt
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
 import InterestRateLog from "./components/organisms/interestrate/InterestRateLog";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ConsolidatedPosition from "./pages/ConsolidatedPosition";
 
 const App = () => {
 
@@ -93,6 +94,10 @@ const userRoutes = [
   {
     path: "edit/account/cancel",
     element: <CancelAccount />,
+  },
+  {
+    path: "account/consolidado",
+    element: <ConsolidatedPosition />,
   }
 ];
 
