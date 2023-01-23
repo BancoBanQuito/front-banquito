@@ -24,6 +24,8 @@ import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
 import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
 import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
 import Home from "./pages/Home";
+import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
+import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
 
 const App = () => {
 
@@ -112,6 +114,16 @@ const userRoutes = [
   {
     path: "agregar/tipo-de-producto",
     element: <AccountCreateUser />,
+  },
+  {
+    path: "entidad",
+    element: <BankEntity />,
+
+  },
+  {
+    path: "actualizar/entidad",
+    element: <UpdateBankEntity />,
+
   }
 ];
 
