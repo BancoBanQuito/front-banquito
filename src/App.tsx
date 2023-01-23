@@ -134,11 +134,7 @@ const clientRoutes = [
   {
     path: "singup",
     element: <CreateUser />,
-  },
-  {
-    path: "login",
-    element: <Login />,
-  },
+  }
 ]
 
 export default App;

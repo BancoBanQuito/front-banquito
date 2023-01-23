@@ -32,7 +32,7 @@ const Login: React.FC = () => {
         <>
             <Container sx={containertTitleStyles}>
                 <Typography variant="h4" align="center">
-                    Crear Usuario
+                    Iniciar Sesion
                 </Typography>
             </Container>
             <Container sx={containerStyles}>
