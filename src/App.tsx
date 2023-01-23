@@ -11,15 +11,19 @@ import Login from "./components/organisms/Login/Login";
 import CreateSignature from "./pages/AccountCreateSignature";
 import EditAccountSignature from "./pages/EditAccountSignature";
 import CancelAccount from "./pages/CancelAccount";
+import Login from "./pages/Login";
 import Layout from "./template/Layout";
 import AccountCreateUser from "./pages/UserPages/AccountCreate/AccountCreateUser";
 import TransferUser from "./pages/UserPages/Transferences/TransferUser";
 import TransferBank from "./pages/ClientPages/Transferences/TransferBank";
-import AccountCreateBank from "./pages/ClientPages/AccountCreate/AccountCreateBank";
+import AccountCreateBank from "./pages/ClientPages/Account/AccountCreateBank";
 import Branch from "./pages/ClientPages/Branches/Branch";
 import AccountStatementBank from "./pages/UserPages/AccountStatement/AccountStatementBank";
 import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
+import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
+import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
+import Home from "./pages/Home";
 import CreateUser from "./components/organisms/Login/CreateUser";
 
 const App = () => {
@@ -32,7 +36,8 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="" element={<Layout isLogged={true} user={{}} />}>
-            <Route index element={<Login />} />
+            <Route index element={<Home />} />
+            <Route path="/login" element={<Login />} />
             {userRoutes.map((route) => (
               <Route
                 key={route.path}
@@ -47,7 +52,6 @@ const App = () => {
                 element={route.element}
               />
             ))}
-            <Route path="cajero" element={<HomeATM />} />
           </Route>
           <Route path="*" element={<Error404 />} />
         </Routes>
@@ -92,6 +96,18 @@ const userRoutes = [
   {
     path: "edit/account/cancel",
     element: <CancelAccount />,
+  },
+  {
+    path: "transaccion/dates",
+    element: <TransactionBeetwenDates />,
+  },
+  {
+    path: "interest-rate",
+    element: <InterestRateLog />,
+  },
+  {
+    path: "agregar/tipo-de-producto",
+    element: <AccountCreateUser />,
   }
 ];
 
