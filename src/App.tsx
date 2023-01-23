@@ -20,6 +20,7 @@ import Branch from "./pages/ClientPages/Branches/Branch";
 import AccountStatementBank from "./pages/UserPages/AccountStatement/AccountStatementBank";
 import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
+import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
 
 const App = () => {
 
@@ -91,6 +92,10 @@ const userRoutes = [
   {
     path: "edit/account/cancel",
     element: <CancelAccount />,
+  },
+  {
+    path: "transaccion/dates",
+    element: <TransactionBeetwenDates />,
   }
 ];
 
