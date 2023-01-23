@@ -1,12 +1,12 @@
 import React from "react";
-import TextFieldAtom from "../components/atoms/TextFieldAtom";
-import TextAreaAtom from "../components/atoms/TextAreaAtom";
-import ButtonIcon from "../components/atoms/ButtonIcon";
+import TextFieldAtom from "../../../components/atoms/TextFieldAtom";
+import TextAreaAtom from "../../../components/atoms/TextAreaAtom";
+import ButtonIcon from "../../../components/atoms/ButtonIcon";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { Box, Button, Typography } from "@mui/material";
-import { ColorPalette } from "../style/ColorPalette";
-import { SizeButton } from "../components/atoms/SizeButton";
-import { ButtonStyle } from "../style/ButtonStyle";
+import { ColorPalette } from "../../../style/ColorPalette";
+import { SizeButton } from "../../../components/atoms/SizeButton";
+import { ButtonStyle } from "../../../style/ButtonStyle";
 
 const CreateSignature = () => {
   return (
@@ -54,6 +54,8 @@ const CreateSignature = () => {
           color="primary"
           type="text"
           placeholder="Ingreso número de cuenta"
+          action={() => alert('')}
+          value=""
         />
       </Box>
 
@@ -82,6 +84,8 @@ const CreateSignature = () => {
           color="primary"
           type="text"
           placeholder="Ingreso número de cuenta"
+          action={() => alert('')}
+          value=""
         />
         <ButtonIcon color={ColorPalette.PRIMARY} icon={<SearchRoundedIcon />} />
       </Box>
@@ -110,6 +114,8 @@ const CreateSignature = () => {
           color="primary"
           type="text"
           placeholder="Ingreso número de cuenta"
+          action={() => alert('')}
+          value=""
         />
       </Box>
       <Box
@@ -137,6 +143,8 @@ const CreateSignature = () => {
           color="primary"
           type="text"
           placeholder="Ingreso número de cuenta"
+          action={() => alert('')}
+          value=""
         />
       </Box>
       <Box

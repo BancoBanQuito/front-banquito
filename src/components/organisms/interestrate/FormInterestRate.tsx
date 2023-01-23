@@ -31,7 +31,7 @@ align-items: center;
 
 `;
 
-const interestTypes: [{ name: string, value: string }] = [{ name: 'Activo', value: 'ACT' }, { name: 'Pasivo', value: 'PAS' }]
+const interestTypes: { name: string, value: string }[] = [{ name: 'Activo', value: 'ACT' }, { name: 'Pasivo', value: 'PAS' }]
 
 // ContainChild
 export const ContainChild = styled.div`
@@ -101,7 +101,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert
 
 interface FormInterestRateProps {
     action: () => void;
-    setValue: (value:boolean) => void;
+    setValue: (value: boolean) => void;
     isCreate: boolean;
 }
 
@@ -126,7 +126,10 @@ const FormInterestRate = ({
             let data: IInterestRateAdd = {
                 name: name,
                 type: type,
-                calcBase: calcBase
+                calcBase: calcBase,
+                id: "",
+                value: 0,
+                status: ""
             }
             let response = await InterestRateService.addInterestRate(data);
             if (response.status === 200) {
