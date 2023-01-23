@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import TableMolecule from '../components/molecules/TableMolecule';
+import TableMolecule from '../../../components/molecules/TableMolecule';
 import { Button, Typography } from '@mui/material';
-import { Dropdown } from '../components/atoms/Dropdown';
-import { SizeButton } from '../components/atoms/SizeButton';
-import { ColorPalette } from '../style/ColorPalette';
-import { ButtonStyle } from '../style/ButtonStyle';
+import { Dropdown } from '../../../components/atoms/Dropdown';
+import { SizeButton } from '../../../components/atoms/SizeButton';
+import { ColorPalette } from '../../../style/ColorPalette';
+import { ButtonStyle } from '../../../style/ButtonStyle';
 
 
-const PaymentDebitCard = () => {
+const PaymentCheckbook = () => {
   const headersMock = [
     <Typography>Fecha</Typography>,
     <Typography>Movimiento</Typography>,
@@ -62,7 +62,7 @@ const PaymentDebitCard = () => {
   return (
     <>
 
-      <Typography variant='h4' align='center'>Pago Tarjeta Débito</Typography>
+      <Typography variant='h4' align='center'>Pago Chequera</Typography>
       <br></br>
       <TableMolecule headers={headersMock} rows={rowsMock} />
     </>
@@ -70,4 +70,4 @@ const PaymentDebitCard = () => {
 
 };
 
-export default PaymentDebitCard;
+export default PaymentCheckbook;

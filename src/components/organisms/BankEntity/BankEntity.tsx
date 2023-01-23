@@ -7,29 +7,33 @@ export const BankEntity = () => {
   return (
     <div>
       <h1>Bienvenido</h1>
-      <TextFieldAtom 
+      <TextFieldAtom
         id="internacionalBankCode"
         label=""
         color="primary"
         type="text"
         placeholder="Código Internacional de la Entidad Bancaria"
         variant="standard"
+        action={() => alert("")}
+        value=""
       />
       <br></br>
-      <TextFieldAtom 
+      <TextFieldAtom
         id="name"
         label=""
         color="primary"
         type="text"
         placeholder="Nombre de la Entidad Bancaria"
         variant="standard"
+        action={() => alert("")}
+        value=""
       />
-    <br></br>
-    <SizeButton palette={{ backgroundColor: ColorPalette.BLACK }}
+      <br></br>
+      <SizeButton palette={{ backgroundColor: ColorPalette.BLACK }}
         onClick={() => console.log('Crear')}
         text='Crear'
         style={ButtonStyle.BIG}
-    />
+      />
     </div>
   );
 };
