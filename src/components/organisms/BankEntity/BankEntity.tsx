@@ -35,6 +35,7 @@ export const BankEntity = () => {
         placeholder="Nombre de la Entidad Bancaria"
         variant="standard"
         onChange={(e) => { setnameBank(e.target.value); } }
+
       />
     <br></br>
     <SizeButton palette={{ backgroundColor: ColorPalette.BLACK }}
