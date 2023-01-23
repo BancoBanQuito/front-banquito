@@ -2,7 +2,7 @@ import axios from "axios";
 import { AccountPost } from "./model/AccountPost";
 import { GET_ACCOUNT_CODE_API, GET_ACCOUNT_ID_API, POST_ACCOUNT_API, PUT_ACCOUNT_BALANCE_API, PUT_ACCOUNT_STATUS_API } from "../../config/API";
 import { ResponseFormat } from "../ResponseFormat";
-import { ConsolidatedPosition } from "./model/ConsolidatedPosition";
+import { AccountResponse } from "./model/AccountResponse";
 
 
 export class AccountService {
@@ -33,7 +33,7 @@ export class AccountService {
 
     public static async getAccountsById(identificationType: string, identification: string) {
         try {
-            return await axios.get<ResponseFormat<ConsolidatedPosition[]>>(GET_ACCOUNT_ID_API(identificationType, identification));
+            return await axios.get<ResponseFormat<AccountResponse[]>>(GET_ACCOUNT_ID_API(identificationType, identification));
         } catch (error) {
             throw error;
         }
