@@ -11,7 +11,6 @@ import Login from "./components/organisms/Login/Login";
 import CreateSignature from "./pages/AccountCreateSignature";
 import EditAccountSignature from "./pages/EditAccountSignature";
 import CancelAccount from "./pages/CancelAccount";
-import Login from "./pages/Login";
 import Layout from "./template/Layout";
 import AccountCreateUser from "./pages/UserPages/AccountCreate/AccountCreateUser";
 import TransferUser from "./pages/UserPages/Transferences/TransferUser";

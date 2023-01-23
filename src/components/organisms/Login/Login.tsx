@@ -15,8 +15,8 @@ const Login: React.FC = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
                 body: JSON.stringify({
-                        userName: userName,
-                        password: password
+                    userName: userName,
+                    password: password
                 })
             })
             if (!response.ok) {
