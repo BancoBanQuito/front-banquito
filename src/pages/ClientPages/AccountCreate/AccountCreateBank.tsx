@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import AccountFormBank from '../../components/organisms/AccountFormBank'
-import SelectAccountTypeForm from '../../components/organisms/SelectAccountTypeForm'
-import ProgressButtonMolecule from '../../components/molecules/ProgressButtonMolecule'
-import { ColorPalette } from '../../style/ColorPalette'
-import { Avatar, Box, FormControlLabel, Slide, Switch } from '@mui/material'
-import { ProductService } from '../../services/product/productService'
-import { AccountService } from '../../services/account/accountService'
-import BanQuitoLogo from '../../assets/BanQuito-Logo.svg'
-import StripeAtom from '../../components/atoms/StripeAtom';
+import { ColorPalette } from '../../../style/ColorPalette'
+import { ProductService } from '../../../services/product/productService'
+import { AccountService } from '../../../services/account/accountService'
+import { Avatar, Slide } from '@mui/material'
+import AccountFormBank from '../../../components/organisms/AccountFormBank'
+import SelectAccountTypeForm from '../../../components/organisms/SelectAccountTypeForm'
+import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule'
+import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg'
+import StripeAtom from '../../../components/atoms/StripeAtom';
 
 
 const AccountCreateBank = () => {

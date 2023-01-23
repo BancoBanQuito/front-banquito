@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { ProductService } from '../../services/product/productService';
-import { AccountService } from '../../services/account/accountService';
-import AccountFormBank from '../../components/organisms/AccountFormBank';
+import { ColorPalette } from '../../../style/ColorPalette';
+import { ProductService } from '../../../services/product/productService';
+import { AccountService } from '../../../services/account/accountService';
 import { Avatar, Card, CardContent } from '@mui/material';
-import BanQuitoLogo from '../../assets/BanQuito-Logo.svg'
-import { ColorPalette } from '../../style/ColorPalette';
-import StripeAtom from '../../components/atoms/StripeAtom';
+import StripeAtom from '../../../components/atoms/StripeAtom';
+import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg'
+import AccountFormBank from '../../../components/organisms/AccountFormBank';
 
 const AccountCreateUser = () => {
     const [products, setproducts] = useState<any[] | undefined>([]);

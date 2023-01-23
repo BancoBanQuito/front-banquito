@@ -1,9 +1,10 @@
 import AccountStatementJSON from "./accountStatement.json";
+import { AccountStament } from "./model/AccountStatement";
 
 export class AccountStatementService {
 
-    public static async getStatement(accountCode: string) {
-        return AccountStatementJSON.find(data => data.accountCode === accountCode);
+    public static async getStatements(accountCode: string) {
+        return AccountStatementJSON.filter(data => data.accountCode === accountCode);
     }
 
 }
