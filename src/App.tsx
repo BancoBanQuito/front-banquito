@@ -20,6 +20,7 @@ import Branch from "./pages/ClientPages/Branches/Branch";
 import AccountStatementBank from "./pages/UserPages/AccountStatement/AccountStatementBank";
 import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
+import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
 import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
 import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
 import Home from "./pages/Home";
@@ -82,6 +83,11 @@ const userRoutes = [
   {
     path: "sucursales",
     element: <BranchUser />,
+  },
+  {
+    path: "feriados",
+    element:<HolidayUser/>
+
   },
   {
     path: "account/signature",
