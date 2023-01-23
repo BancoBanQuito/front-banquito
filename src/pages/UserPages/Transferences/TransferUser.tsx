@@ -9,6 +9,8 @@ import ProgressButtonMolecule from '../../../components/molecules/ProgressButton
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 import { TransactionService } from '../../../services/account/transactionService';
 import { TransactionPost } from '../../../services/account/model/TransactionPost';
+import { AccountSimple } from '../../../services/account/model/AccountSimple';
+import { AccountService } from '../../../services/account/accountService';
 
 const TransferUser = () => {
 
@@ -33,7 +35,21 @@ const TransferUser = () => {
 
     const handleAccept = async () => {
         try {
+            const accountSimple: AccountSimple | undefined = (await AccountService.getAccountsSimple(value.recipientAccountNumber)).data.data;
+            if (!accountSimple) {
+                console.log("Ha ocurrido un error");
+                return;
+            }
             await TransactionService.postTransaction(value);
+            const aux = value;
+            aux.codeLocalAccount = accountSimple.codeLocalAccount;
+            aux.codeInternationalAccount = accountSimple.codeInternationalAccount;
+            aux.recipientAccountNumber = value.codeLocalAccount;
+            aux.movement= 'NOTA CREDITO';
+            aux.value= value.value;
+            
+            await TransactionService.postTransaction(aux);
+            console.log(value);
             navigate('/cliente');
         } catch (error: any) {
             setactiveErrorModal(true);

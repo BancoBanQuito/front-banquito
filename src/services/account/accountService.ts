@@ -1,8 +1,9 @@
 import axios from "axios";
 import { AccountPost } from "./model/AccountPost";
-import { GET_ACCOUNT_CODE_API, GET_ACCOUNT_ID_API, POST_ACCOUNT_API, PUT_ACCOUNT_BALANCE_API, PUT_ACCOUNT_STATUS_API } from "../../config/API";
+import { GET_ACCOUNT_CODE_API, GET_ACCOUNT_ID_API, GET_ACCOUNT_SIMPLE_API, POST_ACCOUNT_API, PUT_ACCOUNT_BALANCE_API, PUT_ACCOUNT_STATUS_API } from "../../config/API";
 import { ResponseFormat } from "../ResponseFormat";
 import { AccountResponse } from "./model/AccountResponse";
+import { AccountSimple } from "./model/AccountSimple";
 
 
 export class AccountService {
@@ -42,6 +43,14 @@ export class AccountService {
     public static async getAccountsByCode(codeLocalAccount: string, codeInternationalAccount: string) {
         try {
             return await axios.get(GET_ACCOUNT_CODE_API(codeLocalAccount, codeInternationalAccount));
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public static async getAccountsSimple(codeLocalAccount: string) {
+        try {
+            return await axios.get<ResponseFormat<AccountSimple>>(GET_ACCOUNT_SIMPLE_API(codeLocalAccount));
         } catch (error) {
             throw error;
         }
