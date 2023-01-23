@@ -14,6 +14,7 @@ import { NumberField } from '../../atoms/NumberField';
 
 import Snackbar from '@mui/material/Snackbar';
 import InterestRateService from '../../../services/product/interestrate/interestRate.service';
+import IInterestRateValue from '../../../services/product/models/interestRate.model';
 
 // stilo que envia contenido a la derecha
 const ContentFormLog = styled(ContentForm)`
@@ -84,9 +85,13 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
             setOpen(true);
         } else {
             // buscar id por la posicion del array
-            let data = {
+            let data: IInterestRateValue = {
                 id: nameSelect,
                 value: value,
+                name: '',
+                type: '',
+                calcBase: '',
+                status: ''
             }
             let response = await InterestRateService.addInterestRateValue(data);
             console.log(response);
