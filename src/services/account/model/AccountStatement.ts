@@ -1,17 +1,17 @@
 export interface AccountStament {
-    fullname: string
-    accountCode: string
-    clientIdentification: string,
+    localCodeAccount: string
     lastCutOffDate: Date,
-    actualCutOffDate: Date,
-    lastBalance: number,
-    interestRate: number,
-    presentBalance: number,
-    promBalance: number,
+    currentCutOffDate: Date,
+    creditMovements: number,
+    debitMovements: number,
+    interest: number,
+    previousBalance: number,
+    currentBalance: number,
+    averageBalance: number,
     transactions: {
-        type: string,
-        description: string,
+        date: Date,
         movement: string,
+        concept: string,
         amount: number,
         balance: number
     }[]
