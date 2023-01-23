@@ -8,30 +8,42 @@ import { ButtonStyle } from '../../style/ButtonStyle';
 import IdentificationTypes from './IdentificationType.json'
 
 interface FormTransferInterface {
+    bank: string,
+    type: string,
     accountNumber: string,
-    identification: string,
-    identificationType: string,
+    concept: string,
+    description: string,
+    movement: string
 }
 
 interface TransferFormProps {
     title?: string,
     onSubmit?: (data: any) => void,
+    showConcept?: boolean,
+    showDescription?: boolean,
+    showAccountCode?: boolean,
 }
 
 const TransferDataForm = (props: TransferFormProps) => {
     const [transfer, settransfer] = useState<FormTransferInterface>({
+        bank: "",
+        type: "",
         accountNumber: "",
-        identification: "",
-        identificationType: "",
+        concept: "",
+        description: "",
+        movement: ""
     })
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         props.onSubmit && props.onSubmit(transfer);
         settransfer({
+            bank: "",
+            type: "",
             accountNumber: "",
-            identification: "",
-            identificationType: "",
+            concept: "",
+            description: "",
+            movement: ""
         });
     }
 
@@ -59,7 +71,7 @@ const TransferDataForm = (props: TransferFormProps) => {
                     </Typography>
                 </Box>
                 <Box>
-                    <TextField
+                    {!!props.showAccountCode && <TextField
                         id="accountNumber"
                         name="accountNumber"
                         margin="normal"
@@ -68,8 +80,32 @@ const TransferDataForm = (props: TransferFormProps) => {
                         label='Numero de Cuenta'
                         fullWidth
                         required
-                    />
-                    <Dropdown
+                    />}
+                    {
+                        !!props.showConcept && <TextField
+                            id="concept"
+                            name="concept"
+                            margin="normal"
+                            type="text"
+                            onChange={handleFormChange}
+                            label='Concepto'
+                            fullWidth
+                            required
+                        />
+                    }
+                    {
+                        !!props.showDescription && <TextField
+                            id="description"
+                            name="description"
+                            margin="normal"
+                            type="text"
+                            onChange={handleFormChange}
+                            label='Descripción'
+                            fullWidth
+                            required
+                        />
+                    }
+                    {/* <Dropdown
                         width={"100%"}
                         height={"auto"}
                         label=''
@@ -86,7 +122,7 @@ const TransferDataForm = (props: TransferFormProps) => {
                         onChange={handleFormChange}
                         fullWidth
                         required
-                    />
+                    /> */}
                 </Box>
                 <Box>
                     <SizeButton

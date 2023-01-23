@@ -4,5 +4,5 @@ export interface AccountSignaturePost {
     identificationType: string,
     identification: string,
     role: string,
-    startDate: string,
+    startDate: Date,
 }

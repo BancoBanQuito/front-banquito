@@ -1,4 +1,4 @@
-export interface TransactionStatement {
+export interface TransactionPost {
     movement: string,
     type: string,
     codeLocalAccount: string,

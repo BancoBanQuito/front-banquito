@@ -12,6 +12,7 @@ import AccountStatementTable from '../../../components/organisms/AccountStatemen
 import { useNavigate } from 'react-router-dom'
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism'
 import LoadOrganism from '../../../components/organisms/LoadOrganism'
+import { AccountService } from '../../../services/account/accountService'
 
 const AccountStatementClient = () => {
 
@@ -46,12 +47,20 @@ const AccountStatementClient = () => {
         setactiveAccountStatement(true);
     }
 
-    const searchAccountStatement = async (accountNumber: string) => {
+    const searchAccountStatement = async (identification: string, identificationType?: string) => {
         setisLoading(true);
         try {
-            const data: AccountStament[] = (await AccountStatementService.getStatements(accountNumber)).data.data || [];
+            // const data: AccountStament[] = /* (await AccountStatementService.getStatements(accountNumber)).data.data || */ [];
+            const { codeLocalAccount, codeInternationalAccount }: any = (await AccountService.getAccountsById(identification, identificationType || "DNI")).data?.data?.at(0);
+            if (!!codeLocalAccount && !!codeInternationalAccount) {
+                setactiveErrorModal(true);
+                seterrorMessage("No se han encontrado datos");
+                return;
+            }
+            const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount, codeInternationalAccount)).data.data;
             if (data) {
-                setaccountStatements(data);
+                // setaccountStatements(data);
+                setaccountStatement(data);
                 setactiveAccountStatementTable(true);
             } else {
                 setactiveErrorModal(true);
