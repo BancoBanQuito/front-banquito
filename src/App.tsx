@@ -8,6 +8,9 @@ import HomeATM from "./pages/ATMPages/HomeATM";
 import HomeClient from "./pages/ClientPages/HomeClient";
 import HomeUser from "./pages/UserPages/HomeUser";
 import Login from "./pages/Login";
+import CreateSignature from "./pages/AccountCreateSignature";
+import EditAccountSignature from "./pages/EditAccountSignature";
+import CancelAccount from "./pages/CancelAccount";
 import Layout from "./template/Layout";
 import AccountCreateUser from "./pages/UserPages/AccountCreate/AccountCreateUser";
 import TransferUser from "./pages/UserPages/Transferences/TransferUser";
@@ -16,6 +19,8 @@ import AccountCreateBank from "./pages/ClientPages/AccountCreate/AccountCreateBa
 import Branch from "./pages/ClientPages/Branches/Branch";
 import AccountStatementBank from "./pages/ClientPages/AccountStatement/AccountStatementBank";
 import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
+import BranchUser from "./pages/UserPages/Branches/BranchUser";
+import InterestRateLog from "./components/organisms/interestrate/InterestRateLog";
 
 const App = () => {
 
@@ -47,6 +52,7 @@ const App = () => {
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
+      <InterestRateLog />
     </ThemeProvider>
   );
 };
@@ -71,6 +77,22 @@ const userRoutes = [
   {
     path: "transaccion",
     element: <TransferBank />,
+  },
+  {
+    path: "sucursales",
+    element: <BranchUser />,
+  },
+  {
+    path: "account/signature",
+    element: <CreateSignature />,
+  },
+  {
+    path: "edit/account/signature",
+    element: <EditAccountSignature />,
+  },
+  {
+    path: "edit/account/cancel",
+    element: <CancelAccount />,
   }
 ];
 

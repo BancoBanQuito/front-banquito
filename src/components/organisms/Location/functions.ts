@@ -276,3 +276,87 @@ export const updateParish = async (
     }
   }
 };
+
+export const deleteProvince = async (provinceName: string) => {
+  const url = `http://localhost:8081/api/location/province/${provinceName}`;
+  const options = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+    },
+  };
+  try {
+    const response = await fetch(url, options);
+    if (response.ok) {
+      alert("Provincia eliminada con éxito");
+    } else {
+      throw new Error(response.statusText);
+    }
+  } catch (error: any) {
+    if (error.message === "Bad Request") {
+      alert("Error: 400 Bad Request");
+    } else if (error.message === "Internal Server Error") {
+      alert("Error en el servidor, intente más tarde");
+    } else {
+      alert("Error desconocido, intente más tarde");
+      console.log(error);
+    }
+  }
+};
+
+export const deleteCanton = async (cantonName: string) => {
+  const url = `http://localhost:8081/api/location/canton/${cantonName}`;
+  const options = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+    },
+  };
+  try {
+    const response = await fetch(url, options);
+    if (response.ok) {
+      alert("Cantón eliminado con éxito");
+    } else {
+      throw new Error(response.statusText);
+    }
+  } catch (error: any) {
+    if (error.message === "Bad Request") {
+      alert("Error: 400 Bad Request");
+    } else if (error.message === "Internal Server Error") {
+      alert("Error en el servidor, intente más tarde");
+    } else {
+      alert("Error desconocido, intente más tarde");
+      console.log(error);
+    }
+  }
+};
+
+export const deleteParish = async (parishName: string) => {
+  const url = `http://localhost:8081/api/location/parish/${parishName}`;
+  const options = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+    },
+  };
+  try {
+    const response = await fetch(url, options);
+    if (response.ok) {
+      alert("Parroquia eliminada con éxito");
+    } else {
+      throw new Error(response.statusText);
+    }
+  } catch (error: any) {
+    if (error.message === "Bad Request") {
+      alert("Error: 400 Bad Request");
+    } else if (error.message === "Internal Server Error") {
+      alert("Error en el servidor, intente más tarde");
+    } else {
+      alert("Error desconocido, intente más tarde");
+      console.log(error);
+    }
+  }
+};

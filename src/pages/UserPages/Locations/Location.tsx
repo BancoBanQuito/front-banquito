@@ -1,16 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import React, { useState } from "react";
 import { CreateLocation } from "../../../components/organisms/Location/CreateLocation";
 import { LocationTabs } from "../../../components/organisms/Location/LocationTabs";
 import { UpdateLocation } from "../../../components/organisms/Location/UpdateLocation";
-
-const boxStyles = () => ({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  alignItems: "center",
-  height: "95vh",
-});
+import { DeleteLocation } from "../../../components/organisms/Location/DeleteLocation";
+import { ViewLocations } from "../../../components/organisms/Location/ViewLocations";
 
 export const Location = () => {
   const [tabValue, setTabValue] = useState("Ver");
@@ -23,11 +17,30 @@ export const Location = () => {
     <Box sx={boxStyles}>
       <LocationTabs tabValue={tabValue} handleChange={handleChange} />
       <Box sx={{ width: "80%" }}>
-        {tabValue === "Ver" && <div>Ver Componente</div>}
-        {tabValue === "Crear" && <CreateLocation />}
-        {tabValue === "Actualizar" && <UpdateLocation />}
-        {tabValue === "Eliminar" && <div>Eliminar Componente</div>}
+        <Container sx={childStyles}>
+          {tabValue === "Ver" && <ViewLocations />}
+        </Container>
+        <Container sx={{ marginTop: "70px" }}>
+          {tabValue === "Crear" && <CreateLocation />}
+          {tabValue === "Actualizar" && <UpdateLocation />}
+          {tabValue === "Eliminar" && <DeleteLocation />}
+        </Container>
       </Box>
     </Box>
   );
 };
+
+const childStyles = () => ({
+  position: "relative",
+  width: "100%",
+  height: "100%",
+  marginTop: "-190px",
+});
+
+const boxStyles = () => ({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "flex-start",
+  marginTop: "200px",
+});
