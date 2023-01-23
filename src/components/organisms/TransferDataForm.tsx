@@ -9,7 +9,6 @@ import IdentificationTypes from './IdentificationType.json'
 
 interface FormTransferInterface {
     bank: string,
-    type: string,
     accountNumber: string,
     concept: string,
     description: string,
@@ -27,7 +26,6 @@ interface TransferFormProps {
 const TransferDataForm = (props: TransferFormProps) => {
     const [transfer, settransfer] = useState<FormTransferInterface>({
         bank: "",
-        type: "",
         accountNumber: "",
         concept: "",
         description: "",
@@ -39,7 +37,6 @@ const TransferDataForm = (props: TransferFormProps) => {
         props.onSubmit && props.onSubmit(transfer);
         settransfer({
             bank: "",
-            type: "",
             accountNumber: "",
             concept: "",
             description: "",

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Location } from "./pages/UserPages/Locations/Location";
 import theme from "./style/Theme";
 import Error404 from "./pages/ErrorPages/Error404";
@@ -21,6 +20,7 @@ import AccountStatementBank from "./pages/ClientPages/AccountStatement/AccountSt
 import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
 import InterestRateLog from "./components/organisms/interestrate/InterestRateLog";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
 

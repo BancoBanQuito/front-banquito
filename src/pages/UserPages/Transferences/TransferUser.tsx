@@ -19,15 +19,15 @@ const TransferUser = () => {
     const navigate = useNavigate();
 
     const [value, setvalue] = useState<TransactionPost>({
-        codeInternationalAccount: "123456",
-        codeLocalAccount: "123456",
-        concept: "Nota Debito",
+        codeInternationalAccount: "db6dae82faeff5f13d9d0ecb6e0b7d5f49",
+        codeLocalAccount: "22cf89573e25a91bffbb",
+        concept: "Transferencia directa",
         description: "Nota Debito",
-        movement: "Nota Debito",
-        recipientAccountNumber: "",
-        recipientBank: "",
-        recipientType: "",
-        type: "",
+        movement: "NOTA DEBITO",
+        recipientAccountNumber: "61628076a76056a00aea",
+        recipientBank: "BANQUITO",
+        recipientType: "ORDENANTE",
+        type: "TRANSFERENCIA",
         value: 0
     });
 
@@ -73,9 +73,7 @@ const TransferUser = () => {
                                 setindexForm(1);
                                 setvalue({
                                     ...value,
-                                    concept: data.concept,
-                                    description: data.description,
-                                    type: data.type
+                                    description: data.description
                                 });
                             }}
                             title='Cuenta(Receptor)' /> : indexForm === 1 ?
@@ -86,9 +84,7 @@ const TransferUser = () => {
                                     setindexForm(2);
                                     setvalue({
                                         ...value,
-                                        recipientBank: data.bank,
-                                        recipientAccountNumber: data.accountNumber,
-                                        recipientType: data.type
+                                        recipientAccountNumber: data.accountNumber
                                     });
                                 }}
                                 title='Cuenta(Receptor)' /> :
