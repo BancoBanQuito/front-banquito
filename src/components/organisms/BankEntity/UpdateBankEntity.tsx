@@ -5,32 +5,36 @@ import { SizeButton } from '../../atoms/SizeButton';
 import TextFieldAtom from '../../atoms/TextFieldAtom';
 export const UpdateBankEntity = () => {
   const [nameBank, setnameBank] = React.useState('BANCO BANQUITO');
-    return (
+  return (
     <div>
-        <h1>INFORMACION DEL {nameBank}</h1>
-      <TextFieldAtom 
+      <h1>INFORMACION DEL {nameBank}</h1>
+      <TextFieldAtom
         id="internacionalBankCode"
         label=""
         color="primary"
         type="text"
         placeholder="Código Internacional de la Entidad Bancaria"
         variant="standard"
+        action={() => alert("")}
+        value=""
       />
       <br></br>
-      <TextFieldAtom 
+      <TextFieldAtom
         id="name"
         label=""
         color="primary"
         type="text"
         placeholder="Nombre de la Entidad Bancaria"
         variant="standard"
+        action={() => alert("")}
+        value=""
       />
-    <br></br>
-    <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
+      <br></br>
+      <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
         onClick={() => console.log('Actualizar')}
         text='Actualizar'
         style={ButtonStyle.BIG}
-    />
+      />
     </div>
   );
 };
