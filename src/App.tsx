@@ -21,6 +21,7 @@ import AccountStatementBank from "./pages/UserPages/AccountStatement/AccountStat
 import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
 import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
+import ProductLinkAssociatedService from "./pages/ProductLinkAssociatedService";
 
 const App = () => {
 
@@ -134,6 +135,12 @@ const productRoutes = [
     path: "agregar/tipo-de-producto",
     element: <AccountCreateUser />,
   },
+  {
+    path: "asociar-servicio",
+    element: <ProductLinkAssociatedService onSubmit={function (data: any): void {
+      throw new Error("Function not implemented.");
+    } } />,
+  }
 ]
 
 export default App;

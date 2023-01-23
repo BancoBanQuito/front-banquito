@@ -159,7 +159,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
 
   const getAssociatedServices = async () => {
     try {
-        const response = await fetch(`http://localhost:8081/api/associatedServices`, {
+        const response = await fetch(`http://localhost:8081/api/product/associatedServices`, {
             method: 'GET',
         });
         const data = await response.json();
@@ -214,7 +214,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
     /* console.log("los servicios son>");
     console.log(associatedServices); */
     console.log("check boxx");
-    console.log(checkBoxList);
+    // console.log(checkBoxList);
     let services: AssociatedService[] = []
     //console.log("el tam de rows> " + rowAssociatedServices.push());
     rowAssociatedServices.forEach((serv:any) => {
@@ -252,6 +252,8 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
             type="text"
             placeholder="Nombre del producto"
             variant="standard"
+            action={(event) => console.log(event.target.value)}
+            value={""}
           />
           <pre>     </pre>
           <SizeButton
