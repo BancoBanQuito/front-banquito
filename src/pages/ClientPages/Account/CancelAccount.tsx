@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Box, Button, Modal, Typography } from "@mui/material";
-import TableMolecule from "../components/molecules/TableMolecule";
+import TableMolecule from "../../../components/molecules/TableMolecule";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import ButtonIcon from "../components/atoms/ButtonIcon";
-import { ColorPalette } from "../style/ColorPalette";
-import TextFieldAtom from "../components/atoms/TextFieldAtom";
-import { SizeButton } from "../components/atoms/SizeButton";
-import { ButtonStyle } from "../style/ButtonStyle";
-import AccountConfigurationTableOranism from "../components/organisms/AccountConfiguration/AccountConfigurationTableOranism";
-import AccountConfigurationEditForm from "../components/organisms/AccountConfiguration/AccountConfigurationEditForm";
+import ButtonIcon from "../../../components/atoms/ButtonIcon";
+import { ColorPalette } from "../../../style/ColorPalette";
+import TextFieldAtom from "../../../components/atoms/TextFieldAtom";
+import { SizeButton } from "../../../components/atoms/SizeButton";
+import { ButtonStyle } from "../../../style/ButtonStyle";
+import AccountConfigurationTableOranism from "../../../components/organisms/AccountConfiguration/AccountConfigurationTableOranism";
+import AccountConfigurationEditForm from "../../../components/organisms/AccountConfiguration/AccountConfigurationEditForm";
 
 const accountsExample = [
   {
@@ -16,21 +16,21 @@ const accountsExample = [
     tipoCuenta: "Corriente",
     status: "Active",
     saldoContable: "1,000.00",
-    saldoDisponible: "1,000.00"  
+    saldoDisponible: "1,000.00"
   },
   {
     NoCuenta: "2345663",
     tipoCuenta: "Ahorros",
     status: "Active",
     saldoContable: "1,000.00",
-    saldoDisponible: "1,000.00"  
+    saldoDisponible: "1,000.00"
   },
   {
     NoCuenta: "2345663",
     tipoCuenta: "Ahorros",
     status: "Active",
     saldoContable: "1,000.00",
-    saldoDisponible: "1,000.00"  
+    saldoDisponible: "1,000.00"
   }
 ]
 
