@@ -3,9 +3,9 @@ import { Box, Container } from '@mui/material';
 import { useState } from 'react';
 
 import { HolidayTabs } from '../../../components/organisms/Holiday/HolidayTabs';
-import Branch from '../../ClientPages/Branches/Branch';
-import CreateBranch from '../../../components/organisms/Branch/CreateBranch';
-
+import Holiday from '../../ClientPages/Holiday/Holiday';
+import CreateHolidayD from '../../../components/organisms/Holiday/CreateHoliday';
+import CreateHolidayY from '../../../components/organisms/Holiday/CreateHolidayYear';
 
 
 const HolidayUser: React.FC = () => {
@@ -21,10 +21,10 @@ const HolidayUser: React.FC = () => {
             <HolidayTabs tabValue={tabValue} handleChange={handleChange} />
             <Box sx={{ width: "80%" }}>
                 <Container sx={childStyles}>
-                    {tabValue === "Ver" }
+                    {tabValue === "Ver" && <Holiday/> }
                 </Container>
-                {tabValue === "Crear por Año" }
-                {tabValue === "Crear Por Dia" }
+                {tabValue === "CrearA" && <CreateHolidayY/> }
+                {tabValue === "CrearD" && <CreateHolidayD/>}
                 
             </Box>
         </Box>
