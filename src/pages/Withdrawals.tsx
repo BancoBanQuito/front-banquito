@@ -78,7 +78,10 @@ const Withdrawals = () => {
                             color="success"
                             type="text"
                             placeholder="Número de cuenta"
-                            variant="filled" />
+                            variant="filled"
+                            action={() => alert("")}
+                            value=""
+                        />
                     </Box>
                     <Box
                         sx={
@@ -111,6 +114,8 @@ const Withdrawals = () => {
                             type="number"
                             placeholder="Valor a retirar"
                             variant="filled"
+                            action={() => alert("")}
+                            value=""
                         />
                     </Box>
                     <Box
@@ -125,6 +130,8 @@ const Withdrawals = () => {
                             type="text"
                             placeholder="Identificación"
                             variant="filled"
+                            action={() => alert("")}
+                            value=""
                         />
                     </Box>
                 </Box>
