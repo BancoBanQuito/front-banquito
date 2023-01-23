@@ -54,6 +54,8 @@ const CreateSignature = () => {
           color="primary"
           type="text"
           placeholder="Ingreso número de cuenta"
+          action={() => alert("")}
+          value=""
         />
       </Box>
 
@@ -82,6 +84,8 @@ const CreateSignature = () => {
           color="primary"
           type="text"
           placeholder="Ingreso número de cuenta"
+          action={() => alert("")}
+          value=""
         />
         <ButtonIcon color={ColorPalette.PRIMARY} icon={<SearchRoundedIcon />} />
       </Box>
@@ -110,6 +114,8 @@ const CreateSignature = () => {
           color="primary"
           type="text"
           placeholder="Ingreso número de cuenta"
+          action={() => alert("")}
+          value=""
         />
       </Box>
       <Box
@@ -137,6 +143,8 @@ const CreateSignature = () => {
           color="primary"
           type="text"
           placeholder="Ingreso número de cuenta"
+          action={() => alert("")}
+          value=""
         />
       </Box>
       <Box

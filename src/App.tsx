@@ -7,14 +7,10 @@ import { ThemeProvider } from "@mui/material";
 import HomeATM from "./pages/ATMPages/HomeATM";
 import HomeClient from "./pages/ClientPages/HomeClient";
 import HomeUser from "./pages/UserPages/HomeUser";
-import Login from "./pages/Login";
 import CreateSignature from "./pages/AccountCreateSignature";
 import EditAccountSignature from "./pages/EditAccountSignature";
 import CancelAccount from "./pages/CancelAccount";
-import Login from "./pages/ClientPages/Account/Login";
-import CreateSignature from "./pages/ClientPages/Account/AccountCreateSignature";
-import EditAccountSignature from "./pages/ClientPages/Account/EditAccountSignature";
-import CancelAccount from "./pages/ClientPages/Account/CancelAccount";
+import Login from "./pages/Login";
 import Layout from "./template/Layout";
 import AccountCreateUser from "./pages/UserPages/AccountCreate/AccountCreateUser";
 import TransferUser from "./pages/UserPages/Transferences/TransferUser";
@@ -102,14 +98,15 @@ const userRoutes = [
   {
     path: "transaccion/dates",
     element: <TransactionBeetwenDates />,
-  }
+  },
+  {
     path: "interest-rate",
     element: <InterestRateLog />,
   },
   {
     path: "agregar/tipo-de-producto",
     element: <AccountCreateUser />,
-  },
+  }
 ];
 
 const clientRoutes = [
