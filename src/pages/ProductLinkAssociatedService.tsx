@@ -1,10 +1,11 @@
 import { TextField, Typography } from "@mui/material";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import TextFieldAtom from "../components/atoms/TextFieldAtom";
 import TableMolecule from "../components/molecules/TableMolecule";
 import ButtonIcon from "../components/atoms/ButtonIcon";
 // search icon
 import SearchIcon from "@mui/icons-material/Search";
+import { Checkbox as MuiCheckbox } from "@mui/material";
 import styled from "styled-components";
 // icon keyboar backspace
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
@@ -75,11 +76,35 @@ interface ProductLinkAssociatedService {
   onSubmit: (data: any) => void;
 }
 
+interface AssociatedService {
+  id: String;
+  name: String;
+  allowPayment: String;
+  paymentMethod: String;
+  chargeVat: String;
+  fee: Number;
+  params: [];
+}
+
+interface CheckBoxList {
+  name: String;
+  checked: Boolean;
+}
+
 const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
+
+  const [rowAssociatedServices, setRowAssociatedServices] = useState<any>([]);
+  const [associatedServices, setAssociatedServices] = useState<AssociatedService[]>([]);
+
+  //const [checkBoxList, setCheckBoxList] = useState<CheckBoxList[]>([]);
 
   const searchBarProps = {
     // make sure all required component's inputs/Props keys&types match
     label: "",
+    onchange: () => {
+      console.log("entra al onchange");
+      //setServices(value);
+    }
   };
 
   const headers = [
@@ -111,7 +136,12 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
     [
       <Typography>asb002</Typography>,
       <Typography>Tarjeta debito</Typography>,
-      <Checkbox {...searchBarProps}>Cell 3</Checkbox>,
+      //<Checkbox {...searchBarProps}>Cell 3</Checkbox>,
+      <MuiCheckbox
+          size={"medium"}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>, value:boolean)=>console.log("entra")}
+          color="primary"
+        />
     ]
   ];
 
@@ -126,6 +156,78 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  const getAssociatedServices = async () => {
+    try {
+        const response = await fetch(`http://localhost:8081/api/associatedServices`, {
+            method: 'GET',
+        });
+        const data = await response.json();
+        const services = data.map((service: any) => {
+          setAssociatedServices(associatedServices.concat(service));
+          const checkElement : CheckBoxList = {name: service.name, checked: false};
+          //setCheckBoxList(checkBoxList.concat(checkElement));
+          return {
+              id: <Typography>{service.name}</Typography>,
+              payment: <Typography>{service.allowPayment}</Typography>,
+              //link: <Checkbox {...searchBarProps}>{service.name}</Checkbox>
+              link: <MuiCheckbox size={"medium"} 
+                onChange={(event: React.ChangeEvent<HTMLInputElement>, value:boolean)=> setBand(service.name, value)}
+                color="primary" name={service.name} dir={"onn"}
+                />
+          }
+      })
+      
+      const rowsService: any = [];
+      services.forEach((service: any) => {
+        rowsService.push([service.id, service.payment, service.link])
+      })
+      setRowAssociatedServices(rowsService);
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  const setBand = (name: String, value: Boolean) => {
+    /* console.log("entra");
+    console.log(checkBoxList);
+    const checkBoxUpdated = checkBoxList.map(element => {
+      if(element.name == name){
+        console.log("entra al if");
+        element.checked = value;
+        return element;
+      } else {
+        console.log("entra al else");
+        return element;
+      } 
+    });
+    setCheckBoxList(checkBoxUpdated); */
+  }
+
+  useEffect(() => {
+    console.log("entra al useEffect");
+    getAssociatedServices();
+    getAssociatedServices();
+  }, [])
+
+  const setServices = (value: boolean) => {
+    /* console.log("los servicios son>");
+    console.log(associatedServices); */
+    console.log("check boxx");
+    console.log(checkBoxList);
+    let services: AssociatedService[] = []
+    //console.log("el tam de rows> " + rowAssociatedServices.push());
+    rowAssociatedServices.forEach((serv:any) => {
+      
+      setAssociatedServices(associatedServices.filter(
+        (associatedServices) => {associatedServices.name != serv[2].props.name}
+      ));
+      /* console.log("el row2> " + serv[0].props);
+      console.log(serv[0].props.children); */
+      console.log("el row3> ");
+      console.log(serv[2]);
+    });
+  }
 
   return (
     <Container>
@@ -166,13 +268,13 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
         <br></br>
         <br></br>
         <div>
-          <TableMolecule headers={headersService} rows={rowsService} />
+          <TableMolecule headers={headersService} rows={rowAssociatedServices} />
         </div>
         <ContentButtonAddRight>
           <SizeButton
             palette={{ backgroundColor: ColorPalette.TERNARY }}
             icon={<ConfirmationNumberOutlined />}
-            onClick={() => console.log("Buscar")}
+            onClick={() => {setServices(true)}}
             text="Confirmar"
             style={ButtonStyle.BIG}
           />
