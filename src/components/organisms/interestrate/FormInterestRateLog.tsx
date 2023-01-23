@@ -88,6 +88,10 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
             let data: IInterestRateValue = {
                 id: nameSelect,
                 value: value,
+                name: '',
+                type: '',
+                calcBase: '',
+                status: ''
             }
             let response = await InterestRateService.addInterestRateValue(data);
             console.log(response);
@@ -97,9 +101,9 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
                 setOpen(true);
                 setVal(!isCreate)
                 // setear los valores a 0
-                setValue(0);    
+                setValue(0);
                 setNameSelect('');
-                
+
             } else {
                 setMessage('Error al registrar');
                 setSeverity('error');

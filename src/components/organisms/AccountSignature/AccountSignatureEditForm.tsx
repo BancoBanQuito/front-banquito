@@ -72,6 +72,8 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
                     action={handleChange}
                     value={signature.identification}
                     placeholder="Ingrese el numero de cedula"
+                    action={() => alert("")}
+                    value=""
                 />
             </div>
             <div style={{ margin: '0.25rem', width: '100%' }}>
