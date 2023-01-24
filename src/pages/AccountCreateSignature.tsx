@@ -1,14 +1,12 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import TextFieldAtom from "../components/atoms/TextFieldAtom";
-import TextAreaAtom from "../components/atoms/TextAreaAtom";
 import ButtonIcon from "../components/atoms/ButtonIcon";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { ColorPalette } from "../style/ColorPalette";
 import { SizeButton } from "../components/atoms/SizeButton";
 import { ButtonStyle } from "../style/ButtonStyle";
 import { AccountSignatureService } from "../services/account/AccountSignatureService";
-import AccountConfigurationEditForm from "../components/organisms/AccountConfiguration/AccountConfigurationEditForm";
 import { AccountSimple } from "../services/account/model/AccountSimple";
 import { AccountService } from "../services/account/accountService";
 
