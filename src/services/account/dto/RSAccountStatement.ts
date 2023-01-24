@@ -14,5 +14,5 @@ export interface RSAccountStatement {
         concept: string;
         amount: number;
         balance: number;
-    };
+    }[];
 }

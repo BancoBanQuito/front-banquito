@@ -4,10 +4,10 @@ import { ButtonStyle } from '../../../style/ButtonStyle'
 import { ColorPalette } from '../../../style/ColorPalette'
 import { SizeButton } from '../../atoms/SizeButton'
 import TableMolecule from '../../molecules/TableMolecule'
-import { AccountSignature } from '../../../services/account/dto/AccountSignature'
+import { RSSignature } from '../../../services/account/dto/RSSignature'
 
 interface AccountSignatureTableOranismProps {
-    accountSignature: AccountSignature[],
+    accountSignature: RSSignature[],
     onClick?: (data: any) => void;
 }
 

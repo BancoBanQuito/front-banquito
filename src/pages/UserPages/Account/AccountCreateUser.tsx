@@ -6,7 +6,7 @@ import { AccountService } from '../../../services/account/AccountService';
 import { Avatar, Card, CardContent } from '@mui/material';
 import StripeAtom from '../../../components/atoms/StripeAtom';
 import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg'
-import AccountFormBank from '../../../components/organisms/AccountFormBank';
+import AccountFormBank from '../../../components/organisms/Account/AccountFormBank';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import { RQCreateAccount } from '../../../services/account/dto/RQCreateAccount';

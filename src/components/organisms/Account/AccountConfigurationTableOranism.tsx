@@ -1,5 +1,5 @@
-import { Typography } from '@mui/material'
 import React from 'react'
+import { Typography } from '@mui/material'
 import { ButtonStyle } from '../../../style/ButtonStyle'
 import { ColorPalette } from '../../../style/ColorPalette'
 import { SizeButton } from '../../atoms/SizeButton'

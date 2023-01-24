@@ -3,10 +3,10 @@ import { Box, SxProps, Theme } from '@mui/system'
 import { ButtonStyle } from '../../style/ButtonStyle'
 import { ColorPalette } from '../../style/ColorPalette'
 import { SizeButton } from '../atoms/SizeButton'
-import { TransactionPost } from '../../services/account/dto/TransactionPost'
+import { RQTransaction } from '../../services/transaction/dto/RQTransaction'
 
 interface ConfirmFormProps {
-    data: TransactionPost,
+    data: RQTransaction,
     title?: string,
     onAccept?: (data: any) => void,
     onDecline?: (data: any) => void,

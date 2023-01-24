@@ -6,13 +6,14 @@ import { ChevronLeft, Print } from '@mui/icons-material'
 import { AccountStatementService } from '../../../services/account/AccountStatementService'
 import ButtonIcon from '../../../components/atoms/ButtonIcon'
 import ReactToPrint from 'react-to-print'
-import AccountStatementBody from '../../../components/organisms/AccountStatement/AccountStatementBody'
-import AccountStatementTable from '../../../components/organisms/AccountStatement/AccountStatementTable'
+import AccountStatementBody from '../../../components/organisms/Account/AccountStatementBody'
+import AccountStatementTable from '../../../components/organisms/Account/AccountStatementTable'
 import { useNavigate } from 'react-router-dom'
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism'
 import LoadOrganism from '../../../components/organisms/LoadOrganism'
 import { AccountService } from '../../../services/account/AccountService'
 import { RSAccountStatement } from '../../../services/account/dto/RSAccountStatement'
+import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList'
 
 const AccountStatementClient = () => {
 
@@ -22,7 +23,7 @@ const AccountStatementClient = () => {
     const [activeAccountStatement, setactiveAccountStatement] = useState<boolean>(false);
     const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(true);
     const [accountStatement, setaccountStatement] = useState<RSAccountStatement | undefined>();
-    const [accountStatements, setaccountStatements] = useState<RSAccountStatement[]>();
+    const [accountStatements, setaccountStatements] = useState<RSAccountStatementList[]>();
     const [accountNumberData, setaccountNumberDate] = useState<string>("1751990332");
 
     const navigate = useNavigate();

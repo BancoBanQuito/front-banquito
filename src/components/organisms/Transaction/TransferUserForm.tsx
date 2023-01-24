@@ -1,11 +1,9 @@
 import { Typography, TextField } from '@mui/material'
 import { Box, SxProps, Theme } from '@mui/system'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { ButtonStyle } from '../../style/ButtonStyle'
-import { ColorPalette } from '../../style/ColorPalette'
-import { SizeButton } from '../atoms/SizeButton'
-import { useNavigate } from "react-router-dom";
-import ConfirmTransferUserForm from './ConfirmTransferUserForm'
+import { ButtonStyle } from '../../../style/ButtonStyle'
+import { ColorPalette } from '../../../style/ColorPalette'
+import { SizeButton } from '../../atoms/SizeButton'
 
 const mainBoxStyle = (): SxProps<Theme> => {
     return {

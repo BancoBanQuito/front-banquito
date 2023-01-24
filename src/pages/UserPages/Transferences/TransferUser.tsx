@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { Box } from '@mui/material';
 import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransferUserForm';
-import TransferDataForm from '../../../components/organisms/TransferDataForm';
-import TransferAmountForm from '../../../components/organisms/TransferAmountForm';
+import TransferDataForm from '../../../components/organisms/Transaction/TransferDataForm';
+import TransferAmountForm from '../../../components/organisms/Transaction/TransferAmountForm';
 import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 import { TransactionService } from '../../../services/transaction/TransactionService';
-import { TransactionPost } from '../../../services/account/dto/TransactionPost';
-import { AccountSimple } from '../../../services/account/dto/AccountSimple';
 import { AccountService } from '../../../services/account/AccountService';
+import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
+import { RSAccountSimple } from '../../../services/account/dto/RSAccountSimple';
 
 const TransferUser = () => {
 
@@ -20,7 +20,7 @@ const TransferUser = () => {
 
     const navigate = useNavigate();
 
-    const [value, setvalue] = useState<TransactionPost>({
+    const [value, setvalue] = useState<RQTransaction>({
         codeInternationalAccount: "db6dae82faeff5f13d9d0ecb6e0b7d5f49",
         codeLocalAccount: "22cf89573e25a91bffbb",
         concept: "Transferencia directa",
@@ -35,7 +35,7 @@ const TransferUser = () => {
 
     const handleAccept = async () => {
         try {
-            const accountSimple: AccountSimple | undefined = (await AccountService.getAccountsSimple(value.recipientAccountNumber)).data.data;
+            const accountSimple: RSAccountSimple | undefined = (await AccountService.getAccountSimple(value.recipientAccountNumber)).data.data;
             if (!accountSimple) {
                 console.log("Ha ocurrido un error");
                 return;

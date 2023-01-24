@@ -1,11 +1,11 @@
 import { Typography, TextField } from '@mui/material'
 import { Box, SxProps, Theme } from '@mui/system'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
-import { ButtonStyle } from '../../style/ButtonStyle'
-import { ColorPalette } from '../../style/ColorPalette'
-import { Dropdown } from '../atoms/Dropdown'
-import { SizeButton } from '../atoms/SizeButton'
-import IdentificationTypes from './IdentificationType.json'
+import { ButtonStyle } from '../../../style/ButtonStyle'
+import { ColorPalette } from '../../../style/ColorPalette'
+import { Dropdown } from '../../atoms/Dropdown'
+import { SizeButton } from '../../atoms/SizeButton'
+import IdentificationTypes from '../../../services/.json/IdentificationType.json'
 
 const mainBoxStyle = (): SxProps<Theme> => {
     return {

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Box, Card, CardContent, Fade, Modal, Typography } from "@mui/material";
 import { ColorPalette } from "../../../style/ColorPalette";
-import AccountSignatureTableOranism from "../../../components/organisms/AccountSignature/AccountSignatureTableOranism";
-import AccountSignatureEditForm from "../../../components/organisms/AccountSignature/AccountSignatureEditForm";
+import AccountSignatureTableOranism from "../../../components/organisms/Account/AccountSignatureTableOranism";
+import AccountSignatureEditForm from "../../../components/organisms/Account/AccountSignatureEditForm";
 import { AccountSignatureService } from "../../../services/account/AccountSignatureService";
-import SearchAccount from "../../../components/organisms/SearchAccount";
+import SearchAccount from "../../../components/organisms/Account/SearchAccount";
 import { AccountService } from "../../../services/account/AccountService";
 import { RSAccount } from "../../../services/account/dto/RSAccount";
 import { RSSignature } from "../../../services/account/dto/RSSignature";
