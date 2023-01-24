@@ -127,12 +127,12 @@ const HomeUser = ({ user, isLogged }: Props) => {
               <SizeButton text='Iniciar Sesion'
                 style={ButtonStyle.MEDIUM}
                 palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/usuario/login")}
               />
               <SizeButton text='Unirse'
                 style={ButtonStyle.MEDIUM}
                 palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                onClick={() => navigate("/cliente/signup")}
+                onClick={() => navigate("/usuario/signup")}
               />
             </Box>
         }

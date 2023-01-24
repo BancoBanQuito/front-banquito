@@ -10,10 +10,11 @@ interface userProps {
 }
 interface Props {
     setUser: React.Dispatch<React.SetStateAction<userProps | null>>,
-    setIsLogged: React.Dispatch<React.SetStateAction<boolean>>
+    setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
+    redirect: string
 }
 
-const Login = ({ setUser, setIsLogged }: Props) => {
+const Login = ({ setUser, setIsLogged, redirect }: Props) => {
 
     const navigate = useNavigate();
 
@@ -40,7 +41,7 @@ const Login = ({ setUser, setIsLogged }: Props) => {
             setUser({ username: userName, password: password })
             setIsLogged(true)
 
-            navigate('/cliente')
+            navigate(redirect)
 
         } catch (error) {
             console.error(error)
