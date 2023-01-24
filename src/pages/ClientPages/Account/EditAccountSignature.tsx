@@ -9,48 +9,55 @@ import { SizeButton } from "../../../components/atoms/SizeButton";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import AccountSignatureTableOranism from "../../../components/organisms/AccountSignature/AccountSignatureTableOranism";
 import AccountSignatureEditForm from "../../../components/organisms/AccountSignature/AccountSignatureEditForm";
+import { AccountSignature } from "../../../services/account/model/AccountSignature";
 
-const signatureExample = [
+const signatureExample: AccountSignature[] = [
   {
     identification: "0123456789",
-    identifucationType: "DNI",
+    identificationType: "DNI",
     name: "Sample",
-    rol: "Sample",
-    status: "Active"
+    role: "Sample",
+    status: "Active",
+    signature: "ASJDJASJDAJSDA"
   },
   {
     identification: "0123456789",
-    identifucationType: "DNI",
+    identificationType: "DNI",
     name: "Sample",
-    rol: "Sample",
-    status: "Active"
+    role: "Sample",
+    status: "Active",
+    signature: "ASJDJASJDAJSDA"
   },
   {
     identification: "0123456789",
-    identifucationType: "DNI",
+    identificationType: "DNI",
     name: "Sample",
-    rol: "Sample",
-    status: "Active"
+    role: "Sample",
+    status: "Active",
+    signature: "ASJDJASJDAJSDA"
   },
   {
     identification: "0123456789",
-    identifucationType: "DNI",
+    identificationType: "DNI",
     name: "Sample",
-    rol: "Sample",
-    status: "Active"
+    role: "Sample",
+    status: "Active",
+    signature: "ASJDJASJDAJSDA"
   },
   {
     identification: "0123456789",
-    identifucationType: "DNI",
+    identificationType: "DNI",
     name: "Sample",
-    rol: "Sample",
-    status: "Active"
+    role: "Sample",
+    status: "Active",
+    signature: "ASJDJASJDAJSDA"
   }, {
     identification: "0123456789",
-    identifucationType: "DNI",
+    identificationType: "DNI",
     name: "Sample",
-    rol: "Sample",
-    status: "Active"
+    role: "Sample",
+    status: "Active",
+    signature: "ASJDJASJDAJSDA"
   }
 ]
 
@@ -95,7 +102,7 @@ const EditAccountSignature = () => {
             }}>
               <div style={{ width: '100%', textAlign: 'center' }}>
                 <Typography variant="h6">Modificar firma</Typography>
-                <AccountSignatureEditForm />
+                <AccountSignatureEditForm signature={signatureExample[0]} />
               </div>
             </Box>
           </Modal>
