@@ -24,6 +24,8 @@ const ConsolidatedPositionAccount = () => {
       const data: AccountResponse[] | undefined = (await AccountService.getAccountsById(typeIdentification, identification)).data.data;
       if (data) {
         setConsolidatedPosition(data);
+        setactiveSearch(false);
+        console.log(consolidatedPosition);
       } else {
         console.log("No hay datos disponibles");
       }
@@ -33,6 +35,7 @@ const ConsolidatedPositionAccount = () => {
   }
 
   const handleSearch = (data: string) => {
+    console.log(data);
     searchAccountStatement("DNI", data);
   }
 
@@ -74,7 +77,6 @@ const ConsolidatedPositionAccount = () => {
       {
         !activeSearch && <>
           <Typography variant='h4' align='center'>Posicion Consolidada</Typography>
-          <br></br>
           <TableMolecule
             headers={headersMock}
             rows={consolidatedPosition.map(consolidatedPosition => getRow(consolidatedPosition))} />
