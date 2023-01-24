@@ -33,13 +33,14 @@ Example of use:
 interface TableProps {
   headers: JSX.Element[],
   rows: JSX.Element[][],
+  color?: string
 }
 
 const TableStyle = {
   borderRadius: '10px'
 }
 
-const TableMolecule = ({ headers, rows }: TableProps) => {
+const TableMolecule = ({ headers, rows, color }: TableProps) => {
   return (
     <TableContainer sx={TableStyle}>
       <Table >
@@ -50,6 +51,7 @@ const TableMolecule = ({ headers, rows }: TableProps) => {
                 key={index}
                 children={component}
                 type="header"
+                color={color}
               />
             ))}
           </TableRow>
@@ -62,6 +64,7 @@ const TableMolecule = ({ headers, rows }: TableProps) => {
                   key={index}
                   children={component}
                   type="simple"
+                  color={color}
                 />
               ))}
             </TableRow>

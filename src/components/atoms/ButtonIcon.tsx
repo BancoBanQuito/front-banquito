@@ -25,11 +25,11 @@ const ButtonIcon = (props: Props) => {
         <Button
             sx={{
                 borderRadius: '100%',
-                position: props.float ? 'absolute' : 'relative',
-                top: props.top ? 0 : 'auto',
-                bottom: props.bottom ? 0 : 'auto',
-                left: props.left ? 0 : 'auto',
-                right: props.right ? 0 : 'auto',
+                position: props.float ? 'fixed' : 'relative',
+                top: props.float && props.top ? 5 : 'auto',
+                bottom: props.float && props.bottom ? 5 : 'auto',
+                left: props.float && props.left ? 5 : 'auto',
+                right: props.float && props.right ? 5 : 'auto',
                 width: props.size ? props.size : '60px',
                 height: props.size ? props.size : '60px'
             }}

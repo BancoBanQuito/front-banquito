@@ -9,10 +9,14 @@ import IdentificationTypes from './IdentificationType.json'
 
 const mainBoxStyle = (): SxProps<Theme> => {
     return {
-        marginTop: 8,
+        marginTop: 4,
+        marginBottom: 4,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        backgroundColor: 'white',
+        padding: 5,
+        borderRadius: 5
     };
 }
 
@@ -56,7 +60,7 @@ const AccountFormBank = (props: AccountFormProps) => {
         identification: "",
         identificationType: "",
         codeProduct: "",
-        codeBranch: "12345",
+        codeBranch: "123",
         entityBankCode: "12345",
         internationalBankCode: "12345",
     });
