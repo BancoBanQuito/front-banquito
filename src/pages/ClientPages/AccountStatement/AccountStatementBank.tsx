@@ -22,7 +22,7 @@ const AccountStatementBank = () => {
     const [activeSearchBox, setactiveSearchBox] = useState<boolean>(true);
     const [activeAccountStatement, setactiveAccountStatement] = useState<boolean>(false);
     const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(false);
-    const [accountStatement, setaccountStatement] = useState<AccountStament | undefined>();
+    const [accountStatement, setaccountStatement] = useState<AccountStament>();
     const [accountStatements, setaccountStatements] = useState<AccountStament[]>([]);
     const [accountNumberData, setaccountNumberData] = useState<string>();
 
@@ -33,17 +33,17 @@ const AccountStatementBank = () => {
     const handleBackEvent = () => {
         setactiveAccountStatementTable(true);
         setactiveAccountStatement(false);
-        setaccountStatement(undefined);
+        // setaccountStatement(undefined);
     }
 
     const handleSearch = (data: string) => {
-        setaccountNumberData(data);
+        // setaccountNumberData(data);
         searchAccountStatement(data);
     }
 
     const handleAccountStatementSelection = (data: AccountStament) => {
         setaccountStatement(data);
-        setactiveAccountStatementTable(false);
+        /* setactiveAccountStatementTable(false); */
         setactiveAccountStatement(true);
     }
 
@@ -56,11 +56,12 @@ const AccountStatementBank = () => {
                 seterrorMessage("No se han encontrado datos");
                 return;
             } */
-            const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(identification, '')).data.data;
+            const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(identification, '123456')).data.data;
             if (data) {
                 // setaccountStatements(data);
                 setaccountStatement(data);
-                setactiveAccountStatementTable(true);
+                setactiveAccountStatement(true);
+                // setactiveAccountStatementTable(true);
             } else {
                 setactiveErrorModal(true);
                 seterrorMessage("No se han encontrado datos");
@@ -101,7 +102,7 @@ const AccountStatementBank = () => {
                         </Card>
                     </Fade>
                 </div>
-                <div style={{
+                {/* <div style={{
                     position: 'absolute',
                     width: '100%',
                     top: '5rem',
@@ -118,7 +119,7 @@ const AccountStatementBank = () => {
                                 onSelection={handleAccountStatementSelection} />
                         </div>
                     </Fade>
-                </div>
+                </div> */}
                 <div style={{
                     position: 'absolute',
                     width: '100%',

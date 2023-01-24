@@ -21,10 +21,11 @@ const SearchAccount = (props: SearchAccountProps) => {
         props.onSubmit?.(accountNumber);
     }
     const onlyNumbers = (event: ChangeEvent<HTMLInputElement>) => {
-        const regex = /^[0-9\b]+$/;
+        setaccountNumber(event.target.value);
+        /* const regex = /^[0-9\b]+$/;
         if (event.target.value == '' || regex.test(event.target.value)) {
             setaccountNumber(event.target.value);
-        }
+        } */
     }
 
     return (

@@ -11,6 +11,8 @@ interface AccountStatementProps {
 
 const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref) => {
 
+    console.log(props.accountStatement);
+
     const getRow = (data: any) => {
         return [
             <Typography></Typography>,
@@ -25,7 +27,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
         <>
             <div ref={ref as LegacyRef<HTMLDivElement> | undefined}>
                 {
-                    props.accountStatement ?
+                    !!props.accountStatement ?
                         <Container sx={{ width: '100%' }}>
                             <div style={{
                                 display: 'flex',
@@ -93,7 +95,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                                             padding: 1
                                         }}>
                                             <Typography variant='body1'>
-                                                Fecha corte actual: {props.accountStatement?.currentCutOffDate.toUTCString()}
+                                                {`Fecha corte actual: ${props.accountStatement.currentCutOffDate}`}
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -172,7 +174,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                                             Juanito Perez
                                         </Typography>
                                         <Typography sx={{ width: '50%', textAlign: 'end' }} variant='body1'>
-                                             XXXXXXXXXX
+                                            XXXXXXXXXX
                                         </Typography>
                                         <Typography variant='body1'>
                                             Cuenta: {props.accountStatement?.localCodeAccount}
