@@ -1,6 +1,6 @@
 import React, { ReactInstance, useEffect, useRef, useState } from 'react'
 import { Box } from '@mui/system'
-import { Fade } from '@mui/material'
+import { Fade, Modal, Typography } from '@mui/material'
 import { ColorPalette } from '../../../style/ColorPalette'
 import { ChevronLeft, Print } from '@mui/icons-material'
 import { AccountStament } from '../../../services/account/model/AccountStatement'
@@ -9,18 +9,28 @@ import ButtonIcon from '../../../components/atoms/ButtonIcon'
 import ReactToPrint from 'react-to-print'
 import AccountStatementBody from '../../../components/organisms/AccountStatement/AccountStatementBody'
 import AccountStatementTable from '../../../components/organisms/AccountStatement/AccountStatementTable'
+import { useNavigate } from 'react-router-dom'
+import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism'
+import LoadOrganism from '../../../components/organisms/LoadOrganism'
+import { AccountService } from '../../../services/account/accountService'
 
 const AccountStatementClient = () => {
 
+    const [isLoading, setisLoading] = useState<boolean>(false);
+    const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
+    const [errorMessage, seterrorMessage] = useState<string>("");
     const [activeAccountStatement, setactiveAccountStatement] = useState<boolean>(false);
     const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(true);
     const [accountStatement, setaccountStatement] = useState<AccountStament | undefined>();
     const [accountStatements, setaccountStatements] = useState<AccountStament[]>();
+    const [accountNumberData, setaccountNumberDate] = useState<string>("1751990332");
+
+    const navigate = useNavigate();
 
     const printRef = useRef();
 
     useEffect(() => {
-        searchAccountStatement('1751990332');
+        searchAccountStatement(accountNumberData);
         return () => { }
     }, [])
 
@@ -37,13 +47,30 @@ const AccountStatementClient = () => {
         setactiveAccountStatement(true);
     }
 
-    const searchAccountStatement = async (accountNumber: string) => {
-        const data: AccountStament[] = await AccountStatementService.getStatements(accountNumber);
-        if (data) {
-            setaccountStatements(data);
-            setactiveAccountStatementTable(true);
-        } else {
-            // setactiveErrorModal(true)
+    const searchAccountStatement = async (identification: string, identificationType?: string) => {
+        setisLoading(true);
+        try {
+            // const data: AccountStament[] = /* (await AccountStatementService.getStatements(accountNumber)).data.data || */ [];
+            const { codeLocalAccount, codeInternationalAccount }: any = (await AccountService.getAccountsById(identification, identificationType || "DNI")).data?.data?.at(0);
+            if (!!codeLocalAccount && !!codeInternationalAccount) {
+                setactiveErrorModal(true);
+                seterrorMessage("No se han encontrado datos");
+                return;
+            }
+            const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount, codeInternationalAccount)).data.data;
+            if (data) {
+                // setaccountStatements(data);
+                setaccountStatement(data);
+                setactiveAccountStatementTable(true);
+            } else {
+                setactiveErrorModal(true);
+                seterrorMessage("No se han encontrado datos");
+            }
+        } catch (error: any) {
+            setactiveErrorModal(true);
+            seterrorMessage(error.message);
+        } finally {
+            setisLoading(false);
         }
     }
 
@@ -102,6 +129,15 @@ const AccountStatementClient = () => {
                     </Fade>
                 </div>
             </Box>
+            <LoadOrganism active={isLoading} />
+            <ErrorModalOrganism
+                active={activeErrorModal}
+                onDeactive={() => { setactiveErrorModal(false); navigate('/cliente') }}
+                text={`${errorMessage}. ¿Desea volver a intentar?`}
+                enableButtonBox
+                onConfirm={() => searchAccountStatement(accountNumberData)}
+                onReject={() => navigate('/cliente')}
+            />
         </>
     )
 }

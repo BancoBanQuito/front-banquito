@@ -3,10 +3,10 @@ import { Box, SxProps, Theme } from '@mui/system'
 import { ButtonStyle } from '../../style/ButtonStyle'
 import { ColorPalette } from '../../style/ColorPalette'
 import { SizeButton } from '../atoms/SizeButton'
-import { Transference } from '../../services/transference/model/Transference'
+import { TransactionPost } from '../../services/account/model/TransactionPost'
 
 interface ConfirmFormProps {
-    data: Transference,
+    data: TransactionPost,
     title?: string,
     onAccept?: (data: any) => void,
     onDecline?: (data: any) => void,
@@ -45,20 +45,20 @@ const ConfirmTransferUserForm = (props: ConfirmFormProps) => {
                     }}>
                     <TextField
                         sx={{ margin: '1rem' }}
-                        label='Numero de Cuenta (Emisor)'
-                        value={props.data.transferAmount}
+                        label='Monto'
+                        value={props.data.value}
                         disabled
                         fullWidth />
                     <TextField
                         sx={{ margin: '1rem' }}
                         label='Numero de Cuenta (Emisor)'
-                        value={props.data.accountNumber}
+                        value={props.data.codeLocalAccount}
                         fullWidth
                         disabled />
                     <TextField
                         sx={{ margin: '1rem' }}
                         label='Numero de Cuenta (Receptor)'
-                        value={props.data.recipient.accountNumber}
+                        value={props.data.recipientAccountNumber}
                         fullWidth
                         disabled />
                 </Box>
