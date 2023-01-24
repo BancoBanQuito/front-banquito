@@ -8,6 +8,7 @@ import { Search } from '@mui/icons-material'
 interface SearchAccountProps {
     title: string,
     color?: string,
+    label?: string,
     onSubmit?: (data: string) => void,
 }
 
@@ -51,7 +52,7 @@ const SearchAccount = (props: SearchAccountProps) => {
                 <div style={{ margin: '5px', width: '100%' }}>
                     <TextField
                         name='accountNumber'
-                        label='Ingrese el numero de cuenta'
+                        label={props.label || 'Ingrese el numero de cuenta'}
                         onChange={onlyNumbers}
                         value={accountNumber}
                         sx={{

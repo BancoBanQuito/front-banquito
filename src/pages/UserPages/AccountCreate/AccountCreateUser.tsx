@@ -7,14 +7,20 @@ import { Avatar, Card, CardContent } from '@mui/material';
 import StripeAtom from '../../../components/atoms/StripeAtom';
 import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg'
 import AccountFormBank from '../../../components/organisms/AccountFormBank';
+import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
+import LoadOrganism from '../../../components/organisms/LoadOrganism';
 
 const AccountCreateUser = () => {
+    const [isLoading, setisLoading] = useState<boolean>(false);
     const [products, setproducts] = useState<any[] | undefined>([]);
+    const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
+    const [errorMessage, seterrorMessage] = useState<string>("");
+    const [accountData, setaccountData] = useState<any>();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        getProducts("2");
+        getProducts("6c24027751bc43c5b232242e307880a7");
         return () => { }
     })
 
@@ -28,19 +34,24 @@ const AccountCreateUser = () => {
         const account = {
             ...data,
             codeProductType: "2"
-        }
-        try {
-            saveAccount(account);
-            navigate('/cliente', { replace: true });
-        } catch (error) {
-            console.log("Something went wrong");
-        }
+        };
+        setaccountData(account);
+        saveAccount(account);
 
     }
 
     const saveAccount = async (data: any) => {
-        await AccountService.createAccount(data);
+        setisLoading(true);
+        try {
+            await AccountService.postAccount(data);
+        } catch (error: any) {
+            setactiveErrorModal(true);
+            seterrorMessage(error.message);
+        } finally {
+            setisLoading(false);
+        }
     }
+
     return (
         <>
             <div style={{
@@ -76,6 +87,15 @@ const AccountCreateUser = () => {
                     </div>
                 </Card>
             </div>
+            <LoadOrganism active={isLoading} />
+            <ErrorModalOrganism
+                active={activeErrorModal}
+                onDeactive={() => { setactiveErrorModal(false); navigate('/cliente') }}
+                text={`${errorMessage}. ¿Desea volver a intentar?`}
+                enableButtonBox
+                onConfirm={() => saveAccount(accountData)}
+                onReject={() => navigate('/cliente')}
+            />
         </>
     )
 }

@@ -3,18 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import { ColorPalette } from '../../../style/ColorPalette'
 import { ProductService } from '../../../services/product/productService'
 import { AccountService } from '../../../services/account/accountService'
-import { Avatar, Slide } from '@mui/material'
+import { Avatar, Box, Modal, Slide, Typography } from '@mui/material'
 import AccountFormBank from '../../../components/organisms/AccountFormBank'
 import SelectAccountTypeForm from '../../../components/organisms/SelectAccountTypeForm'
 import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule'
 import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg'
 import StripeAtom from '../../../components/atoms/StripeAtom';
+import LoadOrganism from '../../../components/organisms/LoadOrganism';
+import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 
 
 const AccountCreateBank = () => {
+  const [isLoading, setisLoading] = useState<boolean>(false);
+  const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
+  const [errorMessage, seterrorMessage] = useState<string>("");
   const [indexForm, setindexForm] = useState<number>(0)
   const [selectedAccount, setselectedAccount] = useState<string>("");
   const [products, setproducts] = useState<any[] | undefined>([]);
+  const [accountData, setaccountData] = useState<any>();
 
   const navigate = useNavigate();
 
@@ -32,19 +38,22 @@ const AccountCreateBank = () => {
   const handleSubmit = (data: any) => {
     const account = {
       ...data,
-      codeProductType: selectedAccount
-    }
-    try {
-      saveAccount(account);
-      navigate('/usuario', { replace: true });
-    } catch (error) {
-      console.log("Something went wrong");
-    }
-
+      codeProductType: "2"
+    };
+    setaccountData(account);
+    saveAccount(account);
   }
 
   const saveAccount = async (data: any) => {
-    await AccountService.createAccount(data);
+    setisLoading(true);
+    try {
+      await AccountService.postAccount(data);
+    } catch (error: any) {
+      setactiveErrorModal(true);
+      seterrorMessage(error.message);
+    } finally {
+      setisLoading(false);
+    }
   }
 
   return (
@@ -120,7 +129,15 @@ const AccountCreateBank = () => {
           </Slide>
         </div>
       </div>
-
+      <LoadOrganism active={isLoading} />
+      <ErrorModalOrganism
+        active={activeErrorModal}
+        onDeactive={() => { setactiveErrorModal(false); navigate('/usuario') }}
+        text={`${errorMessage}. ¿Desea volver a intentar?`}
+        enableButtonBox
+        onConfirm={() => saveAccount(accountData)}
+        onReject={() => navigate('/usuario')}
+      />
     </>
   )
 }

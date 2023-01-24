@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Location } from "./pages/UserPages/Locations/Location";
 import theme from "./style/Theme";
 import Error404 from "./pages/ErrorPages/Error404";
@@ -16,9 +15,11 @@ import TransferUser from "./pages/UserPages/Transferences/TransferUser";
 import TransferBank from "./pages/ClientPages/Transferences/TransferBank";
 import AccountCreateBank from "./pages/ClientPages/Account/AccountCreateBank";
 import Branch from "./pages/ClientPages/Branches/Branch";
-import AccountStatementBank from "./pages/UserPages/AccountStatement/AccountStatementBank";
+import AccountStatementBank from "./pages/ClientPages/AccountStatement/AccountStatementBank";
 import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ConsolidatedPosition from "./pages/ConsolidatedPosition";
 import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
 import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
 import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
@@ -29,6 +30,8 @@ interface userProps {
   username: string,
   password: string
 }
+import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
+import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
 
 const App = () => {
 
@@ -149,5 +152,98 @@ const App = () => {
     </ThemeProvider>
   );
 };
+
+const userRoutes = [
+  {
+    path: "",
+    element: <HomeUser />,
+  },
+  {
+    path: "ubicaciones",
+    element: <Location />,
+  },
+  {
+    path: "cuenta/crear",
+    element: <AccountCreateBank />,
+  },
+  {
+    path: "cuenta/estado",
+    element: <AccountStatementBank />,
+  },
+  {
+    path: "transaccion",
+    element: <TransferBank />,
+  },
+  {
+    path: "sucursales",
+    element: <BranchUser />,
+  },
+  {
+    path: "feriados",
+    element: <HolidayUser />
+
+  },
+  {
+    path: "account/signature",
+    element: <CreateSignature />,
+  },
+  {
+    path: "edit/account/signature",
+    element: <EditAccountSignature />,
+  },
+  {
+    path: "edit/account/cancel",
+    element: <CancelAccount />,
+  },
+  {
+    path: "account/consolidado",
+    element: <ConsolidatedPosition />,
+  },
+  {
+    path: "transaccion/dates",
+    element: <TransactionBeetwenDates />,
+  },
+  {
+    path: "interest-rate",
+    element: <InterestRateLog />,
+  },
+  {
+    path: "agregar/tipo-de-producto",
+    element: <AccountCreateUser />,
+  },
+  {
+    path: "entidad",
+    element: <BankEntity />,
+
+  },
+  {
+    path: "actualizar/entidad",
+    element: <UpdateBankEntity />,
+
+  }
+];
+
+const clientRoutes = [
+  {
+    path: "",
+    element: <HomeClient />,
+  },
+  {
+    path: "cuenta/crear",
+    element: <AccountCreateUser />,
+  },
+  {
+    path: "sucursales",
+    element: <Branch />
+  },
+  {
+    path: "cuenta/estado",
+    element: <AccountStatementClient />,
+  },
+  {
+    path: "transaccion",
+    element: <TransferUser />,
+  },
+]
 
 export default App;

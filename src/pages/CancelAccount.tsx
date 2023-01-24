@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Modal, Typography } from "@mui/material";
-import TableMolecule from "../components/molecules/TableMolecule";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import ButtonIcon from "../components/atoms/ButtonIcon";
-import { ColorPalette } from "../style/ColorPalette";
-import TextFieldAtom from "../components/atoms/TextFieldAtom";
-import { SizeButton } from "../components/atoms/SizeButton";
-import { ButtonStyle } from "../style/ButtonStyle";
+import { Box, Modal, Typography } from "@mui/material";
 import AccountConfigurationTableOranism from "../components/organisms/AccountConfiguration/AccountConfigurationTableOranism";
 import AccountConfigurationEditForm from "../components/organisms/AccountConfiguration/AccountConfigurationEditForm";
 
