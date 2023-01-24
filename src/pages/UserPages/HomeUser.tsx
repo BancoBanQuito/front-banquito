@@ -61,7 +61,7 @@ const HomeUser = ({ user, isLogged }: Props) => {
                 <SizeButton text='Ubicaciones'
                   style={ButtonStyle.MEDIUM}
                   palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                  onClick={() => navigate("/usuario/transaccion")}
+                  onClick={() => navigate("/usuario/ubicaciones")}
                 />
                 <SizeButton text='Ver banco'
                   style={ButtonStyle.MEDIUM}
