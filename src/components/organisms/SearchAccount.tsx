@@ -53,7 +53,7 @@ const SearchAccount = (props: SearchAccountProps) => {
                     <TextField
                         name='accountNumber'
                         label={props.label || 'Ingrese el numero de cuenta'}
-                        onChange={onlyNumbers}
+                        // onChange={onlyNumbers}
                         value={accountNumber}
                         sx={{
                             width: '100%',
