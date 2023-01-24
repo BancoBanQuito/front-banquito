@@ -5,7 +5,7 @@ import IInterestRateValue from '../models/interestRate.model';
 import IInterestRateAdd from '../models/interestRate.model';
 import IInterestRateStatus from '../models/interestRate.model';
 
-const baseUrl = 'http://localhost:8081/api/interest-rate';
+const baseUrl = 'http://localhost:8087/api/interest-rate';
 
 export default class InterestRateService {
     public static async getInterestRates(): Promise<IInterestRate[]> {
