@@ -64,7 +64,7 @@ export const Product = () => {
 
     useEffect(() => {
         getProducts();
-    }, [products])
+    }, [])
 
     useEffect(() => {
         if (open) {

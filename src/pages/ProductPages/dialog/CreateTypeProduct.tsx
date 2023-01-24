@@ -126,10 +126,10 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
 
                                 <Stack direction="row" spacing={2} sx={{ width: "100%" }} justifyContent="center">
                                     <Stack direction="column" spacing={2} sx={{ width: "100%" }} justifyContent="center">
-                                        <Typography variant="body1">allowGenAccState</Typography>
+                                        <Typography variant="body1">Estado de cuenta</Typography>
                                         <Select
-                                            label="allowGenAccState"
-                                            placeholder="allowGenAccState"
+                                            label="Estado de cuenta"
+                                            placeholder="Estado de cuenta"
                                             variant="outlined"
                                             defaultValue={"Y"}
                                             {...register("allowGenAccState", { required: true })}
@@ -148,8 +148,8 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
                                             defaultValue={"Y"}
                                             {...register("temporalyInterest", { required: true })}
                                         >
-                                            <MenuItem value={"Y"}>Si</MenuItem>
-                                            <MenuItem value={"N"}>No</MenuItem>
+                                            <MenuItem value={"Diario"}>Diario</MenuItem>
+                                            <MenuItem value={"Mensual"}>Mensual</MenuItem>
                                         </Select>
                                     </Stack>
 

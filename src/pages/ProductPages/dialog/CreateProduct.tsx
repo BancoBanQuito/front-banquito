@@ -31,27 +31,8 @@ export const CreateProduct = ({ openDialog }: Props) => {
     const { register, handleSubmit } = methods;
 
     const handleClose = () => {
-        methods.reset({ name: "", type: "", products: "" }, { keepValues: false });
+        methods.reset();
         setOpen(false);
-    }
-
-    const getProductType = async (id: string) => {
-        try {
-            const response = await fetch(`http://127.0.0.1:8087/api/product-types/type?id=${id}`, {
-                method: 'GET',
-            });
-            const data = await response.json();
-            const productTyp = {
-                id: data.id,
-                name: data.name,
-            }
-            if (productTyp.id === undefined) {
-                return [];
-            }
-            return [productTyp]
-        } catch (error) {
-            console.log(error);
-        }
     }
 
     const getInterest = async () => {
@@ -66,21 +47,21 @@ export const CreateProduct = ({ openDialog }: Props) => {
         }
     }
 
-    /*  const getAssociatedServices = async () => {
-         try {
-             const response = await fetch(`http://localhost:8087/api/associated-services`, {
-                 method: 'GET',
-             });
-             const data = await response.json();
-             setAssociatedServices(data);
-         } catch (error) {
-             console.log(error);
-         }
-     } */
-
-    const getProducts = async () => {
+    const getAssociatedServices = async () => {
         try {
-            const response = await fetch(`http://localhost:8087/api/products/products`, {
+            const response = await fetch(`http://localhost:8087/api/associatedServices`, {
+                method: 'GET',
+            });
+            const data = await response.json();
+            setAssociatedServices(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getProductTypes = async () => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8087/api/product-types/types`, {
                 method: 'GET',
             });
             const data = await response.json();
@@ -92,13 +73,32 @@ export const CreateProduct = ({ openDialog }: Props) => {
 
     const handleSubmitForm = async (data: any) => {
         try {
+            console.log(data.interestRate, data.productType, data.associatedService)
             const interest = data.interestRate.split("/")
-            
+
             const prepareInterest = {
                 id: interest[0],
                 name: interest[1],
                 type: interest[2],
             }
+
+            const typeP = data.productType.split("/")
+
+            const prepareType = {
+                id: typeP[0],
+                name: typeP[1],
+            }
+
+            const associated = data.associatedService.split("/")
+            const prepareAssociated = {
+                id: associated[0],
+                name: associated[1],
+                allowPayment: associated[2],
+                paymentMethod: associated[3],
+                chargeVat: associated[4],
+                fee: associated[5],
+            }
+
             const typeProduct = {
                 name: data.name,
                 status: data.status,
@@ -110,13 +110,13 @@ export const CreateProduct = ({ openDialog }: Props) => {
                 typeClient: data.typeClient,
                 minOpeningBalance: data.minOpeningBalance,
                 interestRate: { ...prepareInterest },
-                associatedService: data.associatedServices,
-                productType: data.products,
+                associatedService: [{ ...prepareAssociated }],
+                productType: { ...prepareType },
 
             }
 
             console.log(typeProduct)
-            await fetch(`http://localhost:8087/api/products/product`, {
+            await fetch(`http://127.0.0.1:8087/api/products/product`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -136,10 +136,10 @@ export const CreateProduct = ({ openDialog }: Props) => {
     }, [openDialog])
 
     useEffect(() => {
-        getProducts();
+        getProductTypes();
         getInterest();
-/*         getAssociatedServices();
- */    }, [])
+        getAssociatedServices();
+    }, [])
 
     return (
         <Dialog open={open} onClose={handleClose} fullWidth maxWidth="lg">
@@ -203,7 +203,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
                                             placeholder="Estado de cuenta "
                                             variant="outlined"
                                             defaultValue={""}
-                                            {...register("associatedService", { required: false })}
+                                            {...register("temporalyAccountState", { required: false })}
                                             onChange={(e) => e.target.value}
                                         >
                                             <MenuItem value={"DAI"}>Diario</MenuItem>
@@ -263,9 +263,8 @@ export const CreateProduct = ({ openDialog }: Props) => {
 
                                     <Stack direction="column" spacing={3} sx={{ width: "100%" }} justifyContent="center">
                                         <Typography variant="body1">Saldo de apertura</Typography>
-                                        <TextField label="Saldo de apertura" variant="outlined" {...register("minOpeningBalance", { required: false })} />
+                                        <TextField label="Saldo de apertura" variant="outlined" {...register("minOpeningBalance", { required: false })} type='number' />
                                     </Stack>
-
                                 </Stack>
 
 
@@ -290,7 +289,6 @@ export const CreateProduct = ({ openDialog }: Props) => {
                                             ))}
                                         </Select>
                                     </Stack>
-
                                     <Stack direction="column" spacing={3} sx={{ width: "100%" }} justifyContent="center">
                                         <Typography variant="body1">Tipo de producto</Typography>
                                         <Select
@@ -301,16 +299,38 @@ export const CreateProduct = ({ openDialog }: Props) => {
                                             {...register("productType", { required: false })}
                                             onChange={(e) => e.target.value}
                                         >
-                                            {interest.map((inter: any) => (
-                                                <MenuItem id={inter.id} value={inter.name}>{inter.name}</MenuItem>
+                                            {products.map((product: any) => (
+                                                <MenuItem
+                                                    id={product.id}
+                                                    value={product.id + "/" + product.name}
+                                                >
+                                                    {product.name}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </Stack>
+                                    <Stack direction="column" spacing={3} sx={{ width: "100%" }} justifyContent="center">
+                                        <Typography variant="body1">Servicios asociados</Typography>
+                                        <Select
+                                            label="Servicios asociados"
+                                            placeholder="Servicios asociados"
+                                            variant="outlined"
+                                            defaultValue={""}
+                                            {...register("associatedService", { required: false })}
+                                            onChange={(e) => e.target.value}
+                                        >
+                                            {associatedServices.map((service: any) => (
+                                                <MenuItem
+                                                    id={service.id}
+                                                    value={service.id + "/" + service.name + "/" + service.allowPayment + "/"
+                                                        + service.paymentMethod + "/" + service.chargeVat + "/" + service.fee}>
+                                                    {service.name}
+                                                </MenuItem>
                                             ))}
                                         </Select>
                                     </Stack>
 
-
                                 </Stack>
-
-
                                 <Stack direction="row" spacing={3} sx={{ width: "100%" }} justifyContent="center">
                                     <Button variant="contained" type="submit">Crear</Button>
                                     <Button variant="contained" onClick={handleClose} color="error">Cancelar</Button>
