@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { Container, FormLabel, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
+import EnvManager from '../../../config/EnvManager';
+import { useNavigate } from 'react-router-dom';
 
+interface userProps {
+    username: string,
+    password: string
+}
+interface Props {
+    setUser: React.Dispatch<React.SetStateAction<userProps | null>>,
+    setIsLogged: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-const Login: React.FC = () => {
+const Login = ({ setUser, setIsLogged }: Props) => {
+
+    const navigate = useNavigate();
 
     const [userName, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -11,18 +23,25 @@ const Login: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
         try {
-            const response = await fetch('http://localhost:8083/api/client/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
-                body: JSON.stringify({
-                    userName: userName,
-                    password: password
-                })
-            })
-            if (!response.ok) {
-                throw new Error(response.statusText)
-            }
+            // const response = await fetch(`${EnvManager.CLIENT_URL}/api/client/login`, {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+            //     body: JSON.stringify({
+            //         userName: userName,
+            //         password: password
+            //     })
+            // })
+            // if (!response.ok) {
+            //     throw new Error(response.statusText)
+            // }
             alert("Ingresa con éxito")
+
+            // set general states
+            setUser({ username: userName, password: password })
+            setIsLogged(true)
+
+            navigate('/cliente')
+
         } catch (error) {
             console.error(error)
         }
@@ -49,6 +68,7 @@ const Login: React.FC = () => {
                 <FormLabel sx={formLabelStyles}>Contraseña:</FormLabel>
                 <TextField
                     value={password}
+                    type="password"
                     onChange={(event) => setPassword(event.target.value)}
                     variant="standard"
                 />

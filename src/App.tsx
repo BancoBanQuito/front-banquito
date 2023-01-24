@@ -4,7 +4,6 @@ import { Location } from "./pages/UserPages/Locations/Location";
 import theme from "./style/Theme";
 import Error404 from "./pages/ErrorPages/Error404";
 import { ThemeProvider } from "@mui/material";
-import HomeATM from "./pages/ATMPages/HomeATM";
 import HomeClient from "./pages/ClientPages/HomeClient";
 import HomeUser from "./pages/UserPages/HomeUser";
 import Login from "./components/organisms/Login/Login";
@@ -26,18 +25,109 @@ import InterestRateLog from './components/organisms/interestrate/InterestRateLog
 import Home from "./pages/Home";
 import CreateUser from "./components/organisms/Login/CreateUser";
 
+interface userProps {
+  username: string,
+  password: string
+}
+
 const App = () => {
 
   const [isLogged, setIsLogged] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState<userProps | null>(null);
+
+  const userRoutes = [
+    {
+      path: "",
+      element: <HomeUser user={user} isLogged={isLogged} />,
+    },
+    {
+      path: "ubicaciones",
+      element: <Location />,
+    },
+    {
+      path: "cuenta/crear",
+      element: <AccountCreateBank />,
+    },
+    {
+      path: "cuenta/estado",
+      element: <AccountStatementBank />,
+    },
+    {
+      path: "transaccion",
+      element: <TransferBank />,
+    },
+    {
+      path: "sucursales",
+      element: <BranchUser />,
+    },
+    {
+      path: "feriados",
+      element: <HolidayUser />
+    },
+    {
+      path: "account/signature",
+      element: <CreateSignature />,
+    },
+    {
+      path: "edit/account/signature",
+      element: <EditAccountSignature />,
+    },
+    {
+      path: "account/cancel",
+      element: <CancelAccount />,
+    },
+    {
+      path: "transaccion/dates",
+      element: <TransactionBeetwenDates />,
+    },
+    {
+      path: "interes",
+      element: <InterestRateLog />,
+    },
+    {
+      path: "agregar/tipo-de-producto",
+      element: <AccountCreateUser />,
+    },
+    {
+      path: "signup",
+      element: <CreateUser redirect="/usuario" />,
+    }
+  ];
+
+  const clientRoutes = [
+    {
+      path: "",
+      element: <HomeClient user={user} isLogged={isLogged} />,
+    },
+    {
+      path: "cuenta/crear",
+      element: <AccountCreateUser />,
+    },
+    {
+      path: "sucursales",
+      element: <Branch />
+    },
+    {
+      path: "cuenta/estado",
+      element: <AccountStatementClient />,
+    },
+    {
+      path: "transaccion",
+      element: <TransferUser />,
+    },
+    {
+      path: "signup",
+      element: <CreateUser redirect="/cliente" />,
+    }
+  ]
 
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path="" element={<Layout isLogged={true} user={{}} />}>
+          <Route path="" element={<Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />}>
             <Route index element={<Home />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login setUser={setUser} setIsLogged={setIsLogged} />} />
             {userRoutes.map((route) => (
               <Route
                 key={route.path}
@@ -59,88 +149,5 @@ const App = () => {
     </ThemeProvider>
   );
 };
-
-const userRoutes = [
-  {
-    path: "",
-    element: <HomeUser />,
-  },
-  {
-    path: "ubicaciones",
-    element: <Location />,
-  },
-  {
-    path: "cuenta/crear",
-    element: <AccountCreateBank />,
-  },
-  {
-    path: "cuenta/estado",
-    element: <AccountStatementBank />,
-  },
-  {
-    path: "transaccion",
-    element: <TransferBank />,
-  },
-  {
-    path: "sucursales",
-    element: <BranchUser />,
-  },
-  {
-    path: "feriados",
-    element:<HolidayUser/>
-
-  },
-  {
-    path: "account/signature",
-    element: <CreateSignature />,
-  },
-  {
-    path: "edit/account/signature",
-    element: <EditAccountSignature />,
-  },
-  {
-    path: "edit/account/cancel",
-    element: <CancelAccount />,
-  },
-  {
-    path: "transaccion/dates",
-    element: <TransactionBeetwenDates />,
-  },
-  {
-    path: "interest-rate",
-    element: <InterestRateLog />,
-  },
-  {
-    path: "agregar/tipo-de-producto",
-    element: <AccountCreateUser />,
-  }
-];
-
-const clientRoutes = [
-  {
-    path: "",
-    element: <HomeClient />,
-  },
-  {
-    path: "cuenta/crear",
-    element: <AccountCreateUser />,
-  },
-  {
-    path: "sucursales",
-    element: <Branch />
-  },
-  {
-    path: "cuenta/estado",
-    element: <AccountStatementClient />,
-  },
-  {
-    path: "transaccion",
-    element: <TransferUser />,
-  },
-  {
-    path: "singup",
-    element: <CreateUser />,
-  }
-]
 
 export default App;
