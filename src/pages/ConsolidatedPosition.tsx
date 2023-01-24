@@ -1,12 +1,8 @@
 import { useEffect, useState } from 'react';
 import TableMolecule from '../components/molecules/TableMolecule';
-import { Box, Button, Card, CardContent, Fade, Modal, Typography } from '@mui/material';
-import { Dropdown } from '../components/atoms/Dropdown';
-import { ConsolidatedPositionGet } from '../services/account/model/ConsolidatedPositionGet';
-import { ConsolidatedPositionService } from '../services/account/consolidatedPositionService';
+import { Card, CardContent, Fade, Typography } from '@mui/material';
 import { AccountResponse } from '../services/account/model/AccountResponse';
 import { AccountService } from '../services/account/accountService';
-import AccountSignatureEditForm from '../components/organisms/AccountSignature/AccountSignatureEditForm';
 import SearchAccount from '../components/organisms/SearchAccount';
 import { ColorPalette } from '../style/ColorPalette';
 

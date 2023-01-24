@@ -117,7 +117,11 @@ const InterestRateLog = () => {
         interestRate.status = status;
         let data: IInterestRateStatus = {
             id: interestRate.id,
-            status: interestRate.status
+            status: interestRate.status,
+            name: '',
+            type: '',
+            value: 0,
+            calcBase: ''
         }
 
         let response = await InterestRateService.updateInterestRateStatus(data);
@@ -201,7 +205,16 @@ const InterestRateLog = () => {
                 <div>
                     <SearchContainer>
                         <span>Buscar por Nombre: </span>
-                        <TextFieldAtom id="id" label="Nombre tasa de interes" color="primary" type="text" placeholder="id" variant="standard" action={(event) => setName(event.target.value)} />
+                        <TextFieldAtom
+                            id="id"
+                            label="Nombre tasa de interes"
+                            color="primary"
+                            type="text"
+                            placeholder="id"
+                            variant="standard"
+                            action={(event) => setName(event.target.value)}
+                            value=""
+                        />
                     </SearchContainer>
                     <ContentButtonAddRight>
                         <ButtonIcon color={ColorPalette.TERNARY} icon={<AddCircleIcon />} onClick={() => addValue()} top={true} />

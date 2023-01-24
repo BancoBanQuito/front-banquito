@@ -1,12 +1,12 @@
 import axios from "axios";
-import { GET_ACCOUNT_CONTROLLER_API, GET_INTEREST_CONTROLLER_API, GET_INVESTMENT_INTEREST_CONTROLLER_API } from "../../config/API";
-import { ResponseFormat } from "./ResponseFormat";
-import { InterestSavingAccount } from "./model/InterestSavingAccount";
+import { ResponseFormat } from "../ResponseFormat";
+import { InterestInvestment } from "./model/InterestInvestment";
+import { GET_INTEREST_FROM_TO_API } from "../../config/API";
 
 export class InterestSavingAccountService {
     public static async getInterestSavingAccount(codeLocalAccount: string, from: string, to: string) {
         try {
-            return await axios.get<ResponseFormat<InterestSavingAccount[]>>(GET_INTEREST_CONTROLLER_API(codeLocalAccount, from, to));
+            return await axios.get<ResponseFormat<InterestInvestment[]>>(GET_INTEREST_FROM_TO_API(codeLocalAccount, from, to));
         } catch (error) {
             throw error;
         }

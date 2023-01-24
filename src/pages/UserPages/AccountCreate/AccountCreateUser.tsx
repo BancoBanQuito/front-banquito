@@ -3,11 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { ProductService } from '../../../services/product/productService';
 import { AccountService } from '../../../services/account/accountService';
-import { Avatar, Box, Card, CardContent, Modal, Typography } from '@mui/material';
+import { Avatar, Card, CardContent } from '@mui/material';
 import StripeAtom from '../../../components/atoms/StripeAtom';
 import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg'
 import AccountFormBank from '../../../components/organisms/AccountFormBank';
-import { AccountPost } from '../../../services/account/model/AccountPost';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 

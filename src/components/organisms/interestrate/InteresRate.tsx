@@ -73,7 +73,7 @@ const InteresRate = () => {
 
     const [interesRate, setInteresRate] = useState('');
 
-    
+
 
     const headers = [
         <Typography>Nombre</Typography>,
@@ -96,38 +96,47 @@ const InteresRate = () => {
     return (
         <Container>
             <Content>
-            <ReturnButton>
-                <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspaceIcon />} onClick={() => console.log('Buscar')} top={true} />
-            </ReturnButton>
-            <div>
-                <h1>Tasas de Interés</h1>
-            </div>
-            {/* Buscar tasa de interes */}
-            <div>
-                <SearchContainer>
-
-                    <span>Nombre: </span>
-                    <TextFieldAtom id="id" label="Nombre tasa de interes" color="primary" type="text" placeholder="id" variant="standard" action={(event) => setInteresRate(event.target.value)} />
-                    <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
-                        icon={<SearchIcon />}
-                        onClick={() => console.log('Buscar')}
-                        text="Buscar"
-                        style={ButtonStyle.MEDIUM}
-                    />
-                </SearchContainer>
+                <ReturnButton>
+                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspaceIcon />} onClick={() => console.log('Buscar')} top={true} />
+                </ReturnButton>
                 <div>
-                    <TableMolecule headers={headers} rows={rows} />
+                    <h1>Tasas de Interés</h1>
                 </div>
+                {/* Buscar tasa de interes */}
+                <div>
+                    <SearchContainer>
 
-                <ContentButtonAddRight>
-                    <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
-                        icon={<AddIcon />}
-                        onClick={() => console.log('Buscar')}
-                        text="Agregar"
-                        style={ButtonStyle.BIG}
-                    />
-                </ContentButtonAddRight>
-            </div>
+                        <span>Nombre: </span>
+                        <TextFieldAtom
+                            id="id"
+                            label="Nombre tasa de interes"
+                            color="primary"
+                            type="text"
+                            placeholder="id"
+                            variant="standard"
+                            action={(event) => setInteresRate(event.target.value)}
+                            value={interesRate}
+                        />
+                        <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
+                            icon={<SearchIcon />}
+                            onClick={() => console.log('Buscar')}
+                            text="Buscar"
+                            style={ButtonStyle.MEDIUM}
+                        />
+                    </SearchContainer>
+                    <div>
+                        <TableMolecule headers={headers} rows={rows} />
+                    </div>
+
+                    <ContentButtonAddRight>
+                        <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
+                            icon={<AddIcon />}
+                            onClick={() => console.log('Buscar')}
+                            text="Agregar"
+                            style={ButtonStyle.BIG}
+                        />
+                    </ContentButtonAddRight>
+                </div>
             </Content>
         </Container>
     )
