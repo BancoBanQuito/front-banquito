@@ -35,6 +35,7 @@ import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
 import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
+import CreateRequestService from './pages/CreateRequestService';
 
 const App = () => {
 
@@ -107,7 +108,27 @@ const App = () => {
     {
       path: "signup",
       element: <CreateUser redirect="/usuario" />,
+    },
+    {
+      path: "producto",
+      element: <Product />,
+    },
+    {
+      path: "tipo-de-producto",
+      element: <ProductType />,
+    },
+    {
+      path: "producto/servicio",
+      element: <CreateRequestService 
+        openDialog={true}
+      />,
+    },{
+      path: "producto-vincular-servicio",
+      element: <ProductLinkAssociatedService 
+      onSubmit={() => {}}
+      />,
     }
+
   ];
 
   const clientRoutes = [
