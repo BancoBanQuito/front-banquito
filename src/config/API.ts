@@ -1,5 +1,5 @@
-const HOST_ACCOUNT = "http://localhost:9001"
-const HOST_TRANSACTION = "http://localhost:9002"
+const HOST_ACCOUNT = "https://916e-190-63-97-92.ngrok.io"
+const HOST_TRANSACTION = "https://c2a6-190-63-97-92.ngrok.io/"
 
 
 //#region ACCOUNT STATEMENT
