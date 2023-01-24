@@ -47,16 +47,10 @@ const AccountStatementBank = () => {
         setactiveAccountStatement(true);
     }
 
-    const searchAccountStatement = async (identification: string, identificationType?: string) => {
+    const searchAccountStatement = async (codeLocalAccount: string, identificationType?: string) => {
         setisLoading(true);
         try {
-            const { codeLocalAccount, codeInternationalAccount }: any = (await AccountService.getAccountsById(identification, identificationType || "DNI")).data?.data?.at(0);
-            if (!!codeLocalAccount && !!codeInternationalAccount) {
-                setactiveErrorModal(true);
-                seterrorMessage("No se han encontrado datos");
-                return;
-            }
-            const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount, codeInternationalAccount)).data.data;
+            const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount)).data.data;
             if (data) {
                 // setaccountStatements(data);
                 setaccountStatement(data);

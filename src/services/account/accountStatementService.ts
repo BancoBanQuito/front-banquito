@@ -14,10 +14,10 @@ export class AccountStatementService {
         }
     }
 
-    public static async getStatementCurrent(codeLocalAccount: string, codeInternationalAccount: string) {
+    public static async getStatementCurrent(codeLocalAccount: string) {
         try {
             return await axios
-                .get<ResponseFormat<AccountStament>>(GET_ACCOUNT_STATEMENT_CURRENT_API(codeLocalAccount, codeInternationalAccount));
+                .get<ResponseFormat<AccountStament>>(GET_ACCOUNT_STATEMENT_CURRENT_API(codeLocalAccount, ''));
         } catch (error) {
             throw error;
         }
