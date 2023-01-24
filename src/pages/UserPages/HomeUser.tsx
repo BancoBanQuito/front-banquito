@@ -63,6 +63,16 @@ const HomeUser = ({ user, isLogged }: Props) => {
                   palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
                   onClick={() => navigate("/usuario/transaccion")}
                 />
+                <SizeButton text='Ver banco'
+                  style={ButtonStyle.MEDIUM}
+                  palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
+                  onClick={() => navigate("/usuario/entidad")}
+                />
+                <SizeButton text='Editar banco'
+                  style={ButtonStyle.MEDIUM}
+                  palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
+                  onClick={() => navigate("/usuario/actualizar/entidad")}
+                />
                 <SizeButton text='Ver Sucursales'
                   style={ButtonStyle.MEDIUM}
                   palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}

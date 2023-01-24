@@ -92,6 +92,16 @@ const App = () => {
       element: <AccountCreateUser />,
     },
     {
+      path: "entidad",
+      element: <BankEntity />,
+
+    },
+    {
+      path: "actualizar/entidad",
+      element: <UpdateBankEntity />,
+
+    },
+    {
       path: "signup",
       element: <CreateUser redirect="/usuario" />,
     }
@@ -152,98 +162,5 @@ const App = () => {
     </ThemeProvider>
   );
 };
-
-const userRoutes = [
-  {
-    path: "",
-    element: <HomeUser />,
-  },
-  {
-    path: "ubicaciones",
-    element: <Location />,
-  },
-  {
-    path: "cuenta/crear",
-    element: <AccountCreateBank />,
-  },
-  {
-    path: "cuenta/estado",
-    element: <AccountStatementBank />,
-  },
-  {
-    path: "transaccion",
-    element: <TransferBank />,
-  },
-  {
-    path: "sucursales",
-    element: <BranchUser />,
-  },
-  {
-    path: "feriados",
-    element: <HolidayUser />
-
-  },
-  {
-    path: "account/signature",
-    element: <CreateSignature />,
-  },
-  {
-    path: "edit/account/signature",
-    element: <EditAccountSignature />,
-  },
-  {
-    path: "edit/account/cancel",
-    element: <CancelAccount />,
-  },
-  {
-    path: "account/consolidado",
-    element: <ConsolidatedPosition />,
-  },
-  {
-    path: "transaccion/dates",
-    element: <TransactionBeetwenDates />,
-  },
-  {
-    path: "interest-rate",
-    element: <InterestRateLog />,
-  },
-  {
-    path: "agregar/tipo-de-producto",
-    element: <AccountCreateUser />,
-  },
-  {
-    path: "entidad",
-    element: <BankEntity />,
-
-  },
-  {
-    path: "actualizar/entidad",
-    element: <UpdateBankEntity />,
-
-  }
-];
-
-const clientRoutes = [
-  {
-    path: "",
-    element: <HomeClient />,
-  },
-  {
-    path: "cuenta/crear",
-    element: <AccountCreateUser />,
-  },
-  {
-    path: "sucursales",
-    element: <Branch />
-  },
-  {
-    path: "cuenta/estado",
-    element: <AccountStatementClient />,
-  },
-  {
-    path: "transaccion",
-    element: <TransferUser />,
-  },
-]
 
 export default App;
