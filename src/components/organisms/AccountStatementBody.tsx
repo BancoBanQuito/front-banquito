@@ -10,9 +10,6 @@ interface AccountStatementProps {
 }
 
 const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref) => {
-
-    console.log(props.accountStatement);
-
     const getRow = (data: any) => {
         return [
             <Typography></Typography>,
