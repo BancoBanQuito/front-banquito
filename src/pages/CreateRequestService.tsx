@@ -46,9 +46,6 @@ export const ReturnButton = styled.div`
   top: 0;
 `;
 
-export const backgroudTypho = styled.div`
-    background-colr: url
-`;
 
 export const SearchContainer = styled.div`
     display: flex;
@@ -87,6 +84,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
     const methods = useForm();
     const { register, handleSubmit } = methods;
     const [accountdata, setAccountData] = useState(false);
+    const [product, setProduct] = useState<any[]>([]);
 
     const handleClose = () => {
         methods.reset({ name: "" }, { keepValues: false });
@@ -120,6 +118,19 @@ const CreateRequestService = ({ openDialog }: Props) => {
             });
             const data = await response.json();
             setAssociatedService(data);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getProduct = async () => {
+        try {
+            const response = await fetch(`http://localhost:8087/api/products/products`, {
+                method: 'GET',
+            });
+            const data = await response.json();
+            setProduct(data);
 
         } catch (error) {
             console.log(error);
@@ -160,7 +171,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
 
     useEffect(() => {
         getAssociatedService();
-
+        getProduct();
     }, [])
 
     const handleOpenProduct = () => setOpen(true);
@@ -172,7 +183,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
                     <ButtonIcon
                         color={ColorPalette.PRIMARY}
                         icon={<KeyboardBackspaceIcon />}
-                        onClick={() => console.log("Buscar")}
+                        onClick={() => console.log(product)}
                         top={true}
                     />
                 </ReturnButton>
@@ -204,7 +215,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
                             <CardActionArea onClick={handleOpenProduct} >
                                 <CardContent>
                                     <Typography gutterBottom variant="h6" component="h2" color="common.white">
-                                        Cuenta corriente
+                                        Cuenta ahorros
                                     </Typography>
                                     <Typography gutterBottom variant="subtitle1" component="h2" color="common.white">
                                         2265987412
@@ -238,7 +249,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
                                                     >
                                                         {associtedService.map((service: any) => (
                                                             <MenuItem id={service.id} value={service.name}>{service.name}</MenuItem>
-                                                            
+
                                                         ))}
                                                     </Select>
                                                 </Stack>
@@ -252,7 +263,6 @@ const CreateRequestService = ({ openDialog }: Props) => {
                             </Stack>
                         </Stack>
                     </Dialog>
-
                 </div>
             </Content>
         </Container>
