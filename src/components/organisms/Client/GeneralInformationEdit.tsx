@@ -7,9 +7,6 @@ import { Dayjs } from "dayjs";
 import { Canton, Province } from "../Location/types";
 //import LoginBox from "./LoginBox";
 import Button from "@mui/material/Button";
-import { Dropdown } from "../../atoms/Dropdown";
-import { ColorPalette } from "../../../style/ColorPalette";
-import DatePickerAtom from "../../atoms/DatePicker";
 
 export const GeneralInformation = () => {
   const [identification, setIdentification] = useState<string>("");
@@ -54,90 +51,6 @@ export const GeneralInformation = () => {
   const [code, setCode] = useState<string>("");
   const [status, setStatus] = useState<string>("");
 
-  const maritalItems = [
-    {
-      name: "Casado",
-      value: "casado",
-    },
-    {
-      name: "Soltero",
-      value: "soltero",
-    },
-    {
-      name: "Viudo",
-      value: "viudo",
-    },
-    {
-      name: "Divorciado",
-      value: "divorciado",
-    },
-    {
-      name: "Union de echo",
-      value: "Union de echo",
-    },
-  ];
-  const identificationItems = [
-    {
-      name: "DNI",
-      value: "DNI",
-    },
-    {
-      name: "RUC",
-      value: "RUC",
-    },
-    {
-      name: "Passporte",
-      value: "PAS",
-    },
-  ];
-
-  const genderItems = [
-    {
-      name: "Femenino",
-      value: "F",
-    },
-    {
-      name: "Masculino",
-      value: "M",
-    },
-  ];
-
-  const relationItems = [
-    {
-      name: "Activo",
-      value: "ACT",
-    },
-    {
-      name: "Desactivo",
-      value: "DES",
-    },
-  ];
-  const phoneTypeItems = [
-    {
-      name: "Movil",
-      value: "MBL",
-    },
-    {
-      name: "Convencional",
-      value: "CON",
-    },
-  ];
-
-  const handleOnChangeIdentificaction = (value: string) => {
-    setIdentificationType(value);
-  };
-  const handleOnChangeGender = (value: string) => {
-    setGender(value);
-  };
-  const handleOnChangeMarital = (value: string) => {
-    setMaritalStatus(value);
-  };
-  const handleOnChangePhone = (value: string) => {
-    setPhoneType(value);
-  };
-  const handleOnChangeRelation = (value: string) => {
-    setStatus(value);
-  };
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
@@ -158,13 +71,13 @@ export const GeneralInformation = () => {
           career: career,
           companyName: companyName,
           companyType: companyType,
-          createDateCompany: "2001-01-01T00:00:00.000+00:00",
-          appLegalRepresent: "",
+          createDateCompany: createDateCompany,
+          appLegalRepresent: appLegalRepresent,
           articlesAssociatedDoc: articlesAssociatedDoc,
           basicServicesDocument: basicServicesDocument,
           fingerPrint: fingerPrint,
           incomeTaxDocument: incomeTaxDocument,
-          lastStatusDate: "2020-01-23T00:00:00.000+00:00",
+          lastStatusDate: "2001-01-01T00:00:00.000+00:00",
           maritalStatus: maritalStatus,
           monthlyAvgIncome: monthlyAvgIncome,
           nationality: nationality,
@@ -198,8 +111,8 @@ export const GeneralInformation = () => {
           relationship: [
             {
               name: name,
-              startDate: "2020-01-23T00:00:00.000+00:00",
-              endDate: "2020-01-23T00:00:00.000+00:00",
+              startDate: "2001-01-01T00:00:00.000+00:00",
+              endDate: "2001-01-01T00:00:00.000+00:00",
             },
           ],
           segment: [
@@ -224,12 +137,12 @@ export const GeneralInformation = () => {
     <>
       <Container sx={containertTitleStyles}>
         <Typography variant="h5" align="center">
-          Crear Cliente
+          Crear Usuario
         </Typography>
       </Container>
       <Container sx={containerStyles}></Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Identificacion:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Número de identificación:</FormLabel>
         <TextField
           value={identification}
           onChange={(event) => setIdentification(event.target.value)}
@@ -237,18 +150,15 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Tipo Identificacion:</FormLabel>
-        <Dropdown
-          backgroundColor={ColorPalette.TERNARY}
-          height="5%"
-          width="20%"
-          label="Estado"
-          items={identificationItems}
-          onChange={handleOnChangeIdentificaction}
+        <FormLabel sx={formLabelStyles}>Tipo de identificación:</FormLabel>
+        <TextField
+          value={identificationType}
+          onChange={(event) => setIdentificationType(event.target.value)}
+          variant="standard"
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Apellido:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Lastname:</FormLabel>
         <TextField
           value={lastname}
           onChange={(event) => setLastname(event.target.value)}
@@ -256,7 +166,7 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Nombre:</FormLabel>
+        <FormLabel sx={formLabelStyles}>First name</FormLabel>
         <TextField
           value={firstname}
           onChange={(event) => setFirstname(event.target.value)}
@@ -272,27 +182,23 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Fecha de nacimiento:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Birth Date:</FormLabel>
         <TextField
-          placeholder="2020-01-23"
           value={birthDate}
           onChange={(event) => setBirthDate(event.target.value)}
           variant="standard"
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Genero:</FormLabel>
-        <Dropdown
-          backgroundColor={ColorPalette.TERNARY}
-          height="5%"
-          width="20%"
-          label="Estado"
-          items={genderItems}
-          onChange={handleOnChangeGender}
+        <FormLabel sx={formLabelStyles}>Gender:</FormLabel>
+        <TextField
+          value={gender}
+          onChange={(event) => setGender(event.target.value)}
+          variant="standard"
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Carerra:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Career:</FormLabel>
         <TextField
           value={career}
           onChange={(event) => setCareer(event.target.value)}
@@ -300,7 +206,7 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Nombre de compañia:</FormLabel>
+        <FormLabel sx={formLabelStyles}>companyName:</FormLabel>
         <TextField
           value={companyName}
           onChange={(event) => setCompanyName(event.target.value)}
@@ -308,16 +214,31 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Tipo de compañia:</FormLabel>
+        <FormLabel sx={formLabelStyles}>companyType:</FormLabel>
         <TextField
           value={companyType}
           onChange={(event) => setCompanyType(event.target.value)}
           variant="standard"
         />
       </Container>
-
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Articulos Asociados:</FormLabel>
+        <FormLabel sx={formLabelStyles}>createDateCompany:</FormLabel>
+        <TextField
+          value={createDateCompany}
+          onChange={(event) => setCreateDateCompany(event.target.value)}
+          variant="standard"
+        />
+      </Container>
+      <Container sx={containerTextFieldStyles}>
+        <FormLabel sx={formLabelStyles}>appLegalRepresent:</FormLabel>
+        <TextField
+          value={appLegalRepresent}
+          onChange={(event) => setAppLegalRepresent(event.target.value)}
+          variant="standard"
+        />
+      </Container>
+      <Container sx={containerTextFieldStyles}>
+        <FormLabel sx={formLabelStyles}>articlesAssociatedDoc:</FormLabel>
         <TextField
           value={articlesAssociatedDoc}
           onChange={(event) => setArticlesAssociatedDoc(event.target.value)}
@@ -325,7 +246,7 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Servicios Basicos:</FormLabel>
+        <FormLabel sx={formLabelStyles}>basicServicesDocument:</FormLabel>
         <TextField
           value={basicServicesDocument}
           onChange={(event) => setBasicServicesDocument(event.target.value)}
@@ -333,7 +254,7 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Huella Digital</FormLabel>
+        <FormLabel sx={formLabelStyles}>fingerPrint</FormLabel>
         <TextField
           value={fingerPrint}
           onChange={(event) => setFingerPrint(event.target.value)}
@@ -341,7 +262,7 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Impuesto:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Income Tax Document:</FormLabel>
         <TextField
           value={incomeTaxDocument}
           onChange={(event) => setIncomeTaxDocument(event.target.value)}
@@ -350,7 +271,7 @@ export const GeneralInformation = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Ingreso Promedio Mensual:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Monthly Average Income:</FormLabel>
         <TextField
           value={monthlyAvgIncome}
           onChange={(event) => setMonthlyAvgIncome(event.target.value)}
@@ -359,18 +280,15 @@ export const GeneralInformation = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Estado Civil:</FormLabel>
-        <Dropdown
-          backgroundColor={ColorPalette.TERNARY}
-          height="5%"
-          width="20%"
-          label="Estado civil"
-          items={maritalItems}
-          onChange={handleOnChangeMarital}
+        <FormLabel sx={formLabelStyles}>Marital Status:</FormLabel>
+        <TextField
+          value={maritalStatus}
+          onChange={(event) => setMaritalStatus(event.target.value)}
+          variant="standard"
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Nacionalidad:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Nationality:</FormLabel>
         <TextField
           value={nationality}
           onChange={(event) => setNationality(event.target.value)}
@@ -379,7 +297,7 @@ export const GeneralInformation = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Firma:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Signature:</FormLabel>
         <TextField
           value={signature}
           onChange={(event) => setSignature(event.target.value)}
@@ -388,7 +306,7 @@ export const GeneralInformation = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Pago de impuestos:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Tax Payment Place:</FormLabel>
         <TextField
           value={taxPaymentPlace}
           onChange={(event) => setTaxPaymentPlace(event.target.value)}
@@ -397,7 +315,7 @@ export const GeneralInformation = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>TIN:</FormLabel>
+        <FormLabel sx={formLabelStyles}>TIN Document:</FormLabel>
         <TextField
           value={tinDocument}
           onChange={(event) => setTinDocument(event.target.value)}
@@ -405,7 +323,7 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Estado de Trabajo:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Work Status:</FormLabel>
         <TextField
           value={workStatus}
           onChange={(event) => setWorkStatus(event.target.value)}
@@ -419,7 +337,7 @@ export const GeneralInformation = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Codigo de Localizacion:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Code Location:</FormLabel>
         <TextField
           value={codeLocation}
           onChange={(event) => setCodeLocation(event.target.value)}
@@ -427,7 +345,7 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Linea Uno:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Line One:</FormLabel>
         <TextField
           value={lineOne}
           onChange={(event) => setLineOne(event.target.value)}
@@ -435,7 +353,7 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Linea Dos:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Line Two:</FormLabel>
         <TextField
           value={lineTwo}
           onChange={(event) => setLineTwo(event.target.value)}
@@ -443,7 +361,7 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Latitud:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Latitude:</FormLabel>
         <TextField
           value={latitude}
           onChange={(event) => setLatitude(event.target.value)}
@@ -451,7 +369,7 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Longitud:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Longitude:</FormLabel>
         <TextField
           value={longitude}
           onChange={(event) => setLongitude(event.target.value)}
@@ -464,7 +382,7 @@ export const GeneralInformation = () => {
         </Typography>
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Numero Telefonico:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Phone Number:</FormLabel>
         <TextField
           value={phoneNumber}
           onChange={(event) => setPhoneNumber(event.target.value)}
@@ -473,23 +391,20 @@ export const GeneralInformation = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Tipo telefonico:</FormLabel>
-        <Dropdown
-          backgroundColor={ColorPalette.TERNARY}
-          height="5%"
-          width="20%"
-          label="Selecionar"
-          items={phoneTypeItems}
-          onChange={handleOnChangePhone}
+        <FormLabel sx={formLabelStyles}>Phone Type:</FormLabel>
+        <TextField
+          value={phoneType}
+          onChange={(event) => setPhoneType(event.target.value)}
+          variant="standard"
         />
       </Container>
       <Container sx={containertTitleStyles}>
         <Typography variant="h5" align="center">
-          Referencias
+          Crear Usuario
         </Typography>
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Nombre:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Name:</FormLabel>
         <TextField
           value={name}
           onChange={(event) => setName(event.target.value)}
@@ -497,7 +412,7 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Telefono:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Phone:</FormLabel>
         <TextField
           value={phone}
           onChange={(event) => setPhone(event.target.value)}
@@ -506,20 +421,16 @@ export const GeneralInformation = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Relacion:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Related:</FormLabel>
         <TextField
           value={related}
           onChange={(event) => setRelated(event.target.value)}
           variant="standard"
         />
       </Container>
-      <Container sx={containertTitleStyles}>
-        <Typography variant="h5" align="center">
-          Relaciones
-        </Typography>
-      </Container>
+
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Nombre:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Code:</FormLabel>
         <TextField
           value={code}
           onChange={(event) => setCode(event.target.value)}
@@ -527,19 +438,16 @@ export const GeneralInformation = () => {
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Estado:</FormLabel>
-        <Dropdown
-          backgroundColor={ColorPalette.TERNARY}
-          height="5%"
-          width="20%"
-          label="Selecionar"
-          items={relationItems}
-          onChange={handleOnChangeRelation}
+        <FormLabel sx={formLabelStyles}>status:</FormLabel>
+        <TextField
+          value={status}
+          onChange={(event) => setStatus(event.target.value)}
+          variant="standard"
         />
       </Container>
       <Container sx={containerTextFieldStyles}>
         <Button onClick={handleSubmit} sx={buttonStyles}>
-          Crear
+          Crear usuario
         </Button>
       </Container>
     </>

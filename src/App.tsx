@@ -23,12 +23,11 @@ import BranchUser from "./pages/UserPages/Branches/BranchUser";
 import { GeneralInformation } from "./components/organisms/Client/GeneralInformation";
 
 const App = () => {
-
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState({});
 
   return (
-    /*<ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
           <Route path="" element={<Layout isLogged={true} user={{}} />}>
@@ -52,8 +51,7 @@ const App = () => {
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
-    </ThemeProvider>*/
-    <GeneralInformation/>
+    </ThemeProvider>
   );
 };
 
@@ -93,7 +91,7 @@ const userRoutes = [
   {
     path: "edit/account/cancel",
     element: <CancelAccount />,
-  }
+  },
 ];
 
 const clientRoutes = [
@@ -107,7 +105,7 @@ const clientRoutes = [
   },
   {
     path: "sucursales",
-    element: <Branch />
+    element: <Branch />,
   },
   {
     path: "cuenta/estado",
@@ -117,6 +115,6 @@ const clientRoutes = [
     path: "transaccion",
     element: <TransferUser />,
   },
-]
+];
 
 export default App;
