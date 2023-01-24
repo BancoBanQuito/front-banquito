@@ -5,7 +5,7 @@ import { ColorPalette } from '../../../style/ColorPalette';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import TextFieldAtom from '../../atoms/TextFieldAtom';
 import { Dropdown } from '../../atoms/Dropdown';
-import { AccountSignature } from '../../../services/account/model/AccountSignature';
+import { AccountSignature } from '../../../services/account/dto/AccountSignature';
 
 const statusItems = [
     {

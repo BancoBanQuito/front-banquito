@@ -3,7 +3,7 @@ import { Box, SxProps, Theme } from '@mui/system'
 import { ButtonStyle } from '../../style/ButtonStyle'
 import { ColorPalette } from '../../style/ColorPalette'
 import { SizeButton } from '../atoms/SizeButton'
-import { TransactionPost } from '../../services/account/model/TransactionPost'
+import { TransactionPost } from '../../services/account/dto/TransactionPost'
 
 interface ConfirmFormProps {
     data: TransactionPost,

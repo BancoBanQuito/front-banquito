@@ -1,7 +1,7 @@
 import React, { LegacyRef, useEffect, useState } from 'react';
 import { Box, Grid, Container, Typography } from '@mui/material';
 import { ColorPalette } from '../../../style/ColorPalette';
-import { AccountStament } from '../../../services/account/model/AccountStatement';
+import { AccountStament } from '../../../services/account/dto/AccountStatement';
 import TableMolecule from '../../molecules/TableMolecule';
 import { Dropdown } from '../../atoms/Dropdown';
 

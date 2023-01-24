@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react'
-import { AccountStament } from '../../../services/account/model/AccountStatement'
+import { AccountStament } from '../../../services/account/dto/AccountStatement'
 import TableMolecule from '../../molecules/TableMolecule'
 import { Box, InputAdornment, TextField, Typography } from '@mui/material'
 import { ColorPalette } from '../../../style/ColorPalette'

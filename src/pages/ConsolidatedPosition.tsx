@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import TableMolecule from '../components/molecules/TableMolecule';
 import { Card, CardContent, Fade, Typography } from '@mui/material';
-import { AccountResponse } from '../services/account/model/AccountResponse';
-import { AccountService } from '../services/account/accountService';
+import { AccountResponse } from '../services/account/dto/AccountResponse';
+import { AccountService } from '../services/account/AccountService';
 import SearchAccount from '../components/organisms/SearchAccount';
 import { ColorPalette } from '../style/ColorPalette';
 

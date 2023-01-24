@@ -3,8 +3,8 @@ import { Box } from '@mui/system'
 import { Fade, Modal, Typography } from '@mui/material'
 import { ColorPalette } from '../../../style/ColorPalette'
 import { ChevronLeft, Print } from '@mui/icons-material'
-import { AccountStament } from '../../../services/account/model/AccountStatement'
-import { AccountStatementService } from '../../../services/account/accountStatementService'
+import { AccountStament } from '../../../services/account/dto/AccountStatement'
+import { AccountStatementService } from '../../../services/account/AccountStatementService'
 import ButtonIcon from '../../../components/atoms/ButtonIcon'
 import ReactToPrint from 'react-to-print'
 import AccountStatementBody from '../../../components/organisms/AccountStatement/AccountStatementBody'
@@ -12,7 +12,7 @@ import AccountStatementTable from '../../../components/organisms/AccountStatemen
 import { useNavigate } from 'react-router-dom'
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism'
 import LoadOrganism from '../../../components/organisms/LoadOrganism'
-import { AccountService } from '../../../services/account/accountService'
+import { AccountService } from '../../../services/account/AccountService'
 
 const AccountStatementClient = () => {
 

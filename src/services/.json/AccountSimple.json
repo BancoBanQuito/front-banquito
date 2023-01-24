@@ -1,0 +1,14 @@
+[
+    {
+        "codeLocalAccount": "123456789",
+        "codeInternationalAccount": "123456789",
+        "status": "ACT",
+        "product": "ed3140ca2610b20511542066357b121f"
+    },
+    {
+        "codeLocalAccount": "123456799",
+        "codeInternationalAccount": "123456799",
+        "status": "ACT",
+        "product": "4a169d2a0801710e895b0cb2abcfabdb"
+    }
+]

@@ -1,0 +1,91 @@
+[
+    {
+        "localCodeAccount": "123456789",
+        "lastCutOffDate": "2023-01-01T00:00:00",
+        "currentCutOffDate": "2023-01-01T00:00:00",
+        "creditMovements": 0,
+        "debitMovements": 0,
+        "interest": 0,
+        "previousBalance": 0,
+        "currentBalance": 0,
+        "averageBalance": 0,
+        "transactions": [
+            {
+                "date": "2023-01-01T00:00:00",
+                "movement": "Credito",
+                "concept": "Debito",
+                "amount": 0,
+                "balance": 0
+            },
+            {
+                "date": "2023-01-01T00:00:00",
+                "movement": "Credito",
+                "concept": "Debito",
+                "amount": 0,
+                "balance": 0
+            },
+            {
+                "date": "2023-01-01T00:00:00",
+                "movement": "Credito",
+                "concept": "Debito",
+                "amount": 0,
+                "balance": 0
+            }
+        ]
+    },
+    {
+        "localCodeAccount": "123456799",
+        "lastCutOffDate": "2023-01-01T00:00:00",
+        "currentCutOffDate": "2023-01-01T00:00:00",
+        "creditMovements": 0,
+        "debitMovements": 0,
+        "interest": 0,
+        "previousBalance": 0,
+        "currentBalance": 0,
+        "averageBalance": 0,
+        "transactions": [
+            {
+                "date": "2023-01-01T00:00:00",
+                "movement": "Credito",
+                "concept": "Debito",
+                "amount": 0,
+                "balance": 0
+            },
+            {
+                "date": "2023-01-01T00:00:00",
+                "movement": "Credito",
+                "concept": "Debito",
+                "amount": 0,
+                "balance": 0
+            },
+            {
+                "date": "2023-01-01T00:00:00",
+                "movement": "Credito",
+                "concept": "Debito",
+                "amount": 0,
+                "balance": 0
+            },
+            {
+                "date": "2023-01-01T00:00:00",
+                "movement": "Credito",
+                "concept": "Debito",
+                "amount": 0,
+                "balance": 0
+            },
+            {
+                "date": "2023-01-01T00:00:00",
+                "movement": "Credito",
+                "concept": "Debito",
+                "amount": 0,
+                "balance": 0
+            },
+            {
+                "date": "2023-01-01T00:00:00",
+                "movement": "Credito",
+                "concept": "Debito",
+                "amount": 0,
+                "balance": 0
+            }
+        ]
+    }
+]

@@ -5,9 +5,9 @@ import AccountSignatureTableOranism from "../components/organisms/AccountSignatu
 import AccountSignatureEditForm from "../components/organisms/AccountSignature/AccountSignatureEditForm";
 import { AccountSignatureService } from "../services/account/AccountSignatureService";
 import SearchAccount from "../components/organisms/SearchAccount";
-import { AccountSignature } from "../services/account/model/AccountSignature";
-import { AccountService } from "../services/account/accountService";
-import { AccountResponse } from "../services/account/model/AccountResponse";
+import { AccountSignature } from "../services/account/dto/AccountSignature";
+import { AccountService } from "../services/account/AccountService";
+import { AccountResponse } from "../services/account/dto/AccountResponse";
 
 const EditAccountSignature = () => {
 

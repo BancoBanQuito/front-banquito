@@ -7,10 +7,10 @@ import TransferDataForm from '../../../components/organisms/TransferDataForm';
 import TransferAmountForm from '../../../components/organisms/TransferAmountForm';
 import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
-import { TransactionService } from '../../../services/account/transactionService';
-import { TransactionPost } from '../../../services/account/model/TransactionPost';
-import { AccountSimple } from '../../../services/account/model/AccountSimple';
-import { AccountService } from '../../../services/account/accountService';
+import { TransactionService } from '../../../services/transaction/TransactionService';
+import { TransactionPost } from '../../../services/account/dto/TransactionPost';
+import { AccountSimple } from '../../../services/account/dto/AccountSimple';
+import { AccountService } from '../../../services/account/AccountService';
 
 const TransferUser = () => {
 

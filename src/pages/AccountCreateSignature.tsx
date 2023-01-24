@@ -7,8 +7,8 @@ import { ColorPalette } from "../style/ColorPalette";
 import { SizeButton } from "../components/atoms/SizeButton";
 import { ButtonStyle } from "../style/ButtonStyle";
 import { AccountSignatureService } from "../services/account/AccountSignatureService";
-import { AccountSimple } from "../services/account/model/AccountSimple";
-import { AccountService } from "../services/account/accountService";
+import { AccountSimple } from "../services/account/dto/AccountSimple";
+import { AccountService } from "../services/account/AccountService";
 
 interface FormData {
   accountNumber: string,

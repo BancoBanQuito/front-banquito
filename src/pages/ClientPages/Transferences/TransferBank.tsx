@@ -6,8 +6,8 @@ import { ColorPalette } from '../../../style/ColorPalette';
 import TransferDataForm from '../../../components/organisms/TransferDataForm';
 import TransferAmountForm from '../../../components/organisms/TransferAmountForm';
 import { Box } from '@mui/material';
-import { TransactionPost } from '../../../services/account/model/TransactionPost';
-import { TransactionService } from '../../../services/account/transactionService';
+import { TransactionPost } from '../../../services/account/dto/TransactionPost';
+import { TransactionService } from '../../../services/transaction/TransactionService';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 
 const TransferBank = () => {

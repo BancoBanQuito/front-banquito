@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { ProductService } from '../../../services/product/productService';
-import { AccountService } from '../../../services/account/accountService';
+import { AccountService } from '../../../services/account/AccountService';
 import { Avatar, Card, CardContent } from '@mui/material';
 import StripeAtom from '../../../components/atoms/StripeAtom';
 import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg'

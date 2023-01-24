@@ -9,7 +9,7 @@ import { SizeButton } from "../../../components/atoms/SizeButton";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import AccountSignatureTableOranism from "../../../components/organisms/AccountSignature/AccountSignatureTableOranism";
 import AccountSignatureEditForm from "../../../components/organisms/AccountSignature/AccountSignatureEditForm";
-import { AccountSignature } from "../../../services/account/model/AccountSignature";
+import { AccountSignature } from "../../../services/account/dto/AccountSignature";
 
 const signatureExample: AccountSignature[] = [
   {

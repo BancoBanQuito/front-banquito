@@ -4,7 +4,7 @@ import { ButtonStyle } from '../../../style/ButtonStyle'
 import { ColorPalette } from '../../../style/ColorPalette'
 import { SizeButton } from '../../atoms/SizeButton'
 import TableMolecule from '../../molecules/TableMolecule'
-import { AccountSignature } from '../../../services/account/model/AccountSignature'
+import { AccountSignature } from '../../../services/account/dto/AccountSignature'
 
 interface AccountSignatureTableOranismProps {
     accountSignature: AccountSignature[],
