@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Location } from "./pages/UserPages/Locations/Location";
 import theme from "./style/Theme";
 import Error404 from "./pages/ErrorPages/Error404";
@@ -17,9 +16,11 @@ import TransferUser from "./pages/UserPages/Transferences/TransferUser";
 import TransferBank from "./pages/ClientPages/Transferences/TransferBank";
 import AccountCreateBank from "./pages/ClientPages/Account/AccountCreateBank";
 import Branch from "./pages/ClientPages/Branches/Branch";
-import AccountStatementBank from "./pages/UserPages/AccountStatement/AccountStatementBank";
+import AccountStatementBank from "./pages/ClientPages/AccountStatement/AccountStatementBank";
 import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ConsolidatedPosition from "./pages/ConsolidatedPosition";
 import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
 import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
 import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
@@ -88,7 +89,7 @@ const userRoutes = [
   },
   {
     path: "feriados",
-    element:<HolidayUser/>
+    element: <HolidayUser />
 
   },
   {
@@ -102,6 +103,10 @@ const userRoutes = [
   {
     path: "edit/account/cancel",
     element: <CancelAccount />,
+  },
+  {
+    path: "account/consolidado",
+    element: <ConsolidatedPosition />,
   },
   {
     path: "transaccion/dates",

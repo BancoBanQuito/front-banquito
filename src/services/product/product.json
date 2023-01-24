@@ -1,55 +1,39 @@
 [
     {
-        "codeProductType": "1",
-        "name": "Interes",
+        "codeProductType": "be04e60db27fd509df44cfdb72dcfd74",
+        "name": "Inversion",
         "products": [
             {
-                "name": "Interes 1",
-                "codeProduct": "12345"
+                "name": "Inversion Estandar",
+                "codeProduct": "96d6161f059d93659aa1ef4662260768"
             },
             {
-                "name": "Interes 2",
-                "codeProduct": "12345"
-            },
-            {
-                "name": "Interes 3",
-                "codeProduct": "12345"
+                "name": "Inversion Premium",
+                "codeProduct": "344ac2fd48b5e4ea31851193523a26d9"
             }
         ]
     },
     {
-        "codeProductType": "2",
+        "codeProductType": "6c24027751bc43c5b232242e307880a7",
         "name": "Ahorros",
         "products": [
             {
-                "name": "Ahorros 1",
-                "codeProduct": "12345"
+                "name": "Ahorros Estandard",
+                "codeProduct": "ed3140ca2610b20511542066357b121f"
             },
             {
-                "name": "Ahorros 2",
-                "codeProduct": "12345"
-            },
-            {
-                "name": "Ahorros 3",
-                "codeProduct": "12345"
+                "name": "Gana Diario",
+                "codeProduct": "4a169d2a0801710e895b0cb2abcfabdb"
             }
         ]
     },
     {
-        "codeProductType": "3",
+        "codeProductType": "bdc60173d3f0a82a1a04557e2d14ee32",
         "name": "Corriente",
         "products": [
             {
-                "name": "Corriente 1",
-                "codeProduct": "12345"
-            },
-            {
-                "name": "Corriente 2",
-                "codeProduct": "12345"
-            },
-            {
-                "name": "Corriente 3",
-                "codeProduct": "12345"
+                "name": "Corriente Estandar",
+                "codeProduct": "bc9699d3e5dafe9903b0dcd7e8778db1"
             }
         ]
     }

@@ -60,7 +60,7 @@ const AccountFormBank = (props: AccountFormProps) => {
         identification: "",
         identificationType: "",
         codeProduct: "",
-        codeBranch: "12345",
+        codeBranch: "123",
         entityBankCode: "12345",
         internationalBankCode: "12345",
     });
