@@ -35,7 +35,7 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
         sethasSearch(true);
         setlastArrayState(actualArrayState);
         setactualArrayState([]);
-        const searchResult: AccountStament[] = actualArrayState.filter(data => searchString === data.actualCutOffDate)
+        const searchResult: AccountStament[] = actualArrayState.filter(data => searchString === data.currentCutOffDate.toString())
         setactualArrayState(searchResult);
     }
 
@@ -49,11 +49,11 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
 
     const getRow = (data: AccountStament) => {
         return [
-            <Typography>{data.actualCutOffDate}</Typography>,
+            <Typography>{data.currentCutOffDate.toString()}</Typography>,
             <Typography>{1}</Typography>,
             <Typography>{1}</Typography>,
-            <Typography>{data.presentBalance}</Typography>,
-            <Typography>{data.interestRate}</Typography>,
+            <Typography>{data.currentBalance}</Typography>,
+            <Typography>{data.interest}</Typography>,
             <Typography><ButtonIcon color={ColorPalette.PRIMARY}
                 icon={<Visibility />}
                 onClick={() => props.onSelection(data)} /></Typography>
