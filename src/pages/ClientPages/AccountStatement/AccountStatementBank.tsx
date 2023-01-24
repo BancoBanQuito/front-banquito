@@ -24,7 +24,7 @@ const AccountStatementBank = () => {
     const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(false);
     const [accountStatement, setaccountStatement] = useState<AccountStament | undefined>();
     const [accountStatements, setaccountStatements] = useState<AccountStament[]>([]);
-    const [accountNumberData, setaccountNumberDate] = useState<string>();
+    const [accountNumberData, setaccountNumberData] = useState<string>();
 
     const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ const AccountStatementBank = () => {
     }
 
     const handleSearch = (data: string) => {
-        setaccountNumberDate(data);
+        setaccountNumberData(data);
         searchAccountStatement(data);
     }
 
@@ -50,13 +50,13 @@ const AccountStatementBank = () => {
     const searchAccountStatement = async (identification: string, identificationType?: string) => {
         setisLoading(true);
         try {
-            const { codeLocalAccount, codeInternationalAccount }: any = (await AccountService.getAccountsById(identification, identificationType || "DNI")).data?.data?.at(0);
+            /* const { codeLocalAccount, codeInternationalAccount }: any = (await AccountService.getAccountsById(identificationType || "DNI", identification)).data?.data?.at(0);
             if (!!codeLocalAccount && !!codeInternationalAccount) {
                 setactiveErrorModal(true);
                 seterrorMessage("No se han encontrado datos");
                 return;
-            }
-            const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount, codeInternationalAccount)).data.data;
+            } */
+            const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(identification, '')).data.data;
             if (data) {
                 // setaccountStatements(data);
                 setaccountStatement(data);
@@ -94,6 +94,7 @@ const AccountStatementBank = () => {
                             <CardContent>
                                 <SearchAccount
                                     color={ColorPalette.SECONDARY}
+                                    label='Numero de Cuenta'
                                     title='Estado de Cuenta'
                                     onSubmit={handleSearch} />
                             </CardContent>
