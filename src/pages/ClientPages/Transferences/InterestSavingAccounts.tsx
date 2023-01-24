@@ -5,16 +5,6 @@ import { SizeButton } from '../../../components/atoms/SizeButton';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 
-const headersMock = [
-  <Typography>Fecha</Typography>,
-  <Typography>Movimiento</Typography>,
-  <Typography>Concepto</Typography>,
-  <Typography>Monto</Typography>,
-  <Typography>Saldo</Typography>,
-  <Typography>Beneficiario</Typography>,
-  <Typography>Detalle</Typography>
-]
-
 const rowsMock = [
   [
     <Typography>Cell 1</Typography>,
@@ -57,12 +47,21 @@ const rowsMock = [
   ]
 ]
 
-const PaymentDebitCard = () => {
+const InterestSavingAccounts = () => {
+  const headersMock = [
+    <Typography>Fecha</Typography>,
+    <Typography>Movimiento</Typography>,
+    <Typography>Concepto</Typography>,
+    <Typography>Monto</Typography>,
+    <Typography>Saldo</Typography>,
+    <Typography>Beneficiario</Typography>,
+    <Typography>Detalle</Typography>
+  ]
 
   return (
     <>
 
-      <Typography variant='h4' align='center'>Pago Tarjeta Débito</Typography>
+      <Typography variant='h4' align='center'>Ganancias Cuenta Ahorro</Typography>
       <br></br>
       <TableMolecule headers={headersMock} rows={rowsMock} />
     </>
@@ -70,4 +69,4 @@ const PaymentDebitCard = () => {
 
 };
 
-export default PaymentDebitCard;
+export default InterestSavingAccounts;

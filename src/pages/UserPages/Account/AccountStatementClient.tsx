@@ -1,56 +1,63 @@
-import React, { ReactInstance, useRef, useState } from 'react'
+import React, { ReactInstance, useEffect, useRef, useState } from 'react'
 import { Box } from '@mui/system'
-import { Card, CardContent, Fade, Modal, Typography } from '@mui/material'
+import { Fade } from '@mui/material'
 import { ColorPalette } from '../../../style/ColorPalette'
 import { ChevronLeft, Print } from '@mui/icons-material'
-import { AccountStament } from '../../../services/account/dto/AccountStatement'
 import { AccountStatementService } from '../../../services/account/AccountStatementService'
-import SearchAccount from '../../../components/organisms/SearchAccount'
 import ButtonIcon from '../../../components/atoms/ButtonIcon'
-import AccountStatementBody from '../../../components/organisms/AccountStatement/AccountStatementBody'
 import ReactToPrint from 'react-to-print'
+import AccountStatementBody from '../../../components/organisms/AccountStatement/AccountStatementBody'
 import AccountStatementTable from '../../../components/organisms/AccountStatement/AccountStatementTable'
 import { useNavigate } from 'react-router-dom'
-import LoadOrganism from '../../../components/organisms/LoadOrganism'
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism'
+import LoadOrganism from '../../../components/organisms/LoadOrganism'
 import { AccountService } from '../../../services/account/AccountService'
+import { RSAccountStatement } from '../../../services/account/dto/RSAccountStatement'
 
-const AccountStatementBank = () => {
+const AccountStatementClient = () => {
+
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
-    const [activeSearchBox, setactiveSearchBox] = useState<boolean>(true);
     const [activeAccountStatement, setactiveAccountStatement] = useState<boolean>(false);
-    const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(false);
-    const [accountStatement, setaccountStatement] = useState<AccountStament>();
-    const [accountStatements, setaccountStatements] = useState<AccountStament[]>([]);
-    const [accountNumberData, setaccountNumberDate] = useState<string>();
+    const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(true);
+    const [accountStatement, setaccountStatement] = useState<RSAccountStatement | undefined>();
+    const [accountStatements, setaccountStatements] = useState<RSAccountStatement[]>();
+    const [accountNumberData, setaccountNumberDate] = useState<string>("1751990332");
 
     const navigate = useNavigate();
 
     const printRef = useRef();
 
+    useEffect(() => {
+        searchAccountStatement(accountNumberData);
+        return () => { }
+    }, [])
+
+
     const handleBackEvent = () => {
         setactiveAccountStatementTable(true);
         setactiveAccountStatement(false);
-        // setaccountStatement(undefined);
+        setaccountStatement(undefined);
     }
 
-    const handleSearch = (data: string) => {
-        setaccountNumberDate(data);
-        searchAccountStatement(data);
-    }
-
-    const handleAccountStatementSelection = (data: AccountStament) => {
+    const handleAccountStatementSelection = (data: RSAccountStatement) => {
         setaccountStatement(data);
-        /* setactiveAccountStatementTable(false); */
+        setactiveAccountStatementTable(false);
         setactiveAccountStatement(true);
     }
 
-    const searchAccountStatement = async (codeLocalAccount: string, identificationType?: string) => {
+    const searchAccountStatement = async (identification: string, identificationType?: string) => {
         setisLoading(true);
         try {
-            const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount)).data.data;
+            // const data: AccountStament[] = /* (await AccountStatementService.getStatements(accountNumber)).data.data || */ [];
+            const { codeLocalAccount, codeInternationalAccount }: any = (await AccountService.getAccountsById(identification, identificationType || "DNI")).data?.data?.at(0);
+            if (!!codeLocalAccount && !!codeInternationalAccount) {
+                setactiveErrorModal(true);
+                seterrorMessage("No se han encontrado datos");
+                return;
+            }
+            const data: RSAccountStatement | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount)).data.data;
             if (data) {
                 // setaccountStatements(data);
                 setaccountStatement(data);
@@ -70,32 +77,10 @@ const AccountStatementBank = () => {
     return (
         <>
             <Box sx={{
-                position: 'relative',
-                top: 0
+                position: 'absolute',
+                width: '98%',
             }}>
                 <div style={{
-                    position: 'absolute',
-                    width: '100%',
-                    height: '80vh',
-                    top: 0,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    zIndex: activeSearchBox ? '100' : '0'
-                }}>
-                    <Fade in={activeSearchBox}>
-                        <Card sx={{ minWidth: '450px', maxWidth: '750px' }}>
-                            <CardContent>
-                                <SearchAccount
-                                    color={ColorPalette.SECONDARY}
-                                    label='Numero de Cuenta'
-                                    title='Estado de Cuenta'
-                                    onSubmit={handleSearch} />
-                            </CardContent>
-                        </Card>
-                    </Fade>
-                </div>
-                {/* <div style={{
                     position: 'absolute',
                     width: '100%',
                     top: '5rem',
@@ -108,11 +93,11 @@ const AccountStatementBank = () => {
                     <Fade in={activeAccountStatementTable}>
                         <div>
                             <AccountStatementTable
-                                data={accountStatements}
+                                data={accountStatements || []}
                                 onSelection={handleAccountStatementSelection} />
                         </div>
                     </Fade>
-                </div> */}
+                </div>
                 <div style={{
                     position: 'absolute',
                     width: '100%',
@@ -150,11 +135,11 @@ const AccountStatementBank = () => {
                 onDeactive={() => { setactiveErrorModal(false); navigate('/cliente') }}
                 text={`${errorMessage}. ¿Desea volver a intentar?`}
                 enableButtonBox
-                onConfirm={() => accountNumberData && searchAccountStatement(accountNumberData)}
+                onConfirm={() => searchAccountStatement(accountNumberData)}
                 onReject={() => navigate('/cliente')}
             />
         </>
     )
 }
 
-export default AccountStatementBank
+export default AccountStatementClient

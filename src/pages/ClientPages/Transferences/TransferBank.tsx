@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useNavigation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransferUserForm';
 import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
 import { ColorPalette } from '../../../style/ColorPalette';
 import TransferDataForm from '../../../components/organisms/TransferDataForm';
 import TransferAmountForm from '../../../components/organisms/TransferAmountForm';
 import { Box } from '@mui/material';
-import { TransactionPost } from '../../../services/account/dto/TransactionPost';
 import { TransactionService } from '../../../services/transaction/TransactionService';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
+import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
 
 const TransferBank = () => {
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
@@ -17,7 +17,7 @@ const TransferBank = () => {
 
     const navigate = useNavigate();
 
-    const [value, setvalue] = useState<TransactionPost>({
+    const [value, setvalue] = useState<RQTransaction>({
         codeInternationalAccount: "",
         codeLocalAccount: "",
         concept: "Nota Debito",

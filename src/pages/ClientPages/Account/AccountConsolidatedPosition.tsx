@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import TableMolecule from '../components/molecules/TableMolecule';
+import TableMolecule from '../../../components/molecules/TableMolecule';
 import { Card, CardContent, Fade, Typography } from '@mui/material';
-import { AccountResponse } from '../services/account/dto/AccountResponse';
-import { AccountService } from '../services/account/AccountService';
-import SearchAccount from '../components/organisms/SearchAccount';
-import { ColorPalette } from '../style/ColorPalette';
+import { AccountService } from '../../../services/account/AccountService';
+import SearchAccount from '../../../components/organisms/SearchAccount';
+import { ColorPalette } from '../../../style/ColorPalette';
+import { RSAccount } from '../../../services/account/dto/RSAccount';
 
 const headersMock = [
   <Typography>No Cuenta</Typography>,
@@ -14,14 +14,14 @@ const headersMock = [
   <Typography>Saldo disponible</Typography>
 ]
 
-const ConsolidatedPositionAccount = () => {
+const AccountConsolidatedPosition = () => {
 
-  const [consolidatedPosition, setConsolidatedPosition] = useState<AccountResponse[]>([]);
+  const [consolidatedPosition, setConsolidatedPosition] = useState<RSAccount[]>([]);
   const [activeSearch, setactiveSearch] = useState<boolean>(true);
 
   const searchAccountStatement = async (typeIdentification: string, identification: string) => {
     try {
-      const data: AccountResponse[] | undefined = (await AccountService.getAccountsById(typeIdentification, identification)).data.data;
+      const data: RSAccount[] | undefined = (await AccountService.getAccountsById(typeIdentification, identification)).data.data;
       if (data) {
         setConsolidatedPosition(data);
       } else {
@@ -36,7 +36,7 @@ const ConsolidatedPositionAccount = () => {
     searchAccountStatement("DNI", data);
   }
 
-  const getRow = (data: AccountResponse) => {
+  const getRow = (data: RSAccount) => {
     return [
       <Typography>{data.codeLocalAccount}</Typography>,
       <Typography>{data.product}</Typography>,
@@ -85,4 +85,4 @@ const ConsolidatedPositionAccount = () => {
 
 };
 
-export default ConsolidatedPositionAccount;
+export default AccountConsolidatedPosition;

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ColorPalette } from '../../../style/ColorPalette'
 import { ProductService } from '../../../services/product/productService'
 import { AccountService } from '../../../services/account/AccountService'
-import { Avatar, Box, Modal, Slide, Typography } from '@mui/material'
+import { Avatar, Slide } from '@mui/material'
 import AccountFormBank from '../../../components/organisms/AccountFormBank'
 import SelectAccountTypeForm from '../../../components/organisms/SelectAccountTypeForm'
 import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule'

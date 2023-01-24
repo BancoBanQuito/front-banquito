@@ -9,13 +9,14 @@ import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg'
 import AccountFormBank from '../../../components/organisms/AccountFormBank';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
+import { RQCreateAccount } from '../../../services/account/dto/RQCreateAccount';
 
 const AccountCreateUser = () => {
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [products, setproducts] = useState<any[] | undefined>([]);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
-    const [accountData, setaccountData] = useState<any>();
+    const [accountData, setaccountData] = useState<RQCreateAccount>();
 
     const navigate = useNavigate();
 
@@ -31,7 +32,7 @@ const AccountCreateUser = () => {
     }
 
     const handleSubmit = (data: any) => {
-        const account = {
+        const account: RQCreateAccount = {
             ...data,
             codeProductType: "2"
         };
@@ -40,7 +41,7 @@ const AccountCreateUser = () => {
 
     }
 
-    const saveAccount = async (data: any) => {
+    const saveAccount = async (data: RQCreateAccount) => {
         setisLoading(true);
         try {
             await AccountService.postAccount(data);
@@ -93,7 +94,7 @@ const AccountCreateUser = () => {
                 onDeactive={() => { setactiveErrorModal(false); navigate('/cliente') }}
                 text={`${errorMessage}. ¿Desea volver a intentar?`}
                 enableButtonBox
-                onConfirm={() => saveAccount(accountData)}
+                onConfirm={() => saveAccount(accountData as RQCreateAccount)}
                 onReject={() => navigate('/cliente')}
             />
         </>

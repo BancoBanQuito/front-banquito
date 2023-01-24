@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Box, Card, CardContent, Fade, Modal, Typography } from "@mui/material";
-import { ColorPalette } from "../style/ColorPalette";
-import AccountSignatureTableOranism from "../components/organisms/AccountSignature/AccountSignatureTableOranism";
-import AccountSignatureEditForm from "../components/organisms/AccountSignature/AccountSignatureEditForm";
-import { AccountSignatureService } from "../services/account/AccountSignatureService";
-import SearchAccount from "../components/organisms/SearchAccount";
-import { AccountSignature } from "../services/account/dto/AccountSignature";
-import { AccountService } from "../services/account/AccountService";
-import { AccountResponse } from "../services/account/dto/AccountResponse";
+import { ColorPalette } from "../../../style/ColorPalette";
+import AccountSignatureTableOranism from "../../../components/organisms/AccountSignature/AccountSignatureTableOranism";
+import AccountSignatureEditForm from "../../../components/organisms/AccountSignature/AccountSignatureEditForm";
+import { AccountSignatureService } from "../../../services/account/AccountSignatureService";
+import SearchAccount from "../../../components/organisms/SearchAccount";
+import { AccountService } from "../../../services/account/AccountService";
+import { RSAccount } from "../../../services/account/dto/RSAccount";
+import { RSSignature } from "../../../services/account/dto/RSSignature";
 
-const EditAccountSignature = () => {
+const AccountEditSignature = () => {
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [activeSearchBox, setactiveSearchBox] = useState<boolean>(true);
-  const [signatures, setsignatures] = useState<AccountSignature[]>([]);
-  const [selectSignature, setselectSignature] = useState<AccountSignature>({
+  const [signatures, setsignatures] = useState<RSSignature[]>([]);
+  const [selectSignature, setselectSignature] = useState<RSSignature>({
     identification: "",
     identificationType: "",
     name: "",
@@ -31,7 +31,7 @@ const EditAccountSignature = () => {
 
   const getAccountSignatures = async (data: string) => {
     try {
-      const account: AccountResponse | undefined = (await AccountService.getAccountsById(data, "DNI")).data?.data?.at(0);
+      const account: RSAccount | undefined = (await AccountService.getAccountsById(data, "DNI")).data?.data?.at(0);
       if (!account) {
         console.log("No se han encontrado datos");
         return;
@@ -40,7 +40,7 @@ const EditAccountSignature = () => {
         codeInternationalAccount: account.codeInternationalAccount,
         codeLocalAccount: account.codeLocalAccount
       })
-      const signaturesData: AccountSignature[] | undefined = (await AccountSignatureService.getAccountSignature(data, "DNI")).data.data;
+      const signaturesData: RSSignature[] | undefined = (await AccountSignatureService.getAccountSignature(data, "DNI")).data.data;
       if (signaturesData) {
         setsignatures(signaturesData);
         setactiveSearchBox(false);
@@ -52,7 +52,7 @@ const EditAccountSignature = () => {
     }
   }
 
-  const handleSubmit = async (data: AccountSignature) => {
+  const handleSubmit = async (data: RSSignature) => {
     try {
       await AccountSignatureService.putAccountSignature(data.identificationType, data.identification, accountID?.codeLocalAccount || "", accountID?.codeInternationalAccount || "", data)
     } catch (error: any) {
@@ -135,4 +135,4 @@ const EditAccountSignature = () => {
     </div>
   );
 };
-export default EditAccountSignature;
+export default AccountEditSignature;
