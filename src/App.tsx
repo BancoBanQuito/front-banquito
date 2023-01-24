@@ -21,6 +21,8 @@ import AccountStatementBank from "./pages/UserPages/AccountStatement/AccountStat
 import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
 import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
+import { AssociatedServiceParam } from "./components/organisms/AssocietesServicesParam/AssociatedServiceParam";
+import { AssociatedServicesAccount } from "./components/organisms/AssocietesServicesParam/AssociatedServicesAccount";
 
 const App = () => {
 
@@ -28,38 +30,8 @@ const App = () => {
   const [user, setUser] = useState({});
 
   return (
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="" element={<Layout isLogged={true} user={{}} />}>
-            <Route index element={<Login />} />
-            {userRoutes.map((route) => (
-              <Route
-                key={route.path}
-                path={`usuario/${route.path}`}
-                element={route.element}
-              />
-            ))}
-            {clientRoutes.map((route) => (
-              <Route
-                key={route.path}
-                path={`cliente/${route.path}`}
-                element={route.element}
-              />
-            ))}
-            <Route path="cajero" element={<HomeATM />} />
-            {productRoutes.map((route) => (
-              <Route
-                key={route.path}
-                path={`producto/${route.path}`}
-                element={route.element}
-              />
-            ))}
-          </Route>
-          <Route path="*" element={<Error404 />} />
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+    <AssociatedServiceParam></AssociatedServiceParam>
+    //<AssociatedServicesAccount></AssociatedServicesAccount>
   );
 };
 

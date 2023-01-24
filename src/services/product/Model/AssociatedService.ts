@@ -3,7 +3,7 @@ export interface AssociatedService {
   name: string;
   allowPayment: string;
   paymentMethod: string;
-  chargeVat: string;
+  chargeVat: string
   fee: number;
   params: {
     valueType: string;

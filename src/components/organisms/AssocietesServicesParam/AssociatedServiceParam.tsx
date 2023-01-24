@@ -12,7 +12,7 @@ import ButtonIcon from "../../atoms/ButtonIcon";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import { associatedServiceParamService } from "../../../services/product/AssociatedServiceParamService";
-import { AssociatedService } from "../../../services/product/Model/AssociatedService";
+import { AssociatedService } from '../../../services/product/Model/AssociatedService';
 import Modal from "@mui/material/Modal";
 import React from "react";
 import Box from "@mui/material/Box";
@@ -58,82 +58,37 @@ interface Props {
 }
 
 export const AssociatedServiceParam = () => {
-  const [first, setfirst] = useState<any>(null);
-  const [item, setItem] = useState<any>([
-    [
-        <Typography>
-        </Typography>,
-        <Typography>
-        </Typography>,
-        <Typography>
-        </Typography>,
-             ]
-]);
   
+
+  const [branches, setBranches] = useState<AssociatedService[]>([]);
+ 
   useEffect(() => {
-    const callFun = async () => {
-      let fun = await associatedServiceParamService()
-      let value = fun.map((items: any) =>{
-        console.log(items.params)
-        return items.params;
-        })
-        console.log(value)
-      setfirst(value);
-      setItem(mapFirst(value));
-      console.log(item)
-      let row=value.map((data:any)=>{
-        return[
-          <Typography>{data.name}</Typography>,
-          <Typography>{data.valueType}</Typography>,
-          <Typography>h</Typography>,
-        ];
-      })
-      console.log(row)
-      setItem(row)
-      
-      //setfirst(fun.data.map((data) =>{
-      //return data.params;
-      //}));
-      //setItem(mapFirst());
-      //console.log(mapFirst());
-    };
-    callFun();
-    
+      fetch('http://localhost:8081/api/product/associatedServices')
+          .then((response) => {
+              if (!response.ok) {
+                  throw Error(response.statusText);
+              }
+              return response.json();
+          })
+          .then((data) => setBranches(data))
+          .catch((error) => console.log(error));
   }, []);
 
-  const mapFirst = (value: any) => {
-    return value.map((data: any) => {
-      return [
-        <Typography>{data.name}</Typography>,
-        <Typography>{data.valueType}</Typography>,
-      ];
-    });
-  };
-
-  const headersMock = [
-    <Typography>Parametro ID</Typography>,
-    <Typography>Nombre</Typography>,
-    <Typography>Tipo de Dato</Typography>,
+  const headers = [
+      <>ID</>,
+      <>Name</>,
+      <>Value Type</>,
+     
   ];
 
-  const rowsMock = [
-    [
-      <Typography>Parametro ID</Typography>,
-      <Typography>Nombre</Typography>,
-      <Dropdown
-        label="Tipo de Dato"
-        items={[
-          { name: "TEX", value: "string" },
-          { name: "DAT", value: "date" },
-          { name: "NUM", value: "number" },
-          { name: "DEC", value: "float" },
-        ]}
-        width={200}
-        height={50}
-        selectedTextColor={ColorPalette.BLACK}
-      />,
-    ],
-  ];
+  const rows = branches.flatMap(branch =>
+  branch.params.map((param)=>[
+    <>{branch.id}</>,
+    <>{param.name}</>,
+    <>{param.valueType}</>
+  ])
+     
+  );
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -150,6 +105,8 @@ export const AssociatedServiceParam = () => {
           type="text"
           placeholder="id"
           variant="standard"
+          action={(event) => {}}
+          value=""
         />
         <SizeButton
           palette={{ backgroundColor: ColorPalette.PRIMARY }}
@@ -160,7 +117,7 @@ export const AssociatedServiceParam = () => {
         />
       </SearchContainer>
       <Container>
-        <TableMolecule headers={headersMock} rows={item} />
+        <TableMolecule headers={headers} rows={rows} />
         <ButtonIcon
           color={ColorPalette.PRIMARY}
           icon={<ControlPointIcon />}
@@ -186,42 +143,44 @@ export const AssociatedServiceParam = () => {
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             <Container>
-            <div>
-              <SearchContainer>
-              <span>Nombre:</span>
-              <TextFieldAtom
-                id="id"
-                label="Parametro Asociado"
-                color="primary"
-                type="text"
-                placeholder="nombre"
-                variant="standard"
-              />
-              </SearchContainer>
-            </div>
-            <div>
-              <span>Tipo de Dato: </span>
-              <Dropdown
-                label="Tipo de Dato"
-                items={[
-                  { name: "TEX", value: "string" },
-                  { name: "DAT", value: "date" },
-                  { name: "NUM", value: "number" },
-                  { name: "DEC", value: "float" },
-                ]}
-                width={200}
-                height={50}
-                selectedTextColor={ColorPalette.BLACK}
-              />
-            </div>
-            <Container>
-              <SizeButton
-                palette={{ backgroundColor: ColorPalette.PRIMARY }}
-                onClick={() => console.log("Guardar")}
-                text="Guardar"
-                style={ButtonStyle.MEDIUM}
-              />
-            </Container>
+              <div>
+                <SearchContainer>
+                  <span>Nombre:</span>
+                  <TextFieldAtom
+                    id="id"
+                    label="Parametro Asociado"
+                    color="primary"
+                    type="text"
+                    placeholder="nombre"
+                    variant="standard"
+                    action={(event) => {}}
+                    value=""
+                  />
+                </SearchContainer>
+              </div>
+              <div>
+                <span>Tipo de Dato: </span>
+                <Dropdown
+                  label="Tipo de Dato"
+                  items={[
+                    { name: "TEX", value: "string" },
+                    { name: "DAT", value: "date" },
+                    { name: "NUM", value: "number" },
+                    { name: "DEC", value: "float" },
+                  ]}
+                  width={200}
+                  height={50}
+                  selectedTextColor={ColorPalette.BLACK}
+                />
+              </div>
+              <Container>
+                <SizeButton
+                  palette={{ backgroundColor: ColorPalette.PRIMARY }}
+                  onClick={() => console.log("Guardar")}
+                  text="Guardar"
+                  style={ButtonStyle.MEDIUM}
+                />
+              </Container>
             </Container>
           </Typography>
         </Box>
