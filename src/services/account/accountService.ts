@@ -34,7 +34,6 @@ export class AccountService {
 
     public static async getAccountsById(identificationType: string, identification: string) {
         try {
-            console.log(GET_ACCOUNT_ID_API(identificationType, identification));
             return await axios.get<ResponseFormat<AccountResponse[]>>(GET_ACCOUNT_ID_API(identificationType, identification));
         } catch (error) {
             throw error;
