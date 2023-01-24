@@ -19,11 +19,12 @@ const TextAreaAtom = (props: Props) =>{
             id={props.id}
             label={props.label}
             multiline
-            rows={4}
+            rows={props.rows}
             placeholder={props.placeholder}
             variant={props.variant}
             type={props.type}
-            color={props.color}>
+            color={props.color}
+            >
         </TextField>
     );
 }

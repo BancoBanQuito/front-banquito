@@ -27,6 +27,8 @@ import InterestRateLog from './components/organisms/interestrate/InterestRateLog
 import Home from "./pages/Home";
 import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
 import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
+import { Product } from "./pages/ProductPages/Product";
+import { ProductType } from "./pages/ProductPages/ProductType";
 
 const App = () => {
 
