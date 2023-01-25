@@ -4,10 +4,10 @@ import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
   resolve: {
     alias: [
-      { find: '/src', replacement: path.resolve('src') },
+      { find: '/src', replacement: path.resolve(__dirname, "src") },
     ],
-  }
+  },
+  plugins: [react()],
 })
