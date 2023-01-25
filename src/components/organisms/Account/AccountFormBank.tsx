@@ -1,4 +1,4 @@
-import { Typography, TextField } from '@mui/material'
+import { Typography, TextField, Checkbox, FormControlLabel } from '@mui/material'
 import { Box, SxProps, Theme } from '@mui/system'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Dropdown } from '/src/components/atoms/Dropdown'
@@ -6,6 +6,7 @@ import { SizeButton } from '/src/components/atoms/SizeButton'
 import IdentificationTypes from '/src/services/.json/IdentificationType.json'
 import { ButtonStyle } from '/src/style/ButtonStyle'
 import { ColorPalette } from '/src/style/ColorPalette'
+import { CIUtils } from '/src/utils/CIUtils'
 
 const mainBoxStyle = (): SxProps<Theme> => {
     return {
@@ -56,6 +57,10 @@ interface AccountFormProps {
 
 const AccountFormBank = (props: AccountFormProps) => {
 
+    const [showIdentificationError, setshowIdentificationError] = useState<boolean>(false)
+    const [errorMessage, seterrorMessage] = useState("La identificacion no es correcta");
+    const [usePassport, setusePassport] = useState<boolean>(false)
+
     const [account, setaccount] = useState<FormAccountInterface>({
         identification: "",
         identificationType: "",
@@ -67,10 +72,20 @@ const AccountFormBank = (props: AccountFormProps) => {
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        props.onSubmit(account);
+
+        if (usePassport) {
+            props.onSubmit(account);
+            return;
+        }
+        if (CIUtils.checkIdentification(account.identification)) {
+            props.onSubmit(account);
+        } else {
+            setshowIdentificationError(true);
+        }
     }
 
     const handleFormChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setshowIdentificationError(false);
         const name = event.target.name;
         const value = event.target.value;
         setaccount({ ...account, [name]: value });
@@ -109,6 +124,7 @@ const AccountFormBank = (props: AccountFormProps) => {
                         marginBottom: '0.5rem'
                     }}>
                         <Dropdown
+                            required
                             width={"100%"}
                             height={"auto"}
                             label="Tipo de Cuenta"
@@ -125,6 +141,7 @@ const AccountFormBank = (props: AccountFormProps) => {
                         marginBottom: '0.5rem'
                     }}>
                         <Dropdown
+                            required
                             width={"100%"}
                             height={"auto"}
                             label={textHelpers.typeIdentification}
@@ -142,8 +159,15 @@ const AccountFormBank = (props: AccountFormProps) => {
                         type="text"
                         onChange={handleFormChange}
                         label={textHelpers.identificationPlaceholder}
+                        error={showIdentificationError}
+                        helperText={showIdentificationError && errorMessage}
                         required
                     />
+                    <FormControlLabel
+                        control={<Checkbox
+                            value={usePassport}
+                            onChange={(event) => setusePassport(event.target.checked)} />}
+                        label="Pasaporte" />
                     <SizeButton
                         palette={{
                             backgroundColor: ColorPalette.PRIMARY
