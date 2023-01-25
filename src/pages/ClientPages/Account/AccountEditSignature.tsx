@@ -55,7 +55,7 @@ const AccountEditSignature = () => {
 
   const handleSubmit = async (data: RSSignature) => {
     try {
-      await AccountSignatureService.putAccountSignature(data.identificationType, data.identification, accountID?.codeLocalAccount || "", accountID?.codeInternationalAccount || "", data)
+      await AccountSignatureService.putAccountSignature(data.identificationType, data.identification, accountID?.codeLocalAccount || "", data)
     } catch (error: any) {
       console.log(error.message);
     }

@@ -9,7 +9,7 @@ export class InterestService {
 
     public static async postInterest(body: RQSavingsAccountInterest) {
         try {
-            return await axios.post<ResponseFormat<RSInvestmentInterest>>(POST_INTEREST_API(), body);
+            return await axios.post<ResponseFormat<RSSavingsAccountInterest>>(POST_INTEREST_API(), body);
         } catch (error) {
             throw error;
         }

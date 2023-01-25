@@ -8,7 +8,7 @@ import { RSTransaction } from "./dto/RSTransaction";
 export class TransactionService {
     public static async putTransaction(codeUniqueTransaction: string, body: RQStatus) {
         try {
-            return await axios.put(PUT_TRANSACTION(codeUniqueTransaction), body);
+            return await axios.put<ResponseFormat<String>>(PUT_TRANSACTION(codeUniqueTransaction), body);
         } catch (error) {
             throw error;
         }

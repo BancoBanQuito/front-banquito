@@ -8,7 +8,7 @@ import { SizeButton } from "src/components/atoms/SizeButton";
 import { ButtonStyle } from "src/style/ButtonStyle";
 import { AccountSignatureService } from "src/services/account/AccountSignatureService";
 import { AccountService } from "src/services/account/AccountService";
-import { RSAccountSimple } from "src/services/account/dto/RSAccountSimple";
+import { RSAccount } from "src/services/account/dto/RSAccount";
 
 interface FormData {
   accountNumber: string,
@@ -33,7 +33,7 @@ const AccountCreateSignature = () => {
 
   const createSignature = async () => {
     try {
-      const codeInternational: RSAccountSimple | undefined = (await AccountService.getAccountSimple(formData.accountNumber)).data.data;
+      const codeInternational: RSAccount | undefined = (await AccountService.getAccountByCode(formData.accountNumber)).data.data;
       if (codeInternational) {
         await AccountSignatureService.postAccountSignature({
           codeInternationalAccount: codeInternational.codeInternationalAccount,

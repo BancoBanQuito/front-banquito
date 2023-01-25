@@ -10,7 +10,7 @@ import ErrorModalOrganism from 'src/components/organisms/ErrorModalOrganism';
 import { TransactionService } from 'src/services/transaction/TransactionService';
 import { AccountService } from 'src/services/account/AccountService';
 import { RQTransaction } from 'src/services/transaction/dto/RQTransaction';
-import { RSAccountSimple } from 'src/services/account/dto/RSAccountSimple';
+import { RSAccount } from 'src/services/account/dto/RSAccount';
 
 const TransferUser = () => {
 
@@ -35,7 +35,7 @@ const TransferUser = () => {
 
     const handleAccept = async () => {
         try {
-            const accountSimple: RSAccountSimple | undefined = (await AccountService.getAccountSimple(value.recipientAccountNumber)).data.data;
+            const accountSimple: RSAccount | undefined = (await AccountService.getAccountByCode(value.recipientAccountNumber)).data.data;
             if (!accountSimple) {
                 console.log("Ha ocurrido un error");
                 return;

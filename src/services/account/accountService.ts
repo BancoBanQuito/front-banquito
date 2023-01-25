@@ -1,24 +1,25 @@
 import axios from "axios";
-import { PUT_ACCOUNT_STATUS_API, PUT_ACCOUNT_BALANCE_API, POST_ACCOUNT_API, GET_ACCOUNT_ID_API, GET_ACCOUNT_CODE_API, GET_ACCOUNT_SIMPLE_API } from "src/config/apis/accountAPI";
+import { PUT_ACCOUNT_STATUS_API, PUT_ACCOUNT_BALANCE_API, POST_ACCOUNT_API, GET_ACCOUNT_ID_API, GET_ACCOUNT_CODE_API } from "src/config/apis/accountAPI";
 import { ResponseFormat } from "../ResponseFormat";
 import { RQCreateAccount } from "./dto/RQCreateAccount";
 import { RSAccount } from "./dto/RSAccount";
-import { RSAccountSimple } from "./dto/RSAccountSimple";
 import { RSCreateAccount } from "./dto/RSCreateAccount";
+import { RQAccountStatus } from "./dto/RQAccountStatus";
+import { RQAccountBalance } from "./dto/RQAccountBalance";
 
 export class AccountService {
 
-    public static async putAccountStatus(codeLocalAccount: string, codeInternationalAccount: string, body: { status: string }) {
+    public static async putAccountStatus(codeLocalAccount: string, body: RQAccountStatus) {
         try {
-            return await axios.put(PUT_ACCOUNT_STATUS_API(codeLocalAccount, codeInternationalAccount), body);
+            return await axios.put<ResponseFormat<string>>(PUT_ACCOUNT_STATUS_API(codeLocalAccount), body);
         } catch (error) {
             throw error;
         }
     }
 
-    public static async putAccountBalance(codeLocalAccount: string, codeInternationalAccount: string, body: { presentBalance: number, availableBalance: number }) {
+    public static async putAccountBalance(codeLocalAccount: string, body: RQAccountBalance) {
         try {
-            return await axios.put(PUT_ACCOUNT_BALANCE_API(codeLocalAccount, codeInternationalAccount), body);
+            return await axios.put<ResponseFormat<string>>(PUT_ACCOUNT_BALANCE_API(codeLocalAccount), body);
         } catch (error) {
             throw error;
         }
@@ -40,17 +41,9 @@ export class AccountService {
         }
     }
 
-    public static async getAccountByCode(codeLocalAccount: string, codeInternationalAccount: string) {
+    public static async getAccountByCode(codeLocalAccount: string) {
         try {
-            return await axios.get<ResponseFormat<RSAccount>>(GET_ACCOUNT_CODE_API(codeLocalAccount, codeInternationalAccount));
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    public static async getAccountSimple(codeLocalAccount: string) {
-        try {
-            return await axios.get<ResponseFormat<RSAccountSimple>>(GET_ACCOUNT_SIMPLE_API(codeLocalAccount));
+            return await axios.get<ResponseFormat<RSAccount>>(GET_ACCOUNT_CODE_API(codeLocalAccount));
         } catch (error) {
             throw error;
         }
