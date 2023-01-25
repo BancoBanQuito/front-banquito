@@ -6,6 +6,7 @@ import { AccountService } from '/src/services/account/AccountService';
 import { RSAccount } from '/src/services/account/dto/RSAccount';
 import { ColorPalette } from '/src/style/ColorPalette';
 
+
 const headersMock = [
   <Typography>No Cuenta</Typography>,
   <Typography>Tipo de cuenta</Typography>,
