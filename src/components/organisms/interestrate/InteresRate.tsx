@@ -6,12 +6,12 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import AddIcon from '@mui/icons-material/Add';
 import FormInterestRate from './FormInterestRate';
 import FormInterestRateLog from './FormInterestRateLog';
-import ButtonIcon from '/src/components/atoms/ButtonIcon';
-import { SizeButton } from '/src/components/atoms/SizeButton';
-import TextFieldAtom from '/src/components/atoms/TextFieldAtom';
-import TableMolecule from '/src/components/molecules/TableMolecule';
-import { ButtonStyle } from '/src/style/ButtonStyle';
-import { ColorPalette } from '/src/style/ColorPalette';
+import ButtonIcon from '@/components/atoms/ButtonIcon';
+import { SizeButton } from '@/components/atoms/SizeButton';
+import TextFieldAtom from '@/components/atoms/TextFieldAtom';
+import TableMolecule from '@/components/molecules/TableMolecule';
+import { ButtonStyle } from '@/style/ButtonStyle';
+import { ColorPalette } from '@/style/ColorPalette';
 
 export const Container = styled.div`
 display: relative;

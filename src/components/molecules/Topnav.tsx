@@ -34,7 +34,7 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
       <AppBar position="fixed">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Avatar src='/src/assets/BanQuito-Logo.svg' sx={{ 'borderRadius': 0 }} />
+            <Avatar src='@/assets/BanQuito-Logo.svg' sx={{ 'borderRadius': 0 }} />
 
             <Typography
               noWrap
@@ -61,7 +61,7 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
               isLogged && <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Configuraciones">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="User image" src="/src/assets/user.png" />
+                    <Avatar alt="User image" src="@/assets/user.png" />
                   </IconButton>
                 </Tooltip>
                 <Menu
