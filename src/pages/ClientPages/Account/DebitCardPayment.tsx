@@ -1,9 +1,9 @@
 import React from 'react';
-import TableMolecule from '../../../components/molecules/TableMolecule';
 import { Typography } from '@mui/material';
-import { SizeButton } from '../../../components/atoms/SizeButton';
-import { ColorPalette } from '../../../style/ColorPalette';
-import { ButtonStyle } from '../../../style/ButtonStyle';
+import { SizeButton } from 'src/components/atoms/SizeButton';
+import TableMolecule from 'src/components/molecules/TableMolecule';
+import { ButtonStyle } from 'src/style/ButtonStyle';
+import { ColorPalette } from 'src/style/ColorPalette';
 
 const headersMock = [
   <Typography>Fecha</Typography>,

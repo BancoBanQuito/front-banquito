@@ -1,8 +1,8 @@
 import axios from "axios";
+import { GET_ACCOUNT_STATEMENT_LIST_API, GET_ACCOUNT_STATEMENT_CURRENT_API, GET_ACCOUNT_STATEMENT_HISTORIC_API } from "src/config/apis/accountAPI";
 import { ResponseFormat } from "../ResponseFormat";
-import { RSAccountStatementList } from "./dto/RSAccountStatementList";
-import { GET_ACCOUNT_STATEMENT_CURRENT_API, GET_ACCOUNT_STATEMENT_HISTORIC_API, GET_ACCOUNT_STATEMENT_LIST_API } from "../../config/apis/accountAPI";
 import { RSAccountStatement } from "./dto/RSAccountStatement";
+import { RSAccountStatementList } from "./dto/RSAccountStatementList";
 
 export class AccountStatementService {
 

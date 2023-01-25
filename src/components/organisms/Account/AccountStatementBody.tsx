@@ -1,8 +1,8 @@
 import React, { LegacyRef } from 'react';
 import { Box, Grid, Container, Typography } from '@mui/material';
-import { ColorPalette } from '../../../style/ColorPalette';
-import TableMolecule from '../../molecules/TableMolecule';
-import { RSAccountStatement } from '../../../services/account/dto/RSAccountStatement';
+import TableMolecule from 'src/components/molecules/TableMolecule';
+import { RSAccountStatement } from 'src/services/account/dto/RSAccountStatement';
+import { ColorPalette } from 'src/style/ColorPalette';
 
 interface AccountStatementProps {
     accountStatement: RSAccountStatement | undefined

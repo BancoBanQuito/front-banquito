@@ -1,12 +1,11 @@
-import { Box, Typography } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers";
-import { Dayjs } from "dayjs";
 import react, { useEffect, useState } from "react";
-import DatePickerAtom from "../../../components/atoms/DatePicker";
-import { SizeButton } from "../../../components/atoms/SizeButton";
-import TableMolecule from "../../../components/molecules/TableMolecule";
-import { ButtonStyle } from "../../../style/ButtonStyle";
-import { ColorPalette } from "../../../style/ColorPalette";
+import { Box, Typography } from "@mui/material";
+import { Dayjs } from "dayjs";
+import DatePickerAtom from "src/components/atoms/DatePicker";
+import { SizeButton } from "src/components/atoms/SizeButton";
+import TableMolecule from "src/components/molecules/TableMolecule";
+import { ButtonStyle } from "src/style/ButtonStyle";
+import { ColorPalette } from "src/style/ColorPalette";
 
 const TransactionBeetwenDates = () => {
   const [date, setDate] = useState<Dayjs | null>(null);

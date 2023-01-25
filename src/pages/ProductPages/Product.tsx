@@ -1,9 +1,6 @@
-import { Stack, Typography, Button } from "@mui/material"
-import TableMolecule from "../../components/molecules/TableMolecule"
 import { useEffect, useState } from "react";
-import TextAreaAtom from "../../components/atoms/TextAreaAtom";
-import { SizeButton } from "../../components/atoms/SizeButton";
-import { ButtonStyle } from "../../style/ButtonStyle";
+import { Stack, Typography, Button } from "@mui/material"
+import TableMolecule from "src/components/molecules/TableMolecule";
 import { ActivateDialog } from "./dialog/ActivateDialog";
 import { CreateProduct } from "./dialog/CreateProduct";
 
@@ -15,7 +12,6 @@ const table: any = {
         <Typography>Habilitación</Typography>,
     ]
 }
-
 
 export const Product = () => {
 

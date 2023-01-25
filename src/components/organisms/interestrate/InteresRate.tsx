@@ -1,23 +1,18 @@
-import { TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import TextFieldAtom from '../../atoms/TextFieldAtom';
-import TableMolecule from '../../molecules/TableMolecule';
-import ButtonIcon from '../../atoms/ButtonIcon';
-// search icon
+import { TextField, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import styled from 'styled-components';
-// icon keyboar backspace
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { ColorPalette } from '../../../style/ColorPalette';
-// Add icon
 import AddIcon from '@mui/icons-material/Add';
-import { SizeButton } from '../../atoms/SizeButton';
-import { ButtonStyle } from '../../../style/ButtonStyle';
 import FormInterestRate from './FormInterestRate';
 import FormInterestRateLog from './FormInterestRateLog';
-// add circle icon
+import ButtonIcon from 'src/components/atoms/ButtonIcon';
+import { SizeButton } from 'src/components/atoms/SizeButton';
+import TextFieldAtom from 'src/components/atoms/TextFieldAtom';
+import TableMolecule from 'src/components/molecules/TableMolecule';
+import { ButtonStyle } from 'src/style/ButtonStyle';
+import { ColorPalette } from 'src/style/ColorPalette';
 
-// Styles
 export const Container = styled.div`
 display: relative;
     flex-direction: column;

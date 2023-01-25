@@ -1,9 +1,9 @@
 import { Box } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import { Navigate, useNavigate } from 'react-router-dom'
-import { SizeButton } from '../../components/atoms/SizeButton'
-import { ButtonStyle } from '../../style/ButtonStyle'
-import { ColorPalette } from '../../style/ColorPalette'
+import { SizeButton } from 'src/components/atoms/SizeButton'
+import { ButtonStyle } from 'src/style/ButtonStyle'
+import { ColorPalette } from 'src/style/ColorPalette'
 
 interface userProps {
   username: string,

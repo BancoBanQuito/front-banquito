@@ -1,34 +1,5 @@
 import { Table, TableBody, TableContainer, TableHead, TableRow } from '@mui/material'
-import TableCellAtom from '../atoms/TableCellAtom';
-
-/*
-Example of use:
-
-  const headersMock = [
-    <Typography>Header 1</Typography>,
-    <Typography>Header 2</Typography>,
-    <Typography>Header 3</Typography>,
-    <Typography>Header 4</Typography>,
-  ]
-
-  const rowsMock = [
-    [
-      <Typography>Cell 1</Typography>,
-      <Typography>Cell 2</Typography>,
-      <Typography>Cell 3</Typography>,
-      <Dropdown label='Cell 4' items={['Cell 1']} width={200} height={50} />
-    ],
-    [
-      <Typography>Cell 5</Typography>,
-      <Typography>Cell 6</Typography>,
-      <Typography>Cell 7</Typography>,
-      <Button variant='contained'>Cell 8</Button>
-    ]
-  ]
-
-  <TableMolecule headers={headersMock} rows={rowsMock} />
-
-*/
+import TableCellAtom from '../atoms/TableCellAtom'
 
 interface TableProps {
   headers: JSX.Element[],

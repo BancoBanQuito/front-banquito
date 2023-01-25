@@ -1,24 +1,18 @@
 import React from 'react'
-import { Container, Content, ReturnButton } from './InteresRate'
-
-// icon keyboar backspace
+import { ReturnButton } from './InteresRate'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import ButtonIcon from '../../atoms/ButtonIcon';
-// search icon
-import SearchIcon from '@mui/icons-material/Search';
-import { ColorPalette } from '../../../style/ColorPalette';
 import styled from 'styled-components';
-import TextFieldAtom from '../../atoms/TextFieldAtom';
-import { Dropdown } from '../../atoms/Dropdown';
-import { SizeButton } from '../../atoms/SizeButton';
-import { ButtonStyle } from '../../../style/ButtonStyle';
-import { string } from 'prop-types';
 import { useEffect, useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import InterestRateService from '../../../services/product/interestrate/interestRate.service';
-import IInterestRateAdd from '../../../services/product/models/interestRate.model';
-// ContainParent
+import ButtonIcon from 'src/components/atoms/ButtonIcon';
+import { Dropdown } from 'src/components/atoms/Dropdown';
+import { SizeButton } from 'src/components/atoms/SizeButton';
+import TextFieldAtom from 'src/components/atoms/TextFieldAtom';
+import InterestRateService from 'src/services/product/interestrate/interestRate.service';
+import { ButtonStyle } from 'src/style/ButtonStyle';
+import { ColorPalette } from 'src/style/ColorPalette';
+
 export const ContainParent = styled.div`
 display: grid;
 grid-template-columns: 0.6fr 1fr;
@@ -28,7 +22,6 @@ grid-row-gap: 2rem;
 padding: 1rem;
 justify-content: center;
 align-items: center;
-
 `;
 
 const interestTypes: { name: string, value: string }[] = [{ name: 'Activo', value: 'ACT' }, { name: 'Pasivo', value: 'PAS' }]
@@ -123,7 +116,7 @@ const FormInterestRate = ({
             setOpen(true);
         } else {
             console.log('createInterestRate')
-            let data: IInterestRateAdd = {
+            let data = {
                 name: name,
                 type: type,
                 calcBase: calcBase,

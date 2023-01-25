@@ -1,18 +1,18 @@
 import { Button, CardActionArea, CardContent, Dialog, Divider, MenuItem, Select, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import TextFieldAtom from "../components/atoms/TextFieldAtom";
+import TextFieldAtom from "src/components/atoms/TextFieldAtom";
 
-import ButtonIcon from "../components/atoms/ButtonIcon";
+import ButtonIcon from "src/components/atoms/ButtonIcon";
 
 // search icon
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
 // icon keyboar backspace
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { ColorPalette } from "../style/ColorPalette";
+import { ColorPalette } from "src/style/ColorPalette";
 // Add icon
-import { SizeButton } from "../components/atoms/SizeButton";
-import { ButtonStyle } from "../style/ButtonStyle";
+import { SizeButton } from "src/components/atoms/SizeButton";
+import { ButtonStyle } from "src/style/ButtonStyle";
 //data
 import Card from "@mui/material/Card";
 

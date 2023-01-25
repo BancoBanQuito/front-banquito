@@ -1,9 +1,9 @@
 import axios from "axios";
+import { POST_INTEREST_API, GET_INTEREST_FROM_TO_API, GET_INTEREST_INVESTMENT_API } from "src/config/apis/transactionAPI";
 import { ResponseFormat } from "../ResponseFormat";
 import { RQSavingsAccountInterest } from "./dto/RQSavingsAccountInterest";
-import { RSSavingsAccountInterest } from "./dto/RSSavingsAccountInterest";
 import { RSInvestmentInterest } from "./dto/RSInvestmentInterest";
-import { GET_INTEREST_FROM_TO_API, GET_INTEREST_INVESTMENT_API, POST_INTEREST_API } from "../../config/apis/transactionAPI";
+import { RSSavingsAccountInterest } from "./dto/RSSavingsAccountInterest";
 
 export class InterestService {
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Container, Typography, TextField } from "@mui/material";
-import TableMolecule from "../../molecules/TableMolecule";
 import { Province } from "./types";
 import { getProvinces } from "./functions";
+import TableMolecule from "src/components/molecules/TableMolecule";
 
 const headers = [
   <Typography>Provincia</Typography>,

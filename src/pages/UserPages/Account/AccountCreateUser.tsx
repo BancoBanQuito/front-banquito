@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { ColorPalette } from '../../../style/ColorPalette';
-import { ProductService } from '../../../services/product/productService';
-import { AccountService } from '../../../services/account/AccountService';
 import { Avatar, Card, CardContent } from '@mui/material';
-import StripeAtom from '../../../components/atoms/StripeAtom';
-import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg'
-import AccountFormBank from '../../../components/organisms/Account/AccountFormBank';
-import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
-import LoadOrganism from '../../../components/organisms/LoadOrganism';
-import { RQCreateAccount } from '../../../services/account/dto/RQCreateAccount';
+import StripeAtom from 'src/components/atoms/StripeAtom';
+import AccountFormBank from 'src/components/organisms/Account/AccountFormBank';
+import ErrorModalOrganism from 'src/components/organisms/ErrorModalOrganism';
+import LoadOrganism from 'src/components/organisms/LoadOrganism';
+import { AccountService } from 'src/services/account/AccountService';
+import { RQCreateAccount } from 'src/services/account/dto/RQCreateAccount';
+import { ProductService } from 'src/services/product/productService';
+import { ColorPalette } from 'src/style/ColorPalette';
+import BanQuitoLogo from 'src/assets/BanQuito-Logo.svg';
+
 
 const AccountCreateUser = () => {
     const [isLoading, setisLoading] = useState<boolean>(false);

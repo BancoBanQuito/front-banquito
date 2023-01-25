@@ -1,8 +1,8 @@
 import axios from "axios";
+import { PUT_ACCOUNT_SIGNATURE_API, POST_ACCOUNT_SIGNATURE_API, GET_ACCOUNT_SIGNATURE_API, GET_ACCOUNT_SIGNATURE_TEST_API } from "src/config/apis/accountAPI";
 import { ResponseFormat } from "../ResponseFormat";
-import { RQSignatureRoleStatus } from "./dto/RQSignatureRoleStatus";
-import { GET_ACCOUNT_SIGNATURE_API, GET_ACCOUNT_SIGNATURE_TEST_API, POST_ACCOUNT_SIGNATURE_API, PUT_ACCOUNT_SIGNATURE_API } from "../../config/apis/accountAPI";
 import { RQSignature } from "./dto/RQSignature";
+import { RQSignatureRoleStatus } from "./dto/RQSignatureRoleStatus";
 import { RSSignature } from "./dto/RSSignature";
 
 export class AccountSignatureService {

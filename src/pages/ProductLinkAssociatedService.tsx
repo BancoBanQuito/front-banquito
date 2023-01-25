@@ -1,21 +1,21 @@
 import { TextField, Typography } from "@mui/material";
 import React, { FormEvent, useEffect, useState } from "react";
-import TextFieldAtom from "../components/atoms/TextFieldAtom";
-import TableMolecule from "../components/molecules/TableMolecule";
-import ButtonIcon from "../components/atoms/ButtonIcon";
+import TextFieldAtom from "src/components/atoms/TextFieldAtom";
+import TableMolecule from "src/components/molecules/TableMolecule";
+import ButtonIcon from "src/components/atoms/ButtonIcon";
 // search icon
 import SearchIcon from "@mui/icons-material/Search";
 import { Checkbox as MuiCheckbox } from "@mui/material";
 import styled from "styled-components";
 // icon keyboar backspace
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { ColorPalette } from "../style/ColorPalette";
+import { ColorPalette } from "src/style/ColorPalette";
 // Add icon
-import { SizeButton } from "../components/atoms/SizeButton";
-import { ButtonStyle } from "../style/ButtonStyle";
+import { SizeButton } from "src/components/atoms/SizeButton";
+import { ButtonStyle } from "src/style/ButtonStyle";
 //data
-//import IdentificationTypes from "../components/organisms/IdentificationType.json";
-import { Checkbox } from "../components/atoms/Checkbox";
+//import IdentificationTypes from "src/components/organisms/IdentificationType.json";
+import { Checkbox } from "src/components/atoms/Checkbox";
 import { ConfirmationNumberOutlined } from "@mui/icons-material";
 import SearchProductDialog from "./SearchProductDialog";
 // Styles
