@@ -77,7 +77,7 @@ const HomeClient = ({ user, isLogged }: Props) => {
               <SizeButton text='Iniciar Sesion'
                 style={ButtonStyle.MEDIUM}
                 palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/cliente/login")}
               />
               <SizeButton text='Unirse'
                 style={ButtonStyle.MEDIUM}

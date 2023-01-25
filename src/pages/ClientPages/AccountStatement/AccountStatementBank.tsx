@@ -24,7 +24,11 @@ const AccountStatementBank = () => {
     const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(false);
     const [accountStatement, setaccountStatement] = useState<AccountStament>();
     const [accountStatements, setaccountStatements] = useState<AccountStament[]>([]);
+<<<<<<<<< Temporary merge branch 1
     const [accountNumberData, setaccountNumberDate] = useState<string>();
+=========
+    const [accountNumberData, setaccountNumberData] = useState<string>();
+>>>>>>>>> Temporary merge branch 2
 
     const navigate = useNavigate();
 
@@ -37,7 +41,11 @@ const AccountStatementBank = () => {
     }
 
     const handleSearch = (data: string) => {
+<<<<<<<<< Temporary merge branch 1
         setaccountNumberDate(data);
+=========
+        // setaccountNumberData(data);
+>>>>>>>>> Temporary merge branch 2
         searchAccountStatement(data);
     }
 
@@ -47,20 +55,34 @@ const AccountStatementBank = () => {
         setactiveAccountStatement(true);
     }
 
-    const searchAccountStatement = async (identification: string, identificationType?: string) => {
+    const searchAccountStatement = async (codeLocalAccount: string, identificationType?: string) => {
         setisLoading(true);
         try {
+<<<<<<<<< Temporary merge branch 1
             const { codeLocalAccount, codeInternationalAccount }: any = (await AccountService.getAccountsById(identification, identificationType || "DNI")).data?.data?.at(0);
+=========
+            /* const { codeLocalAccount, codeInternationalAccount }: any = (await AccountService.getAccountsById(identificationType || "DNI", identification)).data?.data?.at(0);
+>>>>>>>>> Temporary merge branch 2
             if (!!codeLocalAccount && !!codeInternationalAccount) {
                 setactiveErrorModal(true);
                 seterrorMessage("No se han encontrado datos");
                 return;
+<<<<<<<<< Temporary merge branch 1
             }
             const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount, codeInternationalAccount)).data.data;
             if (data) {
                 // setaccountStatements(data);
                 setaccountStatement(data);
                 setactiveAccountStatementTable(true);
+=========
+            } */
+            const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(identification, '123456')).data.data;
+            if (data) {
+                // setaccountStatements(data);
+                setaccountStatement(data);
+                setactiveAccountStatement(true);
+                // setactiveAccountStatementTable(true);
+>>>>>>>>> Temporary merge branch 2
             } else {
                 setactiveErrorModal(true);
                 seterrorMessage("No se han encontrado datos");

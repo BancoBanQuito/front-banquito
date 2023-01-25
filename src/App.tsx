@@ -119,16 +119,20 @@ const App = () => {
     },
     {
       path: "producto/servicio",
-      element: <CreateRequestService 
+      element: <CreateRequestService
         openDialog={true}
       />,
-    },{
+    },
+    {
       path: "producto-vincular-servicio",
-      element: <ProductLinkAssociatedService 
-      onSubmit={() => {}}
+      element: <ProductLinkAssociatedService
+        onSubmit={() => { }}
       />,
+    },
+    {
+      path: "login",
+      element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/usuario' />
     }
-
   ];
 
   const clientRoutes = [
@@ -155,6 +159,10 @@ const App = () => {
     {
       path: "signup",
       element: <CreateUser redirect="/cliente" />,
+    },
+    {
+      path: "login",
+      element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/cliente' />
     }
   ]
 
@@ -164,7 +172,6 @@ const App = () => {
         <Routes>
           <Route path="" element={<Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />}>
             <Route index element={<Home />} />
-            <Route path="/login" element={<Login setUser={setUser} setIsLogged={setIsLogged} />} />
             {userRoutes.map((route) => (
               <Route
                 key={route.path}
