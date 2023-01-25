@@ -35,6 +35,7 @@ import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEn
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
+import AccountConsolidatedPosition from "./pages/ClientPages/Account/AccountConsolidatedPosition";
 
 const App = () => {
 
@@ -127,6 +128,10 @@ const App = () => {
       element: <ProductLinkAssociatedService
         onSubmit={() => { }}
       />,
+    },
+    {
+      path: "cuenta/posicion-consolidada",
+      element: <AccountConsolidatedPosition />,
     },
     {
       path: "login",
