@@ -16,6 +16,7 @@
     "@mui/lab": "^5.0.0-alpha.116",
     "@mui/material": "^5.11.4",
     "@mui/x-date-pickers": "^5.0.14",
+    "@types/node": "^18.11.18",
     "@types/styled-components": "^5.1.26",
     "axios": "^1.2.3",
     "dayjs": "^1.11.7",
