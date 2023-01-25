@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Card, CardContent, Fade, Typography } from '@mui/material';
+import { Card, CardContent, Fade, Typography } from '@mui/material';
 import TableMolecule from '/src/components/molecules/TableMolecule';
 import SearchAccount from '/src/components/organisms/Account/SearchAccount';
 import { AccountService } from '/src/services/account/AccountService';
@@ -34,7 +34,6 @@ const AccountConsolidatedPosition = () => {
 
   const handleSearch = (data: string) => {
     searchAccountStatement("DNI", data);
-    setactiveSearch(false);
   }
 
   const getRow = (data: RSAccount) => {
@@ -73,15 +72,13 @@ const AccountConsolidatedPosition = () => {
         </div>
       }
       {
-        !activeSearch && 
-        <Box sx={{ p: 20 }} justifyContent="center">
-          <Typography variant="h4" sx={{ mb: 2}} align='center'>Posición consolidada</Typography>
-            <TableMolecule
-              headers={headersMock}
-              rows={consolidatedPosition.map(consolidatedPosition => getRow(consolidatedPosition))} />
-        </Box>
-          
-        
+        !activeSearch && <>
+          <Typography variant='h4' align='center'>Posicion Consolidada</Typography>
+          <br></br>
+          <TableMolecule
+            headers={headersMock}
+            rows={consolidatedPosition.map(consolidatedPosition => getRow(consolidatedPosition))} />
+        </>
       }
     </>
   );
