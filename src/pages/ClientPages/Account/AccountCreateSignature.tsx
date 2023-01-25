@@ -7,7 +7,7 @@ import { ColorPalette } from "/src/style/ColorPalette";
 import { SizeButton } from "/src/components/atoms/SizeButton";
 import { ButtonStyle } from "/src/style/ButtonStyle";
 import { AccountSignatureService } from "/src/services/account/AccountSignatureService";
-import { AccountService } from "/src/services/account/AccountService";
+import { AccountService } from "../../../services/account/AccountService";
 import { RSAccount } from "/src/services/account/dto/RSAccount";
 
 interface FormData {

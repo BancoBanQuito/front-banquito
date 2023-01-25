@@ -1,4 +1,4 @@
-import React, { ReactInstance, useRef, useState } from 'react'
+import React, { ReactInstance, useEffect, useRef, useState } from 'react'
 import { Box } from '@mui/system'
 import ReactToPrint from 'react-to-print'
 import { useNavigate } from 'react-router-dom'
@@ -9,7 +9,7 @@ import AccountStatementBody from '/src/components/organisms/Account/AccountState
 import SearchAccount from '/src/components/organisms/Account/SearchAccount'
 import ErrorModalOrganism from '/src/components/organisms/ErrorModalOrganism'
 import LoadOrganism from '/src/components/organisms/LoadOrganism'
-import { AccountStatementService } from '/src/services/account/AccountStatementService'
+import { AccountStatementService } from '../../../services/account/AccountStatementService'
 import { RSAccountStatement } from '/src/services/account/dto/RSAccountStatement'
 import { ColorPalette } from '/src/style/ColorPalette'
 import { RSAccountStatementList } from '/src/services/account/dto/RSAccountStatementList'
@@ -17,7 +17,13 @@ import AccountStatementTable from '/src/components/organisms/Account/AccountStat
 import { SizeButton } from '/src/components/atoms/SizeButton'
 import { ButtonStyle } from '/src/style/ButtonStyle'
 
-const AccountStatementBank = () => {
+interface AccountStatementBankProps {
+    client?: boolean
+}
+
+const userCodeLocalAccount = '1234567890';
+
+const AccountStatementBank = (props: AccountStatementBankProps) => {
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
@@ -28,8 +34,19 @@ const AccountStatementBank = () => {
     const [accountStatements, setaccountStatements] = useState<RSAccountStatementList[]>([]);
     const [codeLocalAccount, setcodeLocalAccount] = useState<string>();
 
-    const navigate = useNavigate();
+    useEffect(() => {
+        if (!!props.client) {
+            setactiveSearchBox(false);
+            setcodeLocalAccount(userCodeLocalAccount);
+            handleSearch(userCodeLocalAccount);
+        } else {
+            setactiveSearchBox(true);
+        }
+        return () => { }
+    }, [])
 
+
+    const navigate = useNavigate();
     const printRef = useRef();
 
     const handleBackEvent = () => {
@@ -113,7 +130,7 @@ const AccountStatementBank = () => {
                 position: 'relative',
                 top: 0
             }}>
-                <div style={{
+                {!(!!props.client) && <div style={{
                     position: 'absolute',
                     width: '100%',
                     height: '80vh',
@@ -134,7 +151,7 @@ const AccountStatementBank = () => {
                             </CardContent>
                         </Card>
                     </Fade>
-                </div>
+                </div>}
                 <div style={{
                     position: 'absolute',
                     width: '100%',

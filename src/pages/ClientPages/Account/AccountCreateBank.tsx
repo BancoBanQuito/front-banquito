@@ -8,7 +8,7 @@ import AccountFormBank from '/src/components/organisms/Account/AccountFormBank';
 import ErrorModalOrganism from '/src/components/organisms/ErrorModalOrganism';
 import LoadOrganism from '/src/components/organisms/LoadOrganism';
 import SelectAccountTypeForm from '/src/components/organisms/SelectAccountTypeForm';
-import { AccountService } from '/src/services/account/AccountService';
+import { AccountService } from '../../../services/account/AccountService';
 import { ProductService } from '/src/services/product/productService';
 import { ColorPalette } from '/src/style/ColorPalette';
 
