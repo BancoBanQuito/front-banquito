@@ -165,6 +165,17 @@ const App = () => {
     }
   ]
 
+  const atmRoutes = [
+    {
+      path: "",
+      element: <HomeClient user={user} isLogged={isLogged} />,
+    },
+    {
+      path: "cuenta/saldo",
+      element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/cliente' />
+    }
+  ]
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
@@ -179,6 +190,13 @@ const App = () => {
               />
             ))}
             {clientRoutes.map((route) => (
+              <Route
+                key={route.path}
+                path={`cliente/${route.path}`}
+                element={route.element}
+              />
+            ))}
+            {atmRoutes.map((route) => (
               <Route
                 key={route.path}
                 path={`cliente/${route.path}`}

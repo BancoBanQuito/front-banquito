@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, Fade, Typography } from '@mui/material';
 import TableMolecule from '/src/components/molecules/TableMolecule';
 import SearchAccount from '/src/components/organisms/Account/SearchAccount';
-import { AccountService } from '../../../services/account/AccountService';
+import { AccountService } from '/src/services/account/AccountService';
 import { RSAccount } from '/src/services/account/dto/RSAccount';
 import { ColorPalette } from '/src/style/ColorPalette';
 
