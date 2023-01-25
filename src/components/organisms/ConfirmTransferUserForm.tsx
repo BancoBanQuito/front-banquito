@@ -1,8 +1,8 @@
 import { Typography, TextField } from '@mui/material'
 import { Box, SxProps, Theme } from '@mui/system'
-import { RQTransaction } from 'src/services/transaction/dto/RQTransaction'
-import { ButtonStyle } from 'src/style/ButtonStyle'
-import { ColorPalette } from 'src/style/ColorPalette'
+import { RQTransaction } from '/src/services/transaction/dto/RQTransaction'
+import { ButtonStyle } from '/src/style/ButtonStyle'
+import { ColorPalette } from '/src/style/ColorPalette'
 import { SizeButton } from '../atoms/SizeButton'
 
 interface ConfirmFormProps {

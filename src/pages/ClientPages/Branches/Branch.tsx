@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, TextField, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
-import TableMolecule from 'src/components/molecules/TableMolecule';
-import { IBranch } from 'src/components/organisms/Branch/Types';
+import TableMolecule from '/src/components/molecules/TableMolecule';
+import { IBranch } from '/src/components/organisms/Branch/Types';
 
 
 const Branch: React.FC = () => {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PUT_TRANSACTION, POST_TRANSACTION, GET_TRANSACTION_FROM_TO_API } from "src/config/apis/transactionAPI";
+import { PUT_TRANSACTION, POST_TRANSACTION, GET_TRANSACTION_FROM_TO_API } from "/src/config/apis/transactionAPI";
 import { ResponseFormat } from "../ResponseFormat";
 import { RQStatus } from "./dto/RQStatus";
 import { RQTransaction } from "./dto/RQTransaction";

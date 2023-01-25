@@ -9,14 +9,14 @@ import FormInterestRateLog from './FormInterestRateLog';
 import FormInterestRate from './FormInterestRate';
 import InfoIcon from '@mui/icons-material/Info';
 import Tooltip from '@mui/material/Tooltip';
-import ButtonIcon from 'src/components/atoms/ButtonIcon';
-import { SizeButton } from 'src/components/atoms/SizeButton';
-import TextFieldAtom from 'src/components/atoms/TextFieldAtom';
-import TableMolecule from 'src/components/molecules/TableMolecule';
-import InterestRateService from 'src/services/product/interestrate/interestRate.service';
-import IInterestRate from 'src/services/product/models/interestRate.model';
-import { ButtonStyle } from 'src/style/ButtonStyle';
-import { ColorPalette } from 'src/style/ColorPalette';
+import ButtonIcon from '/src/components/atoms/ButtonIcon';
+import { SizeButton } from '/src/components/atoms/SizeButton';
+import TextFieldAtom from '/src/components/atoms/TextFieldAtom';
+import TableMolecule from '/src/components/molecules/TableMolecule';
+import InterestRateService from '/src/services/product/interestrate/interestRate.service';
+import IInterestRate from '/src/services/product/models/interestRate.model';
+import { ButtonStyle } from '/src/style/ButtonStyle';
+import { ColorPalette } from '/src/style/ColorPalette';
 import { Content, ReturnButton, SearchContainer, ContentButtonAddRight } from './InteresRate';
 
 

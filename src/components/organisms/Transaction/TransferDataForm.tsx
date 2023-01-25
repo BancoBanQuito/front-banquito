@@ -1,9 +1,9 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Box, TextField, Typography } from '@mui/material';
-import IdentificationTypes from 'src/services/.json/IdentificationType.json'
-import { SizeButton } from 'src/components/atoms/SizeButton';
-import { ButtonStyle } from 'src/style/ButtonStyle';
-import { ColorPalette } from 'src/style/ColorPalette';
+import IdentificationTypes from '/src/services/.json/IdentificationType.json'
+import { SizeButton } from '/src/components/atoms/SizeButton';
+import { ButtonStyle } from '/src/style/ButtonStyle';
+import { ColorPalette } from '/src/style/ColorPalette';
 
 interface FormTransferInterface {
     bank: string,

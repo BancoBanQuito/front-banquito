@@ -1,9 +1,9 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Box, TextField, Typography } from '@mui/material'
 import { Search } from '@mui/icons-material'
-import { SizeButton } from 'src/components/atoms/SizeButton';
-import { ButtonStyle } from 'src/style/ButtonStyle';
-import { ColorPalette } from 'src/style/ColorPalette';
+import { SizeButton } from '/src/components/atoms/SizeButton';
+import { ButtonStyle } from '/src/style/ButtonStyle';
+import { ColorPalette } from '/src/style/ColorPalette';
 
 interface SearchAccountProps {
     title: string,

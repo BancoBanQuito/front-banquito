@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { RQTransaction } from 'src/services/transaction/dto/RQTransaction';
-import ProgressButtonMolecule from 'src/components/molecules/ProgressButtonMolecule';
-import ConfirmTransferUserForm from 'src/components/organisms/ConfirmTransferUserForm';
-import ErrorModalOrganism from 'src/components/organisms/ErrorModalOrganism';
-import TransferAmountForm from 'src/components/organisms/Transaction/TransferAmountForm';
-import TransferDataForm from 'src/components/organisms/Transaction/TransferDataForm';
-import { TransactionService } from 'src/services/transaction/TransactionService';
-import { ColorPalette } from 'src/style/ColorPalette';
+import { RQTransaction } from '/src/services/transaction/dto/RQTransaction';
+import ProgressButtonMolecule from '/src/components/molecules/ProgressButtonMolecule';
+import ConfirmTransferUserForm from '/src/components/organisms/ConfirmTransferUserForm';
+import ErrorModalOrganism from '/src/components/organisms/ErrorModalOrganism';
+import TransferAmountForm from '/src/components/organisms/Transaction/TransferAmountForm';
+import TransferDataForm from '/src/components/organisms/Transaction/TransferDataForm';
+import { TransactionService } from '/src/services/transaction/TransactionService';
+import { ColorPalette } from '/src/style/ColorPalette';
 
 const TransferBank = () => {
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);

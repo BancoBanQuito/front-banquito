@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PUT_ACCOUNT_STATUS_API, PUT_ACCOUNT_BALANCE_API, POST_ACCOUNT_API, GET_ACCOUNT_ID_API, GET_ACCOUNT_CODE_API } from "src/config/apis/accountAPI";
+import { PUT_ACCOUNT_STATUS_API, PUT_ACCOUNT_BALANCE_API, POST_ACCOUNT_API, GET_ACCOUNT_ID_API, GET_ACCOUNT_CODE_API } from "/src/config/apis/accountAPI";
 import { ResponseFormat } from "../ResponseFormat";
 import { RQCreateAccount } from "./dto/RQCreateAccount";
 import { RSAccount } from "./dto/RSAccount";

@@ -1,9 +1,9 @@
 import { Box, SxProps, Theme } from '@mui/system'
 import { Typography, TextField } from '@mui/material'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { SizeButton } from 'src/components/atoms/SizeButton';
-import { ButtonStyle } from 'src/style/ButtonStyle';
-import { ColorPalette } from 'src/style/ColorPalette';
+import { SizeButton } from '/src/components/atoms/SizeButton';
+import { ButtonStyle } from '/src/style/ButtonStyle';
+import { ColorPalette } from '/src/style/ColorPalette';
 
 const mainBoxStyle = (): SxProps<Theme> => {
     return {

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import TextFieldAtom from 'src/components/atoms/TextFieldAtom';
+import TextFieldAtom from '/src/components/atoms/TextFieldAtom';
 import { Box, FormControl, SxProps, Theme, Typography } from '@mui/material';
-import { Dropdown } from 'src/components/atoms/Dropdown';
-import { SizeButton } from 'src/components/atoms/SizeButton';
-import { ButtonStyle } from 'src/style/ButtonStyle';
-import { ColorPalette } from 'src/style/ColorPalette';
+import { Dropdown } from '/src/components/atoms/Dropdown';
+import { SizeButton } from '/src/components/atoms/SizeButton';
+import { ButtonStyle } from '/src/style/ButtonStyle';
+import { ColorPalette } from '/src/style/ColorPalette';
 
 const Withdrawals = () => {
     const mockedItems = [{

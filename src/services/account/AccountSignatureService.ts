@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PUT_ACCOUNT_SIGNATURE_API, POST_ACCOUNT_SIGNATURE_API, GET_ACCOUNT_SIGNATURE_API, GET_ACCOUNT_SIGNATURE_CODE_API } from "src/config/apis/accountAPI";
+import { PUT_ACCOUNT_SIGNATURE_API, POST_ACCOUNT_SIGNATURE_API, GET_ACCOUNT_SIGNATURE_API, GET_ACCOUNT_SIGNATURE_CODE_API } from "/src/config/apis/accountAPI";
 import { ResponseFormat } from "../ResponseFormat";
 import { RQSignature } from "./dto/RQSignature";
 import { RQSignatureRoleStatus } from "./dto/RQSignatureRoleStatus";

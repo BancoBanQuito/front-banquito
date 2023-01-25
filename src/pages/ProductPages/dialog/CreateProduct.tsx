@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Dialog, Stack, Typography, Divider, Button, TextField, Select, MenuItem } from "@mui/material";
 import { useForm, FormProvider } from "react-hook-form";
 import dayjs, { Dayjs } from "dayjs";
-import DatePickerAtom from "src/components/atoms/DatePicker";
+import DatePickerAtom from "/src/components/atoms/DatePicker";
 
 interface Props {
     openDialog: boolean;

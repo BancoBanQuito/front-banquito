@@ -3,13 +3,13 @@ import { Alert, ContainChild, ContainChild2, ContainChild3, ContainChild4, Conta
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import styled from 'styled-components';
 import Snackbar from '@mui/material/Snackbar';
-import ButtonIcon from 'src/components/atoms/ButtonIcon';
-import { Dropdown } from 'src/components/atoms/Dropdown';
-import { NumberField } from 'src/components/atoms/NumberField';
-import { SizeButton } from 'src/components/atoms/SizeButton';
-import InterestRateService from 'src/services/product/interestrate/interestRate.service';
-import { ButtonStyle } from 'src/style/ButtonStyle';
-import { ColorPalette } from 'src/style/ColorPalette';
+import ButtonIcon from '/src/components/atoms/ButtonIcon';
+import { Dropdown } from '/src/components/atoms/Dropdown';
+import { NumberField } from '/src/components/atoms/NumberField';
+import { SizeButton } from '/src/components/atoms/SizeButton';
+import InterestRateService from '/src/services/product/interestrate/interestRate.service';
+import { ButtonStyle } from '/src/style/ButtonStyle';
+import { ColorPalette } from '/src/style/ColorPalette';
 import { ReturnButton } from './InteresRate';
 
 const ContentFormLog = styled(ContentForm)`
