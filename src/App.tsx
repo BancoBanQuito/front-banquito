@@ -1,5 +1,9 @@
+import { ThemeProvider } from "@mui/material";
 import { useState } from "react";
-import SearchClient from "./pages/SearchClient";
+import SearchCardClient from "./pages/UserPages/SearchCardClient/SearchCardClient";
+import SearchClient from "./pages/UserPages/SearchClientData/SearchClient";
+import SearchClientDataForm from "./pages/UserPages/SearchClientData/SearchClientDataForm";
+import theme from "./style/Theme";
 
 interface userProps {
   username: string;
@@ -135,8 +139,8 @@ const App = () => {
   ]
 */
   return (
-    /* <ThemeProvider theme={theme}>
-      <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      {/* <BrowserRouter>
         <Routes>
           <Route path="" element={<Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />}>
             <Route index element={<Home />} />
@@ -157,9 +161,10 @@ const App = () => {
           </Route>
           <Route path="*" element={<Error404 />} />
         </Routes>
-      </BrowserRouter>
-    </ThemeProvider>*/
-    <SearchClient />
+      </BrowserRouter> 
+      <SearchClient />*/}
+      <SearchCardClient />
+    </ThemeProvider>
   );
 };
 

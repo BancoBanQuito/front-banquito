@@ -1,6 +1,6 @@
 import { useState } from "react";
-import LabelInputMolecule from "../components/molecules/InputLabelMolecule";
-import FormClientData from "../components/organisms/FormClientData";
+import LabelInputMolecule from "../../../components/molecules/InputLabelMolecule";
+import FormClientData from "../../../components/organisms/FormClientData";
 
 const SearchClient = () => {
   const [value, setValue] = useState("");
