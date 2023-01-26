@@ -5,19 +5,18 @@ import Error404 from "./pages/ErrorPages/Error404";
 import HomeClient from "./pages/ClientPages/HomeClient";
 import HomeUser from "./pages/UserPages/HomeUser";
 import Login from "./components/organisms/Login/Login";
-import CreateSignature from "./pages/AccountCreateSignature";
-import EditAccountSignature from "./pages/EditAccountSignature";
-import CancelAccount from "./pages/CancelAccount";
+import CreateSignature from "./pages/ClientPages/Account/AccountCreateSignature";
+import EditAccountSignature from "./pages/ClientPages/Account/AccountEditSignature";
+import CancelAccount from "./pages/ClientPages/Account/AccountCancel";
 import Layout from "./template/Layout";
-import AccountCreateUser from "./pages/UserPages/AccountCreate/AccountCreateUser";
+import AccountCreateUser from "./pages/UserPages/Account/AccountCreateUser";
 import TransferUser from "./pages/UserPages/Transferences/TransferUser";
 import TransferBank from "./pages/ClientPages/Transaction/TransferBank";
 import AccountCreateBank from "./pages/ClientPages/Account/AccountCreateBank";
 import Branch from "./pages/ClientPages/Branches/Branch";
-import AccountStatementBank from "./pages/ClientPages/AccountStatement/AccountStatementBank";
-import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
+import AccountStatementBank from "./pages/ClientPages/Account/AccountStatementBank";
+import AccountStatementClient from "./pages/UserPages/Account/AccountStatementClient";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
-import ConsolidatedPosition from "./pages/ConsolidatedPosition";
 import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
 import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
 import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
@@ -35,8 +34,8 @@ import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
 import { ThemeProvider } from "styled-components";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DepositUser from "./pages/UserPages/Transferences/DepositUser";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
 

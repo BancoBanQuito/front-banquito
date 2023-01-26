@@ -1,11 +1,11 @@
 import React from 'react'
-import { Box, SxProps, Theme, Typography } from '@mui/material';
-import { SizeButton } from '../atoms/SizeButton';
-import { ColorPalette } from '../../style/ColorPalette';
-import { ButtonStyle } from '../../style/ButtonStyle';
-import { AccountBalance } from '@mui/icons-material';
-import { Savings } from '@mui/icons-material';
 import { Wallet } from '@mui/icons-material';
+import { Savings } from '@mui/icons-material';
+import { AccountBalance } from '@mui/icons-material';
+import { Box, SxProps, Theme, Typography } from '@mui/material';
+import { ButtonStyle } from '/src/style/ButtonStyle';
+import { ColorPalette } from '/src/style/ColorPalette';
+import { SizeButton } from '../atoms/SizeButton';
 
 const mainBoxStyle = (): SxProps<Theme> => {
     return {

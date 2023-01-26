@@ -1,33 +1,23 @@
-import React, { useState } from 'react';
-import ButtonIcon from '../../atoms/ButtonIcon';
-import { ColorPalette } from '../../../style/ColorPalette';
-import { Container, Content, ContentButtonAddRight, ReturnButton, SearchContainer } from './InteresRate';
-// icon keyboar backspace
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import TextFieldAtom from '../../atoms/TextFieldAtom';
-import { SizeButton } from '../../atoms/SizeButton';
-// search icon
-import SearchIcon from '@mui/icons-material/Search';
-import { ButtonStyle } from '../../../style/ButtonStyle';
-import TableMolecule from '../../molecules/TableMolecule';
-// Add icon
+import React, { useEffect, useState } from 'react';
+import { Container, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { Typography } from '@mui/material';
-// icon x
-import CloseIcon from '@mui/icons-material/Close';
-// icon check
 import CheckIcon from '@mui/icons-material/Check';
-import IInterestRate from '../../../services/product/models/interestRate.model';
-import InterestRateService from '../../../services/product/interestrate/interestRate.service';
-import { useEffect } from 'react';
-// add circle icon
+import CloseIcon from '@mui/icons-material/Close';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import FormInterestRateLog from './FormInterestRateLog';
 import FormInterestRate from './FormInterestRate';
-// info icon
 import InfoIcon from '@mui/icons-material/Info';
 import Tooltip from '@mui/material/Tooltip';
-import IInterestRateStatus from '../../../services/product/models/interestRate.model';
+import ButtonIcon from '/src/components/atoms/ButtonIcon';
+import { SizeButton } from '/src/components/atoms/SizeButton';
+import TextFieldAtom from '/src/components/atoms/TextFieldAtom';
+import TableMolecule from '/src/components/molecules/TableMolecule';
+import InterestRateService from '/src/services/product/interestrate/interestRate.service';
+import IInterestRate from '/src/services/product/models/interestRate.model';
+import { ButtonStyle } from '/src/style/ButtonStyle';
+import { ColorPalette } from '/src/style/ColorPalette';
+import { Content, ReturnButton, SearchContainer, ContentButtonAddRight } from './InteresRate';
 
 
 const InterestRateLog = () => {
@@ -115,7 +105,7 @@ const InterestRateLog = () => {
 
     const changeStatus = async (interestRate: any, status: string) => {
         interestRate.status = status;
-        let data: IInterestRateStatus = {
+        let data = {
             id: interestRate.id,
             status: interestRate.status,
             name: '',

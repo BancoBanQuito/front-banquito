@@ -1,12 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Container } from "@mui/material";
-import { useState } from "react";
-import { HolidayTabs } from "../../../components/organisms/Holiday/HolidayTabs";
-import Holiday from "../../ClientPages/Holiday/Holiday";
-import CreateHolidayD from "../../../components/organisms/Holiday/CreateHoliday";
-import CreateHolidayY from "../../../components/organisms/Holiday/CreateHolidayYear";
-import Branch from "../../ClientPages/Branches/Branch";
-import CreateBranch from "../../../components/organisms/Branch/CreateBranch";
+import { HolidayTabs } from "/src/components/organisms/Holiday/HolidayTabs";
+import Holiday from "/src/pages/ClientPages/Holiday/Holiday";
+import CreateHoliday from "/src/components/organisms/Holiday/CreateHoliday";
 
 const HolidayUser: React.FC = () => {
   const [tabValue, setTabValue] = useState("Ver");
@@ -22,8 +18,8 @@ const HolidayUser: React.FC = () => {
         <Container sx={childStyles}>
           {tabValue === "Ver" && <Holiday />}
         </Container>
-        {tabValue === "CrearA" && <CreateHolidayY />}
-        {tabValue === "CrearD" && <CreateHolidayD />}
+        {tabValue === "CrearA" && <CreateHoliday key={0} />}
+        {tabValue === "CrearD" && <CreateHoliday key={1} />}
       </Box>
     </Box>
   );

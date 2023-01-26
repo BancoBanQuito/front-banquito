@@ -1,5 +1,5 @@
-import { Modal, Box, Typography } from '@mui/material';
 import React from 'react'
+import { Modal, Box } from '@mui/material';
 import LoadMolecule from '../molecules/LoadMolecule';
 
 interface LoadOrganismProps {

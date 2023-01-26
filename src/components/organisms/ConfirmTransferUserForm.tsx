@@ -1,14 +1,14 @@
 import { Typography, TextField } from '@mui/material'
 import { Box, SxProps, Theme } from '@mui/system'
-import { ButtonStyle } from '../../style/ButtonStyle'
-import { ColorPalette } from '../../style/ColorPalette'
+import { RQTransaction } from '/src/services/transaction/dto/RQTransaction'
+import { ButtonStyle } from '/src/style/ButtonStyle'
+import { ColorPalette } from '/src/style/ColorPalette'
 import { SizeButton } from '../atoms/SizeButton'
-import { TransactionPost } from '../../services/account/model/TransactionPost'
 
 interface ConfirmFormProps {
-    data: TransactionPost,
-    title: string,
     showField?: boolean;
+    data: RQTransaction,
+    title?: string,
     onAccept?: (data: any) => void,
     onDecline?: (data: any) => void,
 }
@@ -77,7 +77,7 @@ const ConfirmTransferUserForm = (props: ConfirmFormProps) => {
                         }}
                         style={ButtonStyle.BIG}
                         onClick={() => { props.onAccept?.(null) }}
-                        text={props.title} />
+                        text={props.title || ''} />
                     <SizeButton
                         palette={{
                             backgroundColor: ColorPalette.PRIMARY

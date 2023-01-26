@@ -1,8 +1,6 @@
 import { Box, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { ButtonStyle } from "../../../style/ButtonStyle";
-import { Dropdown } from "../../atoms/Dropdown";
-import { SizeButton } from "../../atoms/SizeButton";
+
 import {
   getCantons,
   getParishes,
@@ -12,6 +10,9 @@ import {
   updateProvince,
 } from "./functions";
 import { Canton, Parish, Province } from "./types";
+import { Dropdown } from "/src/components/atoms/Dropdown";
+import { SizeButton } from "/src/components/atoms/SizeButton";
+import { ButtonStyle } from "/src/style/ButtonStyle";
 
 export const UpdateLocation = () => {
   const mockedItems = [

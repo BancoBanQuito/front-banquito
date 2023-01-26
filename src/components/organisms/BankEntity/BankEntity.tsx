@@ -1,11 +1,10 @@
-import { TextField } from '@mui/material';
 import * as React from 'react';
-import { ButtonStyle } from '../../../style/ButtonStyle';
-import { ColorPalette } from '../../../style/ColorPalette';
-import { SizeButton } from '../../atoms/SizeButton';
+import { TextField } from '@mui/material';
 import { saveBankEntity } from './FunctionsBank';
-// styled components
 import styled from 'styled-components';
+import { SizeButton } from '/src/components/atoms/SizeButton';
+import { ButtonStyle } from '/src/style/ButtonStyle';
+import { ColorPalette } from '/src/style/ColorPalette';
 
 export const Container = styled.div`
   display: flex;

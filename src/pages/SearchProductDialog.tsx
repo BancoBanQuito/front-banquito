@@ -4,17 +4,17 @@ import Dialog from "@mui/material/Dialog";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 //atomos
-import TableMolecule from "../components/molecules/TableMolecule";
-import { Checkbox } from "../components/atoms/Checkbox";
-import TextFieldAtom from "../components/atoms/TextFieldAtom";
-import { SizeButton } from "../components/atoms/SizeButton";
+import TableMolecule from "/src/components/molecules/TableMolecule";
+import { Checkbox } from "/src/components/atoms/Checkbox";
+import TextFieldAtom from "/src/components/atoms/TextFieldAtom";
+import { SizeButton } from "/src/components/atoms/SizeButton";
 // search icon
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
 // icon keyboar backspace
-import { ColorPalette } from "../style/ColorPalette";
+import { ColorPalette } from "/src/style/ColorPalette";
 //add icon
-import { ButtonStyle } from "../style/ButtonStyle";
+import { ButtonStyle } from "/src/style/ButtonStyle";
 
 
 // Container for the search

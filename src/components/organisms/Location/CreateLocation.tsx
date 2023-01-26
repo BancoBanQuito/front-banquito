@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Box, TextField, Typography } from "@mui/material";
-import { Dropdown } from "../../atoms/Dropdown";
-import TextFieldAtom from "../../atoms/TextFieldAtom";
-import { SizeButton } from "../../atoms/SizeButton";
-import { ButtonStyle } from "../../../style/ButtonStyle";
 import { createCanton, createParish, createProvince } from "./functions";
+import { Dropdown } from "/src/components/atoms/Dropdown";
+import { SizeButton } from "/src/components/atoms/SizeButton";
+import { ButtonStyle } from "/src/style/ButtonStyle";
 
 export const CreateLocation = () => {
   const boxStyles = () => ({
