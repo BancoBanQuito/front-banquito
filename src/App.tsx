@@ -36,7 +36,6 @@ import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEn
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
-import { Segment } from './components/organisms/Segment/Segment';
 import ComboBox from "./components/atoms/ComboBox";
 import CreateSegment from "./components/organisms/Segment/CreateSegment";
 
