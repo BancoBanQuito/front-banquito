@@ -16,7 +16,7 @@ import { ButtonStyle } from "../style/ButtonStyle";
 //data
 //import IdentificationTypes from "../components/organisms/IdentificationType.json";
 import { Checkbox } from "../components/atoms/Checkbox";
-import { ConfirmationNumberOutlined } from "@mui/icons-material";
+import { ConfirmationNumberOutlined, South } from "@mui/icons-material";
 import SearchProductDialog from "./SearchProductDialog";
 // Styles
 export const Container = styled.div`
@@ -94,9 +94,7 @@ interface CheckBoxList {
 const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
   const [rowAssociatedServices, setRowAssociatedServices] = useState<any>([]);
   const [rowProduct, setRowProduct] = useState<any>([]);
-  const [associatedServices, setAssociatedServices] = useState<
-    AssociatedService[]
-  >([]);
+  const [associatedServices, setAssociatedServices] = useState<AssociatedService[]>([]);
   const [products, setProducts] = useState<any>([]);
   //const [checkBoxList, setCheckBoxList] = useState<CheckBoxList[]>([]);
 
@@ -182,7 +180,14 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
 
   const setServiceList = (service: AssociatedService, value: Boolean) => {
     if (value) {
-      setAssociatedServices(associatedServices.concat(service));
+      let asociateServices: AssociatedService[] = associatedServices;
+      asociateServices.push(service);
+      setAssociatedServices(asociateServices);
+    } else {
+      let asociateServices: AssociatedService[] = associatedServices.filter((serv) => 
+        serv.name != service.name
+      );
+      setAssociatedServices(asociateServices);
     }
     /* console.log("entra");
     console.log(checkBoxList);
@@ -250,10 +255,10 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
 
   const setServices = async () => {
     console.log("el array de servicios>");
-    console.log(products);
-    console.log(JSON.stringify(products));
-    console.log('{"products":' + JSON.stringify(products) + ',"associatedServices":' + JSON.stringify(associatedServices) + '}');
-    try {
+    console.log(associatedServices);
+    console.log(JSON.stringify(associatedServices));
+    //console.log('{"products":' + JSON.stringify(products) + ',"associatedServices":' + JSON.stringify(associatedServices) + '}');
+    /*try {
       const response = await fetch(`http://localhost:8081/api/products/product-link-service`,
         {
           method: "PUT",
@@ -266,7 +271,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
         
     } catch (error) {
       console.log(error);
-    }
+    }*/
   };
 
   return (
