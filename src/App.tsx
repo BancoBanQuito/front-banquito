@@ -35,6 +35,7 @@ import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEn
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
+import AccountAvailableBalance from "./pages/ATMPages/Account/AccountAvailableBalance";
 
 const App = () => {
 
@@ -172,7 +173,7 @@ const App = () => {
     },
     {
       path: "cuenta/saldo",
-      element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/cliente' />
+      element: <AccountAvailableBalance />
     }
   ]
 
@@ -199,7 +200,7 @@ const App = () => {
             {atmRoutes.map((route) => (
               <Route
                 key={route.path}
-                path={`cliente/${route.path}`}
+                path={`atm/${route.path}`}
                 element={route.element}
               />
             ))}
