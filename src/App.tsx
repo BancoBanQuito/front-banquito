@@ -35,6 +35,7 @@ import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEn
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
+import InterestInvestmentPolicies from "./pages/ClientPages/Transferences/InterestInvestmentPolicies";
 
 const App = () => {
 
@@ -154,6 +155,10 @@ const App = () => {
     {
       path: "transaccion",
       element: <TransferUser />,
+    },
+    {
+      path: "interes/polizas-inversion",
+      element: <InterestInvestmentPolicies />,
     },
     {
       path: "signup",
