@@ -113,6 +113,23 @@ const HomeUser = ({ user, isLogged }: Props) => {
                   palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
                   onClick={() => navigate("/usuario/agregar/tipo-de-producto")}
                 />
+                <SizeButton text='Agregar Producto'
+                  style={ButtonStyle.MEDIUM}
+                  palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
+                  onClick={() => navigate("/usuario/producto")}
+                />
+                <SizeButton text='Agregar Tipo de Producto'
+                  style={ButtonStyle.MEDIUM}
+                  palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
+                  onClick={() => navigate("/usuario/tipo-de-producto")}
+                />
+                <SizeButton text='Agregar Servicio asociado al producto'
+                  style={ButtonStyle.MEDIUM}
+                  palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
+                  onClick={() => navigate("/usuario/producto-vincular-servicio")}
+                />
+
+                
               </Box>
             </Box>
             : <Box
