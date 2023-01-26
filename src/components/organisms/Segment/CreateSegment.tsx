@@ -45,12 +45,12 @@ const CreateSegment: React.FC = () => {
         throw new Error(response.statusText);
       }
       alert("Segmento actualizado");
-      fetchSegment(); 
-      //   actualizar la tabla
+      fetchSegment();
     } catch (error) {
       console.error(error);
     }
   };
+
   const fetchSegment = async () => {
     try {
       const response = await fetch("http://localhost:8083/api/segments");
