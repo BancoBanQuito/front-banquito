@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Location } from "./pages/UserPages/Locations/Location";
 import theme from "./style/Theme";
 import Error404 from "./pages/ErrorPages/Error404";
-import { ThemeProvider } from "@mui/material";
 import HomeClient from "./pages/ClientPages/HomeClient";
 import HomeUser from "./pages/UserPages/HomeUser";
 import Login from "./components/organisms/Login/Login";
@@ -12,13 +11,12 @@ import CancelAccount from "./pages/CancelAccount";
 import Layout from "./template/Layout";
 import AccountCreateUser from "./pages/UserPages/AccountCreate/AccountCreateUser";
 import TransferUser from "./pages/UserPages/Transferences/TransferUser";
-import TransferBank from "./pages/ClientPages/Transferences/TransferBank";
+import TransferBank from "./pages/ClientPages/Transaction/TransferBank";
 import AccountCreateBank from "./pages/ClientPages/Account/AccountCreateBank";
 import Branch from "./pages/ClientPages/Branches/Branch";
 import AccountStatementBank from "./pages/ClientPages/AccountStatement/AccountStatementBank";
 import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ConsolidatedPosition from "./pages/ConsolidatedPosition";
 import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
 import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
@@ -36,6 +34,9 @@ import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEn
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
+import { ThemeProvider } from "styled-components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import DepositUser from "./pages/UserPages/Transferences/DepositUser";
 
 const App = () => {
 
@@ -84,7 +85,7 @@ const App = () => {
       element: <CancelAccount />,
     },
     {
-      path: "transaccion/dates",
+      path: "transaccion/fechas",
       element: <TransactionBeetwenDates />,
     },
     {
@@ -155,6 +156,10 @@ const App = () => {
     {
       path: "transaccion",
       element: <TransferUser />,
+    },
+    {
+      path: "deposito",
+      element: <DepositUser/>,
     },
     {
       path: "signup",

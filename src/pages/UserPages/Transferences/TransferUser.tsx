@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { Box } from '@mui/material';
 import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransferUserForm';
@@ -11,6 +10,7 @@ import { TransactionService } from '../../../services/account/transactionService
 import { TransactionPost } from '../../../services/account/model/TransactionPost';
 import { AccountSimple } from '../../../services/account/model/AccountSimple';
 import { AccountService } from '../../../services/account/accountService';
+import { useNavigate } from 'react-router-dom';
 
 const TransferUser = () => {
 
@@ -115,6 +115,8 @@ const TransferUser = () => {
                                     }} />
                                 :
                                 <ConfirmTransferUserForm
+                                    title="Transferir"
+                                    showField
                                     onAccept={() => handleAccept()}
                                     onDecline={() => handleDecline()}
                                     data={value} />}

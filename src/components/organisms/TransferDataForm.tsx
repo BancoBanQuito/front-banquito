@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { Box, FormControl, SxProps, TextField, Theme, Typography } from '@mui/material';
+import { Box, FormControl, TextField, Typography } from '@mui/material';
 import TextFieldAtom from '../atoms/TextFieldAtom';
 import { Dropdown } from '../atoms/Dropdown';
 import { SizeButton } from '../atoms/SizeButton';
@@ -102,24 +102,6 @@ const TransferDataForm = (props: TransferFormProps) => {
                             required
                         />
                     }
-                    {/* <Dropdown
-                        width={"100%"}
-                        height={"auto"}
-                        label=''
-                        items={IdentificationTypes}
-                        backgroundColor={ColorPalette.SECONDARY}
-                        onChange={(value: string) => settransfer({ ...transfer, identificationType: value })}
-                    />
-                    <TextField
-                        id="identification"
-                        name="identification"
-                        label='Identificacion'
-                        margin="normal"
-                        type="text"
-                        onChange={handleFormChange}
-                        fullWidth
-                        required
-                    /> */}
                 </Box>
                 <Box>
                     <SizeButton

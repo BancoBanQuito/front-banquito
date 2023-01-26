@@ -7,7 +7,8 @@ import { TransactionPost } from '../../services/account/model/TransactionPost'
 
 interface ConfirmFormProps {
     data: TransactionPost,
-    title?: string,
+    title: string,
+    showField?: boolean;
     onAccept?: (data: any) => void,
     onDecline?: (data: any) => void,
 }
@@ -49,12 +50,12 @@ const ConfirmTransferUserForm = (props: ConfirmFormProps) => {
                         value={props.data.value}
                         disabled
                         fullWidth />
-                    <TextField
+                    {!!props.showField && <TextField
                         sx={{ margin: '1rem' }}
                         label='Numero de Cuenta (Emisor)'
                         value={props.data.codeLocalAccount}
                         fullWidth
-                        disabled />
+                        disabled />}
                     <TextField
                         sx={{ margin: '1rem' }}
                         label='Numero de Cuenta (Receptor)'
@@ -76,7 +77,7 @@ const ConfirmTransferUserForm = (props: ConfirmFormProps) => {
                         }}
                         style={ButtonStyle.BIG}
                         onClick={() => { props.onAccept?.(null) }}
-                        text='Transferir' />
+                        text={props.title} />
                     <SizeButton
                         palette={{
                             backgroundColor: ColorPalette.PRIMARY
