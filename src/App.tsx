@@ -1,47 +1,15 @@
 import { useState } from "react";
-import { Location } from "./pages/UserPages/Locations/Location";
-import theme from "./style/Theme";
-import Error404 from "./pages/ErrorPages/Error404";
-import { ThemeProvider } from "@mui/material";
-import HomeClient from "./pages/ClientPages/HomeClient";
-import HomeUser from "./pages/UserPages/HomeUser";
-import Login from "./components/organisms/Login/Login";
-import CreateSignature from "./pages/AccountCreateSignature";
-import EditAccountSignature from "./pages/EditAccountSignature";
-import CancelAccount from "./pages/CancelAccount";
-import Layout from "./template/Layout";
-import AccountCreateUser from "./pages/UserPages/AccountCreate/AccountCreateUser";
-import TransferUser from "./pages/UserPages/Transferences/TransferUser";
-import TransferBank from "./pages/ClientPages/Transferences/TransferBank";
-import AccountCreateBank from "./pages/ClientPages/Account/AccountCreateBank";
-import Branch from "./pages/ClientPages/Branches/Branch";
-import AccountStatementBank from "./pages/ClientPages/AccountStatement/AccountStatementBank";
-import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
-import BranchUser from "./pages/UserPages/Branches/BranchUser";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ConsolidatedPosition from "./pages/ConsolidatedPosition";
-import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
-import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
-import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
-import ProductLinkAssociatedService from "./pages/ProductLinkAssociatedService";
-import Home from "./pages/Home";
-import CreateUser from "./components/organisms/Login/CreateUser";
+import SearchClient from "./pages/SearchClient";
 
 interface userProps {
-  username: string,
-  password: string
+  username: string;
+  password: string;
 }
-import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
-import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
-import { Product } from "./pages/ProductPages/Product";
-import { ProductType } from "./pages/ProductPages/ProductType";
-import CreateRequestService from './pages/CreateRequestService';
 
 const App = () => {
-
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState<userProps | null>(null);
-
+  /*
   const userRoutes = [
     {
       path: "",
@@ -165,9 +133,9 @@ const App = () => {
       element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/cliente' />
     }
   ]
-
+*/
   return (
-    <ThemeProvider theme={theme}>
+    /* <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
           <Route path="" element={<Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />}>
@@ -190,7 +158,8 @@ const App = () => {
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
-    </ThemeProvider>
+    </ThemeProvider>*/
+    <SearchClient />
   );
 };
 
