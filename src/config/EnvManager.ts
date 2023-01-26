@@ -3,7 +3,7 @@ const EnvManager = {
     SEGMENT_URL: import.meta.env.VITE_SEGMENT_URL || '',
     PRODUCT_URL: import.meta.env.VITE_PRODUCT || '',
     ACCOUNT_URL: import.meta.env.VITE_ACCOUNT || '',
-    TRANSACTION_URL: import.meta.env.VITE_TRANSACTION_URL || 'http://localhost:9002',
+    TRANSACTION_URL: import.meta.env.VITE_TRANSACTION_URL || '',
     SETTINGS_URL: import.meta.env.VITE_SETTINGS_URL || '',
 };
 
