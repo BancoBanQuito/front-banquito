@@ -1,7 +1,6 @@
 import { ThemeProvider } from "@mui/material";
 import { useState } from "react";
 import SearchCardClient from "./pages/UserPages/SearchCardClient/SearchCardClient";
-import SearchClient from "./pages/UserPages/SearchClientData/SearchClient";
 import SearchClientDataForm from "./pages/UserPages/SearchClientData/SearchClientDataForm";
 import theme from "./style/Theme";
 
@@ -163,7 +162,7 @@ const App = () => {
         </Routes>
       </BrowserRouter> 
       <SearchClient />*/}
-      <SearchCardClient />
+      <SearchClientDataForm />
     </ThemeProvider>
   );
 };

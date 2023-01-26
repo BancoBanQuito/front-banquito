@@ -4,6 +4,8 @@ import Button from "@mui/material/Button";
 
 import BranchBox from "../../../components/organisms/Branch/BranchBox";
 
+const URL =
+  "https://client-banquito-abigailscl-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/";
 const SearchCardClient: React.FC = () => {
   const [idSegment, setIdSegment] = useState<string>("");
   const [nameSegment, setNameSegment] = useState<string>("");
@@ -33,20 +35,17 @@ const SearchCardClient: React.FC = () => {
 
   const setStatus = async (value: string, idSegment: string, name: string) => {
     try {
-      const response = await fetch(
-        `http://localhost:8083/api/segments/updates/${idSegment}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-          body: JSON.stringify({
-            name: name,
-            status: value,
-          }),
-        }
-      );
+      const response = await fetch(`{URL} + ${idSegment}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        body: JSON.stringify({
+          name: name,
+          status: value,
+        }),
+      });
       if (!response.ok) {
         throw new Error(response.statusText);
       }
