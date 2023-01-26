@@ -6,36 +6,32 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Dayjs } from "dayjs";
 import Button from "@mui/material/Button";
 
-const CreateHoliday: React.FC = () => {
-  const [name, setName] = useState<string>("");
-  const [type, setType] = useState<string>("");
-  const [code, setCode] = useState<string>("");
+const DeleteHoliday: React.FC = () => {
+  
   const [date, setDate] = useState<Dayjs | null>(null);
   const handleSubmit = async () => {
-    if (date && name && type && code) {
-      
+    if (date ) {
       try {
         const dateFormatted = date?.format("YYYY-MM-DD");
         const response = await fetch("http://localhost:8081/api/holiday/", {
-          method: "POST",
+          method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
           body: JSON.stringify({
-            name: name,
-            type: type,
+            
             
             date: dateFormatted,
-            code: code,
+            
           }),
         });
         if (!response.ok) {
           throw new Error(response.statusText);
         }
-        alert("Creada con éxito");
+        alert("Feriado Eliminado");
       } catch (error) {
-        alert("Ya existe la fecha seleccionada");
+        alert("No existe informacion de esa fecha");
       }
     } else {
       alert("Todos los campos son obligatorios");
@@ -46,7 +42,7 @@ const CreateHoliday: React.FC = () => {
     <>
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">
-          Feriado
+          Eliminar Feriado
         </Typography>
       </Container>
       <Container sx={containerTextFieldStyles}>
@@ -63,42 +59,19 @@ const CreateHoliday: React.FC = () => {
           />
         </LocalizationProvider>
       </Container>
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Nombre:</FormLabel>
-        <TextField
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-          variant="standard"
-        />
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Tipo:</FormLabel>
-        <TextField
-          value={type}
-          onChange={(event) => setType(event.target.value)}
-          variant="standard"
-        />
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Codigo:</FormLabel>
-        <TextField
-          value={code}
-          onChange={(event) => setCode(event.target.value)}
-          variant="standard"
-        />
-      </Container>
-      <Container sx={containerFormLabelStyles}></Container>
+      
+      
 
       <Container sx={containerTextFieldStyles}>
         <Button onClick={handleSubmit} sx={buttonStyles}>
-          Crear
+          Eliminar
         </Button>
       </Container>
     </>
   );
 };
 
-export default CreateHoliday;
+export default DeleteHoliday;
 
 const containerStyles = () => ({
   display: "flex",
