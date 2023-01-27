@@ -29,6 +29,9 @@ import TransactionBeetwenDates from './pages/UserPages/Transferences/Transaction
 import TransferUser from './pages/UserPages/Transferences/TransferUser';
 import theme from './style/Theme';
 import Layout from './template/Layout';
+import AccountCreateSignature from './pages/ClientPages/Account/AccountCreateSignature';
+import AccountEditSignature from './pages/ClientPages/Account/AccountEditSignature';
+import AccountCancel from './pages/ClientPages/Account/AccountCancel';
 
 interface userProps {
   username: string,
@@ -71,15 +74,15 @@ const App = () => {
     },
     {
       path: "account/signature",
-      element: <CreateSignature />,
+      element: <AccountCreateSignature />,
     },
     {
       path: "edit/account/signature",
-      element: <EditAccountSignature />,
+      element: <AccountEditSignature />,
     },
     {
       path: "account/cancel",
-      element: <CancelAccount />,
+      element: <AccountCancel />,
     },
     {
       path: "transaccion/dates",
