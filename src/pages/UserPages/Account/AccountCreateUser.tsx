@@ -12,9 +12,9 @@ import { AccountService } from '../../../services/account/AccountService';
 import { ProductService } from '../../../services/product/productService';
 import { ColorPalette } from '../../../style/ColorPalette';
 
-const entityBankCode = '123';
-const internationalBankCode = 'a371bff9a1d856ff01f26a195b50675fc8s';
-const codeBranch = '123';
+const entityBankCode = 'aef0fadf647c8d6f';
+const internationalBankCode = 'c88c1afde4c3a564';
+const codeBranch = '252';
 
 const AccountCreateUser = () => {
   const [isLoading, setisLoading] = useState<boolean>(false);
@@ -46,6 +46,7 @@ const AccountCreateUser = () => {
       codeBranch: codeBranch,
       codeProductType: "2"
     };
+    console.log(account);
     setaccountData(account);
     saveAccount(account);
   }

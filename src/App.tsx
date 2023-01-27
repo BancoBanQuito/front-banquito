@@ -29,6 +29,7 @@ import AccountEditSignatureUser from "./pages/UserPages/Account/AccountEditSigna
 import AccountCancelUser from "./pages/UserPages/Account/AccountCancelUser";
 import AccountAvailableBalance from "./pages/ATMPages/Account/AccountAvailableBalance";
 import AccountCreateClient from "./pages/ClientPages/Account/AccountCreateClient";
+import DepositAtm from "./pages/ATMPages/Transaction/DepositAtm";
 interface userProps {
   username: string,
   password: string
@@ -56,7 +57,7 @@ const App = () => {
       element: <AccountStatementBankUser />,
     },
     {
-      path: "transaccion",
+      path: "cuenta/transaccion",
       element: <TransferUser />,
     },
     {
@@ -68,23 +69,23 @@ const App = () => {
       element: <HolidayUser />,
     },
     {
-      path: "account/signature",
+      path: "cuenta/firma",
       element: <AccountCreateSignatureUser />,
     },
     {
-      path: "edit/account/signature",
+      path: "cuenta/firma/editar",
       element: <AccountEditSignatureUser />,
     },
     {
-      path: "account/cancel",
+      path: "cuenta/cancelar",
       element: <AccountCancelUser />,
     },
     {
-      path: "transaccion/dias",
+      path: "cuenta/transaccion/dias",
       element: <TransactionBeetwenDates />,
     },
     {
-      path: "interes",
+      path: "cuenta/interes",
       element: <InterestRateLog />,
     },
     {
@@ -104,7 +105,7 @@ const App = () => {
       element: <Product />,
     },
     {
-      path: "tipo-de-producto",
+      path: "producto/tipo",
       element: <ProductType />,
     },
     {
@@ -112,7 +113,7 @@ const App = () => {
       element: <CreateRequestService openDialog={true} />,
     },
     {
-      path: "producto-vincular-servicio",
+      path: "producto/vincular/servicio",
       element: <ProductLinkAssociatedService onSubmit={() => { }} />,
     },
     {
@@ -172,8 +173,12 @@ const App = () => {
     {
       path: "cuenta/saldo",
       element: <AccountAvailableBalance />
+    },
+    {
+      path: "cuenta/deposito",
+      element: <DepositAtm />
     }
-  ]
+  ] 
 
   return (
     <ThemeProvider theme={theme}>

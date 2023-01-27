@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
 import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
 import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransferUserForm';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
@@ -10,6 +9,7 @@ import TransferDataForm from '../../../components/organisms/Transaction/Transfer
 import { AccountService } from '../../../services/account/AccountService';
 import { RSAccount } from '../../../services/account/dto/RSAccount';
 import { TransactionService } from '../../../services/transaction/TransactionService';
+import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
 import { ColorPalette } from '../../../style/ColorPalette';
 
 const DepositAtm = () => {
@@ -89,23 +89,23 @@ const DepositAtm = () => {
                                     codeLocalAccount: data.accountNumber
                                 });
                             }}
-                            title='Cuenta Depósito' /> :
-                        indexForm === 1 ?
-                            <TransferAmountForm
-                                onSubmit={(data: any) => {
-                                    setindexForm(3);
-                                    setvalue({
-                                        ...value,
-                                        value: data.amount
-                                    })
-                                }} />
-                            :
-                            <ConfirmTransferUserForm
-                                title="Depositar"
-                                showField
-                                onAccept={() => handleAccept()}
-                                onDecline={() => handleDecline()}
-                                data={value} />}
+                            title='Cuenta Depósito' /> : 
+                            indexForm === 1 ?
+                                <TransferAmountForm
+                                    onSubmit={(data: any) => {
+                                        setindexForm(3);
+                                        setvalue({
+                                            ...value,
+                                            value: data.amount
+                                        })
+                                    }} />
+                                :
+                                <ConfirmTransferUserForm
+                                    title="Depositar"
+                                    showField
+                                    onAccept={() => handleAccept()}
+                                    onDecline={() => handleDecline()}
+                                    data={value} />}
                 </Box>
             </div>
             <ErrorModalOrganism

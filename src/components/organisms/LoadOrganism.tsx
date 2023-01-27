@@ -4,6 +4,7 @@ import LoadMolecule from '../molecules/LoadMolecule';
 
 interface LoadOrganismProps {
     active: boolean,
+    text?: string
 }
 
 const LoadOrganism = (props: LoadOrganismProps) => {
@@ -16,12 +17,19 @@ const LoadOrganism = (props: LoadOrganismProps) => {
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: 400,
+                height: 400,
+                borderRadius: 10,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignContent: 'center',
+                textAlign: 'center',
                 bgcolor: 'background.paper',
-                border: '2px solid #000',
                 boxShadow: 24,
                 p: 4,
             }}>
-                <LoadMolecule />
+                <LoadMolecule
+                    loadText={props.text} />
             </Box>
         </Modal>
     )

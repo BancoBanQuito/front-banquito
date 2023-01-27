@@ -1,14 +1,18 @@
-import { Box, Typography, TextField } from "@mui/material"
-import { RQTransaction } from "../../services/transaction/dto/RQTransaction"
-import { ButtonStyle } from "../../style/ButtonStyle"
-import { ColorPalette } from "../../style/ColorPalette"
-import { SizeButton } from "../atoms/SizeButton"
-
+import { Typography, TextField } from '@mui/material'
+import { Box, SxProps, Theme } from '@mui/system'
+import { SizeButton } from '../atoms/SizeButton'
+import { RQTransaction } from '../../services/transaction/dto/RQTransaction';
+import { ButtonStyle } from '../../style/ButtonStyle';
+import { ColorPalette } from '../../style/ColorPalette';
 
 interface ConfirmFormProps {
     showField?: boolean;
-    showAccountReceptor?: boolean; 
-    data: RQTransaction,
+    showAccountReceptor?: boolean;
+    data: {
+        codeLocalAccount: string,
+        value: number,
+        recipientAccountNumber: string,
+    },
     title?: string,
     onAccept?: (data: any) => void,
     onDecline?: (data: any) => void,

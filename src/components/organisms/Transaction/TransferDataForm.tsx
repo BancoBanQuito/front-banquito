@@ -10,7 +10,8 @@ interface FormTransferInterface {
     accountNumber: string,
     concept: string,
     description: string,
-    movement: string
+    movement: string,
+    type: string
 }
 
 interface TransferFormProps {
@@ -23,11 +24,12 @@ interface TransferFormProps {
 
 const TransferDataForm = (props: TransferFormProps) => {
     const [transfer, settransfer] = useState<FormTransferInterface>({
-        bank: "",
+        bank: "aef0fadf647c8d6f",
         accountNumber: "",
         concept: "",
         description: "",
-        movement: ""
+        movement: "",
+        type: ""
     })
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
@@ -38,7 +40,8 @@ const TransferDataForm = (props: TransferFormProps) => {
             accountNumber: "",
             concept: "",
             description: "",
-            movement: ""
+            movement: "",
+            type: ""
         });
     }
 

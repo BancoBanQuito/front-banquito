@@ -97,7 +97,7 @@ const AccountCreateSignatureUser = () => {
           type="text"
           action={handleChange}
           placeholder="Ingreso número de cuenta"
-          value=""
+          value={formData.accountNumber}
         />
       </Box>
 
@@ -124,7 +124,7 @@ const AccountCreateSignatureUser = () => {
           type="text"
           action={handleChange}
           placeholder="Ingreso número de cuenta"
-          value=""
+          value={formData.identification}
         />
         <ButtonIcon color={ColorPalette.PRIMARY} icon={<SearchRounded />} />
       </Box>

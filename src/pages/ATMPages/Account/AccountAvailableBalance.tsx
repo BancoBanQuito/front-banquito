@@ -11,7 +11,7 @@ import { ButtonStyle } from '../../../style/ButtonStyle'
 import { ColorPalette } from '../../../style/ColorPalette'
 
 const tempUser = {
-  codeLocalAccount: '12356'
+  codeLocalAccount: 'a3998d173acbf0c893db'
 }
 
 const buttonSize = {
@@ -26,7 +26,7 @@ const AccountAvailableBalance = () => {
   const [errorMessage, seterrorMessage] = useState<string>("");
   const [account, setaccount] = useState<RSAccount>({
     codeLocalAccount: '',
-    codeInternationalAccount: '1',
+    codeInternationalAccount: '',
     status: '',
     product: '',
     presentBalance: 0,

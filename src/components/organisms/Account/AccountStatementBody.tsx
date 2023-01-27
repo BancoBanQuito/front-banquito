@@ -81,7 +81,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                                             padding: 1
                                         }}>
                                             <Typography variant='body1'>
-                                                Fecha ultimo corte: {`${props.accountStatement.lastCutOffDate}`}
+                                                Fecha ultimo corte: {moment(props.accountStatement.lastCutOffDate, 'DD-MM-YYYY').format().split('T')[0]}
                                             </Typography>
                                         </Box>
                                         <Box sx={{
@@ -93,7 +93,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                                             padding: 1
                                         }}>
                                             <Typography variant='body1'>
-                                                Fecha corte actual: {`${props.accountStatement.currentCutOffDate}`}
+                                                Fecha corte actual: {moment(props.accountStatement.currentCutOffDate, 'DD-MM-YYYY').format().split('T')[0]}
                                             </Typography>
                                         </Box>
                                     </Box>
@@ -117,11 +117,11 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                                         </Box>
                                         <Box sx={{ textTransform: 'uppercase', color: ColorPalette.SECONDARY, padding: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
                                             <Typography sx={{ width: '50%' }} variant='body1'>Fecha Ultimo Corte</Typography>
-                                            <Typography sx={{ width: '50%' }} variant='body1'>{`${props.accountStatement.lastCutOffDate}`}</Typography>
+                                            <Typography sx={{ width: '50%' }} variant='body1'>{moment(props.accountStatement.lastCutOffDate, 'DD-MM-YYYY').format().split('T')[0]}</Typography>
                                         </Box>
                                         <Box sx={{ textTransform: 'uppercase', color: ColorPalette.SECONDARY, padding: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
                                             <Typography sx={{ width: '50%' }} variant='body1'>Fecha este Corte</Typography>
-                                            <Typography sx={{ width: '50%' }} variant='body1'>{`${props.accountStatement.currentCutOffDate}`}</Typography>
+                                            <Typography sx={{ width: '50%' }} variant='body1'>{moment(props.accountStatement.currentCutOffDate, 'DD-MM-YYYY').format().split('T')[0]}</Typography>
                                         </Box>
                                         <Box sx={{ textTransform: 'uppercase', color: ColorPalette.SECONDARY, padding: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
                                             <Typography sx={{ width: '50%' }} variant='body1'>Saldo Anterior</Typography>

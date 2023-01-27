@@ -1,6 +1,6 @@
 import { Search, Visibility } from '@mui/icons-material';
 import { Typography, Box, TextField, InputAdornment } from '@mui/material';
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
@@ -29,6 +29,12 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
     const [hasSearch, sethasSearch] = useState<boolean>(false);
     const [lastArrayState, setlastArrayState] = useState<RSAccountStatementList[]>([])
     const [actualArrayState, setactualArrayState] = useState<RSAccountStatementList[]>(props.data);
+
+    useEffect(() => {
+        setactualArrayState(props.data);
+        return () => { }
+    }, [props.data])
+
 
     const handleSearch = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();

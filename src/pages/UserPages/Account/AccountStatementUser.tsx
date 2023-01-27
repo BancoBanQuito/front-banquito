@@ -30,7 +30,7 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
     const [activeAccountStatement, setactiveAccountStatement] = useState<boolean>(false);
     const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(false);
 
-    const [accountStatementList, setaccountStatementList] = useState<RSAccountStatementList[]>([]);
+    const [accountStatementList, setaccountStatementList] = useState<RSAccountStatementList[]>();
     const [selectedAccountStatement, setselectedAccountStatement] = useState<RSAccountStatement>();
     const [codeLocalAccount, setcodeLocalAccount] = useState<string>("");
 
@@ -67,6 +67,7 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
             if (data) {
                 setaccountStatementList(data);
                 setactiveAccountStatementTable(true);
+                console.log(accountStatementList);
             } else {
                 setactiveErrorModal(true);
                 seterrorMessage("No se han encontrado datos");
@@ -178,7 +179,7 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
                                     onClick={() => generateAccountStatement()} />
                             </div>
                             <AccountStatementTable
-                                data={accountStatementList}
+                                data={accountStatementList || []}
                                 onSelection={handleAccountStatementSelection} />
                         </div>
                     </Fade>
