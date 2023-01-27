@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useNavigation } from 'react-router-dom';
-import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransferUserForm';
-import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
-import { ColorPalette } from '../../../style/ColorPalette';
-import TransferDataForm from '../../../components/organisms/TransferDataForm';
-import TransferAmountForm from '../../../components/organisms/TransferAmountForm';
+import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
-/* import { TransactionPost } from '../../../services/account/model/TransactionPost';
-import { TransactionService } from '../../../services/account/transactionService'; */
+import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
+import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
+import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransferUserForm';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
+import TransferAmountForm from '../../../components/organisms/Transaction/TransferAmountForm';
+import TransferDataForm from '../../../components/organisms/Transaction/TransferDataForm';
+import { TransactionService } from '../../../services/transaction/TransactionService';
+import { ColorPalette } from '../../../style/ColorPalette';
 
-const TransferBank = () => {
-    /* const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
+const TransferUser = () => {
+    const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
 
     const navigate = useNavigate();
 
-    const [value, setvalue] = useState<TransactionPost>({
+    const [value, setvalue] = useState<RQTransaction>({
         codeInternationalAccount: "",
         codeLocalAccount: "",
         concept: "Nota Debito",
@@ -42,11 +42,11 @@ const TransferBank = () => {
 
     const handleDecline = () => {
         navigate('/usuario');
-    } */
+    }
 
     return (
         <>
-            {/* <div style={{
+            <div style={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -106,6 +106,9 @@ const TransferBank = () => {
                                     }} />
                                 :
                                 <ConfirmTransferUserForm
+                                    title='Transferir'
+                                    showField
+                                    showAccountReceptor
                                     onAccept={() => handleAccept()}
                                     onDecline={() => handleDecline()}
                                     data={value} />}
@@ -114,9 +117,9 @@ const TransferBank = () => {
             <ErrorModalOrganism
                 active={activeErrorModal}
                 onDeactive={() => setactiveErrorModal(false)}
-                text={errorMessage} /> */}
+                text={errorMessage} />
         </>
     )
 }
 
-export default TransferBank
+export default TransferUser

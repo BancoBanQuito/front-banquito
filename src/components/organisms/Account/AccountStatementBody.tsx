@@ -1,17 +1,15 @@
-import React, { LegacyRef, useEffect, useState } from 'react';
-import { Box, Grid, Container, Typography } from '@mui/material';
-import { ColorPalette } from '../../style/ColorPalette';
-// import { AccountStament } from '../../services/account/model/AccountStatement';
-import TableMolecule from '../molecules/TableMolecule';
-import { Dropdown } from '../atoms/Dropdown';
+import React, { LegacyRef } from 'react';
+import { RSAccountStatement } from '../../../services/account/dto/RSAccountStatement';
+import { Typography, Container, Grid, Box } from '@mui/material';
+import { ColorPalette } from '../../../style/ColorPalette';
+import TableMolecule from '../../molecules/TableMolecule';
 
 interface AccountStatementProps {
-    accountStatement: any
+    accountStatement: RSAccountStatement | undefined
 }
 
 const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref) => {
-
-   /*  const getRow = (data: any) => {
+    const getRow = (data: any) => {
         return [
             <Typography></Typography>,
             <Typography>{data.movement}</Typography>,
@@ -19,11 +17,11 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
             <Typography>{data.amount}</Typography>,
             <Typography>{data.balance}</Typography>
         ]
-    } */
+    }
 
     return (
         <>
-            {/* <div ref={ref as LegacyRef<HTMLDivElement> | undefined}>
+            <div ref={ref as LegacyRef<HTMLDivElement> | undefined}>
                 {
                     !!props.accountStatement ?
                         <Container sx={{ width: '100%' }}>
@@ -194,7 +192,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                             </Grid>
                         </Container>
                         : null}
-            </div> */}
+            </div>
         </>
     )
 });

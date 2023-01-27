@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { ColorPalette } from '../../../style/ColorPalette';
-import { ProductService } from '../../../services/product/productService';
-// import { AccountService } from '../../../services/account/accountService';
 import { Avatar, Card, CardContent } from '@mui/material';
+import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg';
 import StripeAtom from '../../../components/atoms/StripeAtom';
-import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg'
-import AccountFormBank from '../../../components/organisms/AccountFormBank';
+import AccountFormBank from '../../../components/organisms/Account/AccountFormBank';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
+import { AccountService } from '../../../services/account/AccountService';
+import { RQCreateAccount } from '../../../services/account/dto/RQCreateAccount';
+import { ProductService } from '../../../services/product/productService';
+import { ColorPalette } from '../../../style/ColorPalette';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 
-const AccountCreateUser = () => {
-    /* const [isLoading, setisLoading] = useState<boolean>(false);
+
+const AccountCreateClient = () => {
+    const [isLoading, setisLoading] = useState<boolean>(false);
     const [products, setproducts] = useState<any[] | undefined>([]);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
-    const [accountData, setaccountData] = useState<any>();
+    const [accountData, setaccountData] = useState<RQCreateAccount>();
 
     const navigate = useNavigate();
 
@@ -31,7 +33,7 @@ const AccountCreateUser = () => {
     }
 
     const handleSubmit = (data: any) => {
-        const account = {
+        const account: RQCreateAccount = {
             ...data,
             codeProductType: "2"
         };
@@ -40,21 +42,22 @@ const AccountCreateUser = () => {
 
     }
 
-    const saveAccount = async (data: any) => {
+    const saveAccount = async (data: RQCreateAccount) => {
         setisLoading(true);
         try {
             await AccountService.postAccount(data);
+            navigate('/cliente');
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
         } finally {
             setisLoading(false);
         }
-    } */
+    }
 
     return (
         <>
-            {/* <div style={{
+            <div style={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -93,11 +96,11 @@ const AccountCreateUser = () => {
                 onDeactive={() => { setactiveErrorModal(false); navigate('/cliente') }}
                 text={`${errorMessage}. ¿Desea volver a intentar?`}
                 enableButtonBox
-                onConfirm={() => saveAccount(accountData)}
+                onConfirm={() => saveAccount(accountData as RQCreateAccount)}
                 onReject={() => navigate('/cliente')}
-            /> */}
+            />
         </>
     )
 }
 
-export default AccountCreateUser
+export default AccountCreateClient

@@ -1,15 +1,15 @@
-import React, { FormEvent, useEffect, useState } from 'react'
-// import { AccountStament } from '../../../services/account/model/AccountStatement'
-import TableMolecule from '../../molecules/TableMolecule'
-import { Box, InputAdornment, TextField, Typography } from '@mui/material'
-import { ColorPalette } from '../../../style/ColorPalette'
-import ButtonIcon from '../../atoms/ButtonIcon'
-import { Search, Visibility } from '@mui/icons-material'
-import { SizeButton } from '../../atoms/SizeButton'
-import { ButtonStyle } from '../../../style/ButtonStyle'
+import { Search, Visibility } from '@mui/icons-material';
+import { Typography, Box, TextField, InputAdornment } from '@mui/material';
+import React, { FormEvent, useState } from 'react';
+import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
+import ButtonIcon from '../../atoms/ButtonIcon';
+import { SizeButton } from '../../atoms/SizeButton';
+import TableMolecule from '../../molecules/TableMolecule';
 
 interface AccountStatementTableProps {
-    data: any[],
+    data: RSAccountStatementList[],
     onSelection: (data: any) => void;
 }
 
@@ -25,7 +25,7 @@ const headers = [
 const AccountStatementTable = (props: AccountStatementTableProps) => {
 
 
-    /* const [searchString, setsearchString] = useState<string>("");
+    const [searchString, setsearchString] = useState<string>("");
     const [hasSearch, sethasSearch] = useState<boolean>(false);
     const [lastArrayState, setlastArrayState] = useState<RSAccountStatementList[]>([])
     const [actualArrayState, setactualArrayState] = useState<RSAccountStatementList[]>(props.data);
@@ -58,13 +58,13 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
                 icon={<Visibility />}
                 onClick={() => props.onSelection(data)} /></Typography>
         ]
-    } */
+    }
 
     return (
         <div style={{
             width: '100%'
         }}>
-           {/*  <Box
+            <Box
                 mb={5}
                 component='form'
                 onSubmit={!hasSearch ? handleSearch : restoreAccountStatements}
@@ -98,7 +98,7 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
             </Box>
             <TableMolecule color={ColorPalette.SECONDARY}
                 headers={headers}
-                rows={actualArrayState.map(accountStatement => getRow(accountStatement))} /> */}
+                rows={actualArrayState.map(accountStatement => getRow(accountStatement))} />
         </div >
     )
 }

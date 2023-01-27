@@ -1,10 +1,10 @@
+import { Typography, Fade, Card, CardContent } from '@mui/material';
 import { useEffect, useState } from 'react';
-import TableMolecule from '../components/molecules/TableMolecule';
-import { Card, CardContent, Fade, Typography } from '@mui/material';
-// import { AccountResponse } from '../services/account/model/AccountResponse';
-// import { AccountService } from '../services/account/accountService';
-import SearchAccount from '../components/organisms/SearchAccount';
-import { ColorPalette } from '../style/ColorPalette';
+import TableMolecule from '../../../components/molecules/TableMolecule';
+import SearchAccount from '../../../components/organisms/Account/SearchAccount';
+import { AccountService } from '../../../services/account/AccountService';
+import { RSAccount } from '../../../services/account/dto/RSAccount';
+import { ColorPalette } from '../../../style/ColorPalette';
 
 const headersMock = [
   <Typography>No Cuenta</Typography>,
@@ -14,14 +14,14 @@ const headersMock = [
   <Typography>Saldo disponible</Typography>
 ]
 
-const ConsolidatedPositionAccount = () => {
+const AccountConsolidatedPositionUser = () => {
 
-  /* const [consolidatedPosition, setConsolidatedPosition] = useState<AccountResponse[]>([]);
+  const [consolidatedPosition, setConsolidatedPosition] = useState<RSAccount[]>([]);
   const [activeSearch, setactiveSearch] = useState<boolean>(true);
 
   const searchAccountStatement = async (typeIdentification: string, identification: string) => {
     try {
-      const data: AccountResponse[] | undefined = (await AccountService.getAccountsById(typeIdentification, identification)).data.data;
+      const data: RSAccount[] | undefined = (await AccountService.getAccountsById(typeIdentification, identification)).data.data;
       if (data) {
         setConsolidatedPosition(data);
       } else {
@@ -36,7 +36,7 @@ const ConsolidatedPositionAccount = () => {
     searchAccountStatement("DNI", data);
   }
 
-  const getRow = (data: AccountResponse) => {
+  const getRow = (data: RSAccount) => {
     return [
       <Typography>{data.codeLocalAccount}</Typography>,
       <Typography>{data.product}</Typography>,
@@ -44,11 +44,11 @@ const ConsolidatedPositionAccount = () => {
       <Typography>{data.presentBalance}</Typography>,
       <Typography>{data.availableBalance}</Typography>
     ]
-  } */
+  }
 
   return (
     <>
-      {/* {
+      {
         activeSearch && <div style={{
           position: 'absolute',
           width: '100%',
@@ -79,10 +79,10 @@ const ConsolidatedPositionAccount = () => {
             headers={headersMock}
             rows={consolidatedPosition.map(consolidatedPosition => getRow(consolidatedPosition))} />
         </>
-      } */}
+      }
     </>
   );
 
 };
 
-export default ConsolidatedPositionAccount;
+export default AccountConsolidatedPositionUser;
