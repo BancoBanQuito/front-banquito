@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { RQTransaction } from "/src/services/transaction/dto/RQTransaction";
-import { RSAccount } from "/src/services/account/dto/RSAccount";
-import { AccountService } from "/src/services/account/AccountService";
-import { TransactionService } from "/src/services/transaction/TransactionService";
-import ProgressButtonMolecule from "/src/components/molecules/ProgressButtonMolecule";
-import { ColorPalette } from "/src/style/ColorPalette";
 import { Box } from "@mui/material";
-import TransferDataForm from "/src/components/organisms/Transaction/TransferDataForm";
-import TransferAmountForm from "/src/components/organisms/Transaction/TransferAmountForm";
-import ConfirmTransferUserForm from "/src/components/organisms/ConfirmTransferUserForm";
-import ErrorModalOrganism from "/src/components/organisms/ErrorModalOrganism";
+import ProgressButtonMolecule from "../../../components/molecules/ProgressButtonMolecule";
+import ConfirmTransferUserForm from "../../../components/organisms/ConfirmTransferUserForm";
+import ErrorModalOrganism from "../../../components/organisms/ErrorModalOrganism";
+import TransferAmountForm from "../../../components/organisms/Transaction/TransferAmountForm";
+import TransferDataForm from "../../../components/organisms/Transaction/TransferDataForm";
+import { AccountService } from "../../../services/account/AccountService";
+import { RSAccount } from "../../../services/account/dto/RSAccount";
+import { TransactionService } from "../../../services/transaction/TransactionService";
+import { RQTransaction } from "../../../services/transaction/dto/RQTransaction";
+import { ColorPalette } from "../../../style/ColorPalette";
 
 const WithdrawalsBank = () => {
 
@@ -89,23 +89,23 @@ const WithdrawalsBank = () => {
                                     codeLocalAccount: data.accountNumber
                                 });
                             }}
-                            title='Cuenta Retiro' /> : 
-                            indexForm === 1 ?
-                                <TransferAmountForm
-                                    onSubmit={(data: any) => {
-                                        setindexForm(3);
-                                        setvalue({
-                                            ...value,
-                                            value: data.amount
-                                        })
-                                    }} />
-                                :
-                                <ConfirmTransferUserForm
-                                    title="Retirar"
-                                    showField
-                                    onAccept={() => handleAccept()}
-                                    onDecline={() => handleDecline()}
-                                    data={value} />}
+                            title='Cuenta Retiro' /> :
+                        indexForm === 1 ?
+                            <TransferAmountForm
+                                onSubmit={(data: any) => {
+                                    setindexForm(3);
+                                    setvalue({
+                                        ...value,
+                                        value: data.amount
+                                    })
+                                }} />
+                            :
+                            <ConfirmTransferUserForm
+                                title="Retirar"
+                                showField
+                                onAccept={() => handleAccept()}
+                                onDecline={() => handleDecline()}
+                                data={value} />}
                 </Box>
             </div>
             <ErrorModalOrganism

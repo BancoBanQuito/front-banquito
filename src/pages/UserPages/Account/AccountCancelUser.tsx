@@ -27,11 +27,7 @@ const accountsExample = [
   }
 ]
 
-<<<<<<<< HEAD:src/pages/UserPages/Account/AccountCancelUser.tsx
 const AccountCancelUser = () => {
-========
-const AccountCancel = () => {
->>>>>>>> ACTR-Account-Transaction-connection-main:src/pages/ClientPages/Account/AccountCancel.tsx
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -81,8 +77,5 @@ const AccountCancel = () => {
     </div>
   );
 };
-<<<<<<<< HEAD:src/pages/UserPages/Account/AccountCancelUser.tsx
+
 export default AccountCancelUser;
-========
-export default AccountCancel;
->>>>>>>> ACTR-Account-Transaction-connection-main:src/pages/ClientPages/Account/AccountCancel.tsx

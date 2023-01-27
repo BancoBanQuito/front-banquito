@@ -9,7 +9,6 @@ import AccountStatementTable from '../../../components/organisms/Account/Account
 import SearchAccount from '../../../components/organisms/Account/SearchAccount';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
-<<<<<<<< HEAD:src/pages/UserPages/Account/AccountStatementUser.tsx
 import { RSAccountStatement } from '../../../services/account/dto/RSAccountStatement';
 import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList';
 import { ColorPalette } from '../../../style/ColorPalette';
@@ -24,43 +23,19 @@ interface AccountStatementBankUserProps {
 const userCodeLocalAccount = 'a3998d173acbf0c893db';
 
 const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
-========
-import { AccountStatementService } from '../../../services/account/AccountStatementService';
-import { RSAccountStatement } from '../../../services/account/dto/RSAccountStatement';
-import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList';
-import { ColorPalette } from '../../../style/ColorPalette';
-
-interface AccountStatementBankProps {
-    client?: boolean
-}
-
-const userCodeLocalAccount = '1234567890';
-
-const AccountStatementBank = (props: AccountStatementBankProps) => {
->>>>>>>> ACTR-Account-Transaction-connection-main:src/pages/ClientPages/Account/AccountStatementBank.tsx
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [activeSearchBox, setactiveSearchBox] = useState<boolean>(true);
     const [activeAccountStatement, setactiveAccountStatement] = useState<boolean>(false);
     const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(false);
-<<<<<<<< HEAD:src/pages/UserPages/Account/AccountStatementUser.tsx
-
     const [accountStatementList, setaccountStatementList] = useState<RSAccountStatementList[]>();
     const [selectedAccountStatement, setselectedAccountStatement] = useState<RSAccountStatement>();
-========
-    const [accountStatement, setaccountStatement] = useState<RSAccountStatement>();
-    const [accountStatements, setaccountStatements] = useState<RSAccountStatementList[]>([]);
->>>>>>>> ACTR-Account-Transaction-connection-main:src/pages/ClientPages/Account/AccountStatementBank.tsx
     const [codeLocalAccount, setcodeLocalAccount] = useState<string>("");
 
     useEffect(() => {
         if (!!props.client) {
             setactiveSearchBox(false);
-<<<<<<<< HEAD:src/pages/UserPages/Account/AccountStatementUser.tsx
-========
-            setcodeLocalAccount(userCodeLocalAccount);
->>>>>>>> ACTR-Account-Transaction-connection-main:src/pages/ClientPages/Account/AccountStatementBank.tsx
             handleSearch(userCodeLocalAccount);
         } else {
             setactiveSearchBox(true);
@@ -75,16 +50,11 @@ const AccountStatementBank = (props: AccountStatementBankProps) => {
     const handleBackEvent = () => {
         setactiveAccountStatementTable(true);
         setactiveAccountStatement(false);
-<<<<<<<< HEAD:src/pages/UserPages/Account/AccountStatementUser.tsx
         setselectedAccountStatement(undefined);
-========
-        // setaccountStatement(undefined);
->>>>>>>> ACTR-Account-Transaction-connection-main:src/pages/ClientPages/Account/AccountStatementBank.tsx
     }
 
     const handleSearch = (data: string) => {
         setcodeLocalAccount(data);
-<<<<<<<< HEAD:src/pages/UserPages/Account/AccountStatementUser.tsx
         setactiveSearchBox(false);
         searchAccountStamentsList(data);
     }
@@ -143,24 +113,6 @@ const AccountStatementBank = (props: AccountStatementBankProps) => {
                 setactiveAccountStatementTable(false);
                 setselectedAccountStatement(data);
                 setactiveAccountStatement(true);
-========
-        searchAccountStatement(data);
-    }
-
-    const handleAccountStatementSelection = (data: RSAccountStatementList) => {
-        
-        /* setactiveAccountStatementTable(false); */
-        setactiveAccountStatement(true);
-    }
-
-    const searchAccountStatement = async (codeLocalAccount: string) => {
-        setisLoading(true);
-        try {
-            const data: RSAccountStatementList[] | undefined = (await AccountStatementService.getStatementList(codeLocalAccount)).data.data;
-            if (data) {
-                setaccountStatements(data);
-                setactiveAccountStatementTable(true);
->>>>>>>> ACTR-Account-Transaction-connection-main:src/pages/ClientPages/Account/AccountStatementBank.tsx
             } else {
                 setactiveErrorModal(true);
                 seterrorMessage("No se han encontrado datos");
@@ -268,18 +220,11 @@ const AccountStatementBank = (props: AccountStatementBankProps) => {
                 onDeactive={() => { setactiveErrorModal(false); navigate('/cliente') }}
                 text={`${errorMessage}. ¿Desea volver a intentar?`}
                 enableButtonBox
-<<<<<<<< HEAD:src/pages/UserPages/Account/AccountStatementUser.tsx
                 onConfirm={() => codeLocalAccount && searchAccountStamentsList(codeLocalAccount)}
-========
-                onConfirm={() => codeLocalAccount && searchAccountStatement(codeLocalAccount)}
->>>>>>>> ACTR-Account-Transaction-connection-main:src/pages/ClientPages/Account/AccountStatementBank.tsx
                 onReject={() => navigate('/cliente')}
             />
         </>
     )
 }
-<<<<<<<< HEAD:src/pages/UserPages/Account/AccountStatementUser.tsx
 
 export default AccountStatementBankUser;
-========
->>>>>>>> ACTR-Account-Transaction-connection-main:src/pages/ClientPages/Account/AccountStatementBank.tsx

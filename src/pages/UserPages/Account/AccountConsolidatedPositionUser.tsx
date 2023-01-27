@@ -14,11 +14,7 @@ const headersMock = [
   <Typography>Saldo disponible</Typography>
 ]
 
-<<<<<<<< HEAD:src/pages/UserPages/Account/AccountConsolidatedPositionUser.tsx
 const AccountConsolidatedPositionUser = () => {
-========
-const AccountConsolidatedPosition = () => {
->>>>>>>> ACTR-Account-Transaction-connection-main:src/pages/ClientPages/Account/AccountConsolidatedPosition.tsx
 
   const [consolidatedPosition, setConsolidatedPosition] = useState<RSAccount[]>([]);
   const [activeSearch, setactiveSearch] = useState<boolean>(true);
@@ -89,8 +85,4 @@ const AccountConsolidatedPosition = () => {
 
 };
 
-<<<<<<<< HEAD:src/pages/UserPages/Account/AccountConsolidatedPositionUser.tsx
 export default AccountConsolidatedPositionUser;
-========
-export default AccountConsolidatedPosition;
->>>>>>>> ACTR-Account-Transaction-connection-main:src/pages/ClientPages/Account/AccountConsolidatedPosition.tsx

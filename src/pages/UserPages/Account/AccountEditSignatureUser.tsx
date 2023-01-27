@@ -9,11 +9,7 @@ import { RSAccount } from "../../../services/account/dto/RSAccount";
 import { RSSignature } from "../../../services/account/dto/RSSignature";
 import { ColorPalette } from "../../../style/ColorPalette";
 
-<<<<<<<< HEAD:src/pages/UserPages/Account/AccountEditSignatureUser.tsx
 const AccountEditSignatureUser = () => {
-========
-const AccountEditSignature = () => {
->>>>>>>> ACTR-Account-Transaction-connection-main:src/pages/ClientPages/Account/AccountEditSignature.tsx
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -139,8 +135,5 @@ const AccountEditSignature = () => {
     </div>
   );
 };
-<<<<<<<< HEAD:src/pages/UserPages/Account/AccountEditSignatureUser.tsx
+
 export default AccountEditSignatureUser;
-========
-export default AccountEditSignature;
->>>>>>>> ACTR-Account-Transaction-connection-main:src/pages/ClientPages/Account/AccountEditSignature.tsx

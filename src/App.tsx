@@ -29,6 +29,8 @@ import AccountCancelUser from "./pages/UserPages/Account/AccountCancelUser";
 import AccountAvailableBalance from "./pages/ATMPages/Account/AccountAvailableBalance";
 import AccountCreateClient from "./pages/ClientPages/Account/AccountCreateClient";
 import DepositAtm from "./pages/ATMPages/Transaction/DepositAtm";
+import AccountConsolidatedPositionUser from "./pages/UserPages/Account/AccountConsolidatedPositionUser";
+import { ThemeProvider } from "styled-components";
 interface userProps {
   username: string,
   password: string
@@ -117,7 +119,7 @@ const App = () => {
     },
     {
       path: "cuenta/posicion-consolidada",
-      element: <AccountConsolidatedPosition />,
+      element: <AccountConsolidatedPositionUser />,
     },
     {
       path: "login",
@@ -186,17 +188,6 @@ const App = () => {
       element: <DepositAtm />
     }
   ] 
-
-  const atmRoutes = [
-    {
-      path: "",
-      element: <HomeClient user={user} isLogged={isLogged} />,
-    },
-    {
-      path: "cuenta/saldo",
-      element: <AccountAvailableBalance />
-    }
-  ]
 
   return (
     <ThemeProvider theme={theme}>
