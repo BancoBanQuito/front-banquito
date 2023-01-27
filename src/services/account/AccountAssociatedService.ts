@@ -1,6 +1,6 @@
 import axios from "axios";
 import { RQAccountAssociatedService } from "./dto/RQAccountAssociatedService";
-import { POST_ACCOUNT_ASSOCIATED_SERVICE } from "/src/config/apis/accountAPI";
+import { POST_ACCOUNT_ASSOCIATED_SERVICE } from "@/config/apis/accountAPI";
 
 export class AccountAssociatedService {
     public static async postAccount(body: RQAccountAssociatedService) {

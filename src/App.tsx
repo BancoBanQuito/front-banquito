@@ -35,6 +35,7 @@ import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEn
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
+import AccountAvailableBalance from "./pages/ATMPages/Account/AccountAvailableBalance";
 import InterestSavingAccounts from "./pages/ClientPages/Transferences/InterestSavingAccounts";
 
 const App = () => {
@@ -130,6 +131,10 @@ const App = () => {
       />,
     },
     {
+      path: "cuenta/posicion-consolidada",
+      element: <AccountConsolidatedPosition />,
+    },
+    {
       path: "login",
       element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/usuario' />
     }
@@ -150,15 +155,23 @@ const App = () => {
     },
     {
       path: "cuenta/estado",
-      element: <AccountStatementClient />,
+      element: <AccountStatementBank client />,
     },
     {
       path: "transaccion",
       element: <TransferUser />,
     },
     {
-      path: "interes/cuenta-ahorro",
+    path: "interes/cuenta-ahorro",
       element: <InterestSavingAccounts />,
+      },
+      {
+path: "pagos/tarjeta-debito",
+      element: <PaymentDebitCard />,
+      },
+      {
+      path: "pagos/cheque",
+      element: <PaymentCheckbook />,
     },
     {
       path: "signup",
@@ -167,6 +180,17 @@ const App = () => {
     {
       path: "login",
       element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/cliente' />
+    }
+  ]
+
+  const atmRoutes = [
+    {
+      path: "",
+      element: <HomeClient user={user} isLogged={isLogged} />,
+    },
+    {
+      path: "cuenta/saldo",
+      element: <AccountAvailableBalance />
     }
   ]
 
@@ -187,6 +211,13 @@ const App = () => {
               <Route
                 key={route.path}
                 path={`cliente/${route.path}`}
+                element={route.element}
+              />
+            ))}
+            {atmRoutes.map((route) => (
+              <Route
+                key={route.path}
+                path={`atm/${route.path}`}
                 element={route.element}
               />
             ))}

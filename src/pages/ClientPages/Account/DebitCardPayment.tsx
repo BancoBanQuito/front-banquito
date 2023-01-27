@@ -1,9 +1,9 @@
 import React from 'react';
 import { Typography } from '@mui/material';
-import { SizeButton } from '/src/components/atoms/SizeButton';
-import TableMolecule from '/src/components/molecules/TableMolecule';
-import { ButtonStyle } from '/src/style/ButtonStyle';
-import { ColorPalette } from '/src/style/ColorPalette';
+import { SizeButton } from '@/components/atoms/SizeButton';
+import TableMolecule from '@/components/molecules/TableMolecule';
+import { ButtonStyle } from '@/style/ButtonStyle';
+import { ColorPalette } from '@/style/ColorPalette';
 
 const headersMock = [
   <Typography>Fecha</Typography>,
@@ -12,62 +12,102 @@ const headersMock = [
   <Typography>Monto</Typography>,
   <Typography>Saldo</Typography>,
   <Typography>Beneficiario</Typography>,
-  <Typography>Detalle</Typography>
 ]
 
-const rowsMock = [
-  [
-    <Typography>Cell 1</Typography>,
-    <Typography>Cell 2</Typography>,
-    <Typography>Cell 3</Typography>,
-    <Typography>Cell 4</Typography>,
-    <Typography>Cell 5</Typography>,
-    <Typography>Cell 6</Typography>,
-    <SizeButton
-      palette={{
-        backgroundColor: ColorPalette.SECONDARY
-      }}
-      size={{
-        height: 'auto',
-        width: '100%'
-      }}
-      style={ButtonStyle.SMALL}
-      submit
-      text={"Ver"} />
-    //<Dropdown label='Cell 4' items={['Cell 1']} width={200} height={50} />
-  ],
-  [
-    <Typography>Cell 8</Typography>,
-    <Typography>Cell 9</Typography>,
-    <Typography>Cell 10</Typography>,
-    <Typography>Cell 11</Typography>,
-    <Typography>Cell 12</Typography>,
-    <Typography>Cell 13</Typography>,
-    <SizeButton
-      palette={{
-        backgroundColor: ColorPalette.SECONDARY
-      }}
-      size={{
-        height: 'auto',
-        width: '100%'
-      }}
-      style={ButtonStyle.SMALL}
-      submit
-      text={"Ver"} />
-  ]
-]
+
 
 const PaymentDebitCard = () => {
 
+  const [debitCardPayment, setDebitCardPayment] = useState<RSTransaction[]>([]);
+  const [activeSearch, setactiveSearch] = useState<boolean>(true);
+  const [dateFrom, setDateFrom] = useState<Dayjs | null>(null);
+  const [dateTo, setDateTo] = useState<Dayjs | null>(null);
+
+  const searchInterestSavingAccounts = async (codeLocalAccount: string, from: string, to: string) => {
+
+    try {
+      const data: RSTransaction[] | undefined = (await TransactionService.getTransaction(codeLocalAccount, from, to)).data.data;
+      if (data) {
+        const result = data.filter((item: RSTransaction) => {
+          if (item.concept === 'Consumo Tarjeta' && item.movement === 'NOTA DEBITO') {
+            return item;
+          }
+        });
+        setDebitCardPayment(result);
+      } else {
+        console.log("No hay datos disponibles");
+
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
+  }
+
+  const handleSearch = (codeLocalAccount: string) => {
+    searchInterestSavingAccounts(codeLocalAccount, dateFrom!.format("YYYY-MM-DDTHH:mm:ss"), dateTo!.format("YYYY-MM-DDTHH:mm:ss"));
+    setactiveSearch(false);
+
+  }
+
+  const getRow = (data: RSTransaction) => {
+    return [
+      <Typography>{`${data.executeDate}`}</Typography>,
+      <Typography>{data.movement}</Typography>,
+      <Typography>{data.concept}</Typography>,
+      <Typography>{data.value}</Typography>,
+      <Typography>{data.presentBalance}</Typography>,
+      <Typography></Typography>
+    ]
+  }
+
+
   return (
     <>
-
-      <Typography variant='h4' align='center'>Pago Tarjeta Débito</Typography>
-      <br></br>
-      <TableMolecule headers={headersMock} rows={rowsMock} />
+      {
+        activeSearch && <div style={{
+          position: 'absolute',
+          width: '100%',
+          height: '80vh',
+          top: 0,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <Fade in={activeSearch}>
+            <Card sx={{ minWidth: '650px', maxWidth: '750px' }}>
+              <Typography variant="h6" sx={{ mb: 2 }} align='center'>Buscar pagos realizados por tarjeta de débito</Typography>
+              <CardContent>
+                <Box sx={{ display: 'flex', p: "1px", flexDirection: "row", justifyContent: 'space-evenly' }} >
+                  <DatePickerAtom label="Desde que fecha" value={dateFrom} onChange={(dateAuxFrom: Dayjs | null) => { setDateFrom(dateAuxFrom) }} />
+                  <DatePickerAtom label="Hasta que fecha" value={dateTo} onChange={(dateAuxTo: Dayjs | null) => { setDateTo(dateAuxTo) }} />
+                </Box>
+                <Box sx={{ display: 'flex', p: "1px", m: "2px" }}>
+                </Box>
+                <SearchAccount
+                  color={ColorPalette.SECONDARY}
+                  title=""
+                  label="Número de Cuenta"
+                  onSubmit={handleSearch} />
+              </CardContent>
+            </Card>
+          </Fade>
+        </div>
+      }
+      {
+        !activeSearch && <>
+          <Box sx={{ p: 20 }} justifyContent="center">
+            <Typography variant="h4" sx={{ mb: 2 }} align='center'>Pagos tarjeta de débito</Typography>
+            <br></br>
+            <TableMolecule
+              headers={headersMock}
+              rows={debitCardPayment.map(debitCardPayment => getRow(debitCardPayment))} />
+          </Box>
+        </>
+      }
     </>
-  );
 
+  )
 };
+
 
 export default PaymentDebitCard;

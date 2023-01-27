@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, Box, Typography } from '@mui/material';
-import { ButtonStyle } from '/src/style/ButtonStyle';
-import { ColorPalette } from '/src/style/ColorPalette';
+import { ButtonStyle } from '@/style/ButtonStyle';
+import { ColorPalette } from '@/style/ColorPalette';
 import { SizeButton } from '../atoms/SizeButton';
 
 interface ErrorModalOrganismProps {

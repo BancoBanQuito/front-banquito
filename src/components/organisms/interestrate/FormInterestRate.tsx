@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import ButtonIcon from '/src/components/atoms/ButtonIcon';
-import { Dropdown } from '/src/components/atoms/Dropdown';
-import { SizeButton } from '/src/components/atoms/SizeButton';
-import TextFieldAtom from '/src/components/atoms/TextFieldAtom';
-import InterestRateService from '/src/services/product/interestrate/interestRate.service';
-import { ButtonStyle } from '/src/style/ButtonStyle';
-import { ColorPalette } from '/src/style/ColorPalette';
+import ButtonIcon from '@/components/atoms/ButtonIcon';
+import { Dropdown } from '@/components/atoms/Dropdown';
+import { SizeButton } from '@/components/atoms/SizeButton';
+import TextFieldAtom from '@/components/atoms/TextFieldAtom';
+import InterestRateService from '@/services/product/interestrate/interestRate.service';
+import { ButtonStyle } from '@/style/ButtonStyle';
+import { ColorPalette } from '@/style/ColorPalette';
 
 export const ContainParent = styled.div`
 display: grid;
