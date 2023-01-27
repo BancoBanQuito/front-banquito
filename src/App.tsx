@@ -1,8 +1,13 @@
 import { ThemeProvider } from "@mui/material";
 import { useState } from "react";
+import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
 import SearchCardClient from "./pages/UserPages/SearchCardClient/SearchCardClient";
 import SearchClientDataForm from "./pages/UserPages/SearchClientData/SearchClientDataForm";
 import theme from "./style/Theme";
+import { Location } from "./pages/UserPages/Locations/Location";
+import Error404 from "./pages/ErrorPages/Error404";
+import Home from "./pages/Home";
+import Layout from "./template/Layout";
 
 interface userProps {
   username: string;
@@ -12,7 +17,19 @@ interface userProps {
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState<userProps | null>(null);
+  const userRoutes = [
+    {
+      path: "info",
+      element: <SearchClientDataForm />,
+    },
+    {
+      path: "buscar",
+      element: <SearchCardClient />,
+    },
+  ];
   /*
+
+
   const userRoutes = [
     {
       path: "",
@@ -139,9 +156,14 @@ const App = () => {
 */
   return (
     <ThemeProvider theme={theme}>
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
-          <Route path="" element={<Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />}>
+          <Route
+            path=""
+            element={
+              <Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />
+            }
+          >
             <Route index element={<Home />} />
             {userRoutes.map((route) => (
               <Route
@@ -150,19 +172,9 @@ const App = () => {
                 element={route.element}
               />
             ))}
-            {clientRoutes.map((route) => (
-              <Route
-                key={route.path}
-                path={`cliente/${route.path}`}
-                element={route.element}
-              />
-            ))}
           </Route>
-          <Route path="*" element={<Error404 />} />
         </Routes>
-      </BrowserRouter> 
-      <SearchClient />*/}
-      <SearchCardClient />
+      </BrowserRouter>
     </ThemeProvider>
   );
 };

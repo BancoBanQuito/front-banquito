@@ -2,16 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Container, FormLabel, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 
-const url =
-  "https://client-banquito-abigailscl-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/";
+const urlCloud =
+  "https://client-banquito-abigailscl-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/client/";
 
-const local = "http://localhost:8080/";
+const local = "http://localhost:8080/api/client/";
 
 const isAvailable = true;
 
 const SearchClientDataForm: React.FC = () => {
-  const [idCliente, setIdCliente] = useState<string>("");
-  const [typeIdentification, setTypeIdentification] = useState<string>("");
+  const [idCliente, setIdCliente] = useState<string | null>(
+    localStorage.getItem("identification")
+  );
+  const [typeIdentification, setTypeIdentification] = useState<string | null>(
+    localStorage.getItem("typeIdentification")
+  );
   const [email, setEmail] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [genero, setGenero] = useState("");
@@ -32,21 +36,18 @@ const SearchClientDataForm: React.FC = () => {
   };
   const fetchClientByIdAndTypeId = async () => {
     try {
-      setIdCliente("1750343210");
-      setTypeIdentification("DNI");
+      setTypeIdentification(localStorage.getItem("typeIdentification"));
       const response = await fetch(
-        local + `api/client/${idCliente}/${typeIdentification}`
+        local + `${idCliente}/${typeIdentification}`
       );
       const data = await response.json();
       setEmail(data.email);
       setBirthDate(formatDate(new Date(data.birthDate)));
       setCarrera(data.career);
       setLugarTrabajo(data.companyName);
-      setReferencia(
-        data.reference[0].name + " (" + data.reference[0].related + ")"
-      );
-      setTelefono(data.phone[0].phoneNumber);
-      setDireccion(data.address[0].lineOne + " y " + data.address[0].lineTwo);
+      setReferencia(data.reference.name + " (" + data.reference.related + ")");
+      setTelefono(data.phone.phoneNumber);
+      setDireccion(data.address.lineOne + " y " + data.address.lineTwo);
       setSegmento("VIP");
       setGenero(data.gender);
       setEstadoCivil(data.maritalStatus);
@@ -58,18 +59,6 @@ const SearchClientDataForm: React.FC = () => {
   useEffect(() => {
     fetchClientByIdAndTypeId();
   }, []);
-
-  /* Funcion Boton*/
-  const handleSubmit = async () => {
-    //event.preventDefault();
-    try {
-      fetchClientByIdAndTypeId();
-
-      //alert("Volviendo");
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <>
@@ -174,7 +163,7 @@ const SearchClientDataForm: React.FC = () => {
 
       {/* Boton*/}
       <Container sx={containerTextFieldStyles}>
-        <Button onClick={handleSubmit} sx={buttonStyles}>
+        <Button onClick={() => {}} sx={buttonStyles}>
           Pagina Principal
         </Button>
       </Container>

@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState } from "react";
 import { Container, FormLabel, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
-
 import BranchBox from "../../../components/organisms/Branch/BranchBox";
+import { useNavigate } from "react-router-dom";
+import { SizeButton } from "../../../components/atoms/SizeButton";
+import { ButtonStyle } from "../../../style/ButtonStyle";
+import { ColorPalette } from "../../../style/ColorPalette";
 
 const local = "http://localhost:8080/";
+
 const SearchCardClient: React.FC = () => {
   const [identification, setIdentification] = useState("");
   const [typeIdentification, setTypeIdentification] = useState<string>("");
@@ -17,8 +20,11 @@ const SearchCardClient: React.FC = () => {
     { value: "PAS", label: "Pasaporte" },
   ];
 
+  const navigate = useNavigate();
+
   const onChangeStatus = (value: string) => {
     setTypeIdentification(value);
+    localStorage.setItem("typeIdentification", value);
     if (value !== "") {
       setIsStatusSelected(false);
     } else {
@@ -28,8 +34,13 @@ const SearchCardClient: React.FC = () => {
 
   /* Funcion Boton*/
   const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    history.push(`/details/${identification}/${typeIdentification}`);
+    try {
+      localStorage.setItem("identification", identification);
+      localStorage.setItem("typeIdentification", typeIdentification);
+      location.href = "/usuario/info";
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
