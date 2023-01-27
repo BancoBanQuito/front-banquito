@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import ButtonIcon from '../atoms/ButtonIcon'
-import { ChevronLeft, ChevronRight } from '@mui/icons-material'
-import { ColorPalette } from '../../style/ColorPalette'
 import { Box } from '@mui/material'
+import { ChevronLeft, ChevronRight } from '@mui/icons-material'
+import ButtonIcon from '../atoms/ButtonIcon'
 
 interface ProgressButtonMoleculeProps {
     color: string
