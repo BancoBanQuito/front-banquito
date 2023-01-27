@@ -1,11 +1,11 @@
 import axios from "axios";
-import { PUT_ACCOUNT_STATUS_API, PUT_ACCOUNT_BALANCE_API, POST_ACCOUNT_API, GET_ACCOUNT_ID_API, GET_ACCOUNT_CODE_API } from "@/config/apis/accountAPI";
+import { PUT_ACCOUNT_STATUS_API, PUT_ACCOUNT_BALANCE_API, POST_ACCOUNT_API, GET_ACCOUNT_ID_API, GET_ACCOUNT_CODE_API } from "../../config/apis/accountAPI";
 import { ResponseFormat } from "../ResponseFormat";
+import { RQAccountBalance } from "./dto/RQAccountBalance";
+import { RQAccountStatus } from "./dto/RQAccountStatus";
 import { RQCreateAccount } from "./dto/RQCreateAccount";
 import { RSAccount } from "./dto/RSAccount";
 import { RSCreateAccount } from "./dto/RSCreateAccount";
-import { RQAccountStatus } from "./dto/RQAccountStatus";
-import { RQAccountBalance } from "./dto/RQAccountBalance";
 
 export class AccountService {
 

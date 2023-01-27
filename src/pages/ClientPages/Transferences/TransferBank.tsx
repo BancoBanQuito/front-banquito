@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { RQTransaction } from '@/services/transaction/dto/RQTransaction';
-import ProgressButtonMolecule from '@/components/molecules/ProgressButtonMolecule';
-import ConfirmTransferUserForm from '@/components/organisms/ConfirmTransferUserForm';
-import ErrorModalOrganism from '@/components/organisms/ErrorModalOrganism';
-import TransferAmountForm from '@/components/organisms/Transaction/TransferAmountForm';
-import TransferDataForm from '@/components/organisms/Transaction/TransferDataForm';
-import { TransactionService } from '@/services/transaction/TransactionService';
-import { ColorPalette } from '@/style/ColorPalette';
+import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
+import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
+import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransferUserForm';
+import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
+import TransferAmountForm from '../../../components/organisms/Transaction/TransferAmountForm';
+import TransferDataForm from '../../../components/organisms/Transaction/TransferDataForm';
+import { TransactionService } from '../../../services/transaction/TransactionService';
+import { ColorPalette } from '../../../style/ColorPalette';
 
 const TransferBank = () => {
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);

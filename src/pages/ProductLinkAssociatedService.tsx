@@ -1,23 +1,17 @@
-import { TextField, Typography } from "@mui/material";
-import React, { FormEvent, useEffect, useState } from "react";
-import TextFieldAtom from "@/components/atoms/TextFieldAtom";
-import TableMolecule from "@/components/molecules/TableMolecule";
-import ButtonIcon from "@/components/atoms/ButtonIcon";
-// search icon
-import SearchIcon from "@mui/icons-material/Search";
-import { Checkbox as MuiCheckbox } from "@mui/material";
-import styled from "styled-components";
-// icon keyboar backspace
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { ColorPalette } from "@/style/ColorPalette";
-// Add icon
-import { SizeButton } from "@/components/atoms/SizeButton";
-import { ButtonStyle } from "@/style/ButtonStyle";
-//data
-//import IdentificationTypes from "@/components/organisms/IdentificationType.json";
-import { Checkbox } from "@/components/atoms/Checkbox";
+import React, { useEffect, useState } from "react";
 import { ConfirmationNumberOutlined } from "@mui/icons-material";
+import ButtonIcon from "../components/atoms/ButtonIcon";
+import { SizeButton } from "../components/atoms/SizeButton";
+import TextFieldAtom from "../components/atoms/TextFieldAtom";
+import TableMolecule from "../components/molecules/TableMolecule";
+import { ButtonStyle } from "../style/ButtonStyle";
+import { ColorPalette } from "../style/ColorPalette";
 import SearchProductDialog from "./SearchProductDialog";
+import { Typography } from "@mui/material";
+import styled from "styled-components";
+import { Checkbox } from "../components/atoms/Checkbox";
+
+
 // Styles
 export const Container = styled.div`
   display: relative;

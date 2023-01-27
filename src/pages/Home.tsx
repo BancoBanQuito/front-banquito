@@ -1,9 +1,9 @@
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import { useNavigate } from 'react-router-dom'
-import { SizeButton } from '@/components/atoms/SizeButton'
-import { ButtonStyle } from '@/style/ButtonStyle'
-import { ColorPalette } from '@/style/ColorPalette'
+import React from 'react';
+import { Box, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { SizeButton } from '../components/atoms/SizeButton';
+import { ButtonStyle } from '../style/ButtonStyle';
+import { ColorPalette } from '../style/ColorPalette';
 
 const Home = () => {
   const navigate = useNavigate();

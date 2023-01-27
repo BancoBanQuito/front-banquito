@@ -1,16 +1,17 @@
+import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { ColorPalette } from '@/style/ColorPalette';
-import { Box } from '@mui/material';
-import ConfirmTransferUserForm from '@/components/organisms/ConfirmTransferUserForm';
-import TransferDataForm from '@/components/organisms/Transaction/TransferDataForm';
-import TransferAmountForm from '@/components/organisms/Transaction/TransferAmountForm';
-import ProgressButtonMolecule from '@/components/molecules/ProgressButtonMolecule';
-import ErrorModalOrganism from '@/components/organisms/ErrorModalOrganism';
-import { TransactionService } from '@/services/transaction/TransactionService';
-import { AccountService } from '@/services/account/AccountService';
-import { RQTransaction } from '@/services/transaction/dto/RQTransaction';
-import { RSAccount } from '@/services/account/dto/RSAccount';
+import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
+import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransferUserForm';
+import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
+import TransferAmountForm from '../../../components/organisms/Transaction/TransferAmountForm';
+import TransferDataForm from '../../../components/organisms/Transaction/TransferDataForm';
+import { AccountService } from '../../../services/account/AccountService';
+import { RSAccount } from '../../../services/account/dto/RSAccount';
+import { TransactionService } from '../../../services/transaction/TransactionService';
+import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
+import { ColorPalette } from '../../../style/ColorPalette';
+
 
 const TransferUser = () => {
 

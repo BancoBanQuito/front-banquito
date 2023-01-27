@@ -1,5 +1,5 @@
 import axios from "axios";
-import { POST_INTEREST_API, GET_INTEREST_FROM_TO_API, GET_INTEREST_INVESTMENT_API } from "@/config/apis/transactionAPI";
+import { POST_INTEREST_API, GET_INTEREST_FROM_TO_API, GET_INTEREST_INVESTMENT_API } from "../../config/apis/transactionAPI";
 import { ResponseFormat } from "../ResponseFormat";
 import { RQSavingsAccountInterest } from "./dto/RQSavingsAccountInterest";
 import { RSInvestmentInterest } from "./dto/RSInvestmentInterest";

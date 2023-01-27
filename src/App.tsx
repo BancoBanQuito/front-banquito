@@ -1,43 +1,39 @@
-import { useState } from "react";
-import { Location } from "./pages/UserPages/Locations/Location";
-import theme from "./style/Theme";
-import Error404 from "./pages/ErrorPages/Error404";
-import { ThemeProvider } from "@mui/material";
-import HomeClient from "./pages/ClientPages/HomeClient";
-import HomeUser from "./pages/UserPages/HomeUser";
-import Login from "./components/organisms/Login/Login";
-import CreateSignature from "./pages/ClientPages/Account/AccountCreateSignature";
-import EditAccountSignature from "./pages/ClientPages/Account/AccountEditSignature";
-import CancelAccount from "./pages/ClientPages/Account/AccountCancel";
-import Layout from "./template/Layout";
-import AccountCreateUser from "./pages/UserPages/Account/AccountCreateUser";
-import TransferUser from "./pages/UserPages/Transferences/TransferUser";
-import TransferBank from "./pages/ClientPages/Transferences/TransferBank";
-import AccountCreateBank from "./pages/ClientPages/Account/AccountCreateBank";
-import Branch from "./pages/ClientPages/Branches/Branch";
-import AccountStatementBank from "./pages/ClientPages/Account/AccountStatementBank";
-import AccountStatementClient from "./pages/UserPages/Account/AccountStatementClient";
-import BranchUser from "./pages/UserPages/Branches/BranchUser";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
-import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
+import React, { useState } from 'react';
+import { Login, Home } from '@mui/icons-material';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import { BankEntity } from './components/organisms/BankEntity/BankEntity';
+import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
+import CreateUser from './components/organisms/Login/CreateUser';
 import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
-import ProductLinkAssociatedService from "./pages/ProductLinkAssociatedService";
-import Home from "./pages/Home";
-import CreateUser from "./components/organisms/Login/CreateUser";
+import AccountAvailableBalance from './pages/ATMPages/Account/AccountAvailableBalance';
+import AccountConsolidatedPosition from './pages/ClientPages/Account/AccountConsolidatedPosition';
+import AccountCreateBank from './pages/ClientPages/Account/AccountCreateBank';
+import PaymentCheckbook from './pages/ClientPages/Account/CheckbookPayment';
+import PaymentDebitCard from './pages/ClientPages/Account/DebitCardPayment';
+import Branch from './pages/ClientPages/Branches/Branch';
+import HomeClient from './pages/ClientPages/HomeClient';
+import InterestInvestmentPolicies from './pages/ClientPages/Transferences/InterestInvestmentPolicies';
+import InterestSavingAccounts from './pages/ClientPages/Transferences/InterestSavingAccounts';
+import TransferBank from './pages/ClientPages/Transferences/TransferBank';
+import CreateRequestService from './pages/CreateRequestService';
+import Error404 from './pages/ErrorPages/Error404';
+import ProductLinkAssociatedService from './pages/ProductLinkAssociatedService';
+import { Product } from './pages/ProductPages/Product';
+import { ProductType } from './pages/ProductPages/ProductType';
+import AccountCreateUser from './pages/UserPages/Account/AccountCreateUser';
+import BranchUser from './pages/UserPages/Branches/BranchUser';
+import HolidayUser from './pages/UserPages/Holidays/HolidayUser';
+import HomeUser from './pages/UserPages/HomeUser';
+import TransactionBeetwenDates from './pages/UserPages/Transferences/TransactionBeetwenDates';
+import TransferUser from './pages/UserPages/Transferences/TransferUser';
+import theme from './style/Theme';
+import Layout from './template/Layout';
 
 interface userProps {
   username: string,
   password: string
 }
-import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
-import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
-import { Product } from "./pages/ProductPages/Product";
-import { ProductType } from "./pages/ProductPages/ProductType";
-import CreateRequestService from './pages/CreateRequestService';
-import AccountAvailableBalance from "./pages/ATMPages/Account/AccountAvailableBalance";
-import InterestSavingAccounts from "./pages/ClientPages/Transferences/InterestSavingAccounts";
-import InterestInvestmentPolicies from "./pages/ClientPages/Transferences/InterestInvestmentPolicies";
 
 const App = () => {
 
@@ -163,17 +159,17 @@ const App = () => {
       element: <TransferUser />,
     },
     {
-path: "interes/polizas-inversion",
+      path: "interes/polizas-inversion",
       element: <InterestInvestmentPolicies />,
-},{
-    path: "interes/cuenta-ahorro",
+    }, {
+      path: "interes/cuenta-ahorro",
       element: <InterestSavingAccounts />,
-      },
-      {
-path: "pagos/tarjeta-debito",
+    },
+    {
+      path: "pagos/tarjeta-debito",
       element: <PaymentDebitCard />,
-      },
-      {
+    },
+    {
       path: "pagos/cheque",
       element: <PaymentCheckbook />,
     },

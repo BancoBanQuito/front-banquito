@@ -1,22 +1,12 @@
-import { Button, CardActionArea, CardContent, Dialog, Divider, MenuItem, Select, Stack, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import TextFieldAtom from "@/components/atoms/TextFieldAtom";
-
-import ButtonIcon from "@/components/atoms/ButtonIcon";
-
-// search icon
-import SearchIcon from "@mui/icons-material/Search";
-import styled from "styled-components";
-// icon keyboar backspace
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { ColorPalette } from "@/style/ColorPalette";
-// Add icon
-import { SizeButton } from "@/components/atoms/SizeButton";
-import { ButtonStyle } from "@/style/ButtonStyle";
-//data
-import Card from "@mui/material/Card";
-
-import { useForm, FormProvider } from "react-hook-form";
+import { Card, CardActionArea, CardContent, Typography, Dialog, Stack, Divider, Select, MenuItem, Button } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useForm, FormProvider } from 'react-hook-form';
+import styled from 'styled-components';
+import ButtonIcon from '../components/atoms/ButtonIcon';
+import { SizeButton } from '../components/atoms/SizeButton';
+import TextFieldAtom from '../components/atoms/TextFieldAtom';
+import { ButtonStyle } from '../style/ButtonStyle';
+import { ColorPalette } from '../style/ColorPalette';
 
 // Styles
 export const Container = styled.div`

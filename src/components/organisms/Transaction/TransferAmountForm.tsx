@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { Typography, TextField } from '@mui/material'
 import { Box } from '@mui/system'
-import { SizeButton } from '@/components/atoms/SizeButton'
-import { ButtonStyle } from '@/style/ButtonStyle'
-import { ColorPalette } from '@/style/ColorPalette'
+import { ButtonStyle } from '../../../style/ButtonStyle'
+import { ColorPalette } from '../../../style/ColorPalette'
+import { SizeButton } from '../../atoms/SizeButton'
 
 interface FormTransferUserInterface {
     amount: number

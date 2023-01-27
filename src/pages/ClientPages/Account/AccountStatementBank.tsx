@@ -1,19 +1,18 @@
+import { ChevronLeft, Print } from '@mui/icons-material';
+import { Box, Fade, Card, CardContent } from '@mui/material';
 import React, { ReactInstance, useEffect, useRef, useState } from 'react'
-import { Box } from '@mui/system'
-import { Card, CardContent, Fade, Modal, Typography } from '@mui/material'
-import { ChevronLeft, Print } from '@mui/icons-material'
-import ReactToPrint from 'react-to-print'
-import { useNavigate } from 'react-router-dom'
-import { Card, CardContent, Fade } from '@mui/material'
-import { ChevronLeft, Print } from '@mui/icons-material'
-import ButtonIcon from '@/components/atoms/ButtonIcon'
-import AccountStatementBody from '@/components/organisms/Account/AccountStatementBody'
-import SearchAccount from '@/components/organisms/Account/SearchAccount'
-import ErrorModalOrganism from '@/components/organisms/ErrorModalOrganism'
-import LoadOrganism from '@/components/organisms/LoadOrganism'
-import { AccountStatementService } from '@/services/account/AccountStatementService'
-import { RSAccountStatement } from '@/services/account/dto/RSAccountStatement'
-import { ColorPalette } from '@/style/ColorPalette'
+import { useNavigate } from 'react-router-dom';
+import ReactToPrint from 'react-to-print';
+import ButtonIcon from '../../../components/atoms/ButtonIcon';
+import AccountStatementBody from '../../../components/organisms/Account/AccountStatementBody';
+import AccountStatementTable from '../../../components/organisms/Account/AccountStatementTable';
+import SearchAccount from '../../../components/organisms/Account/SearchAccount';
+import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
+import LoadOrganism from '../../../components/organisms/LoadOrganism';
+import { AccountStatementService } from '../../../services/account/AccountStatementService';
+import { RSAccountStatement } from '../../../services/account/dto/RSAccountStatement';
+import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList';
+import { ColorPalette } from '../../../style/ColorPalette';
 
 interface AccountStatementBankProps {
     client?: boolean

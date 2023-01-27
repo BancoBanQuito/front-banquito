@@ -1,9 +1,9 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react'
-import { Box, TextField, Typography } from '@mui/material'
-import { Search } from '@mui/icons-material'
-import { SizeButton } from '@/components/atoms/SizeButton';
-import { ButtonStyle } from '@/style/ButtonStyle';
-import { ColorPalette } from '@/style/ColorPalette';
+import { Box, Typography, TextField } from '@mui/material';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
+import { SizeButton } from '../../atoms/SizeButton';
+import { Search } from '@mui/icons-material';
 
 interface SearchAccountProps {
     title: string,

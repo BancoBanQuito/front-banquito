@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Box, Container } from "@mui/material";
-import { HolidayTabs } from "@/components/organisms/Holiday/HolidayTabs";
-import Holiday from "@/pages/ClientPages/Holiday/Holiday";
-import CreateHoliday from "@/components/organisms/Holiday/CreateHoliday";
+import CreateHoliday from "../../../components/organisms/Holiday/CreateHoliday";
+import { HolidayTabs } from "../../../components/organisms/Holiday/HolidayTabs";
+import Holiday from "../../ClientPages/Holiday/Holiday";
 
 const HolidayUser: React.FC = () => {
   const [tabValue, setTabValue] = useState("Ver");

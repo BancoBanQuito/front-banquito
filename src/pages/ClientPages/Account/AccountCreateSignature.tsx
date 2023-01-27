@@ -1,14 +1,13 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
-import TextFieldAtom from "@/components/atoms/TextFieldAtom";
-import ButtonIcon from "@/components/atoms/ButtonIcon";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { Box, Typography } from "@mui/material";
-import { ColorPalette } from "@/style/ColorPalette";
-import { SizeButton } from "@/components/atoms/SizeButton";
-import { ButtonStyle } from "@/style/ButtonStyle";
-import { AccountSignatureService } from "@/services/account/AccountSignatureService";
-import { AccountService } from "@/services/account/AccountService";
-import { RSAccount } from "@/services/account/dto/RSAccount";
+import React, { ChangeEvent, FormEvent, useState } from "react";
+import ButtonIcon from "../../../components/atoms/ButtonIcon";
+import { SizeButton } from "../../../components/atoms/SizeButton";
+import TextFieldAtom from "../../../components/atoms/TextFieldAtom";
+import { AccountService } from "../../../services/account/AccountService";
+import { AccountSignatureService } from "../../../services/account/AccountSignatureService";
+import { RSAccount } from "../../../services/account/dto/RSAccount";
+import { ButtonStyle } from "../../../style/ButtonStyle";
+import { ColorPalette } from "../../../style/ColorPalette";
 
 interface FormData {
   accountNumber: string,

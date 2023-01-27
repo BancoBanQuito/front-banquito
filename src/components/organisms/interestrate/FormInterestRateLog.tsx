@@ -1,15 +1,14 @@
+import { Snackbar, Alert } from '@mui/material';
 import React, { useEffect, useState } from 'react'
-import { Alert, ContainChild, ContainChild2, ContainChild3, ContainChild4, ContainChild5, ContainChild6, ContainerButtons, ContainerForm, ContainParent, ContentForm } from './FormInterestRate';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import styled from 'styled-components';
-import Snackbar from '@mui/material/Snackbar';
-import ButtonIcon from '@/components/atoms/ButtonIcon';
-import { Dropdown } from '@/components/atoms/Dropdown';
-import { NumberField } from '@/components/atoms/NumberField';
-import { SizeButton } from '@/components/atoms/SizeButton';
-import InterestRateService from '@/services/product/interestrate/interestRate.service';
-import { ButtonStyle } from '@/style/ButtonStyle';
-import { ColorPalette } from '@/style/ColorPalette';
+import InterestRateService from '../../../services/product/interestrate/interestRate.service';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
+import ButtonIcon from '../../atoms/ButtonIcon';
+import { Dropdown } from '../../atoms/Dropdown';
+import { NumberField } from '../../atoms/NumberField';
+import { SizeButton } from '../../atoms/SizeButton';
+import { ContentForm, ContainerForm, ContainChild, ContainChild2, ContainChild3, ContainChild4 } from './FormInterestRate';
 import { ReturnButton } from './InteresRate';
 
 const ContentFormLog = styled(ContentForm)`
@@ -111,7 +110,7 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
         <ContainerForm>
             <ContentForm>
                 <ReturnButton>
-                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspaceIcon />} onClick={() => action()} top={true} />
+                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspace />} onClick={() => action()} top={true} />
                 </ReturnButton>
                 <h1>Formulario de Registro Tasa de Interes</h1>
                 <ParentContainer>

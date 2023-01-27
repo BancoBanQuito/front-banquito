@@ -1,7 +1,7 @@
+import { Box, Typography, Modal } from "@mui/material";
 import React, { useState } from "react";
-import { Box, Modal, Typography } from "@mui/material";
-import AccountConfigurationTableOranism from "@/components/organisms/Account/AccountConfigurationTableOranism";
-import AccountConfigurationEditForm from "@/components/organisms/Account/AccountConfigurationEditForm";
+import AccountConfigurationEditForm from "../../../components/organisms/Account/AccountConfigurationEditForm";
+import AccountConfigurationTableOranism from "../../../components/organisms/Account/AccountConfigurationTableOranism";
 
 const accountsExample = [
   {

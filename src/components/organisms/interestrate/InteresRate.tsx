@@ -1,17 +1,13 @@
+import { Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { TextField, Typography } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 import styled from 'styled-components';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import AddIcon from '@mui/icons-material/Add';
-import FormInterestRate from './FormInterestRate';
-import FormInterestRateLog from './FormInterestRateLog';
-import ButtonIcon from '@/components/atoms/ButtonIcon';
-import { SizeButton } from '@/components/atoms/SizeButton';
-import TextFieldAtom from '@/components/atoms/TextFieldAtom';
-import TableMolecule from '@/components/molecules/TableMolecule';
-import { ButtonStyle } from '@/style/ButtonStyle';
-import { ColorPalette } from '@/style/ColorPalette';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
+import ButtonIcon from '../../atoms/ButtonIcon';
+import { SizeButton } from '../../atoms/SizeButton';
+import TextFieldAtom from '../../atoms/TextFieldAtom';
+import TableMolecule from '../../molecules/TableMolecule';
+import { Add, KeyboardBackspace, Search } from '@mui/icons-material';
 
 export const Container = styled.div`
 display: relative;
@@ -92,7 +88,7 @@ const InteresRate = () => {
         <Container>
             <Content>
                 <ReturnButton>
-                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspaceIcon />} onClick={() => console.log('Buscar')} top={true} />
+                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspace />} onClick={() => console.log('Buscar')} top={true} />
                 </ReturnButton>
                 <div>
                     <h1>Tasas de Interés</h1>
@@ -113,7 +109,7 @@ const InteresRate = () => {
                             value={interesRate}
                         />
                         <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
-                            icon={<SearchIcon />}
+                            icon={<Search />}
                             onClick={() => console.log('Buscar')}
                             text="Buscar"
                             style={ButtonStyle.MEDIUM}
@@ -125,7 +121,7 @@ const InteresRate = () => {
 
                     <ContentButtonAddRight>
                         <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
-                            icon={<AddIcon />}
+                            icon={<Add />}
                             onClick={() => console.log('Buscar')}
                             text="Agregar"
                             style={ButtonStyle.BIG}

@@ -1,20 +1,10 @@
-
-import DialogTitle from "@mui/material/DialogTitle";
-import Dialog from "@mui/material/Dialog";
-import AddIcon from "@mui/icons-material/Add";
-import Typography from "@mui/material/Typography";
-//atomos
-import TableMolecule from "@/components/molecules/TableMolecule";
-import { Checkbox } from "@/components/atoms/Checkbox";
-import TextFieldAtom from "@/components/atoms/TextFieldAtom";
-import { SizeButton } from "@/components/atoms/SizeButton";
-// search icon
-import SearchIcon from "@mui/icons-material/Search";
-import styled from "styled-components";
-// icon keyboar backspace
-import { ColorPalette } from "@/style/ColorPalette";
-//add icon
-import { ButtonStyle } from "@/style/ButtonStyle";
+import React from 'react';
+import { Typography, Checkbox, Dialog, DialogTitle, styled } from '@mui/material';
+import { SizeButton } from '../components/atoms/SizeButton';
+import TextFieldAtom from '../components/atoms/TextFieldAtom';
+import TableMolecule from '../components/molecules/TableMolecule';
+import { ButtonStyle } from '../style/ButtonStyle';
+import { ColorPalette } from '../style/ColorPalette';
 
 
 // Container for the search
@@ -107,7 +97,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
         <SizeButton
           palette={{ backgroundColor: ColorPalette.TERNARY }}
           icon={<AddIcon />}
-          onClick={ () => handleSelectedProducts("TODO send List<Products>")}
+          onClick={() => handleSelectedProducts("TODO send List<Products>")}
           text="Agregar"
           style={ButtonStyle.BIG}
         />
