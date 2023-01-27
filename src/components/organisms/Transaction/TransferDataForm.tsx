@@ -1,11 +1,9 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { Box, FormControl, SxProps, TextField, Theme, Typography } from '@mui/material';
-import TextFieldAtom from '../atoms/TextFieldAtom';
-import { Dropdown } from '../atoms/Dropdown';
-import { SizeButton } from '../atoms/SizeButton';
-import { ColorPalette } from '../../style/ColorPalette';
-import { ButtonStyle } from '../../style/ButtonStyle';
-import IdentificationTypes from './IdentificationType.json'
+import { Box, Typography, TextField } from "@mui/material";
+import { useState, FormEvent, ChangeEvent } from "react";
+import { ButtonStyle } from "../../../style/ButtonStyle";
+import { ColorPalette } from "../../../style/ColorPalette";
+import { SizeButton } from "../../atoms/SizeButton";
+
 
 interface FormTransferInterface {
     bank: string,
@@ -102,24 +100,6 @@ const TransferDataForm = (props: TransferFormProps) => {
                             required
                         />
                     }
-                    {/* <Dropdown
-                        width={"100%"}
-                        height={"auto"}
-                        label=''
-                        items={IdentificationTypes}
-                        backgroundColor={ColorPalette.SECONDARY}
-                        onChange={(value: string) => settransfer({ ...transfer, identificationType: value })}
-                    />
-                    <TextField
-                        id="identification"
-                        name="identification"
-                        label='Identificacion'
-                        margin="normal"
-                        type="text"
-                        onChange={handleFormChange}
-                        fullWidth
-                        required
-                    /> */}
                 </Box>
                 <Box>
                     <SizeButton

@@ -1,12 +1,14 @@
-import { Typography, TextField } from '@mui/material'
-import { Box, SxProps, Theme } from '@mui/system'
-import { ButtonStyle } from '../../style/ButtonStyle'
-import { ColorPalette } from '../../style/ColorPalette'
-import { SizeButton } from '../atoms/SizeButton'
-import { TransactionPost } from '../../services/account/model/TransactionPost'
+import { Box, Typography, TextField } from "@mui/material"
+import { RQTransaction } from "../../services/transaction/dto/RQTransaction"
+import { ButtonStyle } from "../../style/ButtonStyle"
+import { ColorPalette } from "../../style/ColorPalette"
+import { SizeButton } from "../atoms/SizeButton"
+
 
 interface ConfirmFormProps {
-    data: TransactionPost,
+    showField?: boolean;
+    showAccountReceptor?: boolean; 
+    data: RQTransaction,
     title?: string,
     onAccept?: (data: any) => void,
     onDecline?: (data: any) => void,
@@ -49,18 +51,18 @@ const ConfirmTransferUserForm = (props: ConfirmFormProps) => {
                         value={props.data.value}
                         disabled
                         fullWidth />
-                    <TextField
+                    {!!props.showField && <TextField
                         sx={{ margin: '1rem' }}
                         label='Numero de Cuenta (Emisor)'
                         value={props.data.codeLocalAccount}
                         fullWidth
-                        disabled />
-                    <TextField
+                        disabled />}
+                    {!!props.showAccountReceptor && <TextField
                         sx={{ margin: '1rem' }}
                         label='Numero de Cuenta (Receptor)'
                         value={props.data.recipientAccountNumber}
                         fullWidth
-                        disabled />
+                        disabled />}
                 </Box>
                 <Box sx={{
                     width: '100%',
@@ -76,7 +78,7 @@ const ConfirmTransferUserForm = (props: ConfirmFormProps) => {
                         }}
                         style={ButtonStyle.BIG}
                         onClick={() => { props.onAccept?.(null) }}
-                        text='Transferir' />
+                        text={props.title || ''} />
                     <SizeButton
                         palette={{
                             backgroundColor: ColorPalette.PRIMARY

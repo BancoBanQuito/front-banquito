@@ -1,16 +1,14 @@
-import React, { LegacyRef, useEffect, useState } from 'react';
-import { Box, Grid, Container, Typography } from '@mui/material';
-import { ColorPalette } from '../../style/ColorPalette';
-import { AccountStament } from '../../services/account/model/AccountStatement';
-import TableMolecule from '../molecules/TableMolecule';
-import { Dropdown } from '../atoms/Dropdown';
+import React, { LegacyRef } from 'react';
+import { RSAccountStatement } from '../../../services/account/dto/RSAccountStatement';
+import { Typography, Container, Grid, Box } from '@mui/material';
+import { ColorPalette } from '../../../style/ColorPalette';
+import TableMolecule from '../../molecules/TableMolecule';
 
 interface AccountStatementProps {
-    accountStatement: AccountStament | undefined
+    accountStatement: RSAccountStatement | undefined
 }
 
 const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref) => {
-
     const getRow = (data: any) => {
         return [
             <Typography></Typography>,
@@ -25,7 +23,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
         <>
             <div ref={ref as LegacyRef<HTMLDivElement> | undefined}>
                 {
-                    props.accountStatement ?
+                    !!props.accountStatement ?
                         <Container sx={{ width: '100%' }}>
                             <div style={{
                                 display: 'flex',
@@ -81,7 +79,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                                             padding: 1
                                         }}>
                                             <Typography variant='body1'>
-                                                Fecha ultimo corte: {props.accountStatement?.lastCutOffDate.toString()}
+                                                Fecha ultimo corte: {props.accountStatement?.lastCutOffDate.toUTCString()}
                                             </Typography>
                                         </Box>
                                         <Box sx={{
@@ -117,7 +115,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                                         </Box>
                                         <Box sx={{ textTransform: 'uppercase', color: ColorPalette.SECONDARY, padding: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
                                             <Typography sx={{ width: '50%' }} variant='body1'>Fecha Ultimo Corte</Typography>
-                                            <Typography sx={{ width: '50%' }} variant='body1'>{props.accountStatement?.lastCutOffDate.toString()}</Typography>
+                                            <Typography sx={{ width: '50%' }} variant='body1'>{props.accountStatement?.lastCutOffDate.toUTCString()}</Typography>
                                         </Box>
                                         <Box sx={{ textTransform: 'uppercase', color: ColorPalette.SECONDARY, padding: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
                                             <Typography sx={{ width: '50%' }} variant='body1'>Fecha este Corte</Typography>

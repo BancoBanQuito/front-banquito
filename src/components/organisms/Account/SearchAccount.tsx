@@ -1,9 +1,9 @@
-import { Box, TextField, Typography } from '@mui/material'
-import React, { ChangeEvent, ChangeEventHandler, EventHandler, FormEvent, FormEventHandler, useState } from 'react'
-import { SizeButton } from '../atoms/SizeButton'
-import { ColorPalette } from '../../style/ColorPalette'
-import { ButtonStyle } from '../../style/ButtonStyle'
-import { Search } from '@mui/icons-material'
+import { Box, Typography, TextField } from '@mui/material';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
+import { SizeButton } from '../../atoms/SizeButton';
+import { Search } from '@mui/icons-material';
 
 interface SearchAccountProps {
     title: string,
@@ -21,10 +21,11 @@ const SearchAccount = (props: SearchAccountProps) => {
         props.onSubmit?.(accountNumber);
     }
     const onlyNumbers = (event: ChangeEvent<HTMLInputElement>) => {
-        const regex = /^[0-9\b]+$/;
+        setaccountNumber(event.target.value);
+        /* const regex = /^[0-9\b]+$/;
         if (event.target.value == '' || regex.test(event.target.value)) {
             setaccountNumber(event.target.value);
-        }
+        } */
     }
 
     return (
