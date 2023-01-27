@@ -36,6 +36,7 @@ import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
 import AccountAvailableBalance from "./pages/ATMPages/Account/AccountAvailableBalance";
+import InterestSavingAccounts from "./pages/ClientPages/Transferences/InterestSavingAccounts";
 
 const App = () => {
 
@@ -161,7 +162,11 @@ const App = () => {
       element: <TransferUser />,
     },
     {
-      path: "pagos/tarjeta-debito",
+    path: "interes/cuenta-ahorro",
+      element: <InterestSavingAccounts />,
+      },
+      {
+path: "pagos/tarjeta-debito",
       element: <PaymentDebitCard />,
       },
       {
