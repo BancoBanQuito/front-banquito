@@ -149,7 +149,7 @@ const App = () => {
     },
     {
       path: "cuenta/estado",
-      element: <AccountStatementClient />,
+      element: <AccountStatementBank client />,
     },
     {
       path: "transaccion",

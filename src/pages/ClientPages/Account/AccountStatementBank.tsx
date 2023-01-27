@@ -1,13 +1,27 @@
-import React, { ReactInstance, useRef, useState } from 'react'
+import React, { ReactInstance, useEffect, useRef, useState } from 'react'
 import { Box } from '@mui/system'
 import { Card, CardContent, Fade, Modal, Typography } from '@mui/material'
 import { ChevronLeft, Print } from '@mui/icons-material'
 import ReactToPrint from 'react-to-print'
 import { useNavigate } from 'react-router-dom'
+import { Card, CardContent, Fade } from '@mui/material'
+import { ChevronLeft, Print } from '@mui/icons-material'
+import ButtonIcon from '/src/components/atoms/ButtonIcon'
+import AccountStatementBody from '/src/components/organisms/Account/AccountStatementBody'
+import SearchAccount from '/src/components/organisms/Account/SearchAccount'
+import ErrorModalOrganism from '/src/components/organisms/ErrorModalOrganism'
+import LoadOrganism from '/src/components/organisms/LoadOrganism'
+import { AccountStatementService } from '../../../services/account/AccountStatementService'
 import { RSAccountStatement } from '/src/services/account/dto/RSAccountStatement'
 import { RSAccountStatementList } from '/src/services/account/dto/RSAccountStatementList'
 
-const AccountStatementBank = () => {
+interface AccountStatementBankProps {
+    client?: boolean
+}
+
+const userCodeLocalAccount = '1234567890';
+
+const AccountStatementBank = (props: AccountStatementBankProps) => {
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
@@ -18,8 +32,19 @@ const AccountStatementBank = () => {
     const [accountStatements, setaccountStatements] = useState<RSAccountStatementList[]>([]);
     const [accountNumberData, setaccountNumberDate] = useState<string>();
 
-    const navigate = useNavigate();
+    useEffect(() => {
+        if (!!props.client) {
+            setactiveSearchBox(false);
+            setcodeLocalAccount(userCodeLocalAccount);
+            handleSearch(userCodeLocalAccount);
+        } else {
+            setactiveSearchBox(true);
+        }
+        return () => { }
+    }, [])
 
+
+    const navigate = useNavigate();
     const printRef = useRef();
 
     const handleBackEvent = () => {
@@ -65,7 +90,7 @@ const AccountStatementBank = () => {
                 position: 'relative',
                 top: 0
             }}>
-                <div style={{
+                {!(!!props.client) && <div style={{
                     position: 'absolute',
                     width: '100%',
                     height: '80vh',
@@ -86,8 +111,8 @@ const AccountStatementBank = () => {
                             </CardContent>
                         </Card>
                     </Fade>
-                </div>
-                {/* <div style={{
+                </div>}
+                <div style={{
                     position: 'absolute',
                     width: '100%',
                     top: '5rem',

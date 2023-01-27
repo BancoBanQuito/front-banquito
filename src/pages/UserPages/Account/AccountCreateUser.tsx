@@ -5,7 +5,7 @@ import StripeAtom from '/src/components/atoms/StripeAtom';
 import AccountFormBank from '/src/components/organisms/Account/AccountFormBank';
 import ErrorModalOrganism from '/src/components/organisms/ErrorModalOrganism';
 import LoadOrganism from '/src/components/organisms/LoadOrganism';
-import { AccountService } from '/src/services/account/AccountService';
+import { AccountService } from '../../../services/account/AccountService';
 import { RQCreateAccount } from '/src/services/account/dto/RQCreateAccount';
 import { ProductService } from '/src/services/product/productService';
 import { ColorPalette } from '/src/style/ColorPalette';

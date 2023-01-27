@@ -8,7 +8,7 @@ import TransferAmountForm from '/src/components/organisms/Transaction/TransferAm
 import ProgressButtonMolecule from '/src/components/molecules/ProgressButtonMolecule';
 import ErrorModalOrganism from '/src/components/organisms/ErrorModalOrganism';
 import { TransactionService } from '/src/services/transaction/TransactionService';
-import { AccountService } from '/src/services/account/AccountService';
+import { AccountService } from '../../../services/account/AccountService';
 import { RQTransaction } from '/src/services/transaction/dto/RQTransaction';
 import { RSAccount } from '/src/services/account/dto/RSAccount';
 
