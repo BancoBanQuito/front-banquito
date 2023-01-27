@@ -35,7 +35,7 @@ import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEn
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
-import AccountConsolidatedPosition from "./pages/ClientPages/Account/AccountConsolidatedPosition";
+import AccountAvailableBalance from "./pages/ATMPages/Account/AccountAvailableBalance";
 
 const App = () => {
 
@@ -178,6 +178,17 @@ const App = () => {
     }
   ]
 
+  const atmRoutes = [
+    {
+      path: "",
+      element: <HomeClient user={user} isLogged={isLogged} />,
+    },
+    {
+      path: "cuenta/saldo",
+      element: <AccountAvailableBalance />
+    }
+  ]
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
@@ -195,6 +206,13 @@ const App = () => {
               <Route
                 key={route.path}
                 path={`cliente/${route.path}`}
+                element={route.element}
+              />
+            ))}
+            {atmRoutes.map((route) => (
+              <Route
+                key={route.path}
+                path={`atm/${route.path}`}
                 element={route.element}
               />
             ))}
