@@ -15,7 +15,7 @@ import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransf
 
 const TransferClient = () => {
 
-    const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
+    /* const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
 
@@ -60,11 +60,11 @@ const TransferClient = () => {
 
     const handleDecline = () => {
         navigate('/usuario');
-    }
+    } */
 
     return (
         <>
-            <div style={{
+            {/* <div style={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -126,7 +126,7 @@ const TransferClient = () => {
             <ErrorModalOrganism
                 active={activeErrorModal}
                 onDeactive={() => setactiveErrorModal(false)}
-                text={errorMessage} />
+                text={errorMessage} /> */}
         </>
     )
 }

@@ -19,7 +19,7 @@ interface FormData {
 
 const AccountCreateSignatureUser = () => {
 
-  const [formData, setformData] = useState<FormData>({
+  /* const [formData, setformData] = useState<FormData>({
     accountNumber: "",
     identification: "",
     identificationType: "",
@@ -56,9 +56,10 @@ const AccountCreateSignatureUser = () => {
       ...formData,
       [event.target.name]: event.target.value
     })
-  }
+  } */
 
   return (
+<<<<<<< HEAD:src/pages/UserPages/Account/AccountCreateSignatureUser.tsx
     <Box component="form" onSubmit={handleSubmit}>
       <Box
         sx={{
@@ -204,6 +205,10 @@ const AccountCreateSignatureUser = () => {
         </div>
       </Box>
     </Box>
+=======
+    <>
+    </>
+>>>>>>> main:src/pages/AccountCreateSignature.tsx
   );
 };
 

@@ -20,6 +20,7 @@ interface AccountStatementClientProps {
 
 const AccountStatementClient = (props: AccountStatementClientProps) => {
 
+<<<<<<< HEAD:src/pages/ClientPages/Account/AccountStatementClient.tsx
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
@@ -28,23 +29,34 @@ const AccountStatementClient = (props: AccountStatementClientProps) => {
     const [accountStatement, setaccountStatement] = useState<RSAccountStatement | undefined>();
     const [accountStatements, setaccountStatements] = useState<RSAccountStatementList[]>();
     const [accountNumberData, setaccountNumberDate] = useState<string>("1751990332");
+=======
+    // const [isLoading, setisLoading] = useState<boolean>(false);
+    // const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
+    // const [errorMessage, seterrorMessage] = useState<string>("");
+    // const [activeAccountStatement, setactiveAccountStatement] = useState<boolean>(false);
+    // const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(true);
+    // const [accountStatement, setaccountStatement] = useState<AccountStament | undefined>();
+    // const [accountStatements, setaccountStatements] = useState<AccountStament[]>();
+    // const [accountNumberData, setaccountNumberDate] = useState<string>("1751990332");
+>>>>>>> main:src/pages/UserPages/AccountStatement/AccountStatementClient.tsx
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const printRef = useRef();
+    // const printRef = useRef();
 
-    useEffect(() => {
-        searchAccountStatement(accountNumberData);
-        return () => { }
-    }, [])
+    // useEffect(() => {
+    //     searchAccountStatement(accountNumberData);
+    //     return () => { }
+    // }, [])
 
 
-    const handleBackEvent = () => {
-        setactiveAccountStatementTable(true);
-        setactiveAccountStatement(false);
-        setaccountStatement(undefined);
-    }
+    // const handleBackEvent = () => {
+    //     setactiveAccountStatementTable(true);
+    //     setactiveAccountStatement(false);
+    //     setaccountStatement(undefined);
+    // }
 
+<<<<<<< HEAD:src/pages/ClientPages/Account/AccountStatementClient.tsx
     const handleAccountStatementSelection = (data: RSAccountStatement) => {
         setaccountStatement(data);
         setactiveAccountStatementTable(false);
@@ -77,10 +89,44 @@ const AccountStatementClient = (props: AccountStatementClientProps) => {
             setisLoading(false);
         }
     }
+=======
+    // const handleAccountStatementSelection = (data: AccountStament) => {
+    //     setaccountStatement(data);
+    //     setactiveAccountStatementTable(false);
+    //     setactiveAccountStatement(true);
+    // }
+
+    // const searchAccountStatement = async (identification: string, identificationType?: string) => {
+    //     setisLoading(true);
+    //     try {
+    //         // const data: AccountStament[] = /* (await AccountStatementService.getStatements(accountNumber)).data.data || */ [];
+    //         const { codeLocalAccount, codeInternationalAccount }: any = (await AccountService.getAccountsById(identification, identificationType || "DNI")).data?.data?.at(0);
+    //         if (!!codeLocalAccount && !!codeInternationalAccount) {
+    //             setactiveErrorModal(true);
+    //             seterrorMessage("No se han encontrado datos");
+    //             return;
+    //         }
+    //         const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount, codeInternationalAccount)).data.data;
+    //         if (data) {
+    //             // setaccountStatements(data);
+    //             setaccountStatement(data);
+    //             setactiveAccountStatementTable(true);
+    //         } else {
+    //             setactiveErrorModal(true);
+    //             seterrorMessage("No se han encontrado datos");
+    //         }
+    //     } catch (error: any) {
+    //         setactiveErrorModal(true);
+    //         seterrorMessage(error.message);
+    //     } finally {
+    //         setisLoading(false);
+    //     }
+    // }
+>>>>>>> main:src/pages/UserPages/AccountStatement/AccountStatementClient.tsx
 
     return (
         <>
-            <Box sx={{
+            {/* <Box sx={{
                 position: 'absolute',
                 width: '98%',
             }}>
@@ -141,7 +187,7 @@ const AccountStatementClient = (props: AccountStatementClientProps) => {
                 enableButtonBox
                 onConfirm={() => searchAccountStatement(accountNumberData)}
                 onReject={() => navigate('/cliente')}
-            />
+            /> */}
         </>
     )
 }

@@ -31,8 +31,10 @@ export const HolidayTabs = (props: HolidayTabsProps) => {
       sx={{ width: "15rem" }}
     >
       <Tab label="Ver" value="Ver" />
-      <Tab label="Crear por Año" value="CrearA" />
-      <Tab label="Crear por Dia" value="CrearD" />
+      <Tab label="Fines de Semana" value="CrearA" />
+      <Tab label="Feriados" value="CrearD" />
+      <Tab label="Actualizar Informacion" value="Actualizr" />
+      <Tab label="Eliminar" value="Eliminar" />
       
       
       

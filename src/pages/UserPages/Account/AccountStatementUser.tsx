@@ -122,11 +122,11 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
         } finally {
             setisLoading(false);
         }
-    }
+    } */
 
     return (
         <>
-            <Box sx={{
+            {/* <Box sx={{
                 position: 'relative',
                 top: 0
             }}>
@@ -221,7 +221,7 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
                 enableButtonBox
                 onConfirm={() => codeLocalAccount && searchAccountStamentsList(codeLocalAccount)}
                 onReject={() => navigate('/cliente')}
-            />
+            /> */}
         </>
     )
 }

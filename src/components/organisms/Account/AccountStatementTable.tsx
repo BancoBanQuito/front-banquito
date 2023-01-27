@@ -25,7 +25,7 @@ const headers = [
 const AccountStatementTable = (props: AccountStatementTableProps) => {
 
 
-    const [searchString, setsearchString] = useState<string>("");
+    /* const [searchString, setsearchString] = useState<string>("");
     const [hasSearch, sethasSearch] = useState<boolean>(false);
     const [lastArrayState, setlastArrayState] = useState<RSAccountStatementList[]>([])
     const [actualArrayState, setactualArrayState] = useState<RSAccountStatementList[]>(props.data);
@@ -58,13 +58,13 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
                 icon={<Visibility />}
                 onClick={() => props.onSelection(data)} /></Typography>
         ]
-    }
+    } */
 
     return (
         <div style={{
             width: '100%'
         }}>
-            <Box
+           {/*  <Box
                 mb={5}
                 component='form'
                 onSubmit={!hasSearch ? handleSearch : restoreAccountStatements}
@@ -98,7 +98,7 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
             </Box>
             <TableMolecule color={ColorPalette.SECONDARY}
                 headers={headers}
-                rows={actualArrayState.map(accountStatement => getRow(accountStatement))} />
+                rows={actualArrayState.map(accountStatement => getRow(accountStatement))} /> */}
         </div >
     )
 }

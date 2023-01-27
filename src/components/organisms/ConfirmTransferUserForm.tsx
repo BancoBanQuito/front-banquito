@@ -17,7 +17,7 @@ interface ConfirmFormProps {
 const ConfirmTransferUserForm = (props: ConfirmFormProps) => {
     return (
         <>
-            <Box sx={{
+            {/* <Box sx={{
                 width: '100%',
                 display: 'flex',
                 flexDirection: 'column',
@@ -86,8 +86,8 @@ const ConfirmTransferUserForm = (props: ConfirmFormProps) => {
                         style={ButtonStyle.BIG}
                         onClick={() => { props.onDecline?.(null) }}
                         text='Rechazar' />
-                </Box>
-            </Box>
+                </Box> */}
+            {/* </Box> */}
         </>
     )
 }

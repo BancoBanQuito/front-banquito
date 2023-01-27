@@ -60,13 +60,13 @@ const AccountEditSignatureUser = () => {
     }
   }
 
-  const handleSearch = (data: string) => {
-    getAccountSignatures(data);
-  }
+  // const handleSearch = (data: string) => {
+  //   getAccountSignatures(data);
+  // }
 
   return (
     <div>
-      {
+      {/* {
         activeSearchBox && <div style={{
           position: 'absolute',
           width: '100%',
@@ -131,7 +131,7 @@ const AccountEditSignatureUser = () => {
             </Modal>
           </div>
         </Box>
-      }
+      } */}
     </div>
   );
 };

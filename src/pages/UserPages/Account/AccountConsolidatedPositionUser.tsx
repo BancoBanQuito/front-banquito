@@ -44,11 +44,11 @@ const AccountConsolidatedPositionUser = () => {
       <Typography>{data.presentBalance}</Typography>,
       <Typography>{data.availableBalance}</Typography>
     ]
-  }
+  } */
 
   return (
     <>
-      {
+      {/* {
         activeSearch && <div style={{
           position: 'absolute',
           width: '100%',
@@ -79,7 +79,7 @@ const AccountConsolidatedPositionUser = () => {
             headers={headersMock}
             rows={consolidatedPosition.map(consolidatedPosition => getRow(consolidatedPosition))} />
         </>
-      }
+      } */}
     </>
   );
 

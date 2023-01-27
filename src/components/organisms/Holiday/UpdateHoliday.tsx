@@ -5,19 +5,19 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Dayjs } from "dayjs";
 import Button from "@mui/material/Button";
+import { Dropdown } from "../../atoms/Dropdown";
 
-const CreateHoliday: React.FC = () => {
+const UpdateHoliday: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [code, setCode] = useState<string>("");
   const [date, setDate] = useState<Dayjs | null>(null);
   const handleSubmit = async () => {
     if (date && name && type && code) {
-      
       try {
         const dateFormatted = date?.format("YYYY-MM-DD");
-        const response = await fetch("http://localhost:8081/api/holiday/", {
-          method: "POST",
+        const response = await fetch("http://localhost:8081/api/holiday", {
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
@@ -25,7 +25,6 @@ const CreateHoliday: React.FC = () => {
           body: JSON.stringify({
             name: name,
             type: type,
-            
             date: dateFormatted,
             code: code,
           }),
@@ -33,9 +32,9 @@ const CreateHoliday: React.FC = () => {
         if (!response.ok) {
           throw new Error(response.statusText);
         }
-        alert("Creada con éxito");
+        alert("Actualizacion exitosa");
       } catch (error) {
-        alert("Ya existe la fecha seleccionada");
+        alert("No existe informacion del feriado ingresado");
       }
     } else {
       alert("Todos los campos son obligatorios");
@@ -46,7 +45,7 @@ const CreateHoliday: React.FC = () => {
     <>
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">
-          Feriado
+          Actualizar Informacion
         </Typography>
       </Container>
       <Container sx={containerTextFieldStyles}>
@@ -73,6 +72,7 @@ const CreateHoliday: React.FC = () => {
       </Container>
       <Container sx={containerTextFieldStyles}>
         <FormLabel sx={formLabelStyles}>Tipo:</FormLabel>
+        
         <TextField
           value={type}
           onChange={(event) => setType(event.target.value)}
@@ -91,14 +91,14 @@ const CreateHoliday: React.FC = () => {
 
       <Container sx={containerTextFieldStyles}>
         <Button onClick={handleSubmit} sx={buttonStyles}>
-          Crear
+          Actualizar
         </Button>
       </Container>
     </>
   );
 };
 
-export default CreateHoliday;
+export default UpdateHoliday;
 
 const containerStyles = () => ({
   display: "flex",

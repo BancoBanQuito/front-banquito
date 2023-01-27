@@ -21,7 +21,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
 
     return (
         <>
-            <div ref={ref as LegacyRef<HTMLDivElement> | undefined}>
+            {/* <div ref={ref as LegacyRef<HTMLDivElement> | undefined}>
                 {
                     !!props.accountStatement ?
                         <Container sx={{ width: '100%' }}>
@@ -192,7 +192,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                             </Grid>
                         </Container>
                         : null}
-            </div>
+            </div> */}
         </>
     )
 });

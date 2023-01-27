@@ -7,7 +7,7 @@ import HomeClient from "./pages/ClientPages/HomeClient";
 import HomeUser from "./pages/UserPages/HomeUser";
 import Login from "./components/organisms/Login/Login";
 import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
-import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
+import { UpdateBankEntity } from "./components/organisms/BankEntity/UpdateBankEntity";
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
@@ -35,7 +35,6 @@ interface userProps {
 }
 
 const App = () => {
-
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState<userProps | null>(null);
 
@@ -66,7 +65,7 @@ const App = () => {
     },
     {
       path: "feriados",
-      element: <HolidayUser />
+      element: <HolidayUser />,
     },
     {
       path: "account/signature",
@@ -95,12 +94,10 @@ const App = () => {
     {
       path: "entidad",
       element: <BankEntity />,
-
     },
     {
       path: "actualizar/entidad",
       element: <UpdateBankEntity />,
-
     },
     {
       path: "signup",
@@ -116,20 +113,22 @@ const App = () => {
     },
     {
       path: "producto/servicio",
-      element: <CreateRequestService
-        openDialog={true}
-      />,
+      element: <CreateRequestService openDialog={true} />,
     },
     {
       path: "producto-vincular-servicio",
-      element: <ProductLinkAssociatedService
-        onSubmit={() => { }}
-      />,
+      element: <ProductLinkAssociatedService onSubmit={() => {}} />,
     },
     {
       path: "login",
-      element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/usuario' />
-    }
+      element: (
+        <Login
+          setUser={setUser}
+          setIsLogged={setIsLogged}
+          redirect="/usuario"
+        />
+      ),
+    },
   ];
 
   const clientRoutes = [
@@ -143,7 +142,7 @@ const App = () => {
     },
     {
       path: "sucursales",
-      element: <Branch />
+      element: <Branch />,
     },
     {
       path: "cuenta/estado",
@@ -159,9 +158,15 @@ const App = () => {
     },
     {
       path: "login",
-      element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/cliente' />
-    }
-  ]
+      element: (
+        <Login
+          setUser={setUser}
+          setIsLogged={setIsLogged}
+          redirect="/cliente"
+        />
+      ),
+    },
+  ];
 
   const atmRoutes = [
     {
@@ -175,7 +180,7 @@ const App = () => {
   ]
 
   return (
-    <ThemeProvider theme={theme}>
+    /*<ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
           <Route path="" element={<Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />}>
@@ -205,7 +210,8 @@ const App = () => {
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
-    </ThemeProvider>
+    </ThemeProvider>*/
+    <UpdateClient />
   );
 };
 

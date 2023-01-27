@@ -53,11 +53,11 @@ const AccountCreateClient = () => {
         } finally {
             setisLoading(false);
         }
-    }
+    } */
 
     return (
         <>
-            <div style={{
+            {/* <div style={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -98,7 +98,7 @@ const AccountCreateClient = () => {
                 enableButtonBox
                 onConfirm={() => saveAccount(accountData as RQCreateAccount)}
                 onReject={() => navigate('/cliente')}
-            />
+            /> */}
         </>
     )
 }
