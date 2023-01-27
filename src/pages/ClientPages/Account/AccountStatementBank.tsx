@@ -29,7 +29,7 @@ const AccountStatementBank = (props: AccountStatementBankProps) => {
     const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(false);
     const [accountStatement, setaccountStatement] = useState<RSAccountStatement>();
     const [accountStatements, setaccountStatements] = useState<RSAccountStatementList[]>([]);
-    const [accountNumberData, setaccountNumberDate] = useState<string>();
+    const [codeLocalAccount, setcodeLocalAccount] = useState<string>("");
 
     useEffect(() => {
         if (!!props.client) {
@@ -53,23 +53,22 @@ const AccountStatementBank = (props: AccountStatementBankProps) => {
     }
 
     const handleSearch = (data: string) => {
-        setaccountNumberDate(data);
+        setcodeLocalAccount(data);
         searchAccountStatement(data);
     }
 
     const handleAccountStatementSelection = (data: RSAccountStatementList) => {
-        setaccountStatement(data);
+        
         /* setactiveAccountStatementTable(false); */
         setactiveAccountStatement(true);
     }
 
-    const searchAccountStatement = async (codeLocalAccount: string, identificationType?: string) => {
+    const searchAccountStatement = async (codeLocalAccount: string) => {
         setisLoading(true);
         try {
-            const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount)).data.data;
+            const data: RSAccountStatementList[] | undefined = (await AccountStatementService.getStatementList(codeLocalAccount)).data.data;
             if (data) {
-                // setaccountStatements(data);
-                setaccountStatement(data);
+                setaccountStatements(data);
                 setactiveAccountStatementTable(true);
             } else {
                 setactiveErrorModal(true);
@@ -128,7 +127,7 @@ const AccountStatementBank = (props: AccountStatementBankProps) => {
                                 onSelection={handleAccountStatementSelection} />
                         </div>
                     </Fade>
-                </div> */}
+                </div>
                 <div style={{
                     position: 'absolute',
                     width: '100%',
@@ -166,7 +165,7 @@ const AccountStatementBank = (props: AccountStatementBankProps) => {
                 onDeactive={() => { setactiveErrorModal(false); navigate('/cliente') }}
                 text={`${errorMessage}. ¿Desea volver a intentar?`}
                 enableButtonBox
-                onConfirm={() => accountNumberData && searchAccountStatement(accountNumberData)}
+                onConfirm={() => codeLocalAccount && searchAccountStatement(codeLocalAccount)}
                 onReject={() => navigate('/cliente')}
             />
         </>
