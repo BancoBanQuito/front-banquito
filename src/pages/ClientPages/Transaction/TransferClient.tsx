@@ -1,16 +1,20 @@
+import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Box } from '@mui/material';
-import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
 import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
 import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransferUserForm';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 import TransferAmountForm from '../../../components/organisms/Transaction/TransferAmountForm';
 import TransferDataForm from '../../../components/organisms/Transaction/TransferDataForm';
+import { AccountService } from '../../../services/account/AccountService';
+import { RSAccount } from '../../../services/account/dto/RSAccount';
 import { TransactionService } from '../../../services/transaction/TransactionService';
+import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
 import { ColorPalette } from '../../../style/ColorPalette';
 
-const TransferBank = () => {
+
+const TransferUser = () => {
+
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
@@ -18,22 +22,36 @@ const TransferBank = () => {
     const navigate = useNavigate();
 
     const [value, setvalue] = useState<RQTransaction>({
-        codeInternationalAccount: "",
-        codeLocalAccount: "",
-        concept: "Nota Debito",
+        codeInternationalAccount: "db6dae82faeff5f13d9d0ecb6e0b7d5f49",
+        codeLocalAccount: "22cf89573e25a91bffbb",
+        concept: "Transferencia directa",
         description: "Nota Debito",
-        movement: "Nota Debito",
-        type: "",
-        recipientAccountNumber: "",
-        recipientBank: "",
-        recipientType: "",
+        movement: "NOTA DEBITO",
+        recipientAccountNumber: "61628076a76056a00aea",
+        recipientBank: "BANQUITO",
+        recipientType: "ORDENANTE",
+        type: "TRANSFERENCIA",
         value: 0
     });
 
     const handleAccept = async () => {
         try {
+            const accountSimple: RSAccount | undefined = (await AccountService.getAccountByCode(value.recipientAccountNumber)).data.data;
+            if (!accountSimple) {
+                console.log("Ha ocurrido un error");
+                return;
+            }
             await TransactionService.postTransaction(value);
-            navigate('/usuario');
+            const aux = value;
+            aux.codeLocalAccount = accountSimple.codeLocalAccount;
+            aux.codeInternationalAccount = accountSimple.codeInternationalAccount;
+            aux.recipientAccountNumber = value.codeLocalAccount;
+            aux.movement= 'NOTA CREDITO';
+            aux.value= value.value;
+            
+            await TransactionService.postTransaction(aux);
+            console.log(value);
+            navigate('/cliente');
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
@@ -65,33 +83,25 @@ const TransferBank = () => {
                 }}>
                     {indexForm === 0 ?
                         <TransferDataForm
-                            key={1}
-                            showAccountCode
+                            key={0}
                             showConcept
                             showDescription
                             onSubmit={(data: any) => {
                                 setindexForm(1);
                                 setvalue({
                                     ...value,
-                                    concept: data.concept,
-                                    description: data.description,
-                                    codeLocalAccount: data.accountNumber,
-                                    codeInternationalAccount: data.accountNumber,
-                                    type: data.type
+                                    description: data.description
                                 });
                             }}
-                            title='Cuenta(Emisor)' /> :
-                        indexForm === 1 ?
+                            title='Cuenta(Receptor)' /> : indexForm === 1 ?
                             <TransferDataForm
-                                key={2}
+                                key={1}
                                 showAccountCode
                                 onSubmit={(data: any) => {
                                     setindexForm(2);
                                     setvalue({
                                         ...value,
-                                        recipientBank: data.bank,
-                                        recipientAccountNumber: data.accountNumber,
-                                        recipientType: data.type
+                                        recipientAccountNumber: data.accountNumber
                                     });
                                 }}
                                 title='Cuenta(Receptor)' /> :
@@ -106,6 +116,8 @@ const TransferBank = () => {
                                     }} />
                                 :
                                 <ConfirmTransferUserForm
+                                    title="Transferir"
+                                    showField
                                     onAccept={() => handleAccept()}
                                     onDecline={() => handleDecline()}
                                     data={value} />}
@@ -119,4 +131,4 @@ const TransferBank = () => {
     )
 }
 
-export default TransferBank
+export default TransferUser

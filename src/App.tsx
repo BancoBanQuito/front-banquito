@@ -1,42 +1,43 @@
-import React, { useState } from 'react';
-import { Login, Home } from '@mui/icons-material';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import { BankEntity } from './components/organisms/BankEntity/BankEntity';
-import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
-import CreateUser from './components/organisms/Login/CreateUser';
+import { useState } from "react";
+import { Location } from "./pages/UserPages/Locations/Location";
+import theme from "./style/Theme";
+import Error404 from "./pages/ErrorPages/Error404";
+import HomeClient from "./pages/ClientPages/HomeClient";
+import HomeUser from "./pages/UserPages/HomeUser";
+import Login from "./components/organisms/Login/Login";
+import Layout from "./template/Layout";
+import AccountCreateUser from "./pages/UserPages/Account/AccountCreateUser";
+import TransferUser from "./pages/ClientPages/Transaction/TransferClient";
+import TransferBank from "./pages/UserPages/Transaction/TransferBank";
+import AccountCreateBank from "./pages/ClientPages/Account/AccountCreateBank";
+import Branch from "./pages/ClientPages/Branches/Branch";
+import BranchUser from "./pages/UserPages/Branches/BranchUser";
+import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
+import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBeetwenDates";
 import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
 import AccountAvailableBalance from './pages/ATMPages/Account/AccountAvailableBalance';
 import AccountConsolidatedPosition from './pages/ClientPages/Account/AccountConsolidatedPosition';
-import AccountCreateBank from './pages/ClientPages/Account/AccountCreateBank';
-import PaymentCheckbook from './pages/ClientPages/Account/CheckbookPayment';
-import PaymentDebitCard from './pages/ClientPages/Account/DebitCardPayment';
-import Branch from './pages/ClientPages/Branches/Branch';
-import HomeClient from './pages/ClientPages/HomeClient';
-import InterestInvestmentPolicies from './pages/ClientPages/Transferences/InterestInvestmentPolicies';
-import InterestSavingAccounts from './pages/ClientPages/Transferences/InterestSavingAccounts';
-import TransferBank from './pages/ClientPages/Transferences/TransferBank';
-import CreateRequestService from './pages/CreateRequestService';
-import Error404 from './pages/ErrorPages/Error404';
 import ProductLinkAssociatedService from './pages/ProductLinkAssociatedService';
 import { Product } from './pages/ProductPages/Product';
 import { ProductType } from './pages/ProductPages/ProductType';
-import AccountCreateUser from './pages/UserPages/Account/AccountCreateUser';
-import BranchUser from './pages/UserPages/Branches/BranchUser';
-import HolidayUser from './pages/UserPages/Holidays/HolidayUser';
-import HomeUser from './pages/UserPages/HomeUser';
-import TransactionBeetwenDates from './pages/UserPages/Transferences/TransactionBeetwenDates';
-import TransferUser from './pages/UserPages/Transferences/TransferUser';
-import theme from './style/Theme';
-import Layout from './template/Layout';
 import AccountCreateSignature from './pages/ClientPages/Account/AccountCreateSignature';
 import AccountEditSignature from './pages/ClientPages/Account/AccountEditSignature';
 import AccountCancel from './pages/ClientPages/Account/AccountCancel';
+import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
+import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
+import { ThemeProvider } from "styled-components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import DepositBank from "./pages/UserPages/Transaction/DepositBank";
+import { Home } from "@mui/icons-material";
+import CreateUser from "./components/organisms/Login/CreateUser";
+import AccountStatementClient from "./pages/UserPages/Account/AccountStatementClient";
+import CreateRequestService from "./pages/CreateRequestService";
 
 interface userProps {
   username: string,
   password: string
 }
+
 
 const App = () => {
 
@@ -58,7 +59,7 @@ const App = () => {
     },
     {
       path: "cuenta/estado",
-      element: <AccountStatementBank />,
+      element: <AccountStatementClient />,
     },
     {
       path: "transaccion",
@@ -85,8 +86,12 @@ const App = () => {
       element: <AccountCancel />,
     },
     {
-      path: "transaccion/dates",
+      path: "transaccion/fechas",
       element: <TransactionBeetwenDates />,
+    },
+    {
+      path: "deposito",
+      element: <DepositBank/>
     },
     {
       path: "interes",
@@ -155,26 +160,15 @@ const App = () => {
     },
     {
       path: "cuenta/estado",
-      element: <AccountStatementBank client />,
+      element: <AccountStatementClient client />,
     },
     {
       path: "transaccion",
       element: <TransferUser />,
     },
     {
-      path: "interes/polizas-inversion",
-      element: <InterestInvestmentPolicies />,
-    }, {
-      path: "interes/cuenta-ahorro",
-      element: <InterestSavingAccounts />,
-    },
-    {
-      path: "pagos/tarjeta-debito",
-      element: <PaymentDebitCard />,
-    },
-    {
-      path: "pagos/cheque",
-      element: <PaymentCheckbook />,
+      path: "fechaTransaccion",
+      element: <TransactionBeetwenDates/>
     },
     {
       path: "signup",

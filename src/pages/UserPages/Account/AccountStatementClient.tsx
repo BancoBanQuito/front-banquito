@@ -9,12 +9,16 @@ import AccountStatementTable from '../../../components/organisms/Account/Account
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import { AccountService } from '../../../services/account/AccountService';
-import { AccountStatementService } from '../../../services/account/AccountStatementService';
 import { RSAccountStatement } from '../../../services/account/dto/RSAccountStatement';
 import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList';
 import { ColorPalette } from '../../../style/ColorPalette';
+import { AccountStatementService } from '../../../services/account/AccountStatementService';
 
-const AccountStatementClient = () => {
+interface AccountStatementClientProps {
+    client?:boolean
+}
+
+const AccountStatementClient = (props: AccountStatementClientProps) => {
 
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);

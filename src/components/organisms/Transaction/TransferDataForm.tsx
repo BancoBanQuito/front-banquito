@@ -100,24 +100,6 @@ const TransferDataForm = (props: TransferFormProps) => {
                             required
                         />
                     }
-                    {/* <Dropdown
-                        width={"100%"}
-                        height={"auto"}
-                        label=''
-                        items={IdentificationTypes}
-                        backgroundColor={ColorPalette.SECONDARY}
-                        onChange={(value: string) => settransfer({ ...transfer, identificationType: value })}
-                    />
-                    <TextField
-                        id="identification"
-                        name="identification"
-                        label='Identificacion'
-                        margin="normal"
-                        type="text"
-                        onChange={handleFormChange}
-                        fullWidth
-                        required
-                    /> */}
                 </Box>
                 <Box>
                     <SizeButton
