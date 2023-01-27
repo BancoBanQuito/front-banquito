@@ -44,6 +44,91 @@ const CreateClient: React.FC = () => {
   const [tinDocument, setTinDocument] = useState<string>("");
   const [workStatus, setWorkStatus] = useState<string>("");
   const [creationDate, setCreationDate] = useState<Date>(new Date());
+  // const [phone, setPhone] = useState<string>("");
+  // const [address, setAddress] = useState<string>("");
+  // const [relationship, setRelationship] = useState<string>("");
+  // const [reference, setReference] = useState<string>("");
+  const [segment, setSegment] = useState<string>("");
+  const [user, setUser] = useState<string>("");
+  // const [phoneNumber, setPhoneNumber] = useState<string[]>([]);
+  // const [phoneType, setPhoneType] = useState<string[]>([]);
+  const phone = [
+    {
+      phoneNumber: "",
+      phoneType: "",
+    },
+  ];
+  const [phoneNumber, setPhoneNumber] = useState(phone[0].phoneNumber);
+  const [phoneType, setPhoneType] = useState(phone[0].phoneType);
+
+  // const [codeLocation, setCodeLocation] = useState<string[]>([]);
+
+  const address = [
+    {
+      codeLocation: "",
+      lineOne: "",
+      lineTwo: "",
+      latitude: "",
+      longitude: "",
+    },
+  ];
+  const [codeLocation, setCodeLocation] = useState(address[0].codeLocation);
+  const [lineOne, setLineOne] = useState(address[0].lineOne);
+  const [lineTwo, setLineTwo] = useState(address[0].lineTwo);
+  const [latitude, setLatitude] = useState(address[0].latitude);
+  const [longitude, setLongitude] = useState(address[0].longitude);
+
+  // const [lineOne, setLineOne] = useState<string[]>([]);
+  // const [lineTwo, setLineTwo] = useState<string[]>([]);
+  // const [latitude, setLatitude] = useState<string[]>([]);
+  // const [longitude, setLongitude] = useState<string[]>([]);
+
+  const relationship = [
+    {
+      nameRelationShip: "",
+      startDate: "",
+      endDate: ""
+    },
+  ];
+
+  const [nameRelationShip, setNameRelationShip] = useState(
+    relationship[0].nameRelationShip
+  );
+  const [startDate, setStartDate] = useState(relationship[0].startDate);
+  const [endDate, setEndDate] = useState(relationship[0].endDate);
+
+
+  // const [nameRelationShip, setNameRelationShip] = useState<string[]>([]);
+  // const [startDate, setStartDate] = useState<Date[]>([]);
+  // const [endDate, setEndDate] = useState<Date[]>([]);
+  // const [nameReference, setNameReference] = useState<string[]>([]);
+  // const [phoneReference, setPhoneReference] = useState<string[]>([]);
+  // const [related, setRelated] = useState<string[]>([]);
+
+  const reference = [
+    {
+      nameReference: "",
+      phoneReference: "",
+      related: "",
+    },
+  ];
+
+  const [nameReference, setNameReference] = useState(
+    reference[0].nameReference
+  );
+  const [phoneReference, setPhoneReference] = useState(
+    reference[0].phoneReference
+  );
+  const [related, setRelated] = useState(reference[0].related);
+
+  const [codeSegment, setCodeSegment] = useState<string>();
+  const [nameSegment, setNameSegment] = useState<string>();
+  const [statusSegment, setStatusSegment] = useState<string>();
+  const [userName, setUserName] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [typeUser, setTypeUser] = useState<string>();
+  const [creationDateUser, setCreationDateUser] = useState<Date>();
+  const [lastLoginDate, setLastLoginDate] = useState<Date>();
 
   const onChangeIdentificationType = (value: string) => {
     setIdentificationType(value);
@@ -126,6 +211,47 @@ const CreateClient: React.FC = () => {
           tinDocument,
           workStatus,
           creationDate,
+          phone: [
+            {
+              phoneNumber,
+              phoneType,
+            },
+          ],
+          address: [
+            {
+              codeLocation,
+              lineOne,
+              lineTwo,
+              latitude,
+              longitude,
+            },
+          ],
+          relationship: [
+            {
+              nameRelationShip,
+              startDate,
+              endDate,
+            },
+          ],
+          reference: [
+            {
+              nameReference,
+              phoneReference,
+              related,
+            },
+          ],
+          segment: {
+            codeSegment,
+            nameSegment,
+            statusSegment,
+          },
+          user: {
+            userName,
+            password,
+            typeUser,
+            creationDate,
+            lastLoginDate,
+          },
         }),
       });
       if (response.ok) {
@@ -493,6 +619,39 @@ const CreateClient: React.FC = () => {
           />
         </div>
       </Container>
+
+      <Container sx={containerTextFieldStyles}>
+        <FormLabel sx={formLabelStyles}>
+          Escriba el número de teléfono:
+        </FormLabel>
+        <div style={{ marginRight: "10px" }}>
+          <TextField
+            value={phoneNumber}
+            onChange={(event) => {
+              setPhoneNumber(event.target.value);
+              phone[0].phoneNumber = event.target.value;
+            }}
+            variant="standard"
+          />
+        </div>
+      </Container>
+
+      <Container sx={containerTextFieldStyles}>
+        <FormLabel sx={formLabelStyles}>
+          Escriba el código de locación:
+        </FormLabel>
+        <div style={{ marginRight: "10px" }}>
+          <TextField
+            value={codeLocation}
+            onChange={(event) => {
+              setCodeLocation(event.target.value);
+              address[0].codeLocation = event.target.value;
+            }}
+            variant="standard"
+          />
+        </div>
+      </Container>
+
       <Container sx={containerTextFieldStyles}>
         <Button onClick={handelSubmit} sx={buttonStyles}>
           Crear segmento
