@@ -18,7 +18,7 @@ const DeleteBranch: React.FC = () => {
     useEffect(() => {
         const fetchProvinces = async () => {
             try {
-                const response = await fetch('http://localhost:8081/api/branch')
+                const response = await fetch('https://settingsbanquitoapp-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/branch')
                 const data = await response.json()
                 setBranchesData(data)
             } catch (error) {
@@ -31,7 +31,7 @@ const DeleteBranch: React.FC = () => {
     useEffect(() => {
         const fetchProvinces = async () => {
             try {
-                const response = await fetch(`http://localhost:8081/api/branch/name/${selectedBranch}`)
+                const response = await fetch(`https://settingsbanquitoapp-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/branch/name/${selectedBranch}`)
                 const data = await response.json()
             } catch (error) {
                 console.error(error)
@@ -43,7 +43,7 @@ const DeleteBranch: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
         try {
-            const response = await fetch(`http://localhost:8081/api/branch/name/${selectedBranch}`, {
+            const response = await fetch(`https://settingsbanquitoapp-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/branch/name/${selectedBranch}`, {
                 method: "DELETE",
             });
             alert("Eliminada con éxito")
