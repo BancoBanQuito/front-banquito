@@ -3,21 +3,12 @@ import TextFieldAtom from "@/components/atoms/TextFieldAtom";
 import ButtonIcon from "@/components/atoms/ButtonIcon";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { Box, Typography } from "@mui/material";
-<<<<<<< HEAD
-import { ColorPalette } from "/src/style/ColorPalette";
-import { SizeButton } from "/src/components/atoms/SizeButton";
-import { ButtonStyle } from "/src/style/ButtonStyle";
-import { AccountSignatureService } from "/src/services/account/AccountSignatureService";
-import { AccountService } from "../../../services/account/AccountService";
-import { RSAccount } from "/src/services/account/dto/RSAccount";
-=======
 import { ColorPalette } from "@/style/ColorPalette";
 import { SizeButton } from "@/components/atoms/SizeButton";
 import { ButtonStyle } from "@/style/ButtonStyle";
 import { AccountSignatureService } from "@/services/account/AccountSignatureService";
 import { AccountService } from "@/services/account/AccountService";
 import { RSAccount } from "@/services/account/dto/RSAccount";
->>>>>>> 9f9d40c0fc20d9aaa0d84710bfdfda6c5d61e530
 
 interface FormData {
   accountNumber: string,

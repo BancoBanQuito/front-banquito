@@ -1,18 +1,6 @@
 import React, { useState } from 'react'
 import { Avatar, Slide } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import BanQuitoLogo from '/src/assets/BanQuito-Logo.svg'
-import StripeAtom from '/src/components/atoms/StripeAtom';
-import ProgressButtonMolecule from '/src/components/molecules/ProgressButtonMolecule';
-import AccountFormBank from '/src/components/organisms/Account/AccountFormBank';
-import ErrorModalOrganism from '/src/components/organisms/ErrorModalOrganism';
-import LoadOrganism from '/src/components/organisms/LoadOrganism';
-import SelectAccountTypeForm from '/src/components/organisms/SelectAccountTypeForm';
-import { AccountService } from '../../../services/account/AccountService';
-import { ProductService } from '/src/services/product/productService';
-import { ColorPalette } from '/src/style/ColorPalette';
-=======
 import BanQuitoLogo from '@/assets/BanQuito-Logo.svg'
 import StripeAtom from '@/components/atoms/StripeAtom';
 import ProgressButtonMolecule from '@/components/molecules/ProgressButtonMolecule';
@@ -23,7 +11,6 @@ import SelectAccountTypeForm from '@/components/organisms/SelectAccountTypeForm'
 import { AccountService } from '@/services/account/AccountService';
 import { ProductService } from '@/services/product/productService';
 import { ColorPalette } from '@/style/ColorPalette';
->>>>>>> 9f9d40c0fc20d9aaa0d84710bfdfda6c5d61e530
 
 
 const AccountCreateBank = () => {
