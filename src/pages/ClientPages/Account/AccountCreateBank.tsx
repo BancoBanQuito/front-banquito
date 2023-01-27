@@ -106,7 +106,7 @@ const AccountCreateBank = () => {
             mountOnEnter
             unmountOnExit>
             <div>
-              <div style={{ position: 'absolute', right: '10%', top: 0 }}>
+              <div style={{ position: 'absolute', right: '10%', top: 0, zIndex: 2 }}>
                 <AccountFormBank
                   products={products ? products : []}
                   onSubmit={handleSubmit} />
