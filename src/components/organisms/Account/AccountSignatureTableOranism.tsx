@@ -12,15 +12,15 @@ interface AccountSignatureTableOranismProps {
 }
 
 const AccountSignatureTableOranism = (props: AccountSignatureTableOranismProps) => {
-    const getRows = (data: any) => {
+    const getRows = (data: RSSignature) => {
         return [
+            <Typography>{data.identificationType}</Typography>,
             <Typography>{data.identification}</Typography>,
-            <Typography>{data.identifucationType}</Typography>,
             <Typography>{data.name}</Typography>,
-            <Typography>{data.rol}</Typography>,
+            <Typography>{data.role}</Typography>,
             <Typography>{data.status}</Typography>,
             <SizeButton
-                text={"Agregar"}
+                text={"Editar"}
                 style={ButtonStyle.MEDIUM}
                 palette={{
                     backgroundColor: ColorPalette.PRIMARY,
@@ -33,8 +33,8 @@ const AccountSignatureTableOranism = (props: AccountSignatureTableOranismProps) 
         <div style={{ textTransform: 'uppercase' }}>
             <TableMolecule
                 headers={[
-                    <Typography>Identificación</Typography>,
                     <Typography>Tipo Identificación</Typography>,
+                    <Typography>Identificación</Typography>,
                     <Typography>Nombre</Typography>,
                     <Typography>Rol</Typography>,
                     <Typography>Estatus</Typography>,

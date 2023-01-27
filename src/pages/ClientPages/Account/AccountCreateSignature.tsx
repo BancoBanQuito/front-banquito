@@ -89,9 +89,6 @@ const AccountCreateSignature = () => {
     }else if(createSignature.identification.length  < 1 && createSignature.identificationType == "PAS"){
       setactiveErrorModal(true);
       seterrorMessage("Identificación incorrecta");
-    }else{
-      setactiveErrorModal(true);
-      seterrorMessage("Identificación incorrecta");
     }
   };
 

@@ -8,6 +8,7 @@ import { ColorPalette } from "/src/style/ColorPalette";
 import { AccountService } from "/src/services/account/AccountService";
 import { RSAccount } from "/src/services/account/dto/RSAccount";
 import { RSAccountCancelTable } from "/src/services/account/dto/RSAccountCancelTable";
+import CancelAccountTableOranism from "/src/components/organisms/Account/CancelAccountTableOranism";
 
 const accountsExample = [
   {
@@ -53,6 +54,8 @@ const AccountCancel = () => {
       }else{
         setAccountsProduct(AccountProduct);
       }
+    }catch(error){
+      console.log(error);
     }
   }
 
@@ -71,17 +74,21 @@ const AccountCancel = () => {
   const handleSearch = (accountNumer: string) => {
     getProductTypeAndClientName(accountNumer);
     getAccount(accountNumer);
+  }
+
+  const setAccount = () => {
     setDataTable({
       ...dataTable,
-      codeLocalAccount: selectAccount.codeLocalAccount,
-      productType: accountProduct.productType,
-      product: accountProduct.product,
-      name: accountProduct.name,
-      status: selectAccount.status,
-      presentBalance: selectAccount.presentBalance,
-      availableBalance: selectAccount.availableBalance
+      codeLocalAccount: selectAccount?.codeLocalAccount || '',
+      productType: accountProduct?.productType  || '',
+      product: accountProduct?.product  || '',
+      name: accountProduct?.name  || '',
+      status: selectAccount?.status  || '',
+      presentBalance: selectAccount?.presentBalance || 0.00,
+      availableBalance: selectAccount?.availableBalance  || 0.00
     });
   }
+
 
   return (
     <div>
@@ -123,10 +130,10 @@ const AccountCancel = () => {
           <Typography variant="h4">Configuración de Cuenta</Typography>
         </div>
 
-        <AccountSignatureTableOranism
-          accountSignature={signatures}
-          onClick={(data: any) => setselectSignature(data)} />
-
+        {/* <CancelAccountTableOranism
+          account={dataTable}
+          onClick={() => setAccount()} />
+ */}
         <div>
           <Modal open={open} onClose={handleClose}>
             <Box sx={{
@@ -140,12 +147,12 @@ const AccountCancel = () => {
               padding: 2,
               borderRadius: '10px'
             }}>
-              <div style={{ width: '100%', textAlign: 'center' }}>
+              {/* <div style={{ width: '100%', textAlign: 'center' }}>
                 <Typography variant="h6">Modificar firma</Typography>
                 <AccountSignatureEditForm
                   signature={selectSignature}
                   onSubmit={handleSubmit} />
-              </div>
+              </div> */}
             </Box>
           </Modal>
         </div>

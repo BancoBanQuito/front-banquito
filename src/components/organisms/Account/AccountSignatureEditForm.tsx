@@ -40,6 +40,8 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        console.log('submit');
+        console.log(signature);
         props.onSubmit && props.onSubmit(signature);
     }
 
@@ -65,7 +67,7 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
                 <TextFieldAtom
                     id="outlined-basic"
                     name="identification"
-                    label="Ingrese el numero de cedula"
+                    label="Numero de identificacion"
                     variant="standard"
                     color="primary"
                     type="text"
@@ -85,13 +87,24 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
                 />
             </div>
             <div style={{ margin: '0.25rem', width: '100%' }}>
-                <Dropdown
+                {/* <Dropdown
                     backgroundColor={ColorPalette.TERNARY}
                     height='auto'
                     width='100%'
                     label='Rol'
                     items={rolItem}
                     onChange={(value) => setsignature({ ...signature, role: value })}
+                /> */}
+                <TextFieldAtom
+                    id="outlined-basic"
+                    name="role"
+                    label="Rol"
+                    variant="standard"
+                    color="primary"
+                    type="text"
+                    action={handleChange}
+                    value={signature.role}
+                    placeholder="Ingrese el numero de cedula"
                 />
             </div>
             <SizeButton

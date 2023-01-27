@@ -26,13 +26,27 @@ const AccountEditSignature = () => {
     signature: ""
   });
   const [accountID, setaccountID] = useState<{
-    codeLocalAccount: string,
-    codeInternationalAccount: string
+    codeLocalAccount: string
   }>()
 
   const getAccountSignatures = async (data: string) => {
     try {
-      const account: RSAccount | undefined = (await AccountService.getAccountsById("DNI", data)).data?.data?.at(0);
+      const signaturesData: RSSignature[] | undefined = (await AccountSignatureService.getAccountSignatureByCode(data)).data.data;
+      signaturesData?.forEach((signature) => {{
+        console.log("ENTRO FOR EACH")
+        console.log(signature);
+      }})
+      if (signaturesData) {
+        setsignatures(signaturesData);
+        setaccountID({
+          codeLocalAccount: data
+        })
+        setactiveSearchBox(false);
+      } else {
+        console.log("No se han encontrado datos");
+      }
+
+      /* const account: RSAccount | undefined = (await AccountService.getAccountsById("DNI", data)).data?.data?.at(0);
       console.log("account");
       console.log(account);
       if (!account) {
@@ -42,18 +56,8 @@ const AccountEditSignature = () => {
       setaccountID({
         codeInternationalAccount: account.codeInternationalAccount,
         codeLocalAccount: account.codeLocalAccount
-      })
-      const signaturesData: RSSignature[] | undefined = (await AccountSignatureService.getAccountSignature("DNI", data)).data.data;
-      signaturesData?.forEach((signature) => {{
-        console.log("ENTRO FOR EACH")
-        console.log(signature);
-      }})
-      if (signaturesData) {
-        setsignatures(signaturesData);
-        setactiveSearchBox(false);
-      } else {
-        console.log("No se han encontrado datos");
-      }
+      }) */
+      
     } catch (error: any) {
       console.log(error.message)
     }
@@ -61,6 +65,7 @@ const AccountEditSignature = () => {
 
   const handleSubmit = async (data: RSSignature) => {
     try {
+      console.log(data);
       await AccountSignatureService.putAccountSignature(data.identificationType, data.identification, accountID?.codeLocalAccount || "", data)
     } catch (error: any) {
       console.log(error.message);
@@ -88,8 +93,8 @@ const AccountEditSignature = () => {
               <CardContent>
                 <SearchAccount
                   color={ColorPalette.SECONDARY}
-                  title='Identificacion'
-                  label="Numero de identificación"
+                  title='Número de Cuenta'
+                  label="Numero de cuenta"
                   onSubmit={handleSearch} />
               </CardContent>
             </Card>
@@ -113,7 +118,7 @@ const AccountEditSignature = () => {
 
           <AccountSignatureTableOranism
             accountSignature={signatures}
-            onClick={(data: any) => setselectSignature(data)} />
+            onClick={(data: any) => {setselectSignature(data);setOpen(true)}} />
 
           <div>
             <Modal open={open} onClose={handleClose}>

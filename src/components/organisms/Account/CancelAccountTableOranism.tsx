@@ -7,15 +7,15 @@ import { ButtonStyle } from '/src/style/ButtonStyle';
 import { ColorPalette } from '/src/style/ColorPalette';
 import { RSProductTypeAndClientName } from '/src/services/account/dto/RSProductTypeAndClientName';
 import { RSAccount } from '/src/services/account/dto/RSAccount';
+import { RSAccountCancelTable } from '/src/services/account/dto/RSAccountCancelTable';
 
 interface CancelAccountTableOranismProps {
-    AccountProduct: RSProductTypeAndClientName,
-    Account: RSAccount
-    onClick?: (product: any, account: any) => void;
+    account: RSAccountCancelTable
+    onClick?: (data: any) => void;
 }
 
 const CancelAccountTableOranism = (props: CancelAccountTableOranismProps) => {
-    const getRows = (product: any, account: any) => {
+    /* const getRows = (product: any, account: any) => {
         return [
             <Typography>{data.identification}</Typography>,
             <Typography>{data.identifucationType}</Typography>,
@@ -46,7 +46,7 @@ const CancelAccountTableOranism = (props: CancelAccountTableOranismProps) => {
                 rows={props.accountSignature.map(signature => getRows(signature))}
             />
         </div>
-    )
+    ) */
 }
 
 export default CancelAccountTableOranism
