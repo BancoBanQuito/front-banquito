@@ -35,6 +35,8 @@ import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEn
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
+import Withdrawals from "./pages/Withdrawals";
+import WithdrawalsUser from "./pages/UserPages/Transferences/WithdrawalsUser";
 
 const App = () => {
 
@@ -61,6 +63,10 @@ const App = () => {
     {
       path: "transaccion",
       element: <TransferBank />,
+    },
+    {
+      path: "retiros",
+      element: <WithdrawalsUser />,
     },
     {
       path: "sucursales",
