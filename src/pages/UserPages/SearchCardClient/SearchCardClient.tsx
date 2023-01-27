@@ -1,22 +1,15 @@
 import React, { useState, useEffect } from "react";
+
 import { Container, FormLabel, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 
 import BranchBox from "../../../components/organisms/Branch/BranchBox";
 
-const URL =
-  "https://client-banquito-abigailscl-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/";
+const local = "http://localhost:8080/";
 const SearchCardClient: React.FC = () => {
-  const [idSegment, setIdSegment] = useState<string>("");
-  const [nameSegment, setNameSegment] = useState<string>("");
-
   const [identification, setIdentification] = useState("");
-
-  const [statusSegment, setStatusSegment] = useState<string>("");
+  const [typeIdentification, setTypeIdentification] = useState<string>("");
   const [isStatusSelected, setIsStatusSelected] = useState<boolean>(true);
-  const [rows, setRows] = useState<JSX.Element[][]>([
-    [<Typography></Typography>, <Typography></Typography>],
-  ]);
 
   const identificationOptions = [
     { value: "DNI", label: "Cedula" },
@@ -25,7 +18,7 @@ const SearchCardClient: React.FC = () => {
   ];
 
   const onChangeStatus = (value: string) => {
-    setStatusSegment(value);
+    setTypeIdentification(value);
     if (value !== "") {
       setIsStatusSelected(false);
     } else {
@@ -33,81 +26,10 @@ const SearchCardClient: React.FC = () => {
     }
   };
 
-  const setStatus = async (value: string, idSegment: string, name: string) => {
-    try {
-      const response = await fetch(`{URL} + ${idSegment}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({
-          name: name,
-          status: value,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      alert("Segmento actualizado");
-      fetchSegment();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const fetchSegment = async () => {
-    try {
-      const response = await fetch("http://localhost:8083/api/segments");
-      const data = await response.json();
-      const rows = data.map((segment: any) => {
-        return [
-          <Typography>{segment.name}</Typography>,
-          <Typography>
-            <BranchBox
-              label=""
-              value={segment.status}
-              options={identificationOptions}
-              onChange={(value: string) =>
-                setStatus(value, segment.idSegment, segment.name)
-              }
-            />
-          </Typography>,
-        ];
-      });
-      setRows(rows);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    fetchSegment();
-  }, []);
-
   /* Funcion Boton*/
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    try {
-      const response = await fetch("http://localhost:8083/api/segments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({
-          idSegment: idSegment,
-          name: nameSegment,
-          status: statusSegment,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      fetchSegment();
-      alert("Volviendo");
-    } catch (error) {
-      console.error(error);
-    }
+    history.push(`/details/${identification}/${typeIdentification}`);
   };
 
   return (
@@ -132,7 +54,7 @@ const SearchCardClient: React.FC = () => {
         <div style={{ marginRight: "10px" }}>
           <BranchBox
             label="Tipo Identificación:"
-            value={statusSegment}
+            value={typeIdentification}
             options={identificationOptions}
             onChange={onChangeStatus}
           />
