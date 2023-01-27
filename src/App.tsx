@@ -35,6 +35,7 @@ import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEn
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
+import PaymentCheckbook from "./pages/ClientPages/Account/CheckbookPayment";
 
 const App = () => {
 
@@ -154,6 +155,10 @@ const App = () => {
     {
       path: "transaccion",
       element: <TransferUser />,
+    },
+    {
+      path: "pagos/cheque",
+      element: <PaymentCheckbook />,
     },
     {
       path: "signup",
