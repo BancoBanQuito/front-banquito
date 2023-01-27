@@ -1,4 +1,4 @@
-export interface InterestInvestment {
+export interface RSInvestmentInterest {
     codeLocalAccount: string;
     rawInterest: number;
     retention: number;

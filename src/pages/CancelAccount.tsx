@@ -29,13 +29,13 @@ const accountsExample = [
 
 const CancelAccount = () => {
 
-  const [open, setOpen] = React.useState(false);
+  /* const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => setOpen(false); */
 
   return (
     <div>
-      <Box
+      {/* <Box
         sx={{
           width: "100%",
           display: "flex",
@@ -75,7 +75,7 @@ const CancelAccount = () => {
         </div>
       </Box>
 
-
+ */}
     </div>
   );
 };

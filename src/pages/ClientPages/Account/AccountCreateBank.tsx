@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ColorPalette } from '../../../style/ColorPalette'
 import { ProductService } from '../../../services/product/productService'
-import { AccountService } from '../../../services/account/accountService'
+// import { AccountService } from '../../../services/account/accountService'
 import { Avatar, Box, Modal, Slide, Typography } from '@mui/material'
 import AccountFormBank from '../../../components/organisms/AccountFormBank'
 import SelectAccountTypeForm from '../../../components/organisms/SelectAccountTypeForm'
@@ -14,51 +14,51 @@ import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism
 
 
 const AccountCreateBank = () => {
-  const [isLoading, setisLoading] = useState<boolean>(false);
-  const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
-  const [errorMessage, seterrorMessage] = useState<string>("");
-  const [indexForm, setindexForm] = useState<number>(0)
-  const [selectedAccount, setselectedAccount] = useState<string>("");
-  const [products, setproducts] = useState<any[] | undefined>([]);
-  const [accountData, setaccountData] = useState<any>();
+  // const [isLoading, setisLoading] = useState<boolean>(false);
+  // const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
+  // const [errorMessage, seterrorMessage] = useState<string>("");
+  // const [indexForm, setindexForm] = useState<number>(0)
+  // const [selectedAccount, setselectedAccount] = useState<string>("");
+  // const [products, setproducts] = useState<any[] | undefined>([]);
+  // const [accountData, setaccountData] = useState<any>();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const getProducts = async (id: string) => {
-    const productsAsync = await ProductService.getProducts(id);
-    setproducts(productsAsync);
-  }
+  // const getProducts = async (id: string) => {
+  //   const productsAsync = await ProductService.getProducts(id);
+  //   setproducts(productsAsync);
+  // }
 
-  const handleTypeAccountButton = (data: string) => {
-    setindexForm(1);
-    setselectedAccount(data);
-    getProducts(data);
-  }
+  // const handleTypeAccountButton = (data: string) => {
+  //   setindexForm(1);
+  //   setselectedAccount(data);
+  //   getProducts(data);
+  // }
 
-  const handleSubmit = (data: any) => {
-    const account = {
-      ...data,
-      codeProductType: "2"
-    };
-    setaccountData(account);
-    saveAccount(account);
-  }
+  // const handleSubmit = (data: any) => {
+  //   const account = {
+  //     ...data,
+  //     codeProductType: "2"
+  //   };
+  //   setaccountData(account);
+  //   saveAccount(account);
+  // }
 
-  const saveAccount = async (data: any) => {
-    setisLoading(true);
-    try {
-      await AccountService.postAccount(data);
-    } catch (error: any) {
-      setactiveErrorModal(true);
-      seterrorMessage(error.message);
-    } finally {
-      setisLoading(false);
-    }
-  }
+  // const saveAccount = async (data: any) => {
+  //   setisLoading(true);
+  //   try {
+  //     await AccountService.postAccount(data);
+  //   } catch (error: any) {
+  //     setactiveErrorModal(true);
+  //     seterrorMessage(error.message);
+  //   } finally {
+  //     setisLoading(false);
+  //   }
+  // }
 
   return (
     <>
-      <ProgressButtonMolecule
+      {/* <ProgressButtonMolecule
         color={ColorPalette.PRIMARY}
         itemsCount={2}
         current={indexForm}
@@ -137,7 +137,7 @@ const AccountCreateBank = () => {
         enableButtonBox
         onConfirm={() => saveAccount(accountData)}
         onReject={() => navigate('/usuario')}
-      />
+      /> */}
     </>
   )
 }
