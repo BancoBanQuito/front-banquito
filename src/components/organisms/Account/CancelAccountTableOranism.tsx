@@ -5,14 +5,17 @@ import TableMolecule from '/src/components/molecules/TableMolecule';
 import { RSSignature } from '/src/services/account/dto/RSSignature';
 import { ButtonStyle } from '/src/style/ButtonStyle';
 import { ColorPalette } from '/src/style/ColorPalette';
+import { RSProductTypeAndClientName } from '/src/services/account/dto/RSProductTypeAndClientName';
+import { RSAccount } from '/src/services/account/dto/RSAccount';
 
-interface AccountSignatureTableOranismProps {
-    accountSignature: RSSignature[],
-    onClick?: (data: any) => void;
+interface CancelAccountTableOranismProps {
+    AccountProduct: RSProductTypeAndClientName,
+    Account: RSAccount
+    onClick?: (product: any, account: any) => void;
 }
 
-const AccountSignatureTableOranism = (props: AccountSignatureTableOranismProps) => {
-    const getRows = (data: any) => {
+const CancelAccountTableOranism = (props: CancelAccountTableOranismProps) => {
+    const getRows = (product: any, account: any) => {
         return [
             <Typography>{data.identification}</Typography>,
             <Typography>{data.identifucationType}</Typography>,
@@ -46,4 +49,4 @@ const AccountSignatureTableOranism = (props: AccountSignatureTableOranismProps) 
     )
 }
 
-export default AccountSignatureTableOranism
+export default CancelAccountTableOranism
