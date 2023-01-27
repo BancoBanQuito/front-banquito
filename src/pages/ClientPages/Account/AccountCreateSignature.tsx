@@ -8,6 +8,7 @@ import { AccountSignatureService } from "../../../services/account/AccountSignat
 import { RSAccount } from "../../../services/account/dto/RSAccount";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import { ColorPalette } from "../../../style/ColorPalette";
+import { SearchRounded } from "@mui/icons-material";
 
 interface FormData {
   accountNumber: string,
@@ -125,7 +126,7 @@ const AccountCreateSignature = () => {
           placeholder="Ingreso número de cuenta"
           value=""
         />
-        <ButtonIcon color={ColorPalette.PRIMARY} icon={<SearchRoundedIcon />} />
+        <ButtonIcon color={ColorPalette.PRIMARY} icon={<SearchRounded />} />
       </Box>
       <Box
         sx={{

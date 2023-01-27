@@ -7,6 +7,7 @@ import { SizeButton } from '../components/atoms/SizeButton';
 import TextFieldAtom from '../components/atoms/TextFieldAtom';
 import { ButtonStyle } from '../style/ButtonStyle';
 import { ColorPalette } from '../style/ColorPalette';
+import { KeyboardBackspace, Search } from '@mui/icons-material';
 
 // Styles
 export const Container = styled.div`
@@ -172,7 +173,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
                 <ReturnButton>
                     <ButtonIcon
                         color={ColorPalette.PRIMARY}
-                        icon={<KeyboardBackspaceIcon />}
+                        icon={<KeyboardBackspace />}
                         onClick={() => console.log(product)}
                         top={true}
                     />
@@ -192,7 +193,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
                             variant="standard"
                         />
                         <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
-                            icon={<SearchIcon />}
+                            icon={<Search />}
                             onClick={() => setAccountData(true)}
                             text="Buscar"
                             style={ButtonStyle.MEDIUM}

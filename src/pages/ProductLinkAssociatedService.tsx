@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ConfirmationNumberOutlined } from "@mui/icons-material";
+import { ConfirmationNumberOutlined, KeyboardBackspace, Search } from "@mui/icons-material";
 import ButtonIcon from "../components/atoms/ButtonIcon";
 import { SizeButton } from "../components/atoms/SizeButton";
 import TextFieldAtom from "../components/atoms/TextFieldAtom";
@@ -7,10 +7,9 @@ import TableMolecule from "../components/molecules/TableMolecule";
 import { ButtonStyle } from "../style/ButtonStyle";
 import { ColorPalette } from "../style/ColorPalette";
 import SearchProductDialog from "./SearchProductDialog";
-import { Typography } from "@mui/material";
+import { Typography, Checkbox as MuiCheckbox } from "@mui/material";
 import styled from "styled-components";
 import { Checkbox } from "../components/atoms/Checkbox";
-
 
 // Styles
 export const Container = styled.div`
@@ -269,7 +268,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
         <ReturnButton>
           <ButtonIcon
             color={ColorPalette.PRIMARY}
-            icon={<KeyboardBackspaceIcon />}
+            icon={<KeyboardBackspace />}
             onClick={() => {
               console.log("back");
             }}
@@ -294,7 +293,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
           <pre> </pre>
           <SizeButton
             palette={{ backgroundColor: ColorPalette.PRIMARY }}
-            icon={<SearchIcon />}
+            icon={<Search />}
             onClick={handleClickOpen}
             text="Buscar"
             style={ButtonStyle.MEDIUM}
