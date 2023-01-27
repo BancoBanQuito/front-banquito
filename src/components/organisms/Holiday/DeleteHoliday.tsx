@@ -9,6 +9,10 @@ import Button from "@mui/material/Button";
 const DeleteHoliday: React.FC = () => {
   
   const [date, setDate] = useState<Dayjs | null>(null);
+  const [type, setType] = useState<string>("");
+  const [code, setCode] = useState<BigInt>();
+  const [name, setName] = useState<string>("");
+  
   const handleSubmit = async () => {
     if (date ) {
       try {
@@ -21,7 +25,9 @@ const DeleteHoliday: React.FC = () => {
           },
           body: JSON.stringify({
             
-            
+            type:type,
+            code: code,
+            name: name,
             date: dateFormatted,
             
           }),
@@ -34,7 +40,7 @@ const DeleteHoliday: React.FC = () => {
         alert("No existe informacion de esa fecha");
       }
     } else {
-      alert("Todos los campos son obligatorios");
+      alert("Seleccione la fecha para eliminar");
     }
   };
 
