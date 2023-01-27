@@ -38,7 +38,6 @@ interface userProps {
   password: string
 }
 
-
 const App = () => {
 
   const [isLogged, setIsLogged] = useState(false);
@@ -92,6 +91,10 @@ const App = () => {
     {
       path: "deposito",
       element: <DepositBank/>
+    },
+    {
+      path: "retiros",
+      element: <WithdrawalsBank/>
     },
     {
       path: "interes",
