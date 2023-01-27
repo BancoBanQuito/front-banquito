@@ -1,19 +1,12 @@
-import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { Box, Typography } from "@mui/material";
+import { useState, useEffect } from "react";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import { ColorPalette } from "../../../style/ColorPalette";
 import { Dropdown } from "../../atoms/Dropdown";
 import { SizeButton } from "../../atoms/SizeButton";
-import { Canton, Parish, Province } from "./types";
-import {
-  deleteCanton,
-  deleteParish,
-  deleteProvince,
-  getCantons,
-  getParishes,
-  getProvinces,
-} from "./functions";
+import { deleteProvince, deleteCanton, deleteParish, getProvinces, getCantons, getParishes } from "./functions";
+import { Province, Canton, Parish } from "./types";
+
 
 export const DeleteLocation = () => {
   const boxStyles = () => ({

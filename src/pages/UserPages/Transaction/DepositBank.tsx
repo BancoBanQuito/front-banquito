@@ -101,8 +101,9 @@ const DepositBank = () => {
                                     }} />
                                 :
                                 <ConfirmTransferUserForm
-                                    title="Depositar"
+                                    title='Transferir'
                                     showField
+                                    showAccountReceptor
                                     onAccept={() => handleAccept()}
                                     onDecline={() => handleDecline()}
                                     data={value} />}

@@ -1,22 +1,24 @@
+import { Theme } from '@emotion/react';
+import { SxProps, Box, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import TextFieldAtom from '../components/atoms/TextFieldAtom';
-import { Box, FormControl, SxProps, Theme, Typography } from '@mui/material';
 import { Dropdown } from '../components/atoms/Dropdown';
 import { SizeButton } from '../components/atoms/SizeButton';
+import TextFieldAtom from '../components/atoms/TextFieldAtom';
 import { ButtonStyle } from '../style/ButtonStyle';
 import { ColorPalette } from '../style/ColorPalette';
 
+const mockedItems = [{
+    name: 'DNI',
+    value: 'DNI'
+}, {
+    name: 'RUC',
+    value: 'RUC'
+}, {
+    name: 'PASAPORTE',
+    value: 'PAS'
+}];
+
 const Withdrawals = () => {
-    const mockedItems = [{
-        name: 'DNI',
-        value: 'DNI'
-    }, {
-        name: 'RUC',
-        value: 'RUC'
-    }, {
-        name: 'PASAPORTE',
-        value: 'PAS'
-    }];
 
     const [selectedItem, setSelectedItem] = useState<string>(mockedItems[0].value);
 

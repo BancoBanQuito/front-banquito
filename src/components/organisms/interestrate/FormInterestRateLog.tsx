@@ -1,22 +1,16 @@
+import { Snackbar, Alert } from '@mui/material';
 import React, { useEffect, useState } from 'react'
-import { ColorPalette } from '../../../style/ColorPalette';
-import { Alert, ContainChild, ContainChild2, ContainChild3, ContainChild4, ContainChild5, ContainChild6, ContainerButtons, ContainerForm, ContainParent, ContentForm } from './FormInterestRate';
-import { ReturnButton } from './InteresRate';
-// icon keyboar backspace
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import ButtonIcon from '../../atoms/ButtonIcon';
-import TextFieldAtom from '../../atoms/TextFieldAtom';
-import { Dropdown } from '../../atoms/Dropdown';
-import { ButtonStyle } from '../../../style/ButtonStyle';
-import { SizeButton } from '../../atoms/SizeButton';
 import styled from 'styled-components';
-import { NumberField } from '../../atoms/NumberField';
-
-import Snackbar from '@mui/material/Snackbar';
 import InterestRateService from '../../../services/product/interestrate/interestRate.service';
-import IInterestRateValue from '../../../services/product/models/interestRate.model';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
+import ButtonIcon from '../../atoms/ButtonIcon';
+import { Dropdown } from '../../atoms/Dropdown';
+import { NumberField } from '../../atoms/NumberField';
+import { SizeButton } from '../../atoms/SizeButton';
+import { ContentForm, ContainerForm, ContainChild, ContainChild2, ContainChild3, ContainChild4 } from './FormInterestRate';
+import { ReturnButton } from './InteresRate';
 
-// stilo que envia contenido a la derecha
 const ContentFormLog = styled(ContentForm)`
     justify-content: flex-end;
 `;
@@ -85,7 +79,7 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
             setOpen(true);
         } else {
             // buscar id por la posicion del array
-            let data: IInterestRateValue = {
+            let data = {
                 id: nameSelect,
                 value: value,
                 name: '',
@@ -116,7 +110,7 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
         <ContainerForm>
             <ContentForm>
                 <ReturnButton>
-                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspaceIcon />} onClick={() => action()} top={true} />
+                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspace />} onClick={() => action()} top={true} />
                 </ReturnButton>
                 <h1>Formulario de Registro Tasa de Interes</h1>
                 <ParentContainer>

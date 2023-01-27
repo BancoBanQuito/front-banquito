@@ -1,33 +1,17 @@
-import React, { useState } from 'react';
-import ButtonIcon from '../../atoms/ButtonIcon';
-import { ColorPalette } from '../../../style/ColorPalette';
-import { Container, Content, ContentButtonAddRight, ReturnButton, SearchContainer } from './InteresRate';
-// icon keyboar backspace
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import TextFieldAtom from '../../atoms/TextFieldAtom';
-import { SizeButton } from '../../atoms/SizeButton';
-// search icon
-import SearchIcon from '@mui/icons-material/Search';
-import { ButtonStyle } from '../../../style/ButtonStyle';
-import TableMolecule from '../../molecules/TableMolecule';
-// Add icon
-import AddIcon from '@mui/icons-material/Add';
-import { Typography } from '@mui/material';
-// icon x
-import CloseIcon from '@mui/icons-material/Close';
-// icon check
-import CheckIcon from '@mui/icons-material/Check';
-import IInterestRate from '../../../services/product/models/interestRate.model';
+import { Typography, Tooltip, Container } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import InterestRateService from '../../../services/product/interestrate/interestRate.service';
-import { useEffect } from 'react';
-// add circle icon
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import FormInterestRateLog from './FormInterestRateLog';
+import IInterestRate from '../../../services/product/models/interestRate.model';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
+import ButtonIcon from '../../atoms/ButtonIcon';
+import { SizeButton } from '../../atoms/SizeButton';
+import TextFieldAtom from '../../atoms/TextFieldAtom';
+import TableMolecule from '../../molecules/TableMolecule';
 import FormInterestRate from './FormInterestRate';
-// info icon
-import InfoIcon from '@mui/icons-material/Info';
-import Tooltip from '@mui/material/Tooltip';
-import IInterestRateStatus from '../../../services/product/models/interestRate.model';
+import FormInterestRateLog from './FormInterestRateLog';
+import { Content, ReturnButton, SearchContainer, ContentButtonAddRight } from './InteresRate';
+import { Add, AddCircle, Check, Close, Info, KeyboardBackspace } from '@mui/icons-material';
 
 
 const InterestRateLog = () => {
@@ -115,7 +99,7 @@ const InterestRateLog = () => {
 
     const changeStatus = async (interestRate: any, status: string) => {
         interestRate.status = status;
-        let data: IInterestRateStatus = {
+        let data = {
             id: interestRate.id,
             status: interestRate.status,
             name: '',
@@ -144,25 +128,25 @@ const InterestRateLog = () => {
                 <Typography>
                     {interestRate.value ? interestRate.value :
                         <Tooltip title="Agregue un valor de tasa de interés">
-                            <InfoIcon color='secondary' />
+                            <Info  color='secondary' />
                         </Tooltip>}
                 </Typography>,
                 <Typography>
                     {interestRate.status == 'ACT' ?
                         <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
-                            icon={<CloseIcon />}
+                            icon={<Close />}
                             text="Deshabilitar"
                             onClick={() => { changeStatus(interestRate, 'INA') }}
                             style={ButtonStyle.MEDIUM}
                         /> : interestRate.status == 'INA' ?
                             <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
-                                icon={<CheckIcon />}
+                                icon={<Check />}
                                 text="Habilitar"
                                 onClick={() => { changeStatus(interestRate, 'ACT') }}
                                 style={ButtonStyle.MEDIUM}
                             /> :
                             <Tooltip title="Agregue un valor de tasa de interés">
-                                <InfoIcon color='secondary' />
+                                <Info color='secondary' />
                             </Tooltip>
                     }
 
@@ -196,7 +180,7 @@ const InterestRateLog = () => {
         <Container>
             <Content>
                 <ReturnButton>
-                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspaceIcon />} onClick={() => console.log('Buscar')} top={true} />
+                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspace />} onClick={() => console.log('Buscar')} top={true} />
                 </ReturnButton>
                 <div>
                     <h1>Registros de Tasas de Interés</h1>
@@ -217,7 +201,7 @@ const InterestRateLog = () => {
                         />
                     </SearchContainer>
                     <ContentButtonAddRight>
-                        <ButtonIcon color={ColorPalette.TERNARY} icon={<AddCircleIcon />} onClick={() => addValue()} top={true} />
+                        <ButtonIcon color={ColorPalette.TERNARY} icon={<AddCircle />} onClick={() => addValue()} top={true} />
                         <span>Agregar Valor de Interés</span>
                     </ContentButtonAddRight>
                     <div>
@@ -226,7 +210,7 @@ const InterestRateLog = () => {
 
                     <ContentButtonAddRight>
                         <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
-                            icon={<AddIcon />}
+                            icon={<Add />}
                             onClick={() => addInteresRate()}
                             text="Agregar"
                             style={ButtonStyle.BIG}

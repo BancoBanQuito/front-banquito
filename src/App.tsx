@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Location } from "./pages/UserPages/Locations/Location";
 import theme from "./style/Theme";
 import Error404 from "./pages/ErrorPages/Error404";
-import { ThemeProvider } from "@mui/material";
 import HomeClient from "./pages/ClientPages/HomeClient";
 import HomeUser from "./pages/UserPages/HomeUser";
 import Login from "./components/organisms/Login/Login";
@@ -117,6 +116,10 @@ const App = () => {
       element: <ProductLinkAssociatedService onSubmit={() => { }} />,
     },
     {
+      path: "cuenta/posicion-consolidada",
+      element: <AccountConsolidatedPosition />,
+    },
+    {
       path: "login",
       element: (
         <Login
@@ -150,6 +153,10 @@ const App = () => {
       element: <TransferUser />,
     },
     {
+      path: "fechaTransaccion",
+      element: <TransactionBeetwenDates/>
+    },
+    {
       path: "signup",
       element: <CreateUser redirect="/cliente" />,
     },
@@ -179,6 +186,17 @@ const App = () => {
       element: <DepositAtm />
     }
   ] 
+
+  const atmRoutes = [
+    {
+      path: "",
+      element: <HomeClient user={user} isLogged={isLogged} />,
+    },
+    {
+      path: "cuenta/saldo",
+      element: <AccountAvailableBalance />
+    }
+  ]
 
   return (
     <ThemeProvider theme={theme}>

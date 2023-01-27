@@ -1,11 +1,10 @@
 import { TextField } from '@mui/material';
 import * as React from 'react';
+import styled from 'styled-components';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { SizeButton } from '../../atoms/SizeButton';
 import { saveBankEntity } from './FunctionsBank';
-// styled components
-import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;

@@ -9,7 +9,6 @@ import { RSTransaction } from "../../../services/transaction/dto/RSTransaction";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import { ColorPalette } from "../../../style/ColorPalette";
 
-
 const headersMock = [
   <Typography>Fecha</Typography>,
   <Typography>Movimiento</Typography>,

@@ -1,19 +1,18 @@
-import { Box } from '@mui/material';
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
-import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransferUserForm';
-import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
-import TransferAmountForm from '../../../components/organisms/Transaction/TransferAmountForm';
-import TransferDataForm from '../../../components/organisms/Transaction/TransferDataForm';
-import { AccountService } from '../../../services/account/AccountService';
-import { RSAccount } from '../../../services/account/dto/RSAccount';
-import { TransactionService } from '../../../services/transaction/TransactionService';
-import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
-import { ColorPalette } from '../../../style/ColorPalette';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { RQTransaction } from "/src/services/transaction/dto/RQTransaction";
+import { RSAccount } from "/src/services/account/dto/RSAccount";
+import { AccountService } from "/src/services/account/AccountService";
+import { TransactionService } from "/src/services/transaction/TransactionService";
+import ProgressButtonMolecule from "/src/components/molecules/ProgressButtonMolecule";
+import { ColorPalette } from "/src/style/ColorPalette";
+import { Box } from "@mui/material";
+import TransferDataForm from "/src/components/organisms/Transaction/TransferDataForm";
+import TransferAmountForm from "/src/components/organisms/Transaction/TransferAmountForm";
+import ConfirmTransferUserForm from "/src/components/organisms/ConfirmTransferUserForm";
+import ErrorModalOrganism from "/src/components/organisms/ErrorModalOrganism";
 
-
-const TransferClient = () => {
+const WithdrawalsBank = () => {
 
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
@@ -22,34 +21,32 @@ const TransferClient = () => {
     const navigate = useNavigate();
 
     const [value, setvalue] = useState<RQTransaction>({
-        codeInternationalAccount: "db6dae82faeff5f13d9d0ecb6e0b7d5f49",
-        codeLocalAccount: "22cf89573e25a91bffbb",
-        concept: "Transferencia directa",
-        description: "Nota Debito",
+        codeInternationalAccount: "",
+        codeLocalAccount: "",
+        concept: "Retiro ventanilla",
+        description: "",
         movement: "NOTA DEBITO",
-        recipientAccountNumber: "61628076a76056a00aea",
-        recipientBank: "BANQUITO",
-        recipientType: "ORDENANTE",
-        type: "TRANSFERENCIA",
+        recipientAccountNumber: "",
+        recipientBank: "",
+        recipientType: "",
+        type: "RETIRO",
         value: 0
     });
 
     const handleAccept = async () => {
         try {
-            const accountSimple: RSAccount | undefined = (await AccountService.getAccountByCode(value.recipientAccountNumber)).data.data;
+            const accountSimple: RSAccount | undefined = (await AccountService.getAccountByCode(value.codeLocalAccount)).data.data;
             if (!accountSimple) {
                 console.log("Ha ocurrido un error");
                 return;
             }
+            console.log(accountSimple);
+            setvalue({
+                ...value,
+                codeInternationalAccount: accountSimple.codeInternationalAccount,
+            })
+            console.log(value);
             await TransactionService.postTransaction(value);
-            const aux = value;
-            aux.codeLocalAccount = accountSimple.codeLocalAccount;
-            aux.codeInternationalAccount = accountSimple.codeInternationalAccount;
-            aux.recipientAccountNumber = value.codeLocalAccount;
-            aux.movement = 'NOTA CREDITO';
-            aux.value = value.value;
-
-            await TransactionService.postTransaction(aux);
             console.log(value);
             navigate('/cliente');
         } catch (error: any) {
@@ -84,28 +81,16 @@ const TransferClient = () => {
                     {indexForm === 0 ?
                         <TransferDataForm
                             key={0}
-                            showConcept
-                            showDescription
+                            showAccountCode
                             onSubmit={(data: any) => {
                                 setindexForm(1);
                                 setvalue({
                                     ...value,
-                                    description: data.description
+                                    codeLocalAccount: data.accountNumber
                                 });
                             }}
-                            title='Cuenta(Receptor)' /> : indexForm === 1 ?
-                            <TransferDataForm
-                                key={1}
-                                showAccountCode
-                                onSubmit={(data: any) => {
-                                    setindexForm(2);
-                                    setvalue({
-                                        ...value,
-                                        recipientAccountNumber: data.accountNumber
-                                    });
-                                }}
-                                title='Cuenta(Receptor)' /> :
-                            indexForm === 2 ?
+                            title='Cuenta Retiro' /> : 
+                            indexForm === 1 ?
                                 <TransferAmountForm
                                     onSubmit={(data: any) => {
                                         setindexForm(3);
@@ -116,7 +101,7 @@ const TransferClient = () => {
                                     }} />
                                 :
                                 <ConfirmTransferUserForm
-                                    title="Transferir"
+                                    title="Retirar"
                                     showField
                                     onAccept={() => handleAccept()}
                                     onDecline={() => handleDecline()}
@@ -131,4 +116,4 @@ const TransferClient = () => {
     )
 }
 
-export default TransferClient
+export default WithdrawalsBank

@@ -3,7 +3,6 @@ import { RSAccountStatement, RSAccountStatementTransaccion } from '../../../serv
 import { Typography, Container, Grid, Box } from '@mui/material';
 import { ColorPalette } from '../../../style/ColorPalette';
 import TableMolecule from '../../molecules/TableMolecule';
-import dayjs, { Dayjs } from 'dayjs';
 import moment from 'moment';
 
 interface AccountStatementProps {

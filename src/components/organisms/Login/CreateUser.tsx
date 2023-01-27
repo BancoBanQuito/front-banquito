@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Container, FormLabel, TextField, Typography } from '@mui/material';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { Dayjs } from 'dayjs';
-
-import { Canton, Province } from '../Location/types';
-import LoginBox from './LoginBox';
 import Button from '@mui/material/Button';
-import EnvManager from '../../../config/EnvManager';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -29,26 +22,6 @@ const CreateUser = ({ redirect }: Props) => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
         try {
-            // const response = await fetch(`${EnvManager.CLIENT_URL}/api/client/signup`, {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
-            //     body: JSON.stringify({
-            //         identification: identification,
-            //         identificationType: identificationType,
-            //         email: email,
-            //         user: {
-            //             userName: userName,
-            //             password: password,
-            //             type: "cliente",
-            //             status: "activo",
-            //             creationDate: "2013-10-01T00:00:00.000+00:00",
-            //             lastLoginDate: "2013-10-01T00:00:00.000+00:00"
-            //         }
-            //     })
-            // })
-            // if (!response.ok) {
-            //     throw new Error(response.statusText)
-            // }
             alert("Creado con éxito")
             navigate(redirect)
         } catch (error) {

@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, TextField, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
-
 import TableMolecule from "../../../components/molecules/TableMolecule";
 import { IHoliday } from "../../../components/organisms/Holiday/Types";
 
