@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { ProductService } from '../../../services/product/productService';
-import { AccountService } from '../../../services/account/accountService';
+// import { AccountService } from '../../../services/account/accountService';
 import { Avatar, Card, CardContent } from '@mui/material';
 import StripeAtom from '../../../components/atoms/StripeAtom';
 import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg'
@@ -11,7 +11,7 @@ import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 
 const AccountCreateUser = () => {
-    const [isLoading, setisLoading] = useState<boolean>(false);
+    /* const [isLoading, setisLoading] = useState<boolean>(false);
     const [products, setproducts] = useState<any[] | undefined>([]);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
@@ -50,11 +50,11 @@ const AccountCreateUser = () => {
         } finally {
             setisLoading(false);
         }
-    }
+    } */
 
     return (
         <>
-            <div style={{
+            {/* <div style={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -95,7 +95,7 @@ const AccountCreateUser = () => {
                 enableButtonBox
                 onConfirm={() => saveAccount(accountData)}
                 onReject={() => navigate('/cliente')}
-            />
+            /> */}
         </>
     )
 }

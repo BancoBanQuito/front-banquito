@@ -1,12 +1,11 @@
-import { Box } from "@mui/material";
-import { useState, FormEvent, ChangeEvent } from "react";
-import { RSSignature } from "../../../services/account/dto/RSSignature";
-import { ButtonStyle } from "../../../style/ButtonStyle";
-import { ColorPalette } from "../../../style/ColorPalette";
-import { Dropdown } from "../../atoms/Dropdown";
-import { SizeButton } from "../../atoms/SizeButton";
-import TextFieldAtom from "../../atoms/TextFieldAtom";
-
+import { Box } from '@mui/system'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { SizeButton } from '../../atoms/SizeButton';
+import { ColorPalette } from '../../../style/ColorPalette';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import TextFieldAtom from '../../atoms/TextFieldAtom';
+import { Dropdown } from '../../atoms/Dropdown';
+// import { AccountSignature } from '../../../services/account/model/AccountSignature';
 
 const statusItems = [
     {
@@ -31,13 +30,13 @@ const rolItem = [
 ]
 
 interface AccountSignatureEditFormProps {
-    signature: RSSignature;
-    onSubmit?: (data: RSSignature) => void;
+    signature: any;
+    onSubmit?: (data: any) => void;
 }
 
 const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
 
-    const [signature, setsignature] = useState<RSSignature>(props.signature);
+    /* const [signature, setsignature] = useState<AccountSignature>(props.signature);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -49,10 +48,10 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
             ...signature,
             [event.target.name]: event.target.value
         })
-    }
+    } */
 
     return (
-        <Box
+        {/* <Box
             component='form'
             onSubmit={handleSubmit}
             sx={{
@@ -100,7 +99,7 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
                 style={ButtonStyle.MEDIUM}
                 text='Editar'
                 submit />
-        </Box>
+        </Box> */}
     )
 }
 

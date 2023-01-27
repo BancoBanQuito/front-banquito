@@ -3,8 +3,8 @@ import { Box } from '@mui/system'
 import { Card, CardContent, Fade, Modal, Typography } from '@mui/material'
 import { ColorPalette } from '../../../style/ColorPalette'
 import { ChevronLeft, Print } from '@mui/icons-material'
-import { AccountStament } from '../../../services/account/model/AccountStatement'
-import { AccountStatementService } from '../../../services/account/accountStatementService'
+// import { AccountStament } from '../../../services/account/model/AccountStatement'
+// import { AccountStatementService } from '../../../services/account/accountStatementService'
 import SearchAccount from '../../../components/organisms/SearchAccount'
 import ButtonIcon from '../../../components/atoms/ButtonIcon'
 import AccountStatementBody from '../../../components/organisms/AccountStatement/AccountStatementBody'
@@ -13,10 +13,10 @@ import AccountStatementTable from '../../../components/organisms/AccountStatemen
 import { useNavigate } from 'react-router-dom'
 import LoadOrganism from '../../../components/organisms/LoadOrganism'
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism'
-import { AccountService } from '../../../services/account/accountService'
+// import { AccountService } from '../../../services/account/accountService'
 
 const AccountStatementBank = () => {
-    const [isLoading, setisLoading] = useState<boolean>(false);
+    /* const [isLoading, setisLoading] = useState<boolean>(false);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [activeSearchBox, setactiveSearchBox] = useState<boolean>(true);
@@ -71,11 +71,11 @@ const AccountStatementBank = () => {
         } finally {
             setisLoading(false);
         }
-    }
+    } */
 
     return (
         <>
-            <Box sx={{
+            {/* <Box sx={{
                 position: 'relative',
                 top: 0
             }}>
@@ -157,7 +157,7 @@ const AccountStatementBank = () => {
                 enableButtonBox
                 onConfirm={() => accountNumberData && searchAccountStatement(accountNumberData)}
                 onReject={() => navigate('/cliente')}
-            />
+            /> */}
         </>
     )
 }

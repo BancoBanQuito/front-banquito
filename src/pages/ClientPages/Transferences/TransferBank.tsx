@@ -6,12 +6,12 @@ import { ColorPalette } from '../../../style/ColorPalette';
 import TransferDataForm from '../../../components/organisms/TransferDataForm';
 import TransferAmountForm from '../../../components/organisms/TransferAmountForm';
 import { Box } from '@mui/material';
-import { TransactionPost } from '../../../services/account/model/TransactionPost';
-import { TransactionService } from '../../../services/account/transactionService';
+/* import { TransactionPost } from '../../../services/account/model/TransactionPost';
+import { TransactionService } from '../../../services/account/transactionService'; */
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 
 const TransferBank = () => {
-    const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
+    /* const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
 
@@ -42,11 +42,11 @@ const TransferBank = () => {
 
     const handleDecline = () => {
         navigate('/usuario');
-    }
+    } */
 
     return (
         <>
-            <div style={{
+            {/* <div style={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -114,7 +114,7 @@ const TransferBank = () => {
             <ErrorModalOrganism
                 active={activeErrorModal}
                 onDeactive={() => setactiveErrorModal(false)}
-                text={errorMessage} />
+                text={errorMessage} /> */}
         </>
     )
 }

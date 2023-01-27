@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import TableMolecule from '../components/molecules/TableMolecule';
 import { Card, CardContent, Fade, Typography } from '@mui/material';
-import { AccountResponse } from '../services/account/model/AccountResponse';
-import { AccountService } from '../services/account/accountService';
+// import { AccountResponse } from '../services/account/model/AccountResponse';
+// import { AccountService } from '../services/account/accountService';
 import SearchAccount from '../components/organisms/SearchAccount';
 import { ColorPalette } from '../style/ColorPalette';
 
@@ -16,7 +16,7 @@ const headersMock = [
 
 const ConsolidatedPositionAccount = () => {
 
-  const [consolidatedPosition, setConsolidatedPosition] = useState<AccountResponse[]>([]);
+  /* const [consolidatedPosition, setConsolidatedPosition] = useState<AccountResponse[]>([]);
   const [activeSearch, setactiveSearch] = useState<boolean>(true);
 
   const searchAccountStatement = async (typeIdentification: string, identification: string) => {
@@ -44,11 +44,11 @@ const ConsolidatedPositionAccount = () => {
       <Typography>{data.presentBalance}</Typography>,
       <Typography>{data.availableBalance}</Typography>
     ]
-  }
+  } */
 
   return (
     <>
-      {
+      {/* {
         activeSearch && <div style={{
           position: 'absolute',
           width: '100%',
@@ -79,7 +79,7 @@ const ConsolidatedPositionAccount = () => {
             headers={headersMock}
             rows={consolidatedPosition.map(consolidatedPosition => getRow(consolidatedPosition))} />
         </>
-      }
+      } */}
     </>
   );
 

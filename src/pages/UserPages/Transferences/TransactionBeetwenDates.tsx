@@ -39,13 +39,13 @@ const TransactionBeetwenDates = () => {
     ]
   ]
 
-  useEffect(() => {
+  /* useEffect(() => {
     console.log(date?.format("YYYY-MM-DD"));
-  }, [date]);
+  }, [date]); */
 
   return (
     <div>
-      <Box
+      {/* <Box
         sx={{
           width: "100%",
           display: "flex",
@@ -143,7 +143,7 @@ const TransactionBeetwenDates = () => {
       </Box>
       {
             showTable ? <div><TableMolecule headers={headersMock} rows={rowsMock} /></div> : null
-      }
+      } */}
     </div>
   );
 };
