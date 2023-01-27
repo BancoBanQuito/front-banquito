@@ -36,6 +36,7 @@ import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
 import PaymentCheckbook from "./pages/ClientPages/Account/CheckbookPayment";
+import PaymentDebitCard from "./pages/ClientPages/Account/DebitCardPayment";
 
 const App = () => {
 
@@ -157,6 +158,10 @@ const App = () => {
       element: <TransferUser />,
     },
     {
+      path: "pagos/tarjeta-debito",
+      element: <PaymentDebitCard />,
+      },
+      {
       path: "pagos/cheque",
       element: <PaymentCheckbook />,
     },
