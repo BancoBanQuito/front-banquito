@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react'
-import { AccountStament } from '../../../services/account/model/AccountStatement'
+// import { AccountStament } from '../../../services/account/model/AccountStatement'
 import TableMolecule from '../../molecules/TableMolecule'
 import { Box, InputAdornment, TextField, Typography } from '@mui/material'
 import { ColorPalette } from '../../../style/ColorPalette'
@@ -9,8 +9,8 @@ import { SizeButton } from '../../atoms/SizeButton'
 import { ButtonStyle } from '../../../style/ButtonStyle'
 
 interface AccountStatementTableProps {
-    data: AccountStament[],
-    onSelection: (data: AccountStament) => void;
+    data: any[],
+    onSelection: (data: any) => void;
 }
 
 const headers = [
@@ -25,7 +25,7 @@ const headers = [
 const AccountStatementTable = (props: AccountStatementTableProps) => {
 
 
-    const [searchString, setsearchString] = useState<string>("");
+    /* const [searchString, setsearchString] = useState<string>("");
     const [hasSearch, sethasSearch] = useState<boolean>(false);
     const [lastArrayState, setlastArrayState] = useState<AccountStament[]>([])
     const [actualArrayState, setactualArrayState] = useState<AccountStament[]>(props.data);
@@ -58,13 +58,13 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
                 icon={<Visibility />}
                 onClick={() => props.onSelection(data)} /></Typography>
         ]
-    }
+    } */
 
     return (
         <div style={{
             width: '100%'
         }}>
-            <Box
+           {/*  <Box
                 mb={5}
                 component='form'
                 onSubmit={!hasSearch ? handleSearch : restoreAccountStatements}
@@ -98,7 +98,7 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
             </Box>
             <TableMolecule color={ColorPalette.SECONDARY}
                 headers={headers}
-                rows={actualArrayState.map(accountStatement => getRow(accountStatement))} />
+                rows={actualArrayState.map(accountStatement => getRow(accountStatement))} /> */}
         </div >
     )
 }

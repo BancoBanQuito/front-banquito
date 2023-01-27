@@ -5,7 +5,7 @@ import { ColorPalette } from '../../../style/ColorPalette';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import TextFieldAtom from '../../atoms/TextFieldAtom';
 import { Dropdown } from '../../atoms/Dropdown';
-import { AccountSignature } from '../../../services/account/model/AccountSignature';
+// import { AccountSignature } from '../../../services/account/model/AccountSignature';
 
 const statusItems = [
     {
@@ -30,13 +30,13 @@ const rolItem = [
 ]
 
 interface AccountSignatureEditFormProps {
-    signature: AccountSignature;
-    onSubmit?: (data: AccountSignature) => void;
+    signature: any;
+    onSubmit?: (data: any) => void;
 }
 
 const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
 
-    const [signature, setsignature] = useState<AccountSignature>(props.signature);
+    /* const [signature, setsignature] = useState<AccountSignature>(props.signature);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -48,10 +48,10 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
             ...signature,
             [event.target.name]: event.target.value
         })
-    }
+    } */
 
     return (
-        <Box
+        {/* <Box
             component='form'
             onSubmit={handleSubmit}
             sx={{
@@ -99,7 +99,7 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
                 style={ButtonStyle.MEDIUM}
                 text='Editar'
                 submit />
-        </Box>
+        </Box> */}
     )
 }
 
