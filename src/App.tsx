@@ -36,6 +36,7 @@ import CreateRequestService from './pages/CreateRequestService';
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DepositBank from "./pages/UserPages/Transaction/DepositBank";
+import WithdrawalsBank from "./pages/UserPages/Transaction/WithdrawalsBank";
 
 const App = () => {
 
@@ -90,6 +91,10 @@ const App = () => {
     {
       path: "deposito",
       element: <DepositBank/>
+    },
+    {
+      path: "retiros",
+      element: <WithdrawalsBank/>
     },
     {
       path: "interes",
