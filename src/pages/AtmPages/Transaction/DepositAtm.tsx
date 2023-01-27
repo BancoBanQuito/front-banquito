@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { ColorPalette } from '../../../style/ColorPalette';
-import { Box } from '@mui/material';
-import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransferUserForm';
-import TransferDataForm from '../../../components/organisms/TransferDataForm';
-import TransferAmountForm from '../../../components/organisms/TransferAmountForm';
-import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
-import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
-import { TransactionService } from '../../../services/account/transactionService';
-import { TransactionPost } from '../../../services/account/model/TransactionPost';
-import { AccountSimple } from '../../../services/account/model/AccountSimple';
-import { AccountService } from '../../../services/account/accountService';
 import { useNavigate } from 'react-router-dom';
+import { ColorPalette } from '/src/style/ColorPalette';
+import { Box } from '@mui/material';
+import ConfirmTransferUserForm from '/src/components/organisms/ConfirmTransferUserForm';
+import TransferDataForm from '/src/components/organisms/Transaction/TransferDataForm';
+import TransferAmountForm from '/src/components/organisms/Transaction/TransferAmountForm';
+import ProgressButtonMolecule from '/src/components/molecules/ProgressButtonMolecule';
+import ErrorModalOrganism from '/src/components/organisms/ErrorModalOrganism';
+import { TransactionService } from '/src/services/transaction/TransactionService';
+import { AccountService } from '/src/services/account/AccountService';
+import { RQTransaction } from '/src/services/transaction/dto/RQTransaction';
+import { RSAccount } from '/src/services/account/dto/RSAccount';
 
-const DepositUser = () => {
+const DepositAtm = () => {
 
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
@@ -20,35 +20,33 @@ const DepositUser = () => {
 
     const navigate = useNavigate();
 
-    const [value, setvalue] = useState<TransactionPost>({
-        codeInternationalAccount: "db6dae82faeff5f13d9d0ecb6e0b7d5f49",
-        codeLocalAccount: "22cf89573e25a91bffbb",
-        concept: "Deposito directa",
-        description: "Nota Credito",
+    const [value, setvalue] = useState<RQTransaction>({
+        codeInternationalAccount: "",
+        codeLocalAccount: "",
+        concept: "",
+        description: "",
         movement: "NOTA CREDITO",
-        recipientAccountNumber: "61628076a76056a00aea",
-        recipientBank: "BANQUITO",
-        recipientType: "ORDENANTE",
-        type: "TRANSFERENCIA",
+        recipientAccountNumber: "",
+        recipientBank: "",
+        recipientType: "",
+        type: "DEPOSITO",
         value: 0
     });
 
     const handleAccept = async () => {
         try {
-            const accountSimple: AccountSimple | undefined = (await AccountService.getAccountsSimple(value.recipientAccountNumber)).data.data;
+            const accountSimple: RSAccount | undefined = (await AccountService.getAccountByCode(value.codeLocalAccount)).data.data;
             if (!accountSimple) {
                 console.log("Ha ocurrido un error");
                 return;
             }
+            console.log(accountSimple);
+            setvalue({
+                ...value,
+                codeInternationalAccount: accountSimple.codeInternationalAccount
+            })
+            console.log(value);
             await TransactionService.postTransaction(value);
-            const aux = value;
-            aux.codeLocalAccount = accountSimple.codeLocalAccount;
-            aux.codeInternationalAccount = accountSimple.codeInternationalAccount;
-            aux.recipientAccountNumber = value.codeLocalAccount;
-            aux.movement= 'NOTA CREDITO';
-            aux.value= value.value;
-            
-            await TransactionService.postTransaction(aux);
             console.log(value);
             navigate('/cliente');
         } catch (error: any) {
@@ -83,28 +81,16 @@ const DepositUser = () => {
                     {indexForm === 0 ?
                         <TransferDataForm
                             key={0}
-                            showConcept
-                            showDescription
+                            showAccountCode
                             onSubmit={(data: any) => {
                                 setindexForm(1);
                                 setvalue({
                                     ...value,
-                                    description: data.description
+                                    codeLocalAccount: data.accountNumber
                                 });
                             }}
-                            title='Depósito efectivo' /> : indexForm === 1 ?
-                            <TransferDataForm
-                                key={1}
-                                showAccountCode
-                                onSubmit={(data: any) => {
-                                    setindexForm(2);
-                                    setvalue({
-                                        ...value,
-                                        recipientAccountNumber: data.accountNumber
-                                    });
-                                }}
-                                title='Depósito efectivo' /> :
-                            indexForm === 2 ?
+                            title='Cuenta Depósito' /> : 
+                            indexForm === 1 ?
                                 <TransferAmountForm
                                     onSubmit={(data: any) => {
                                         setindexForm(3);
@@ -116,6 +102,7 @@ const DepositUser = () => {
                                 :
                                 <ConfirmTransferUserForm
                                     title="Depositar"
+                                    showField
                                     onAccept={() => handleAccept()}
                                     onDecline={() => handleDecline()}
                                     data={value} />}
@@ -129,4 +116,4 @@ const DepositUser = () => {
     )
 }
 
-export default DepositUser
+export default DepositAtm

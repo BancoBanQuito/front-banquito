@@ -10,15 +10,15 @@ import EditAccountSignature from "./pages/ClientPages/Account/AccountEditSignatu
 import CancelAccount from "./pages/ClientPages/Account/AccountCancel";
 import Layout from "./template/Layout";
 import AccountCreateUser from "./pages/UserPages/Account/AccountCreateUser";
-import TransferUser from "./pages/UserPages/Transferences/TransferUser";
-import TransferBank from "./pages/ClientPages/Transaction/TransferBank";
+import TransferUser from "./pages/ClientPages/Transaction/TransferClient";
+import TransferBank from "./pages/UserPages/Transaction/TransferBank";
 import AccountCreateBank from "./pages/ClientPages/Account/AccountCreateBank";
 import Branch from "./pages/ClientPages/Branches/Branch";
 import AccountStatementBank from "./pages/ClientPages/Account/AccountStatementBank";
 import AccountStatementClient from "./pages/UserPages/Account/AccountStatementClient";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
 import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
-import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
+import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBeetwenDates";
 import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
 import ProductLinkAssociatedService from "./pages/ProductLinkAssociatedService";
 import Home from "./pages/Home";
@@ -34,8 +34,8 @@ import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
 import { ThemeProvider } from "styled-components";
-import DepositUser from "./pages/UserPages/Transferences/DepositUser";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import DepositBank from "./pages/UserPages/Transaction/DepositBank";
 
 const App = () => {
 
@@ -86,6 +86,10 @@ const App = () => {
     {
       path: "transaccion/fechas",
       element: <TransactionBeetwenDates />,
+    },
+    {
+      path: "deposito",
+      element: <DepositBank/>
     },
     {
       path: "interes",
@@ -157,8 +161,8 @@ const App = () => {
       element: <TransferUser />,
     },
     {
-      path: "deposito",
-      element: <DepositUser/>,
+      path: "fechaTransaccion",
+      element: <TransactionBeetwenDates/>
     },
     {
       path: "signup",
@@ -169,6 +173,8 @@ const App = () => {
       element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/cliente' />
     }
   ]
+
+
 
   return (
     <ThemeProvider theme={theme}>

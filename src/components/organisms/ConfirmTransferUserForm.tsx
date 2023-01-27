@@ -7,6 +7,7 @@ import { SizeButton } from '../atoms/SizeButton'
 
 interface ConfirmFormProps {
     showField?: boolean;
+    showAccountReceptor?: boolean; 
     data: RQTransaction,
     title?: string,
     onAccept?: (data: any) => void,
@@ -56,12 +57,12 @@ const ConfirmTransferUserForm = (props: ConfirmFormProps) => {
                         value={props.data.codeLocalAccount}
                         fullWidth
                         disabled />}
-                    <TextField
+                    {!!props.showAccountReceptor && <TextField
                         sx={{ margin: '1rem' }}
                         label='Numero de Cuenta (Receptor)'
                         value={props.data.recipientAccountNumber}
                         fullWidth
-                        disabled />
+                        disabled />}
                 </Box>
                 <Box sx={{
                     width: '100%',
