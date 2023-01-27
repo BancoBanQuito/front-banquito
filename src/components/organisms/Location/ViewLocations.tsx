@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Typography, TextField } from "@mui/material";
 import { Province } from "./types";
 import { getProvinces } from "./functions";
-import TableMolecule from "/src/components/molecules/TableMolecule";
+import TableMolecule from "@/components/molecules/TableMolecule";
 
 const headers = [
   <Typography>Provincia</Typography>,

@@ -9,10 +9,10 @@ import {
   getParishes,
   getProvinces,
 } from "./functions";
-import { Dropdown } from "/src/components/atoms/Dropdown";
-import { SizeButton } from "/src/components/atoms/SizeButton";
-import { ButtonStyle } from "/src/style/ButtonStyle";
-import { ColorPalette } from "/src/style/ColorPalette";
+import { Dropdown } from "@/components/atoms/Dropdown";
+import { SizeButton } from "@/components/atoms/SizeButton";
+import { ButtonStyle } from "@/style/ButtonStyle";
+import { ColorPalette } from "@/style/ColorPalette";
 import { Province, Canton, Parish } from "./types";
 
 export const DeleteLocation = () => {

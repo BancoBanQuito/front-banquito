@@ -1,10 +1,10 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import { SizeButton } from '/src/components/atoms/SizeButton';
-import TableMolecule from '/src/components/molecules/TableMolecule';
-import { RSSignature } from '/src/services/account/dto/RSSignature';
-import { ButtonStyle } from '/src/style/ButtonStyle';
-import { ColorPalette } from '/src/style/ColorPalette';
+import { SizeButton } from '@/components/atoms/SizeButton';
+import TableMolecule from '@/components/molecules/TableMolecule';
+import { RSSignature } from '@/services/account/dto/RSSignature';
+import { ButtonStyle } from '@/style/ButtonStyle';
+import { ColorPalette } from '@/style/ColorPalette';
 
 interface AccountSignatureTableOranismProps {
     accountSignature: RSSignature[],
