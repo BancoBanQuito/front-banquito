@@ -22,6 +22,9 @@ export const UpdateClient: React.FC = () => {
   const [lineTwo, setLineTwo] = useState<string>("");
   const [identification, setIdentification] = useState<string>("111111111");
   const [typeIdentification, setTypeIdentification] = useState<string>("DNI");
+  const [codeLocation, setCodeLocation] = useState<string>("");
+  const [latitude, setLatitude] = useState<string>("");
+  const [longitude, setLongitude] = useState<string>("");
 
   const [isStatusSelected, setIsStatusSelected] = useState<boolean>(true);
 
@@ -67,25 +70,19 @@ export const UpdateClient: React.FC = () => {
         setLineTwo(data.address.lineTwo);
         setTypeIdentification(data.identificationType);
         setIdentification(data.identification);
+        setCodeLocation(data.codeLocation);
+        setLatitude(data.latitude);
+        setLongitude(data.longitude);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
 
-  /*const handleUpdate = () => {
-    const options = {
-      method: 'PUT',
-      body: JSON.stringify(updatedClient),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };*/
-
-  /*const setStatus = async (value: string, idSegment: string, name: string) => {
+  const handleUpdate = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8083/api/segments/updates/${idSegment}`,
+        `http://localhost:8083/api/client/personal-data`,
         {
           method: "PUT",
           headers: {
@@ -93,73 +90,34 @@ export const UpdateClient: React.FC = () => {
             "Access-Control-Allow-Origin": "*",
           },
           body: JSON.stringify({
-            name: name,
-            status: value,
+            identificationType: typeIdentification,
+            identification: identification,
+            fullname: fullName,
+            email: email,
+            gender: gender,
+            career: career,
+            phone: {
+              phoneNumber: phone,
+              phoneType: typePhone,
+            },
+            address: {
+              codeLocation: codeLocation,
+              lineOne: lineOne,
+              lineTwo: lineTwo,
+              latitude: latitude,
+              longitude: longitude,
+            },
           }),
         }
       );
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      alert("Segmento actualizado");
-      fetchSegment();
-    } catch (error) {
-      console.error(error);
-    }
-  };*/
-
-  /*const fetchSegment = async () => {
-    try {
-      const response = await fetch("http://localhost:8083/api/segments");
-      const data = await response.json();
-      const rows = data.map((segment: any) => {
-        return [
-          <Typography>{segment.name}</Typography>,
-          <Typography>
-            <BranchBox
-              label=""
-              value={segment.status}
-              options={optionsStatus}
-              onChange={(value: string) =>
-                setStatus(value, segment.idSegment, segment.name)
-              }
-            />
-          </Typography>,
-        ];
-      });
-      setRows(rows);
+      alert("Cliente actualizado");
     } catch (error) {
       console.error(error);
     }
   };
-  useEffect(() => {
-    fetchSegment();
-  }, []);*/
-
-  /*const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    try {
-      const response = await fetch("http://localhost:8083/client/1727624742", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({
-          idSegment: idSegment,
-          name: nameSegment,
-          status: statustSegment,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      fetchSegment();
-      alert("Segmento creado con éxito");
-    } catch (error) {
-      console.error(error);
-    }
-  };*/
 
   return (
     <>
@@ -246,7 +204,9 @@ export const UpdateClient: React.FC = () => {
           </Container>
         </Grid>
         <Container sx={containerTextFieldStyles}>
-          <Button sx={buttonStyles}>Guardar</Button>
+          <Button onClick={handleUpdate} sx={buttonStyles}>
+            Guardar
+          </Button>
         </Container>
       </Grid>
     </>
