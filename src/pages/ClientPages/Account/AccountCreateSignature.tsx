@@ -1,14 +1,14 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
-import TextFieldAtom from "/src/components/atoms/TextFieldAtom";
-import ButtonIcon from "/src/components/atoms/ButtonIcon";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import { Box, Typography } from "@mui/material";
-import { ColorPalette } from "/src/style/ColorPalette";
-import { SizeButton } from "/src/components/atoms/SizeButton";
-import { ButtonStyle } from "/src/style/ButtonStyle";
-import { AccountSignatureService } from "/src/services/account/AccountSignatureService";
-import { AccountService } from "/src/services/account/AccountService";
-import { RSAccount } from "/src/services/account/dto/RSAccount";
+import React, { ChangeEvent, FormEvent, useState } from "react";
+import ButtonIcon from "../../../components/atoms/ButtonIcon";
+import { SizeButton } from "../../../components/atoms/SizeButton";
+import TextFieldAtom from "../../../components/atoms/TextFieldAtom";
+import { AccountService } from "../../../services/account/AccountService";
+import { AccountSignatureService } from "../../../services/account/AccountSignatureService";
+import { RSAccount } from "../../../services/account/dto/RSAccount";
+import { ButtonStyle } from "../../../style/ButtonStyle";
+import { ColorPalette } from "../../../style/ColorPalette";
+import { SearchRounded } from "@mui/icons-material";
 
 interface FormData {
   accountNumber: string,
@@ -126,7 +126,7 @@ const AccountCreateSignature = () => {
           placeholder="Ingreso número de cuenta"
           value=""
         />
-        <ButtonIcon color={ColorPalette.PRIMARY} icon={<SearchRoundedIcon />} />
+        <ButtonIcon color={ColorPalette.PRIMARY} icon={<SearchRounded />} />
       </Box>
       <Box
         sx={{

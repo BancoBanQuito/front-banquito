@@ -1,6 +1,6 @@
+import { Typography, Button, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Stack, Typography, Button } from "@mui/material"
-import TableMolecule from "/src/components/molecules/TableMolecule";
+import TableMolecule from "../../components/molecules/TableMolecule";
 import { ActivateDialog } from "./dialog/ActivateDialog";
 import { CreateProduct } from "./dialog/CreateProduct";
 

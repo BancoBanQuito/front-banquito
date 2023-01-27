@@ -5,38 +5,38 @@ import Error404 from "./pages/ErrorPages/Error404";
 import HomeClient from "./pages/ClientPages/HomeClient";
 import HomeUser from "./pages/UserPages/HomeUser";
 import Login from "./components/organisms/Login/Login";
-import CreateSignature from "./pages/ClientPages/Account/AccountCreateSignature";
-import EditAccountSignature from "./pages/ClientPages/Account/AccountEditSignature";
-import CancelAccount from "./pages/ClientPages/Account/AccountCancel";
 import Layout from "./template/Layout";
 import AccountCreateUser from "./pages/UserPages/Account/AccountCreateUser";
 import TransferUser from "./pages/ClientPages/Transaction/TransferClient";
 import TransferBank from "./pages/UserPages/Transaction/TransferBank";
 import AccountCreateBank from "./pages/ClientPages/Account/AccountCreateBank";
 import Branch from "./pages/ClientPages/Branches/Branch";
-import AccountStatementBank from "./pages/ClientPages/Account/AccountStatementBank";
-import AccountStatementClient from "./pages/UserPages/Account/AccountStatementClient";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
 import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
 import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBeetwenDates";
 import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
-import ProductLinkAssociatedService from "./pages/ProductLinkAssociatedService";
-import Home from "./pages/Home";
+import AccountAvailableBalance from './pages/ATMPages/Account/AccountAvailableBalance';
+import AccountConsolidatedPosition from './pages/ClientPages/Account/AccountConsolidatedPosition';
+import ProductLinkAssociatedService from './pages/ProductLinkAssociatedService';
+import { Product } from './pages/ProductPages/Product';
+import { ProductType } from './pages/ProductPages/ProductType';
+import AccountCreateSignature from './pages/ClientPages/Account/AccountCreateSignature';
+import AccountEditSignature from './pages/ClientPages/Account/AccountEditSignature';
+import AccountCancel from './pages/ClientPages/Account/AccountCancel';
+import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
+import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
+import { ThemeProvider } from "styled-components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import DepositBank from "./pages/UserPages/Transaction/DepositBank";
+import { Home } from "@mui/icons-material";
 import CreateUser from "./components/organisms/Login/CreateUser";
+import AccountStatementClient from "./pages/UserPages/Account/AccountStatementClient";
+import CreateRequestService from "./pages/CreateRequestService";
 
 interface userProps {
   username: string,
   password: string
 }
-import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
-import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
-import { Product } from "./pages/ProductPages/Product";
-import { ProductType } from "./pages/ProductPages/ProductType";
-import CreateRequestService from './pages/CreateRequestService';
-import { ThemeProvider } from "styled-components";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DepositBank from "./pages/UserPages/Transaction/DepositBank";
-import WithdrawalsBank from "./pages/UserPages/Transaction/WithdrawalsBank";
 
 const App = () => {
 
@@ -58,7 +58,7 @@ const App = () => {
     },
     {
       path: "cuenta/estado",
-      element: <AccountStatementBank />,
+      element: <AccountStatementClient />,
     },
     {
       path: "transaccion",
@@ -74,15 +74,15 @@ const App = () => {
     },
     {
       path: "account/signature",
-      element: <CreateSignature />,
+      element: <AccountCreateSignature />,
     },
     {
       path: "edit/account/signature",
-      element: <EditAccountSignature />,
+      element: <AccountEditSignature />,
     },
     {
       path: "account/cancel",
-      element: <CancelAccount />,
+      element: <AccountCancel />,
     },
     {
       path: "transaccion/fechas",
@@ -139,6 +139,10 @@ const App = () => {
       />,
     },
     {
+      path: "cuenta/posicion-consolidada",
+      element: <AccountConsolidatedPosition />,
+    },
+    {
       path: "login",
       element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/usuario' />
     }
@@ -159,7 +163,7 @@ const App = () => {
     },
     {
       path: "cuenta/estado",
-      element: <AccountStatementClient />,
+      element: <AccountStatementClient client />,
     },
     {
       path: "transaccion",
@@ -179,7 +183,16 @@ const App = () => {
     }
   ]
 
-
+  const atmRoutes = [
+    {
+      path: "",
+      element: <HomeClient user={user} isLogged={isLogged} />,
+    },
+    {
+      path: "cuenta/saldo",
+      element: <AccountAvailableBalance />
+    }
+  ]
 
   return (
     <ThemeProvider theme={theme}>
@@ -198,6 +211,13 @@ const App = () => {
               <Route
                 key={route.path}
                 path={`cliente/${route.path}`}
+                element={route.element}
+              />
+            ))}
+            {atmRoutes.map((route) => (
+              <Route
+                key={route.path}
+                path={`atm/${route.path}`}
                 element={route.element}
               />
             ))}

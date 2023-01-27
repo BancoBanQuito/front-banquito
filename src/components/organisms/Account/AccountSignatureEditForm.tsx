@@ -1,11 +1,12 @@
-import { Box } from '@mui/system'
-import React, { ChangeEvent, FormEvent, useState } from 'react'
-import { Dropdown } from '/src/components/atoms/Dropdown';
-import { SizeButton } from '/src/components/atoms/SizeButton';
-import TextFieldAtom from '/src/components/atoms/TextFieldAtom';
-import { RSSignature } from '/src/services/account/dto/RSSignature';
-import { ButtonStyle } from '/src/style/ButtonStyle';
-import { ColorPalette } from '/src/style/ColorPalette';
+import { Box } from "@mui/material";
+import { useState, FormEvent, ChangeEvent } from "react";
+import { RSSignature } from "../../../services/account/dto/RSSignature";
+import { ButtonStyle } from "../../../style/ButtonStyle";
+import { ColorPalette } from "../../../style/ColorPalette";
+import { Dropdown } from "../../atoms/Dropdown";
+import { SizeButton } from "../../atoms/SizeButton";
+import TextFieldAtom from "../../atoms/TextFieldAtom";
+
 
 const statusItems = [
     {

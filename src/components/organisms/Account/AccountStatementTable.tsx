@@ -1,12 +1,12 @@
-import React, { FormEvent, useState } from 'react'
-import { Box, InputAdornment, TextField, Typography } from '@mui/material'
-import { Search, Visibility } from '@mui/icons-material'
-import ButtonIcon from '/src/components/atoms/ButtonIcon';
-import { SizeButton } from '/src/components/atoms/SizeButton';
-import TableMolecule from '/src/components/molecules/TableMolecule';
-import { RSAccountStatementList } from '/src/services/account/dto/RSAccountStatementList';
-import { ButtonStyle } from '/src/style/ButtonStyle';
-import { ColorPalette } from '/src/style/ColorPalette';
+import { Search, Visibility } from '@mui/icons-material';
+import { Typography, Box, TextField, InputAdornment } from '@mui/material';
+import React, { FormEvent, useState } from 'react';
+import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
+import ButtonIcon from '../../atoms/ButtonIcon';
+import { SizeButton } from '../../atoms/SizeButton';
+import TableMolecule from '../../molecules/TableMolecule';
 
 interface AccountStatementTableProps {
     data: RSAccountStatementList[],

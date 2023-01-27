@@ -1,17 +1,15 @@
-import React from 'react'
-import { ReturnButton } from './InteresRate'
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { AlertProps, Snackbar } from '@mui/material';
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import ButtonIcon from '/src/components/atoms/ButtonIcon';
-import { Dropdown } from '/src/components/atoms/Dropdown';
-import { SizeButton } from '/src/components/atoms/SizeButton';
-import TextFieldAtom from '/src/components/atoms/TextFieldAtom';
-import InterestRateService from '/src/services/product/interestrate/interestRate.service';
-import { ButtonStyle } from '/src/style/ButtonStyle';
-import { ColorPalette } from '/src/style/ColorPalette';
+import InterestRateService from '../../../services/product/interestrate/interestRate.service';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
+import ButtonIcon from '../../atoms/ButtonIcon';
+import { Dropdown } from '../../atoms/Dropdown';
+import { SizeButton } from '../../atoms/SizeButton';
+import TextFieldAtom from '../../atoms/TextFieldAtom';
+import { ReturnButton } from './InteresRate';
+import { KeyboardBackspace } from '@mui/icons-material';
 
 export const ContainParent = styled.div`
 display: grid;
@@ -89,7 +87,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert
     props,
     ref,
 ) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    return <Alert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 interface FormInterestRateProps {
@@ -156,7 +154,7 @@ const FormInterestRate = ({
         <ContainerForm>
             <ContentForm>
                 <ReturnButton>
-                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspaceIcon />} onClick={() => action()} top={true} />
+                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspace />} onClick={() => action()} top={true} />
                 </ReturnButton>
                 <h1>Formulario de Tasa de Interes</h1>
                 <ContainParent>

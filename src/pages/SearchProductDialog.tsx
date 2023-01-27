@@ -1,20 +1,13 @@
-
-import DialogTitle from "@mui/material/DialogTitle";
-import Dialog from "@mui/material/Dialog";
-import AddIcon from "@mui/icons-material/Add";
-import Typography from "@mui/material/Typography";
-//atomos
-import TableMolecule from "/src/components/molecules/TableMolecule";
-import { Checkbox } from "/src/components/atoms/Checkbox";
-import TextFieldAtom from "/src/components/atoms/TextFieldAtom";
-import { SizeButton } from "/src/components/atoms/SizeButton";
-// search icon
-import SearchIcon from "@mui/icons-material/Search";
-import styled from "styled-components";
-// icon keyboar backspace
-import { ColorPalette } from "/src/style/ColorPalette";
-//add icon
-import { ButtonStyle } from "/src/style/ButtonStyle";
+import React from 'react';
+import { Typography, Dialog, DialogTitle } from '@mui/material';
+import { SizeButton } from '../components/atoms/SizeButton';
+import TextFieldAtom from '../components/atoms/TextFieldAtom';
+import TableMolecule from '../components/molecules/TableMolecule';
+import { ButtonStyle } from '../style/ButtonStyle';
+import { ColorPalette } from '../style/ColorPalette';
+import styled from 'styled-components';
+import { Add, Search } from '@mui/icons-material';
+import { Checkbox } from '../components/atoms/Checkbox';
 
 
 // Container for the search
@@ -96,7 +89,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
         />
         <SizeButton
           palette={{ backgroundColor: ColorPalette.PRIMARY }}
-          icon={<SearchIcon />}
+          icon={<Search />}
           onClick={() => console.log("Buscar")}
           text="Buscar"
           style={ButtonStyle.MEDIUM}
@@ -106,8 +99,8 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
       <ContentButtonAddRight>
         <SizeButton
           palette={{ backgroundColor: ColorPalette.TERNARY }}
-          icon={<AddIcon />}
-          onClick={ () => handleSelectedProducts("TODO send List<Products>")}
+          icon={<Add />}
+          onClick={() => handleSelectedProducts("TODO send List<Products>")}
           text="Agregar"
           style={ButtonStyle.BIG}
         />

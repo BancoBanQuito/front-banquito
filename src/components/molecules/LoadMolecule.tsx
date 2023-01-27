@@ -1,6 +1,6 @@
 import React from 'react'
 import { Fade, Typography } from '@mui/material'
-import LoadSpinner from '/src/components/atoms/LoadSpinner';
+import LoadSpinner from '../atoms/LoadSpinner'
 
 interface LoaderProps {
     loadText?: string,

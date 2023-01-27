@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Box, Card, CardContent, Fade, Modal, Typography } from "@mui/material";
-import AccountSignatureEditForm from "/src/components/organisms/Account/AccountSignatureEditForm";
-import AccountSignatureTableOranism from "/src/components/organisms/Account/AccountSignatureTableOranism";
-import SearchAccount from "/src/components/organisms/Account/SearchAccount";
-import { AccountService } from "/src/services/account/AccountService";
-import { AccountSignatureService } from "/src/services/account/AccountSignatureService";
-import { RSAccount } from "/src/services/account/dto/RSAccount";
-import { RSSignature } from "/src/services/account/dto/RSSignature";
-import { ColorPalette } from "/src/style/ColorPalette";
-
+import AccountSignatureEditForm from "../../../components/organisms/Account/AccountSignatureEditForm";
+import AccountSignatureTableOranism from "../../../components/organisms/Account/AccountSignatureTableOranism";
+import SearchAccount from "../../../components/organisms/Account/SearchAccount";
+import { AccountService } from "../../../services/account/AccountService";
+import { AccountSignatureService } from "../../../services/account/AccountSignatureService";
+import { RSAccount } from "../../../services/account/dto/RSAccount";
+import { RSSignature } from "../../../services/account/dto/RSSignature";
+import { ColorPalette } from "../../../style/ColorPalette";
 
 const AccountEditSignature = () => {
 

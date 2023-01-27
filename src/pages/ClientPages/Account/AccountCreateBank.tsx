@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
-import { Avatar, Slide } from '@mui/material'
+import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg'
 import { useNavigate } from 'react-router-dom';
-import BanQuitoLogo from '/src/assets/BanQuito-Logo.svg'
-import StripeAtom from '/src/components/atoms/StripeAtom';
-import ProgressButtonMolecule from '/src/components/molecules/ProgressButtonMolecule';
-import AccountFormBank from '/src/components/organisms/Account/AccountFormBank';
-import ErrorModalOrganism from '/src/components/organisms/ErrorModalOrganism';
-import LoadOrganism from '/src/components/organisms/LoadOrganism';
-import SelectAccountTypeForm from '/src/components/organisms/SelectAccountTypeForm';
-import { AccountService } from '/src/services/account/AccountService';
-import { ProductService } from '/src/services/product/productService';
-import { ColorPalette } from '/src/style/ColorPalette';
+import { Slide, Avatar } from '@mui/material';
+import StripeAtom from '../../../components/atoms/StripeAtom';
+import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
+import AccountFormBank from '../../../components/organisms/Account/AccountFormBank';
+import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
+import LoadOrganism from '../../../components/organisms/LoadOrganism';
+import SelectAccountTypeForm from '../../../components/organisms/SelectAccountTypeForm';
+import { AccountService } from '../../../services/account/AccountService';
+import { ProductService } from '../../../services/product/productService';
+import { ColorPalette } from '../../../style/ColorPalette';
 
 
 const AccountCreateBank = () => {
@@ -106,7 +106,7 @@ const AccountCreateBank = () => {
             mountOnEnter
             unmountOnExit>
             <div>
-              <div style={{ position: 'absolute', right: '10%', top: 0 }}>
+              <div style={{ position: 'absolute', right: '10%', top: 0, zIndex: 2 }}>
                 <AccountFormBank
                   products={products ? products : []}
                   onSubmit={handleSubmit} />

@@ -1,13 +1,13 @@
 import react, { FormEvent, useEffect, useState } from "react";
 import { Box, TextField, Typography } from "@mui/material";
 import { Dayjs } from "dayjs";
-import DatePickerAtom from "/src/components/atoms/DatePicker";
-import { SizeButton } from "/src/components/atoms/SizeButton";
-import TableMolecule from "/src/components/molecules/TableMolecule";
-import { ButtonStyle } from "/src/style/ButtonStyle";
-import { ColorPalette } from "/src/style/ColorPalette";
-import { TransactionService } from "/src/services/transaction/TransactionService";
-import { RSTransaction } from "/src/services/transaction/dto/RSTransaction";
+import DatePickerAtom from "../../../components/atoms/DatePicker";
+import { SizeButton } from "../../../components/atoms/SizeButton";
+import TableMolecule from "../../../components/molecules/TableMolecule";
+import { TransactionService } from "../../../services/transaction/TransactionService";
+import { RSTransaction } from "../../../services/transaction/dto/RSTransaction";
+import { ButtonStyle } from "../../../style/ButtonStyle";
+import { ColorPalette } from "../../../style/ColorPalette";
 
 const headersMock = [
   <Typography>Fecha</Typography>,
