@@ -1,10 +1,13 @@
 import React from 'react';
-import { Typography, Checkbox, Dialog, DialogTitle, styled } from '@mui/material';
+import { Typography, Dialog, DialogTitle } from '@mui/material';
 import { SizeButton } from '../components/atoms/SizeButton';
 import TextFieldAtom from '../components/atoms/TextFieldAtom';
 import TableMolecule from '../components/molecules/TableMolecule';
 import { ButtonStyle } from '../style/ButtonStyle';
 import { ColorPalette } from '../style/ColorPalette';
+import styled from 'styled-components';
+import { Add, Search } from '@mui/icons-material';
+import { Checkbox } from '../components/atoms/Checkbox';
 
 
 // Container for the search
@@ -86,7 +89,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
         />
         <SizeButton
           palette={{ backgroundColor: ColorPalette.PRIMARY }}
-          icon={<SearchIcon />}
+          icon={<Search />}
           onClick={() => console.log("Buscar")}
           text="Buscar"
           style={ButtonStyle.MEDIUM}
@@ -96,7 +99,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
       <ContentButtonAddRight>
         <SizeButton
           palette={{ backgroundColor: ColorPalette.TERNARY }}
-          icon={<AddIcon />}
+          icon={<Add />}
           onClick={() => handleSelectedProducts("TODO send List<Products>")}
           text="Agregar"
           style={ButtonStyle.BIG}

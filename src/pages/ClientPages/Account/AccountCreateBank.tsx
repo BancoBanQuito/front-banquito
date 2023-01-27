@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import BanQuitoLogo from '/../../../assets/BanQuito-Logo.svg'
+import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg'
 import { useNavigate } from 'react-router-dom';
 import { Slide, Avatar } from '@mui/material';
 import StripeAtom from '../../../components/atoms/StripeAtom';
