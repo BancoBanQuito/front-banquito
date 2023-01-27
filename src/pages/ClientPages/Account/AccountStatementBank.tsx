@@ -6,6 +6,7 @@ import ReactToPrint from 'react-to-print'
 import { useNavigate } from 'react-router-dom'
 import { Card, CardContent, Fade } from '@mui/material'
 import { ChevronLeft, Print } from '@mui/icons-material'
+<<<<<<< HEAD
 import ButtonIcon from '/src/components/atoms/ButtonIcon'
 import AccountStatementBody from '/src/components/organisms/Account/AccountStatementBody'
 import SearchAccount from '/src/components/organisms/Account/SearchAccount'
@@ -14,6 +15,16 @@ import LoadOrganism from '/src/components/organisms/LoadOrganism'
 import { AccountStatementService } from '../../../services/account/AccountStatementService'
 import { RSAccountStatement } from '/src/services/account/dto/RSAccountStatement'
 import { RSAccountStatementList } from '/src/services/account/dto/RSAccountStatementList'
+=======
+import ButtonIcon from '@/components/atoms/ButtonIcon'
+import AccountStatementBody from '@/components/organisms/Account/AccountStatementBody'
+import SearchAccount from '@/components/organisms/Account/SearchAccount'
+import ErrorModalOrganism from '@/components/organisms/ErrorModalOrganism'
+import LoadOrganism from '@/components/organisms/LoadOrganism'
+import { AccountStatementService } from '@/services/account/AccountStatementService'
+import { RSAccountStatement } from '@/services/account/dto/RSAccountStatement'
+import { ColorPalette } from '@/style/ColorPalette'
+>>>>>>> 9f9d40c0fc20d9aaa0d84710bfdfda6c5d61e530
 
 interface AccountStatementBankProps {
     client?: boolean

@@ -1,12 +1,20 @@
 import { Typography, TextField, Checkbox, FormControlLabel } from '@mui/material'
 import { Box, SxProps, Theme } from '@mui/system'
 import React, { ChangeEvent, FormEvent, useState } from 'react'
+<<<<<<< HEAD
 import { Dropdown } from '/src/components/atoms/Dropdown'
 import { SizeButton } from '/src/components/atoms/SizeButton'
 import IdentificationTypes from '/src/services/.json/IdentificationType.json'
 import { ButtonStyle } from '/src/style/ButtonStyle'
 import { ColorPalette } from '/src/style/ColorPalette'
 import { CIUtils } from '/src/utils/CIUtils'
+=======
+import { Dropdown } from '@/components/atoms/Dropdown'
+import { SizeButton } from '@/components/atoms/SizeButton'
+import IdentificationTypes from '@/services/.json/IdentificationType.json'
+import { ButtonStyle } from '@/style/ButtonStyle'
+import { ColorPalette } from '@/style/ColorPalette'
+>>>>>>> 9f9d40c0fc20d9aaa0d84710bfdfda6c5d61e530
 
 const mainBoxStyle = (): SxProps<Theme> => {
     return {

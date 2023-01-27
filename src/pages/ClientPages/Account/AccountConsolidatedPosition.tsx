@@ -1,10 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent, Fade, Typography } from '@mui/material';
+<<<<<<< HEAD
 import TableMolecule from '/src/components/molecules/TableMolecule';
 import SearchAccount from '/src/components/organisms/Account/SearchAccount';
 import { AccountService } from '../../../services/account/AccountService';
 import { RSAccount } from '/src/services/account/dto/RSAccount';
 import { ColorPalette } from '/src/style/ColorPalette';
+=======
+import TableMolecule from '@/components/molecules/TableMolecule';
+import SearchAccount from '@/components/organisms/Account/SearchAccount';
+import { AccountService } from '@/services/account/AccountService';
+import { RSAccount } from '@/services/account/dto/RSAccount';
+import { ColorPalette } from '@/style/ColorPalette';
+>>>>>>> 9f9d40c0fc20d9aaa0d84710bfdfda6c5d61e530
 
 
 const headersMock = [

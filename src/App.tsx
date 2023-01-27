@@ -35,6 +35,7 @@ import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEn
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
+import AccountConsolidatedPosition from "./pages/ClientPages/Account/AccountConsolidatedPosition";
 
 const App = () => {
 
@@ -129,6 +130,10 @@ const App = () => {
       />,
     },
     {
+      path: "cuenta/posicion-consolidada",
+      element: <AccountConsolidatedPosition />,
+    },
+    {
       path: "login",
       element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/usuario' />
     }
@@ -154,6 +159,14 @@ const App = () => {
     {
       path: "transaccion",
       element: <TransferUser />,
+    },
+    {
+      path: "pagos/tarjeta-debito",
+      element: <PaymentDebitCard />,
+      },
+      {
+      path: "pagos/cheque",
+      element: <PaymentCheckbook />,
     },
     {
       path: "signup",

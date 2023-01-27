@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PUT_TRANSACTION, POST_TRANSACTION, GET_TRANSACTION_FROM_TO_API } from "/src/config/apis/transactionAPI";
+import { PUT_TRANSACTION, POST_TRANSACTION, GET_TRANSACTION_FROM_TO_API } from "@/config/apis/transactionAPI";
 import { ResponseFormat } from "../ResponseFormat";
 import { RQStatus } from "./dto/RQStatus";
 import { RQTransaction } from "./dto/RQTransaction";
@@ -22,9 +22,9 @@ export class TransactionService {
         }
     }
 
-    public static async getTransaction(codeLocalAccount: string, from: Date, to: Date) {
+    public static async getTransaction(codeLocalAccount: string, from: string, to: string) {
         try {
-            return await axios.get<ResponseFormat<RSTransaction[]>>(GET_TRANSACTION_FROM_TO_API(codeLocalAccount, from.toISOString(), to.toISOString()));
+            return await axios.get<ResponseFormat<RSTransaction[]>>(GET_TRANSACTION_FROM_TO_API(codeLocalAccount, from, to));
         } catch (error) {
             throw error;
         }
