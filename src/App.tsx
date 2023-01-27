@@ -18,7 +18,6 @@ import { Home } from "@mui/icons-material";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CreateUser from "./components/organisms/Login/CreateUser";
 import InterestRateLog from "./components/organisms/interestrate/InterestRateLog";
-import AccountStatementClient from "./pages/ClientPages/Account/AccountStatementClient";
 import Branch from "./pages/ClientPages/Branches/Branch";
 import ProductLinkAssociatedService from "./pages/ProductLinkAssociatedService";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
@@ -117,7 +116,7 @@ const App = () => {
     },
     {
       path: "producto-vincular-servicio",
-      element: <ProductLinkAssociatedService onSubmit={() => {}} />,
+      element: <ProductLinkAssociatedService onSubmit={() => { }} />,
     },
     {
       path: "login",
@@ -180,7 +179,7 @@ const App = () => {
   ]
 
   return (
-    /*<ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
           <Route path="" element={<Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />}>
@@ -210,8 +209,7 @@ const App = () => {
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
-    </ThemeProvider>*/
-    <UpdateClient />
+    </ThemeProvider>
   );
 };
 

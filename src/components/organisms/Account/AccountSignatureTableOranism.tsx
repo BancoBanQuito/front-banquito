@@ -12,7 +12,7 @@ interface AccountSignatureTableOranismProps {
 }
 
 const AccountSignatureTableOranism = (props: AccountSignatureTableOranismProps) => {
-    /* const getRows = (data: any) => {
+    const getRows = (data: any) => {
         return [
             <Typography>{data.identification}</Typography>,
             <Typography>{data.identifucationType}</Typography>,
@@ -27,10 +27,10 @@ const AccountSignatureTableOranism = (props: AccountSignatureTableOranismProps) 
                 }}
                 onClick={() => props.onClick?.(data)} />
         ]
-    } */
+    }
 
     return (
-        {/* <div style={{ textTransform: 'uppercase' }}>
+        <div style={{ textTransform: 'uppercase' }}>
             <TableMolecule
                 headers={[
                     <Typography>Identificación</Typography>,
@@ -42,7 +42,7 @@ const AccountSignatureTableOranism = (props: AccountSignatureTableOranismProps) 
                 ]}
                 rows={props.accountSignature.map(signature => getRows(signature))}
             />
-        </div> */}
+        </div>
     )
 }
 

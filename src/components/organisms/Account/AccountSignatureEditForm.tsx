@@ -31,22 +31,13 @@ const rolItem = [
 ]
 
 interface AccountSignatureEditFormProps {
-<<<<<<< HEAD:src/components/organisms/Account/AccountSignatureEditForm.tsx
     signature: RSSignature;
     onSubmit?: (data: RSSignature) => void;
-=======
-    signature: any;
-    onSubmit?: (data: any) => void;
->>>>>>> main:src/components/organisms/AccountSignature/AccountSignatureEditForm.tsx
 }
 
 const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
 
-<<<<<<< HEAD:src/components/organisms/Account/AccountSignatureEditForm.tsx
     const [signature, setsignature] = useState<RSSignature>(props.signature);
-=======
-    /* const [signature, setsignature] = useState<AccountSignature>(props.signature);
->>>>>>> main:src/components/organisms/AccountSignature/AccountSignatureEditForm.tsx
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -58,10 +49,10 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
             ...signature,
             [event.target.name]: event.target.value
         })
-    } */
+    }
 
     return (
-        {/* <Box
+        <Box
             component='form'
             onSubmit={handleSubmit}
             sx={{
@@ -109,7 +100,7 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
                 style={ButtonStyle.MEDIUM}
                 text='Editar'
                 submit />
-        </Box> */}
+        </Box>
     )
 }
 

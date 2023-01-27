@@ -42,11 +42,11 @@ const TransferUser = () => {
 
     const handleDecline = () => {
         navigate('/usuario');
-    } */
+    }
 
     return (
         <>
-            {/* <div style={{
+            <div style={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -117,7 +117,7 @@ const TransferUser = () => {
             <ErrorModalOrganism
                 active={activeErrorModal}
                 onDeactive={() => setactiveErrorModal(false)}
-                text={errorMessage} /> */}
+                text={errorMessage} />
         </>
     )
 }

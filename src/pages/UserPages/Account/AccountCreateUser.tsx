@@ -1,16 +1,4 @@
-<<<<<<< HEAD:src/pages/UserPages/Account/AccountCreateUser.tsx
 import React, { useState } from 'react'
-=======
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { ColorPalette } from '../../../style/ColorPalette'
-import { ProductService } from '../../../services/product/productService'
-// import { AccountService } from '../../../services/account/accountService'
-import { Avatar, Box, Modal, Slide, Typography } from '@mui/material'
-import AccountFormBank from '../../../components/organisms/AccountFormBank'
-import SelectAccountTypeForm from '../../../components/organisms/SelectAccountTypeForm'
-import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule'
->>>>>>> main:src/pages/ClientPages/Account/AccountCreateBank.tsx
 import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg'
 import { useNavigate } from 'react-router-dom';
 import { Slide, Avatar } from '@mui/material';
@@ -33,29 +21,28 @@ const AccountCreateUser = () => {
   const [products, setproducts] = useState<any[] | undefined>([]);
   const [accountData, setaccountData] = useState<any>();
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // const getProducts = async (id: string) => {
-  //   const productsAsync = await ProductService.getProducts(id);
-  //   setproducts(productsAsync);
-  // }
+  const getProducts = async (id: string) => {
+    const productsAsync = await ProductService.getProducts(id);
+    setproducts(productsAsync);
+  }
 
-  // const handleTypeAccountButton = (data: string) => {
-  //   setindexForm(1);
-  //   setselectedAccount(data);
-  //   getProducts(data);
-  // }
+  const handleTypeAccountButton = (data: string) => {
+    setindexForm(1);
+    setselectedAccount(data);
+    getProducts(data);
+  }
 
-  // const handleSubmit = (data: any) => {
-  //   const account = {
-  //     ...data,
-  //     codeProductType: "2"
-  //   };
-  //   setaccountData(account);
-  //   saveAccount(account);
-  // }
+  const handleSubmit = (data: any) => {
+    const account = {
+      ...data,
+      codeProductType: "2"
+    };
+    setaccountData(account);
+    saveAccount(account);
+  }
 
-<<<<<<< HEAD:src/pages/UserPages/Account/AccountCreateUser.tsx
   const saveAccount = async (data: any) => {
     setisLoading(true);
     try {
@@ -68,23 +55,10 @@ const AccountCreateUser = () => {
       setisLoading(false);
     }
   }
-=======
-  // const saveAccount = async (data: any) => {
-  //   setisLoading(true);
-  //   try {
-  //     await AccountService.postAccount(data);
-  //   } catch (error: any) {
-  //     setactiveErrorModal(true);
-  //     seterrorMessage(error.message);
-  //   } finally {
-  //     setisLoading(false);
-  //   }
-  // }
->>>>>>> main:src/pages/ClientPages/Account/AccountCreateBank.tsx
 
   return (
     <>
-      {/* <ProgressButtonMolecule
+      <ProgressButtonMolecule
         color={ColorPalette.PRIMARY}
         itemsCount={2}
         current={indexForm}
@@ -163,7 +137,7 @@ const AccountCreateUser = () => {
         enableButtonBox
         onConfirm={() => saveAccount(accountData)}
         onReject={() => navigate('/usuario')}
-      /> */}
+      />
     </>
   )
 }

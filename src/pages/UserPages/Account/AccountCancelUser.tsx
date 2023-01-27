@@ -9,33 +9,33 @@ const accountsExample = [
     tipoCuenta: "Corriente",
     status: "Active",
     saldoContable: "1,000.00",
-    saldoDisponible: "1,000.00"  
+    saldoDisponible: "1,000.00"
   },
   {
     NoCuenta: "2345663",
     tipoCuenta: "Ahorros",
     status: "Active",
     saldoContable: "1,000.00",
-    saldoDisponible: "1,000.00"  
+    saldoDisponible: "1,000.00"
   },
   {
     NoCuenta: "2345663",
     tipoCuenta: "Ahorros",
     status: "Active",
     saldoContable: "1,000.00",
-    saldoDisponible: "1,000.00"  
+    saldoDisponible: "1,000.00"
   }
 ]
 
 const AccountCancelUser = () => {
 
-  /* const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false); */
+  const handleClose = () => setOpen(false);
 
   return (
     <div>
-      {/* <Box
+      <Box
         sx={{
           width: "100%",
           display: "flex",
@@ -74,8 +74,6 @@ const AccountCancelUser = () => {
           </Modal>
         </div>
       </Box>
-
- */}
     </div>
   );
 };
