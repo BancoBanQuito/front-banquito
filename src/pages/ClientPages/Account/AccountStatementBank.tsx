@@ -21,8 +21,8 @@ const AccountStatementBank = () => {
     const [activeAccountStatement, setactiveAccountStatement] = useState<boolean>(false);
     const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(false);
     const [accountStatement, setaccountStatement] = useState<RSAccountStatement>();
-    const [accountStatements, setaccountStatements] = useState<RSAccountStatement[]>([]);
-    const [accountNumberData, setaccountNumberDate] = useState<string>();
+    const [accountStatements, setaccountStatements] = useState<RSAccountStatementList[]>([]);
+    const [codeLocalAccount, setcodeLocalAccount] = useState<string>();
 
     const navigate = useNavigate();
 
@@ -31,28 +31,66 @@ const AccountStatementBank = () => {
     const handleBackEvent = () => {
         setactiveAccountStatementTable(true);
         setactiveAccountStatement(false);
-        // setaccountStatement(undefined);
+        setaccountStatement(undefined);
     }
 
     const handleSearch = (data: string) => {
-        setaccountNumberDate(data);
-        searchAccountStatement(data);
+        setcodeLocalAccount(data);
+        searchAccountStatements(data);
     }
 
-    const handleAccountStatementSelection = (data: RSAccountStatement) => {
-        setaccountStatement(data);
-        /* setactiveAccountStatementTable(false); */
-        setactiveAccountStatement(true);
-    }
-
-    const searchAccountStatement = async (codeLocalAccount: string, identificationType?: string) => {
+    const searchAccountStatements = async (codeLocalAccount: string) => {
         setisLoading(true);
         try {
-            const data: RSAccountStatement | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount)).data.data;
+            const data: RSAccountStatementList[] = (await AccountStatementService.getStatementList(codeLocalAccount)).data.data || [];
             if (data) {
-                // setaccountStatements(data);
-                setaccountStatement(data);
+                setaccountStatements(data);
                 setactiveAccountStatementTable(true);
+            } else {
+                setactiveErrorModal(true);
+                seterrorMessage("No se han encontrado datos");
+            }
+        } catch (error: any) {
+            setactiveErrorModal(true);
+            seterrorMessage(error.message);
+        } finally {
+            setisLoading(false);
+        }
+    }
+
+    const handleAccountStatementSelection = (data: RSAccountStatementList) => {
+        searchAccountStatement(data.code);
+    }
+
+    const searchAccountStatement = async (codeHistoricLog: string) => {
+
+        setisLoading(true);
+        try {
+            const data: RSAccountStatement | undefined = (await AccountStatementService.getStatementHistoric(codeHistoricLog)).data.data;
+            if (data) {
+                setaccountStatement(data);
+                setactiveAccountStatement(true);
+                setactiveAccountStatementTable(false);
+            } else {
+                setactiveErrorModal(true);
+                seterrorMessage("No se han encontrado datos");
+            }
+        } catch (error: any) {
+            setactiveErrorModal(true);
+            seterrorMessage(error.message);
+        } finally {
+            setisLoading(false);
+        }
+    }
+
+    const generateAccountState = async () => {
+        setisLoading(true);
+        try {
+            const data: RSAccountStatement | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount || '')).data.data;
+            if (data) {
+                setaccountStatement(data);
+                setactiveAccountStatement(true);
+                setactiveAccountStatementTable(false);
             } else {
                 setactiveErrorModal(true);
                 seterrorMessage("No se han encontrado datos");
@@ -93,7 +131,7 @@ const AccountStatementBank = () => {
                         </Card>
                     </Fade>
                 </div>
-                {/* <div style={{
+                <div style={{
                     position: 'absolute',
                     width: '100%',
                     top: '5rem',
@@ -105,12 +143,20 @@ const AccountStatementBank = () => {
                 }}>
                     <Fade in={activeAccountStatementTable}>
                         <div>
+                            <div style={{ position: 'absolute', top: 0, right: 0 }}>
+                                <SizeButton
+                                    text={'Generar Estado de Cuenta'}
+                                    onClick={generateAccountState}
+                                    style={ButtonStyle.MEDIUM} palette={{
+                                        backgroundColor: ColorPalette.PRIMARY,
+                                    }} />
+                            </div>
                             <AccountStatementTable
                                 data={accountStatements}
                                 onSelection={handleAccountStatementSelection} />
                         </div>
                     </Fade>
-                </div> */}
+                </div>
                 <div style={{
                     position: 'absolute',
                     width: '100%',
@@ -148,7 +194,7 @@ const AccountStatementBank = () => {
                 onDeactive={() => { setactiveErrorModal(false); navigate('/cliente') }}
                 text={`${errorMessage}. ¿Desea volver a intentar?`}
                 enableButtonBox
-                onConfirm={() => accountNumberData && searchAccountStatement(accountNumberData)}
+                onConfirm={() => codeLocalAccount && searchAccountStatements(codeLocalAccount)}
                 onReject={() => navigate('/cliente')}
             />
         </>

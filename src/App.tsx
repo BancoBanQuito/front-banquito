@@ -161,6 +161,14 @@ const App = () => {
       element: <TransferUser />,
     },
     {
+      path: "pagos/tarjeta-debito",
+      element: <PaymentDebitCard />,
+      },
+      {
+      path: "pagos/cheque",
+      element: <PaymentCheckbook />,
+    },
+    {
       path: "signup",
       element: <CreateUser redirect="/cliente" />,
     },
