@@ -25,7 +25,7 @@ export const UpdateClient: React.FC = () => {
   const [codeLocation, setCodeLocation] = useState<string>("");
   const [latitude, setLatitude] = useState<string>("");
   const [longitude, setLongitude] = useState<string>("");
-
+  const [userName, setUserName] = useState<string>("");
   const [isStatusSelected, setIsStatusSelected] = useState<boolean>(true);
 
   const onChangeStatus = (value: string) => {
@@ -57,7 +57,12 @@ export const UpdateClient: React.FC = () => {
   ];
 
   useEffect(() => {
-    fetch(`http://localhost:8083/api/client/email/dpaz@espe.edu.ec`)
+    const user = localStorage.getItem("email");
+    if (user) {
+      setUserName(user);
+    }
+    alert(user);
+    fetch(`http://localhost:8083/api/client/email/${user}`)
       .then((response) => response.json())
       .then((data) => {
         setEmail(data.email);

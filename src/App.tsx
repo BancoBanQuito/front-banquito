@@ -161,6 +161,10 @@ const App = () => {
       element: <CreateUser redirect="/cliente" />,
     },
     {
+      path: "personal-data",
+      element: <UpdateClient />,
+    },
+    {
       path: "login",
       element: (
         <Login
@@ -173,10 +177,15 @@ const App = () => {
   ];
 
   return (
-    /*<ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path="" element={<Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />}>
+          <Route
+            path=""
+            element={
+              <Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />
+            }
+          >
             <Route index element={<Home />} />
             {userRoutes.map((route) => (
               <Route
@@ -196,8 +205,7 @@ const App = () => {
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
-    </ThemeProvider>*/
-    <UpdateClient />
+    </ThemeProvider>
   );
 };
 

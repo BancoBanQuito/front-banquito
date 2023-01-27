@@ -1,18 +1,18 @@
-import { Box } from '@mui/material'
-import Typography from '@mui/material/Typography'
-import { Navigate, useNavigate } from 'react-router-dom'
-import { SizeButton } from '../../components/atoms/SizeButton'
-import { ButtonStyle } from '../../style/ButtonStyle'
-import { ColorPalette } from '../../style/ColorPalette'
+import { Box } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import { Navigate, useNavigate } from "react-router-dom";
+import { SizeButton } from "../../components/atoms/SizeButton";
+import { ButtonStyle } from "../../style/ButtonStyle";
+import { ColorPalette } from "../../style/ColorPalette";
 
 interface userProps {
-  username: string,
-  password: string
+  username: string;
+  password: string;
 }
 
 interface Props {
-  user: userProps | null,
-  isLogged: boolean,
+  user: userProps | null;
+  isLogged: boolean;
 }
 
 const HomeClient = ({ user, isLogged }: Props) => {
@@ -20,75 +20,108 @@ const HomeClient = ({ user, isLogged }: Props) => {
 
   return (
     <Box
-      display='flex'
+      display="flex"
       sx={{
-        width: '100%',
-        height: '90vh',
-        flexDirection: 'column',
+        width: "100%",
+        height: "90vh",
+        flexDirection: "column",
       }}
     >
-      <Box
-        marginTop='60px'
-      >
-        {
-          isLogged
-            ? <Box>
-              <Typography variant='h2'>Bienvenido Cliente {user?.username}</Typography>
-              <Box
-                display='flex'
-                gap={5}
-                sx={{
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <SizeButton text='Crear Cuenta'
-                  style={ButtonStyle.MEDIUM}
-                  palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                  onClick={() => navigate("/cliente/cuenta/crear")}
-                />
-                <SizeButton text='Ver estado de cuenta'
-                  style={ButtonStyle.MEDIUM}
-                  palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                  onClick={() => navigate("/cliente/cuenta/estado")}
-                />
-                <SizeButton text='Transferencias'
-                  style={ButtonStyle.MEDIUM}
-                  palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                  onClick={() => navigate("/cliente/transaccion")}
-                />
-                <SizeButton text='Ver Sucursales'
-                  style={ButtonStyle.MEDIUM}
-                  palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                  onClick={() => navigate("/cliente/sucursales")}
-                />
-              </Box>
-            </Box>
-            : <Box
-              display='flex'
+      <Box marginTop="60px">
+        {isLogged ? (
+          <Box>
+            <Typography variant="h2">
+              Bienvenido Cliente {user?.username}
+            </Typography>
+            <Box
+              display="flex"
+              gap={5}
               sx={{
-                direction: 'column',
-                height: '90vh',
-                justifyContent: 'center',
-                alignItems: 'center',
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              <SizeButton text='Iniciar Sesion'
+              <SizeButton
+                text="Crear Cuenta"
                 style={ButtonStyle.MEDIUM}
-                palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                onClick={() => navigate("/cliente/login")}
+                palette={{
+                  backgroundColor: ColorPalette.PRIMARY,
+                  accent: ColorPalette.ACCENT,
+                }}
+                onClick={() => navigate("/cliente/cuenta/crear")}
               />
-              <SizeButton text='Unirse'
+              <SizeButton
+                text="Ver estado de cuenta"
                 style={ButtonStyle.MEDIUM}
-                palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                onClick={() => navigate("/cliente/signup")}
+                palette={{
+                  backgroundColor: ColorPalette.PRIMARY,
+                  accent: ColorPalette.ACCENT,
+                }}
+                onClick={() => navigate("/cliente/cuenta/estado")}
+              />
+              <SizeButton
+                text="Transferencias"
+                style={ButtonStyle.MEDIUM}
+                palette={{
+                  backgroundColor: ColorPalette.PRIMARY,
+                  accent: ColorPalette.ACCENT,
+                }}
+                onClick={() => navigate("/cliente/transaccion")}
+              />
+              <SizeButton
+                text="Ver Sucursales"
+                style={ButtonStyle.MEDIUM}
+                palette={{
+                  backgroundColor: ColorPalette.PRIMARY,
+                  accent: ColorPalette.ACCENT,
+                }}
+                onClick={() => navigate("/cliente/sucursales")}
+              />
+              <SizeButton
+                text="Editar Informacion"
+                style={ButtonStyle.MEDIUM}
+                palette={{
+                  backgroundColor: ColorPalette.PRIMARY,
+                  accent: ColorPalette.ACCENT,
+                }}
+                onClick={() => navigate("/cliente/personal-data")}
               />
             </Box>
-        }
+          </Box>
+        ) : (
+          <Box
+            display="flex"
+            sx={{
+              direction: "column",
+              height: "90vh",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <SizeButton
+              text="Iniciar Sesion"
+              style={ButtonStyle.MEDIUM}
+              palette={{
+                backgroundColor: ColorPalette.PRIMARY,
+                accent: ColorPalette.ACCENT,
+              }}
+              onClick={() => navigate("/cliente/login")}
+            />
+            <SizeButton
+              text="Unirse"
+              style={ButtonStyle.MEDIUM}
+              palette={{
+                backgroundColor: ColorPalette.PRIMARY,
+                accent: ColorPalette.ACCENT,
+              }}
+              onClick={() => navigate("/cliente/signup")}
+            />
+          </Box>
+        )}
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default HomeClient
+export default HomeClient;
