@@ -11,6 +11,9 @@ import { ProductService } from '../../../services/product/productService';
 import { ColorPalette } from '../../../style/ColorPalette';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 
+const entityBankCode = '123';
+const internationalBankCode = 'a371bff9a1d856ff01f26a195b50675fc8s';
+const codeBranch = '123';
 
 const AccountCreateClient = () => {
     const [isLoading, setisLoading] = useState<boolean>(false);
@@ -35,7 +38,10 @@ const AccountCreateClient = () => {
     const handleSubmit = (data: any) => {
         const account: RQCreateAccount = {
             ...data,
-            codeProductType: "2"
+            entityBankCode: entityBankCode,
+            internationalBankCode: internationalBankCode,
+            codeBranch: codeBranch,         
+            codeProductType: "2",
         };
         setaccountData(account);
         saveAccount(account);
@@ -53,11 +59,11 @@ const AccountCreateClient = () => {
         } finally {
             setisLoading(false);
         }
-    } */
+    }
 
     return (
         <>
-            {/* <div style={{
+            <div style={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -98,7 +104,7 @@ const AccountCreateClient = () => {
                 enableButtonBox
                 onConfirm={() => saveAccount(accountData as RQCreateAccount)}
                 onReject={() => navigate('/cliente')}
-            /> */}
+            />
         </>
     )
 }

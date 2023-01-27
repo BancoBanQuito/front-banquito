@@ -20,7 +20,7 @@ interface AccountStatementBankUserProps {
     client?: boolean
 }
 
-const userCodeLocalAccount = '1234567890';
+const userCodeLocalAccount = 'a3998d173acbf0c893db';
 
 const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
     const [isLoading, setisLoading] = useState<boolean>(false);

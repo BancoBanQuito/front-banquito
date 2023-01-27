@@ -1,19 +1,21 @@
 import React, { LegacyRef } from 'react';
-import { RSAccountStatement } from '../../../services/account/dto/RSAccountStatement';
+import { RSAccountStatement, RSAccountStatementTransaccion } from '../../../services/account/dto/RSAccountStatement';
 import { Typography, Container, Grid, Box } from '@mui/material';
 import { ColorPalette } from '../../../style/ColorPalette';
 import TableMolecule from '../../molecules/TableMolecule';
+import dayjs, { Dayjs } from 'dayjs';
+import moment from 'moment';
 
 interface AccountStatementProps {
     accountStatement: RSAccountStatement | undefined
 }
 
 const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref) => {
-    const getRow = (data: any) => {
+    const getRow = (data: RSAccountStatementTransaccion) => {
         return [
-            <Typography></Typography>,
+            <Typography>{moment(data.date, 'DD-MM-YYYY').format().split('T')[0]}</Typography>,
             <Typography>{data.movement}</Typography>,
-            <Typography>{data.description}</Typography>,
+            <Typography>{data.concept}</Typography>,
             <Typography>{data.amount}</Typography>,
             <Typography>{data.balance}</Typography>
         ]
@@ -170,7 +172,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                                             Juanito Perez
                                         </Typography>
                                         <Typography sx={{ width: '50%', textAlign: 'end' }} variant='body1'>
-                                             XXXXXXXXXX
+                                            XXXXXXXXXX
                                         </Typography>
                                         <Typography variant='body1'>
                                             Cuenta: {props.accountStatement.localCodeAccount}

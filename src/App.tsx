@@ -28,6 +28,7 @@ import AccountCreateSignatureUser from "./pages/UserPages/Account/AccountCreateS
 import AccountEditSignatureUser from "./pages/UserPages/Account/AccountEditSignatureUser";
 import AccountCancelUser from "./pages/UserPages/Account/AccountCancelUser";
 import AccountAvailableBalance from "./pages/ATMPages/Account/AccountAvailableBalance";
+import AccountCreateClient from "./pages/ClientPages/Account/AccountCreateClient";
 interface userProps {
   username: string,
   password: string
@@ -79,16 +80,12 @@ const App = () => {
       element: <AccountCancelUser />,
     },
     {
-      path: "transaccion/dates",
+      path: "transaccion/dias",
       element: <TransactionBeetwenDates />,
     },
     {
       path: "interes",
       element: <InterestRateLog />,
-    },
-    {
-      path: "agregar/tipo-de-producto",
-      element: <AccountCreateUser />,
     },
     {
       path: "entidad",
@@ -137,7 +134,7 @@ const App = () => {
     },
     {
       path: "cuenta/crear",
-      element: <AccountCreateUser />,
+      element: <AccountCreateClient />,
     },
     {
       path: "sucursales",

@@ -12,6 +12,10 @@ import { AccountService } from '../../../services/account/AccountService';
 import { ProductService } from '../../../services/product/productService';
 import { ColorPalette } from '../../../style/ColorPalette';
 
+const entityBankCode = '123';
+const internationalBankCode = 'a371bff9a1d856ff01f26a195b50675fc8s';
+const codeBranch = '123';
+
 const AccountCreateUser = () => {
   const [isLoading, setisLoading] = useState<boolean>(false);
   const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
@@ -37,6 +41,9 @@ const AccountCreateUser = () => {
   const handleSubmit = (data: any) => {
     const account = {
       ...data,
+      entityBankCode: entityBankCode,
+      internationalBankCode: internationalBankCode,
+      codeBranch: codeBranch,
       codeProductType: "2"
     };
     setaccountData(account);
