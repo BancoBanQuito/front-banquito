@@ -22,8 +22,8 @@ const AccountEditSignature = () => {
     identificationType: "",
     name: "",
     role: "",
-    signature: "",
-    status: ""
+    status: "",
+    signature: ""
   });
   const [accountID, setaccountID] = useState<{
     codeLocalAccount: string,
@@ -32,7 +32,9 @@ const AccountEditSignature = () => {
 
   const getAccountSignatures = async (data: string) => {
     try {
-      const account: RSAccount | undefined = (await AccountService.getAccountsById(data, "DNI")).data?.data?.at(0);
+      const account: RSAccount | undefined = (await AccountService.getAccountsById("DNI", data)).data?.data?.at(0);
+      console.log("account");
+      console.log(account);
       if (!account) {
         console.log("No se han encontrado datos");
         return;
@@ -41,7 +43,11 @@ const AccountEditSignature = () => {
         codeInternationalAccount: account.codeInternationalAccount,
         codeLocalAccount: account.codeLocalAccount
       })
-      const signaturesData: RSSignature[] | undefined = (await AccountSignatureService.getAccountSignature(data, "DNI")).data.data;
+      const signaturesData: RSSignature[] | undefined = (await AccountSignatureService.getAccountSignature("DNI", data)).data.data;
+      signaturesData?.forEach((signature) => {{
+        console.log("ENTRO FOR EACH")
+        console.log(signature);
+      }})
       if (signaturesData) {
         setsignatures(signaturesData);
         setactiveSearchBox(false);
