@@ -10,9 +10,9 @@ import {
   updateProvince,
 } from "./functions";
 import { Canton, Parish, Province } from "./types";
-import { Dropdown } from "/src/components/atoms/Dropdown";
-import { SizeButton } from "/src/components/atoms/SizeButton";
-import { ButtonStyle } from "/src/style/ButtonStyle";
+import { Dropdown } from "@/components/atoms/Dropdown";
+import { SizeButton } from "@/components/atoms/SizeButton";
+import { ButtonStyle } from "@/style/ButtonStyle";
 
 export const UpdateLocation = () => {
   const mockedItems = [

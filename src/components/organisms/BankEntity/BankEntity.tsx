@@ -2,9 +2,9 @@ import * as React from 'react';
 import { TextField } from '@mui/material';
 import { saveBankEntity } from './FunctionsBank';
 import styled from 'styled-components';
-import { SizeButton } from '/src/components/atoms/SizeButton';
-import { ButtonStyle } from '/src/style/ButtonStyle';
-import { ColorPalette } from '/src/style/ColorPalette';
+import { SizeButton } from '@/components/atoms/SizeButton';
+import { ButtonStyle } from '@/style/ButtonStyle';
+import { ColorPalette } from '@/style/ColorPalette';
 
 export const Container = styled.div`
   display: flex;

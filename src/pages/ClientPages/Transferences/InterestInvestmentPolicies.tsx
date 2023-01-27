@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
-import { Box, Card, CardContent, Fade, Typography } from '@mui/material';
-import { SizeButton } from '/src/components/atoms/SizeButton';
-import TableMolecule from '/src/components/molecules/TableMolecule';
-import { ButtonStyle } from '/src/style/ButtonStyle';
-import { ColorPalette } from '/src/style/ColorPalette';
-import { RSTransaction } from '/src/services/transaction/dto/RSTransaction';
-import { Dayjs } from 'dayjs';
-import { TransactionService } from '/src/services/transaction/TransactionService';
-import DatePickerAtom from '/src/components/atoms/DatePicker';
-import SearchAccount from '/src/components/organisms/Account/SearchAccount';
+import React from 'react';
+import { Typography } from '@mui/material';
+import { SizeButton } from '@/components/atoms/SizeButton';
+import TableMolecule from '@/components/molecules/TableMolecule';
+import { ButtonStyle } from '@/style/ButtonStyle';
+import { ColorPalette } from '@/style/ColorPalette';
 
 const headersMock = [
   <Typography>Fecha</Typography>,
