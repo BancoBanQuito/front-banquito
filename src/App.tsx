@@ -36,6 +36,7 @@ import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEn
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
+import CreateClient from "./components/organisms/Client/CreateClient";
 
 const App = () => {
 
@@ -168,7 +169,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Routes>
           <Route path="" element={<Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />}>
             <Route index element={<Home />} />
@@ -189,7 +190,8 @@ const App = () => {
           </Route>
           <Route path="*" element={<Error404 />} />
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
+      <CreateClient />
     </ThemeProvider>
   );
 };
