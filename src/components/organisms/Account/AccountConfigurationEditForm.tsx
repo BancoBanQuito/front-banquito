@@ -1,10 +1,10 @@
-import { Box } from '@mui/system'
+import { Box } from '@mui/material'
 import React, { FormEvent } from 'react'
-import { SizeButton } from '../../atoms/SizeButton';
-import { ColorPalette } from '../../../style/ColorPalette';
-import { ButtonStyle } from '../../../style/ButtonStyle';
-import TextFieldAtom from '../../atoms/TextFieldAtom';
-import { Dropdown } from '../../atoms/Dropdown';
+import { ButtonStyle } from '../../../style/ButtonStyle'
+import { ColorPalette } from '../../../style/ColorPalette'
+import { Dropdown } from '../../atoms/Dropdown'
+import { SizeButton } from '../../atoms/SizeButton'
+import TextFieldAtom from '../../atoms/TextFieldAtom'
 
 const statusItems = [
     {

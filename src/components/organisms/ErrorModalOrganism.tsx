@@ -1,8 +1,8 @@
-import { Modal, Box, Typography } from '@mui/material';
+import { Modal, Box, Typography } from '@mui/material'
 import React from 'react'
-import { SizeButton } from '../atoms/SizeButton';
-import { ColorPalette } from '../../style/ColorPalette';
-import { ButtonStyle } from '../../style/ButtonStyle';
+import { ButtonStyle } from '../../style/ButtonStyle'
+import { ColorPalette } from '../../style/ColorPalette'
+import { SizeButton } from '../atoms/SizeButton'
 
 interface ErrorModalOrganismProps {
     active: boolean,

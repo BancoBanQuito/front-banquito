@@ -1,9 +1,9 @@
-import { Typography } from '@mui/material'
+import { Typography } from '@mui/material';
 import React from 'react'
-import { ButtonStyle } from '../../../style/ButtonStyle'
-import { ColorPalette } from '../../../style/ColorPalette'
-import { SizeButton } from '../../atoms/SizeButton'
-import TableMolecule from '../../molecules/TableMolecule'
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
+import { SizeButton } from '../../atoms/SizeButton';
+import TableMolecule from '../../molecules/TableMolecule';
 
 interface AccountConfigurationTableOranismProps {
     accountConfiguration: {

@@ -1,16 +1,16 @@
-import React, { FormEvent, useEffect, useState } from 'react'
-import { AccountStament } from '../../../services/account/model/AccountStatement'
-import TableMolecule from '../../molecules/TableMolecule'
-import { Box, InputAdornment, TextField, Typography } from '@mui/material'
-import { ColorPalette } from '../../../style/ColorPalette'
-import ButtonIcon from '../../atoms/ButtonIcon'
-import { Search, Visibility } from '@mui/icons-material'
-import { SizeButton } from '../../atoms/SizeButton'
-import { ButtonStyle } from '../../../style/ButtonStyle'
+import { Search, Visibility } from '@mui/icons-material';
+import { Typography, Box, TextField, InputAdornment } from '@mui/material';
+import React, { FormEvent, useState } from 'react';
+import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
+import ButtonIcon from '../../atoms/ButtonIcon';
+import { SizeButton } from '../../atoms/SizeButton';
+import TableMolecule from '../../molecules/TableMolecule';
 
 interface AccountStatementTableProps {
-    data: AccountStament[],
-    onSelection: (data: AccountStament) => void;
+    data: RSAccountStatementList[],
+    onSelection: (data: any) => void;
 }
 
 const headers = [
@@ -27,15 +27,15 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
 
     const [searchString, setsearchString] = useState<string>("");
     const [hasSearch, sethasSearch] = useState<boolean>(false);
-    const [lastArrayState, setlastArrayState] = useState<AccountStament[]>([])
-    const [actualArrayState, setactualArrayState] = useState<AccountStament[]>(props.data);
+    const [lastArrayState, setlastArrayState] = useState<RSAccountStatementList[]>([])
+    const [actualArrayState, setactualArrayState] = useState<RSAccountStatementList[]>(props.data);
 
     const handleSearch = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         sethasSearch(true);
         setlastArrayState(actualArrayState);
         setactualArrayState([]);
-        const searchResult: AccountStament[] = actualArrayState.filter(data => searchString === data.currentCutOffDate.toString())
+        const searchResult: RSAccountStatementList[] = actualArrayState.filter(data => searchString === data.currentCutOffDate.toString())
         setactualArrayState(searchResult);
     }
 
@@ -47,12 +47,12 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
         setsearchString("");
     }
 
-    const getRow = (data: AccountStament) => {
+    const getRow = (data: RSAccountStatementList) => {
         return [
             <Typography>{data.currentCutOffDate.toString()}</Typography>,
             <Typography>{1}</Typography>,
             <Typography>{1}</Typography>,
-            <Typography>{data.currentBalance}</Typography>,
+            <Typography>{data.balance}</Typography>,
             <Typography>{data.interest}</Typography>,
             <Typography><ButtonIcon color={ColorPalette.PRIMARY}
                 icon={<Visibility />}
