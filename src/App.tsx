@@ -37,6 +37,7 @@ import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
 import AccountAvailableBalance from "./pages/ATMPages/Account/AccountAvailableBalance";
 import InterestSavingAccounts from "./pages/ClientPages/Transferences/InterestSavingAccounts";
+import InterestInvestmentPolicies from "./pages/ClientPages/Transferences/InterestInvestmentPolicies";
 
 const App = () => {
 
@@ -162,6 +163,9 @@ const App = () => {
       element: <TransferUser />,
     },
     {
+path: "interes/polizas-inversion",
+      element: <InterestInvestmentPolicies />,
+},{
     path: "interes/cuenta-ahorro",
       element: <InterestSavingAccounts />,
       },
