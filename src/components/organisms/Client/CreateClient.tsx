@@ -44,6 +44,7 @@ const CreateClient: React.FC = () => {
   const [tinDocument, setTinDocument] = useState<string>("");
   const [workStatus, setWorkStatus] = useState<string>("");
   const [creationDate, setCreationDate] = useState<Date>(new Date());
+
   // const [phone, setPhone] = useState<string>("");
   // const [address, setAddress] = useState<string>("");
   // const [relationship, setRelationship] = useState<string>("");
@@ -174,6 +175,7 @@ const CreateClient: React.FC = () => {
 
   const emailRegex =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
 
   const handelSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
