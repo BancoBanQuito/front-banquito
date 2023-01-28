@@ -13,7 +13,7 @@ const CreateHolidayYear: React.FC = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8081/api/holiday/${date}`,
+        `https://settings-banquitoapp-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/holiday/${date}`,
         {
           method: "POST",
           headers: {
