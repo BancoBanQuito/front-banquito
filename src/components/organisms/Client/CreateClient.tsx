@@ -48,7 +48,7 @@ const CreateClient: React.FC = () => {
   // const [address, setAddress] = useState<string>("");
   // const [relationship, setRelationship] = useState<string>("");
   // const [reference, setReference] = useState<string>("");
-  const [segment, setSegment] = useState<string>("");
+  // const [segment, setSegment] = useState<string>("");
   const [user, setUser] = useState<string>("");
   // const [phoneNumber, setPhoneNumber] = useState<string[]>([]);
   // const [phoneType, setPhoneType] = useState<string[]>([]);
@@ -72,6 +72,7 @@ const CreateClient: React.FC = () => {
       longitude: "",
     },
   ];
+
   const [codeLocation, setCodeLocation] = useState(address[0].codeLocation);
   const [lineOne, setLineOne] = useState(address[0].lineOne);
   const [lineTwo, setLineTwo] = useState(address[0].lineTwo);
@@ -87,7 +88,7 @@ const CreateClient: React.FC = () => {
     {
       nameRelationShip: "",
       startDate: "",
-      endDate: ""
+      endDate: "",
     },
   ];
 
@@ -96,7 +97,6 @@ const CreateClient: React.FC = () => {
   );
   const [startDate, setStartDate] = useState(relationship[0].startDate);
   const [endDate, setEndDate] = useState(relationship[0].endDate);
-
 
   // const [nameRelationShip, setNameRelationShip] = useState<string[]>([]);
   // const [startDate, setStartDate] = useState<Date[]>([]);
@@ -177,6 +177,78 @@ const CreateClient: React.FC = () => {
 
   const handelSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    console.log("submit");
+    console.log(
+      JSON.stringify({
+        identificationType,
+        identification,
+        lastname,
+        firstname,
+        status,
+        email,
+        birthDate,
+        gender,
+        career,
+        companyName,
+        companyType,
+        createDateCompany,
+        appLegalRepresent,
+        articlesAssociatedDoc,
+        basicServicesDocument,
+        fingerPrint,
+        incomeTaxDocument,
+        lastStatusDate,
+        maritalStatus,
+        monthlyAvgIncome,
+        nationality,
+        signature,
+        taxPaymentPlace,
+        tinDocument,
+        workStatus,
+        creationDate,
+        phone: [
+          {
+            phoneNumber,
+            phoneType,
+          },
+        ],
+        address: [
+          {
+            codeLocation,
+            lineOne,
+            lineTwo,
+            latitude,
+            longitude,
+          },
+        ],
+        relationship: [
+          {
+            nameRelationShip,
+            startDate,
+            endDate,
+          },
+        ],
+        reference: [
+          {
+            nameReference,
+            phoneReference,
+            related,
+          },
+        ],
+        // segment: {
+        //   codeSegment,
+        //   nameSegment,
+        //   statusSegment,
+        // },
+        user: {
+          userName,
+          password,
+          typeUser,
+          creationDate,
+          lastLoginDate,
+        },
+      })
+    );
     try {
       const response = await fetch("http://localhost:8083/api/client", {
         method: "POST",
@@ -240,11 +312,11 @@ const CreateClient: React.FC = () => {
               related,
             },
           ],
-          segment: {
-            codeSegment,
-            nameSegment,
-            statusSegment,
-          },
+          // segment: {
+          //   codeSegment,
+          //   nameSegment,
+          //   statusSegment,
+          // },
           user: {
             userName,
             password,
@@ -272,11 +344,13 @@ const CreateClient: React.FC = () => {
   };
 
   const handleBirthDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const dateString = event.target.value;
-    if (moment(dateString, "YYYY-MM-DD", true).isValid()) {
-      setBirthDateState({ date: new Date(dateString), error: false });
+    const date = event.target.value;
+    const parsedDate = parse(date, "yyyy-MM-dd", new Date());
+    if (isValid(parsedDate)) {
+      setBirthDate(parsedDate);
+      setCreateDateError("");
     } else {
-      setBirthDateState({ date: null, error: true });
+      setCreateDateError("Ingrese una fecha válida en el formato yyyy-MM-dd");
     }
   };
 
@@ -295,6 +369,17 @@ const CreateClient: React.FC = () => {
     const parsedDate = parse(date, "yyyy-MM-dd", new Date());
     if (isValid(parsedDate)) {
       setCreateDateCompany(parsedDate);
+      setCreateDateError("");
+    } else {
+      setCreateDateError("Ingrese una fecha válida en el formato yyyy-MM-dd");
+    }
+  };
+
+  const handleCreateChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const date = event.target.value;
+    const parsedDate = parse(date, "yyyy-MM-dd", new Date());
+    if (isValid(parsedDate)) {
+      setCreationDate(parsedDate);
       setCreateDateError("");
     } else {
       setCreateDateError("Ingrese una fecha válida en el formato yyyy-MM-dd");
@@ -616,6 +701,7 @@ const CreateClient: React.FC = () => {
           <TextField
             type="date"
             value={creationDate ? creationDate.toISOString().substr(0, 10) : ""}
+            onChange={handleCreateChange}
           />
         </div>
       </Container>
@@ -646,6 +732,90 @@ const CreateClient: React.FC = () => {
             onChange={(event) => {
               setCodeLocation(event.target.value);
               address[0].codeLocation = event.target.value;
+            }}
+            variant="standard"
+          />
+        </div>
+      </Container>
+
+      <Container sx={containerTextFieldStyles}>
+        <FormLabel sx={formLabelStyles}>Escriba Line one:</FormLabel>
+        <div style={{ marginRight: "10px" }}>
+          <TextField
+            value={lineOne}
+            onChange={(event) => {
+              setLineOne(event.target.value);
+              address[0].lineOne = event.target.value;
+            }}
+            variant="standard"
+          />
+        </div>
+      </Container>
+
+      <Container sx={containerTextFieldStyles}>
+        <FormLabel sx={formLabelStyles}>Escriba Line two:</FormLabel>
+        <div style={{ marginRight: "10px" }}>
+          <TextField
+            value={lineTwo}
+            onChange={(event) => {
+              setLineTwo(event.target.value);
+              address[0].lineTwo = event.target.value;
+            }}
+            variant="standard"
+          />
+        </div>
+      </Container>
+
+      <Container sx={containerTextFieldStyles}>
+        <FormLabel sx={formLabelStyles}>Escriba Latitud:</FormLabel>
+        <div style={{ marginRight: "10px" }}>
+          <TextField
+            value={latitude}
+            onChange={(event) => {
+              setLatitude(event.target.value);
+              address[0].latitude = event.target.value;
+            }}
+            variant="standard"
+          />
+        </div>
+      </Container>
+
+      <Container sx={containerTextFieldStyles}>
+        <FormLabel sx={formLabelStyles}>Escriba Longitud:</FormLabel>
+        <div style={{ marginRight: "10px" }}>
+          <TextField
+            value={longitude}
+            onChange={(event) => {
+              setLongitude(event.target.value);
+              address[0].longitude = event.target.value;
+            }}
+            variant="standard"
+          />
+        </div>
+      </Container>
+
+      <Container sx={containerTextFieldStyles}>
+        <FormLabel sx={formLabelStyles}>Escriba relationship:</FormLabel>
+        <div style={{ marginRight: "10px" }}>
+          <TextField
+            value={nameRelationShip}
+            onChange={(event) => {
+              setNameRelationShip(event.target.value);
+              relationship[0].nameRelationShip = event.target.value;
+            }}
+            variant="standard"
+          />
+        </div>
+      </Container>
+
+      <Container sx={containerTextFieldStyles}>
+        <FormLabel sx={formLabelStyles}>Escriba reference:</FormLabel>
+        <div style={{ marginRight: "10px" }}>
+          <TextField
+            value={nameReference}
+            onChange={(event) => {
+              setNameReference(event.target.value);
+              reference[0].nameReference = event.target.value;
             }}
             variant="standard"
           />
