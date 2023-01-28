@@ -18,7 +18,7 @@ const Holiday: React.FC = () => {
   
 
   useEffect(() => {
-    fetch("https://settings-banquitoapp-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/holiday")
+    fetch("https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/holiday")
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
