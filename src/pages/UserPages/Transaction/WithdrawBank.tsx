@@ -14,27 +14,27 @@ import { ColorPalette } from '../../../style/ColorPalette';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import InfoModalOrganism from '../../../components/organisms/InfoModalOrganism';
 
-const DepositBank = () => {
+const WithdrawBank = () => {
 
-    const [showInfoModal, setshowInfoModal] = useState(false);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [loadMessage, setloadMessage] = useState<string>();
+    const [showInfoModal, setshowInfoModal] = useState<boolean>(false);
 
     const navigate = useNavigate();
 
     const [value, setvalue] = useState<RQTransaction>({
         codeInternationalAccount: "",
         codeLocalAccount: "",
-        concept: "Deposito",
+        concept: "Retiro",
         description: "",
-        movement: "NOTA CREDITO",
+        movement: "NOTA DEBITO",
         recipientAccountNumber: "",
-        recipientBank: "BANQUITO",
+        recipientBank: "",
         recipientType: "",
-        type: "DEPOSITO",
+        type: "RETIRO",
         value: 0
     });
 
@@ -44,15 +44,14 @@ const DepositBank = () => {
             setloadMessage("Validando Cuenta...");
             const accountSimple: RSAccount | undefined = (await AccountService.getAccountByCode(value.codeLocalAccount)).data.data;
             if (!accountSimple) {
-                seterrorMessage("Cuenta no encontrada");
-                setactiveErrorModal(true);
+                console.log("Ha ocurrido un error");
                 return;
             }
             const depositAccount = {
                 ...value,
                 codeInternationalAccount: accountSimple.codeInternationalAccount
             }
-            setloadMessage("Depositando...");
+            setloadMessage("Contando su dinero...");
             await TransactionService.postTransaction(depositAccount);
             setshowInfoModal(true);
         } catch (error: any) {
@@ -97,7 +96,7 @@ const DepositBank = () => {
                                     codeLocalAccount: data.accountNumber
                                 });
                             }}
-                            title='Cuenta Depósito' /> :
+                            title='Cuenta Retiro' /> :
                         indexForm === 1 ?
                             <TransferAmountForm
                                 onSubmit={(data: any) => {
@@ -109,7 +108,7 @@ const DepositBank = () => {
                                 }} />
                             :
                             <ConfirmTransferUserForm
-                                title='Depositar'
+                                title='Retirar'
                                 showField
                                 onAccept={() => handleAccept()}
                                 onDecline={() => handleDecline()}
@@ -118,9 +117,9 @@ const DepositBank = () => {
             </div>
             <InfoModalOrganism
                 active={showInfoModal}
-                text='La transferencia ha sido completada'
-                title='Transfercia Completa'
                 onDeactive={() => { }}
+                title='Retiro Completo'
+                text={'Puede retirar su dinero'}
                 buttonText='Ok'
                 onClick={() => navigate('/usuario')} />
             <LoadOrganism
@@ -134,4 +133,4 @@ const DepositBank = () => {
     )
 }
 
-export default DepositBank
+export default WithdrawBank

@@ -12,11 +12,13 @@ import { TransactionService } from "../../../services/transaction/TransactionSer
 import { RQTransaction } from "../../../services/transaction/dto/RQTransaction";
 import { ColorPalette } from "../../../style/ColorPalette";
 import LoadOrganism from "../../../components/organisms/LoadOrganism";
+import InfoModalOrganism from "../../../components/organisms/InfoModalOrganism";
 
-const userCodeLocalAccount = "a3998d173acbf0c893db";
+const userCodeLocalAccount = "87c6d872679c7e96365c";
 
 const WithdrawalsBank = () => {
 
+    const [showInfoModal, setshowInfoModal] = useState<boolean>(false);
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
@@ -56,10 +58,8 @@ const WithdrawalsBank = () => {
                 ...value,
                 codeInternationalAccount: accountSimple.codeInternationalAccount
             })
-            console.log(value);
             await TransactionService.postTransaction(value);
-            console.log(value);
-            navigate('/cliente');
+            setshowInfoModal(true);
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
@@ -111,6 +111,13 @@ const WithdrawalsBank = () => {
                             data={value} />}
                 </Box>
             </div>
+            <InfoModalOrganism
+                active={showInfoModal}
+                onDeactive={() => { }}
+                title='Retiro Completo'
+                text={'Puede retirar su dinero'}
+                buttonText='Ok'
+                onClick={() => navigate('/usuario')} />
             <LoadOrganism
                 active={isLoading}
                 text="Validando Retiro..." />

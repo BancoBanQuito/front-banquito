@@ -12,18 +12,14 @@ import { TransactionService } from '../../../services/transaction/TransactionSer
 import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
 import { ColorPalette } from '../../../style/ColorPalette';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
-
-const buttonATMSize = {
-    height: 75,
-    width: 200
-}
+import InfoModalOrganism from '../../../components/organisms/InfoModalOrganism';
 
 const DepositAtm = () => {
 
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
-
+    const [showInfoModal, setshowInfoModal] = useState<boolean>(false)
     const [isLoading, setisLoading] = useState<boolean>(false);
 
     const navigate = useNavigate();
@@ -31,11 +27,11 @@ const DepositAtm = () => {
     const [value, setvalue] = useState<RQTransaction>({
         codeInternationalAccount: "",
         codeLocalAccount: "",
-        concept: "",
+        concept: "Deposito",
         description: "",
         movement: "NOTA CREDITO",
         recipientAccountNumber: "",
-        recipientBank: "",
+        recipientBank: "BANQUITO",
         recipientType: "",
         type: "DEPOSITO",
         value: 0
@@ -46,18 +42,15 @@ const DepositAtm = () => {
         try {
             const accountSimple: RSAccount | undefined = (await AccountService.getAccountByCode(value.codeLocalAccount)).data.data;
             if (!accountSimple) {
-                console.log("Ha ocurrido un error");
+                seterrorMessage('Cuenta no encontrada');
                 return;
             }
-            console.log(accountSimple);
-            setvalue({
+            const depositAccount = {
                 ...value,
                 codeInternationalAccount: accountSimple.codeInternationalAccount
-            })
-            console.log(value);
-            await TransactionService.postTransaction(value);
-            console.log(value);
-            navigate('/cliente');
+            }
+            await TransactionService.postTransaction(depositAccount);
+            setshowInfoModal(true);
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
@@ -124,6 +117,13 @@ const DepositAtm = () => {
                                 data={value} />}
                 </Box>
             </div>
+            <InfoModalOrganism
+                active={showInfoModal}
+                text='La transferencia ha sido completada'
+                title='Transfercia Completa'
+                onDeactive={() => { }}
+                buttonText='Ok'
+                onClick={() => navigate('/atm')} />
             <LoadOrganism
                 active={isLoading}
                 text='Depositando...' />

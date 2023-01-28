@@ -12,6 +12,7 @@ import { ColorPalette } from '../../../style/ColorPalette';
 import { AccountService } from '../../../services/account/AccountService';
 import { RSAccount } from '../../../services/account/dto/RSAccount';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
+import InfoModalOrganism from '../../../components/organisms/InfoModalOrganism';
 
 interface ITransaction {
     codeInternationalAccount: string,
@@ -37,6 +38,8 @@ interface TransferUserProps {
 }
 
 const TransferUser = (props: TransferUserProps) => {
+
+    const [showInfoModal, setshowInfoModal] = useState<boolean>(false);
     const [isLoading, setisLoading] = useState(false);
     const [loadMessage, setloadMessage] = useState<string | undefined>();
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
@@ -46,12 +49,12 @@ const TransferUser = (props: TransferUserProps) => {
     const [transactionData, settransactionData] = useState<ITransaction>({
         codeInternationalAccount: "",
         codeLocalAccount: "",
-        concept: "NOTA DEBITO",
-        description: "Nota Debito",
-        movement: "Nota Debito",
+        concept: "Transferencia Directa",
+        description: "",
+        movement: "",
         type: "",
         value: 0,
-        bank: ""
+        bank: "BANQUITO"
     });
 
     const [recipient, setrecipient] = useState<IRecipient>({
@@ -84,8 +87,10 @@ const TransferUser = (props: TransferUserProps) => {
                 return;
             }
             setloadMessage("Realizando Transaccion")
+            console.log(getAccountOwner(accountOwner.codeInternationalAccount));
             await TransactionService.postTransaction(getAccountOwner(accountOwner.codeInternationalAccount));
             await TransactionService.postTransaction(getAccountRecipient(accountRecipient.codeInternationalAccount));
+            setshowInfoModal(true);
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
@@ -97,30 +102,30 @@ const TransferUser = (props: TransferUserProps) => {
     const getAccountOwner = (codeInternationalAccount: string): RQTransaction => {
         return {
             movement: "NOTA DEBITO",
-            type: "DEBITO",
-            recipientType: "CREDITO",
+            type: "TRANSFERENCIA",
             codeLocalAccount: transactionData.codeLocalAccount,
             codeInternationalAccount: codeInternationalAccount,
             concept: transactionData.concept,
-            description: transactionData.movement,
+            description: transactionData.description,
+            value: transactionData.value,
             recipientAccountNumber: recipient.recipientAccountNumber,
             recipientBank: recipient.recipientBank,
-            value: transactionData.value,
+            recipientType: "BENEFICIARIO",
         }
     }
 
     const getAccountRecipient = (codeInternationalAccount: string): RQTransaction => {
         return {
             movement: "NOTA CREDITO",
-            type: "CREDITO",
-            recipientType: "DEBITO",
+            type: "TRANSFERENCIA",
             codeLocalAccount: recipient.recipientAccountNumber,
             codeInternationalAccount: codeInternationalAccount,
             concept: transactionData.concept,
-            description: transactionData.movement,
+            description: transactionData.description,
+            value: transactionData.value,
             recipientAccountNumber: transactionData.codeLocalAccount,
             recipientBank: transactionData.bank,
-            value: transactionData.value,
+            recipientType: "ORDENANTE",
         }
     }
 
@@ -202,6 +207,13 @@ const TransferUser = (props: TransferUserProps) => {
                                     }} />}
                 </Box>
             </div>
+            <InfoModalOrganism
+                active={showInfoModal}
+                text='La transferencia ha sido completada'
+                title='Transfercia Completa'
+                onDeactive={() => { }}
+                buttonText='Ok'
+                onClick={() => navigate('/usuario')} />
             <LoadOrganism
                 active={isLoading}
                 text={loadMessage} />

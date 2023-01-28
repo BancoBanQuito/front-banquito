@@ -32,7 +32,7 @@ const buttonATMSize = {
 
 const TransferDataForm = (props: TransferFormProps) => {
     const [transfer, settransfer] = useState<FormTransferInterface>({
-        bank: "aef0fadf647c8d6f",
+        bank: "BANQUITO",
         accountNumber: "",
         concept: "",
         description: "",
