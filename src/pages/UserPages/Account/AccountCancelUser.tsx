@@ -39,8 +39,6 @@ const AccountCancelUser = () => {
   const handleClose = () => setOpen(false);
   const [activeSearchBox, setactiveSearchBox] = useState<boolean>(true);
   const [accountProduct, setAccountsProduct] = useState<RSProductTypeAndClientName>();
-  const [selectAccount, setselectAccount] = useState<RSAccount>();  
-  const [dataTable, setDataTable] = useState<RSAccountCancelTable>();
 
   /*const getProductTypeAndClientName = async (accountNumber: string) => {
     try{
@@ -64,8 +62,8 @@ const AccountCancelUser = () => {
         console.log("No se han encontrado datos");
         return;
       }else{
-        setselectAccount(Account);
-        setactiveSearchBox(false);
+        // setselectAccount(Account);
+        // setactiveSearchBox(false);
       }
   }
 
