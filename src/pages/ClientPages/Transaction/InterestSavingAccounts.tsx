@@ -7,21 +7,21 @@ import SearchAccount from '../../../components/organisms/Account/SearchAccount';
 import { TransactionService } from '../../../services/transaction/TransactionService';
 import { RSTransaction } from '../../../services/transaction/dto/RSTransaction';
 import { ColorPalette } from '../../../style/ColorPalette';
+import { InterestService } from '../../../services/transaction/InterestService';
+import { RSSavingsAccountInterest } from '../../../services/transaction/dto/RSSavingsAccountInterest';
+import moment from 'moment';
 
 const headersMock = [
   <Typography>Fecha</Typography>,
-  <Typography>Movimiento</Typography>,
-  <Typography>Concepto</Typography>,
-  <Typography>Monto</Typography>,
+  <Typography>Interes</Typography>,
   <Typography>Saldo</Typography>,
-  <Typography>Beneficiario</Typography>,
 ]
 
 
 
 const InterestSavingAccounts = () => {
 
-  const [interestSavingAccounts, setInterestSavingAccounts] = useState<RSTransaction[]>([]);
+  const [interestSavingAccounts, setInterestSavingAccounts] = useState<RSSavingsAccountInterest[]>([]);
   const [activeSearch, setactiveSearch] = useState<boolean>(true);
   const [dateFrom, setDateFrom] = useState<Dayjs | null>(null);
   const [dateTo, setDateTo] = useState<Dayjs | null>(null);
@@ -29,14 +29,12 @@ const InterestSavingAccounts = () => {
   const searchInterestSavingAccounts = async (codeLocalAccount: string, from: string, to: string) => {
 
     try {
-      const data: RSTransaction[] | undefined = (await TransactionService.getTransaction(codeLocalAccount, from, to)).data.data;
+      const data: RSSavingsAccountInterest[] | undefined = (await InterestService.getInterest(codeLocalAccount, from, to)).data.data;
+      const regex = /Calculo interes/;
       if (data) {
-        const result = data.filter((item: RSTransaction) => {
-          if (item.concept === 'Calculo interes, cuenta de ahorros GANA DIARIO' || item.concept === 'Calculo interes, cuenta de ahorros STANDARD') {
-            return item;
-          }
-        });
-        setInterestSavingAccounts(result);
+        console.log(data);
+        // const result = data.filter((item: RSSavingsAccountInterest) => regex.test(item.concept));
+        setInterestSavingAccounts(data);
       } else {
         console.log("No hay datos disponibles");
 
@@ -53,14 +51,11 @@ const InterestSavingAccounts = () => {
 
   }
 
-  const getRow = (data: RSTransaction) => {
+  const getRow = (data: RSSavingsAccountInterest) => {
     return [
-      <Typography>{`${data.executeDate}`}</Typography>,
-      <Typography>{data.movement}</Typography>,
-      <Typography>{data.concept}</Typography>,
+      <Typography>{moment(data.executeDate).format('YYYY-MM-DD')}</Typography>,
       <Typography>{data.value}</Typography>,
-      <Typography>{data.presentBalance}</Typography>,
-      <Typography></Typography>
+      <Typography>{data.availableBalance}</Typography>,
     ]
   }
 
@@ -81,7 +76,7 @@ const InterestSavingAccounts = () => {
             <Card sx={{ minWidth: '650px', maxWidth: '750px' }}>
               <Typography variant="h6" sx={{ mb: 2 }} align='center'>Buscar interés generado por las cuentas de ahorro</Typography>
               <CardContent>
-                <Box sx={{ display: 'flex', p: "1px", flexDirection: "row", justifyContent: 'space-evenly'}} >
+                <Box sx={{ display: 'flex', p: "1px", flexDirection: "row", justifyContent: 'space-evenly' }} >
                   <DatePickerAtom label="Desde que fecha" value={dateFrom} onChange={(dateAuxFrom: Dayjs | null) => { setDateFrom(dateAuxFrom) }} />
                   <DatePickerAtom label="Hasta que fecha" value={dateTo} onChange={(dateAuxTo: Dayjs | null) => { setDateTo(dateAuxTo) }} />
                 </Box>

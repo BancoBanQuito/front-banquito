@@ -15,9 +15,9 @@ export class InterestService {
         }
     }
 
-    public static async getInterest(codeLocalAccount: string, from: Date, to: Date) {
+    public static async getInterest(codeLocalAccount: string, from: string, to: string) {
         try {
-            return await axios.get<ResponseFormat<RSSavingsAccountInterest[]>>(GET_INTEREST_FROM_TO_API(codeLocalAccount, from.toISOString(), to.toISOString()));
+            return await axios.get<ResponseFormat<RSSavingsAccountInterest[]>>(GET_INTEREST_FROM_TO_API(codeLocalAccount, from, to));
         } catch (error) {
             throw error;
         }
