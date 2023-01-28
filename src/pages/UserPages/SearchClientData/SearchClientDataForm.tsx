@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 const urlCloud =
   "https://client-banquito-abigailscl-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/client/";
@@ -35,7 +36,7 @@ const SearchClientDataForm: React.FC = () => {
   const [direccion, setDireccion] = useState("");
   const [segmento, setSegmento] = useState("");
   const [status, setStatus] = useState("");
-
+  const navigate = useNavigate();
   const formatDate = (date: Date) => {
     return date.toLocaleDateString("es-ES", {
       day: "2-digit",
@@ -186,7 +187,12 @@ const SearchClientDataForm: React.FC = () => {
         </Grid>
         {/* Boton*/}
         <Container sx={containerTextFieldStyles}>
-          <Button onClick={() => {}} sx={buttonStyles}>
+          <Button
+            onClick={() => {
+              navigate("/usuario");
+            }}
+            sx={buttonStyles}
+          >
             Pagina Principal
           </Button>
         </Container>

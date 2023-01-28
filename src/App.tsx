@@ -1,13 +1,37 @@
-import { ThemeProvider } from "@mui/material";
 import { useState } from "react";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { Location } from "./pages/UserPages/Locations/Location";
+import theme from "./style/Theme";
+import Error404 from "./pages/ErrorPages/Error404";
+import { ThemeProvider } from "@mui/material";
+import HomeClient from "./pages/ClientPages/HomeClient";
+import HomeUser from "./pages/UserPages/HomeUser";
+import Login from "./components/organisms/Login/Login";
+import CreateSignature from "./pages/AccountCreateSignature";
+import EditAccountSignature from "./pages/EditAccountSignature";
+import CancelAccount from "./pages/CancelAccount";
+import Layout from "./template/Layout";
+import AccountCreateUser from "./pages/UserPages/AccountCreate/AccountCreateUser";
+import TransferUser from "./pages/UserPages/Transferences/TransferUser";
+import TransferBank from "./pages/ClientPages/Transferences/TransferBank";
+import AccountCreateBank from "./pages/ClientPages/Account/AccountCreateBank";
+import Branch from "./pages/ClientPages/Branches/Branch";
+import AccountStatementBank from "./pages/ClientPages/AccountStatement/AccountStatementBank";
+import AccountStatementClient from "./pages/UserPages/AccountStatement/AccountStatementClient";
+import BranchUser from "./pages/UserPages/Branches/BranchUser";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
+import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
+import InterestRateLog from "./components/organisms/interestrate/InterestRateLog";
+import ProductLinkAssociatedService from "./pages/ProductLinkAssociatedService";
+import Home from "./pages/Home";
+import CreateUser from "./components/organisms/Login/CreateUser";
+import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
+import { UpdateBankEntity } from "./components/organisms/BankEntity/UpdateBankEntity";
+import { Product } from "./pages/ProductPages/Product";
+import { ProductType } from "./pages/ProductPages/ProductType";
+import CreateRequestService from "./pages/CreateRequestService";
 import SearchCardClient from "./pages/UserPages/SearchCardClient/SearchCardClient";
 import SearchClientDataForm from "./pages/UserPages/SearchClientData/SearchClientDataForm";
-import theme from "./style/Theme";
-import { Location } from "./pages/UserPages/Locations/Location";
-import Error404 from "./pages/ErrorPages/Error404";
-import Home from "./pages/Home";
-import Layout from "./template/Layout";
 
 interface userProps {
   username: string;
@@ -17,18 +41,6 @@ interface userProps {
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState<userProps | null>(null);
-  const userRoutes = [
-    {
-      path: "info",
-      element: <SearchClientDataForm />,
-    },
-    {
-      path: "buscar",
-      element: <SearchCardClient />,
-    },
-  ];
-  /*
-
 
   const userRoutes = [
     {
@@ -57,7 +69,7 @@ const App = () => {
     },
     {
       path: "feriados",
-      element: <HolidayUser />
+      element: <HolidayUser />,
     },
     {
       path: "account/signature",
@@ -86,12 +98,10 @@ const App = () => {
     {
       path: "entidad",
       element: <BankEntity />,
-
     },
     {
       path: "actualizar/entidad",
       element: <UpdateBankEntity />,
-
     },
     {
       path: "signup",
@@ -107,20 +117,30 @@ const App = () => {
     },
     {
       path: "producto/servicio",
-      element: <CreateRequestService
-        openDialog={true}
-      />,
+      element: <CreateRequestService openDialog={true} />,
     },
     {
       path: "producto-vincular-servicio",
-      element: <ProductLinkAssociatedService
-        onSubmit={() => { }}
-      />,
+      element: <ProductLinkAssociatedService onSubmit={() => {}} />,
     },
     {
       path: "login",
-      element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/usuario' />
-    }
+      element: (
+        <Login
+          setUser={setUser}
+          setIsLogged={setIsLogged}
+          redirect="/usuario"
+        />
+      ),
+    },
+    {
+      path: "info-cliente",
+      element: <SearchClientDataForm />,
+    },
+    {
+      path: "buscar-info-cliente",
+      element: <SearchCardClient />,
+    },
   ];
 
   const clientRoutes = [
@@ -134,7 +154,7 @@ const App = () => {
     },
     {
       path: "sucursales",
-      element: <Branch />
+      element: <Branch />,
     },
     {
       path: "cuenta/estado",
@@ -150,10 +170,16 @@ const App = () => {
     },
     {
       path: "login",
-      element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/cliente' />
-    }
-  ]
-*/
+      element: (
+        <Login
+          setUser={setUser}
+          setIsLogged={setIsLogged}
+          redirect="/cliente"
+        />
+      ),
+    },
+  ];
+
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
@@ -172,7 +198,15 @@ const App = () => {
                 element={route.element}
               />
             ))}
+            {clientRoutes.map((route) => (
+              <Route
+                key={route.path}
+                path={`cliente/${route.path}`}
+                element={route.element}
+              />
+            ))}
           </Route>
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

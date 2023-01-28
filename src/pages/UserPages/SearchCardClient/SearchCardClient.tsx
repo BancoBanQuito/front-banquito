@@ -3,11 +3,6 @@ import { Container, FormLabel, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import BranchBox from "../../../components/organisms/Branch/BranchBox";
 import { useNavigate } from "react-router-dom";
-import { SizeButton } from "../../../components/atoms/SizeButton";
-import { ButtonStyle } from "../../../style/ButtonStyle";
-import { ColorPalette } from "../../../style/ColorPalette";
-
-const local = "http://localhost:8080/";
 
 const SearchCardClient: React.FC = () => {
   const [identification, setIdentification] = useState("");
@@ -37,7 +32,8 @@ const SearchCardClient: React.FC = () => {
     try {
       localStorage.setItem("identification", identification);
       localStorage.setItem("typeIdentification", typeIdentification);
-      location.href = "/usuario/info";
+      //location.href = "/usuario/info-cliente";
+      navigate("/usuario/info-cliente");
     } catch (error) {
       console.error(error);
     }
@@ -78,7 +74,7 @@ const SearchCardClient: React.FC = () => {
         </Button>
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <Button onClick={handleSubmit} sx={buttonStyles}>
+        <Button onClick={() => {}} sx={buttonStyles}>
           Editar
         </Button>
       </Container>
