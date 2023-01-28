@@ -1,5 +1,5 @@
 const EnvManager = {
-    CLIENT_URL: import.meta.env.VITE_CLIENT_URL || '',
+    CLIENT_URL: import.meta.env.VITE_CLIENT_URL || 'https://client-banquito-abigailscl-dev.apps.sandbox-m3.1530.p1.openshiftapps.com',
     SEGMENT_URL: import.meta.env.VITE_SEGMENT_URL || '',
     PRODUCT_URL: import.meta.env.VITE_PRODUCT || '',
     ACCOUNT_URL: import.meta.env.VITE_ACCOUNT || '',
