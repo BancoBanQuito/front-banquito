@@ -10,6 +10,7 @@ import { NumberField } from '../../atoms/NumberField';
 import { SizeButton } from '../../atoms/SizeButton';
 import { ContentForm, ContainerForm, ContainChild, ContainChild2, ContainChild3, ContainChild4 } from './FormInterestRate';
 import { ReturnButton } from './InteresRate';
+import { KeyboardBackspace } from '@mui/icons-material';
 
 const ContentFormLog = styled(ContentForm)`
     justify-content: flex-end;

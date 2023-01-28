@@ -18,6 +18,8 @@ const mockedItems = [{
     value: 'PAS'
 }];
 
+const codeLocalAccount = 'a3998d173acbf0c893db';
+
 const Withdrawals = () => {
 
     const [selectedItem, setSelectedItem] = useState<string>(mockedItems[0].value);
