@@ -26,6 +26,7 @@ import InterestRateLog from "./components/organisms/interestrate/InterestRateLog
 import ProductLinkAssociatedService from "./pages/ProductLinkAssociatedService";
 import Home from "./pages/Home";
 import CreateUser from "./components/organisms/Login/CreateUser";
+import {UpdateClientLikeBankUser} from "./components/organisms/Client/UpdateClientLikeBankUser";
 
 interface userProps {
   username: string;
@@ -149,8 +150,16 @@ const App = () => {
       element: <Branch />,
     },
     {
+      path: "datos-cliente",
+      element: <UpdateClientLikeBankUser />,
+    },
+    {
       path: "cuenta/estado",
       element: <AccountStatementClient />,
+    },
+    {
+      path: "client/personal-data",
+      element: <UpdateClient />,
     },
     {
       path: "transaccion",
@@ -173,7 +182,7 @@ const App = () => {
   ];
 
   return (
-    /*<ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
           <Route path="" element={<Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />}>
@@ -196,8 +205,7 @@ const App = () => {
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
-    </ThemeProvider>*/
-    <UpdateClient />
+    </ThemeProvider>
   );
 };
 
