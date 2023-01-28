@@ -44,7 +44,7 @@ const AccountCancel = () => {
   const [selectAccount, setselectAccount] = useState<RSAccount>();  
   const [dataTable, setDataTable] = useState<RSAccountCancelTable>();
 
-  const getProductTypeAndClientName = async (accountNumber: string) => {
+  /*const getProductTypeAndClientName = async (accountNumber: string) => {
     try{
       //obtenemos este objeto ya que necesitamos el nombre del due;o de la cuenta
       const AccountProduct: RSProductTypeAndClientName | undefined = (await AccountService.getAccountProductByCode(accountNumber)).data?.data;
@@ -57,7 +57,7 @@ const AccountCancel = () => {
     }catch(error){
       console.log(error);
     }
-  }
+  }*/
 
   const getAccount = async (accountNumber: string) => {
       //Tomo este porque necesito los valores de saldo de la cuenta
@@ -72,11 +72,11 @@ const AccountCancel = () => {
   }
 
   const handleSearch = (accountNumer: string) => {
-    getProductTypeAndClientName(accountNumer);
+    //getProductTypeAndClientName(accountNumer);
     getAccount(accountNumer);
   }
 
-  const setAccount = () => {
+  /*const setAccount = () => {
     setDataTable({
       ...dataTable,
       codeLocalAccount: selectAccount?.codeLocalAccount || '',
@@ -87,7 +87,7 @@ const AccountCancel = () => {
       presentBalance: selectAccount?.presentBalance || 0.00,
       availableBalance: selectAccount?.availableBalance  || 0.00
     });
-  }
+  }*/
 
 
   return (

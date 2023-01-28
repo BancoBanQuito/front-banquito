@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Typography } from '@mui/material'
 import { SizeButton } from '/src/components/atoms/SizeButton';
 import TableMolecule from '/src/components/molecules/TableMolecule';
@@ -12,6 +12,13 @@ interface AccountSignatureTableOranismProps {
 }
 
 const AccountSignatureTableOranism = (props: AccountSignatureTableOranismProps) => {
+    const [rows, setRows] = React.useState<any[]>([]);
+    useEffect(() => {
+        setRows(props.accountSignature.map(signature => getRows(signature)))
+    }, [props.accountSignature])
+
+    
+
     const getRows = (data: RSSignature) => {
         return [
             <Typography>{data.identificationType}</Typography>,
@@ -40,7 +47,7 @@ const AccountSignatureTableOranism = (props: AccountSignatureTableOranismProps) 
                     <Typography>Estatus</Typography>,
                     <Typography></Typography>,
                 ]}
-                rows={props.accountSignature.map(signature => getRows(signature))}
+                rows={rows}
             />
         </div>
     )
