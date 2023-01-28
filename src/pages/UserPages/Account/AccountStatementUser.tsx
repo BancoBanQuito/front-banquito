@@ -32,6 +32,10 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
     const [accountStatementList, setaccountStatementList] = useState<RSAccountStatementList[]>();
     const [selectedAccountStatement, setselectedAccountStatement] = useState<RSAccountStatement>();
     const [codeLocalAccount, setcodeLocalAccount] = useState<string>("");
+    const [client, setclient] = useState<{ name: string, identification: string } | undefined>();
+
+    const navigate = useNavigate();
+    const printRef = useRef();
 
     useEffect(() => {
         if (!!props.client) {
@@ -40,12 +44,16 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
         } else {
             setactiveSearchBox(true);
         }
+        getClient();
         return () => { }
-    }, [])
+    }, []);
 
-
-    const navigate = useNavigate();
-    const printRef = useRef();
+    const getClient = async () => {
+        setclient({
+            name: "Sample",
+            identification: "xxx"
+        })
+    }
 
     const handleBackEvent = () => {
         setactiveAccountStatementTable(true);
@@ -80,18 +88,16 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
     }
 
     const handleAccountStatementSelection = (data: RSAccountStatementList) => {
-        setactiveAccountStatementTable(false);
-        setactiveAccountStatement(true);
-        searchSelectedAccountStatement(codeLocalAccount);
+        searchSelectedAccountStatementLog(data.code);
     }
 
-    const searchSelectedAccountStatement = async (data: string) => {
+    const searchSelectedAccountStatementLog = async (historicCode: string) => {
         setisLoading(true);
         try {
-            const data: RSAccountStatement | undefined = (await AccountStatementService.getStatementHistoric(codeLocalAccount)).data.data;
+            const data: RSAccountStatement | undefined = (await AccountStatementService.getStatementHistoric(historicCode)).data.data;
             if (data) {
-                setactiveAccountStatementTable(false);
                 setselectedAccountStatement(data);
+                setactiveAccountStatementTable(false);
                 setactiveAccountStatement(true);
             } else {
                 setactiveErrorModal(true);
@@ -209,6 +215,7 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
                                 content={() => printRef.current as unknown as ReactInstance | null} />
                             <AccountStatementBody
                                 accountStatement={selectedAccountStatement}
+                                client={client}
                                 ref={printRef} />
                         </div>
                     </Fade>
