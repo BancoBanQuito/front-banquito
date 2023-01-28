@@ -61,7 +61,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
 
     const getProductTypes = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8087/api/product-types/types`, {
+            const response = await fetch(`http://localhost:8087/api/product-types/types`, {
                 method: 'GET',
             });
             const data = await response.json();
@@ -116,7 +116,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
             }
 
             console.log(typeProduct)
-            await fetch(`http://127.0.0.1:8087/api/products/product`, {
+            await fetch(`http://localhost:8087/api/products/product`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

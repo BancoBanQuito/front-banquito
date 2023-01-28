@@ -22,23 +22,23 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ConsolidatedPosition from "./pages/ConsolidatedPosition";
 import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
 import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
-import InterestRateLog from './components/organisms/interestrate/InterestRateLog';
+import InterestRateLog from "./components/organisms/interestrate/InterestRateLog";
 import ProductLinkAssociatedService from "./pages/ProductLinkAssociatedService";
 import Home from "./pages/Home";
 import CreateUser from "./components/organisms/Login/CreateUser";
 
 interface userProps {
-  username: string,
-  password: string
+  username: string;
+  password: string;
 }
 import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
-import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
+import { UpdateBankEntity } from "./components/organisms/BankEntity/UpdateBankEntity";
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
-import CreateRequestService from './pages/CreateRequestService';
+import CreateRequestService from "./pages/CreateRequestService";
+import { UpdateClient } from "./components/organisms/Client/UpdateClient";
 
 const App = () => {
-
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState<userProps | null>(null);
 
@@ -69,7 +69,7 @@ const App = () => {
     },
     {
       path: "feriados",
-      element: <HolidayUser />
+      element: <HolidayUser />,
     },
     {
       path: "account/signature",
@@ -98,12 +98,10 @@ const App = () => {
     {
       path: "entidad",
       element: <BankEntity />,
-
     },
     {
       path: "actualizar/entidad",
       element: <UpdateBankEntity />,
-
     },
     {
       path: "signup",
@@ -119,20 +117,22 @@ const App = () => {
     },
     {
       path: "producto/servicio",
-      element: <CreateRequestService
-        openDialog={true}
-      />,
+      element: <CreateRequestService openDialog={true} />,
     },
     {
       path: "producto-vincular-servicio",
-      element: <ProductLinkAssociatedService
-        onSubmit={() => { }}
-      />,
+      element: <ProductLinkAssociatedService onSubmit={() => { }} />,
     },
     {
       path: "login",
-      element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/usuario' />
-    }
+      element: (
+        <Login
+          setUser={setUser}
+          setIsLogged={setIsLogged}
+          redirect="/usuario"
+        />
+      ),
+    },
   ];
 
   const clientRoutes = [
@@ -145,8 +145,12 @@ const App = () => {
       element: <AccountCreateUser />,
     },
     {
+      path: "cliente/editar",
+      element: <UpdateClient />
+    },
+    {
       path: "sucursales",
-      element: <Branch />
+      element: <Branch />,
     },
     {
       path: "cuenta/estado",
@@ -162,9 +166,15 @@ const App = () => {
     },
     {
       path: "login",
-      element: <Login setUser={setUser} setIsLogged={setIsLogged} redirect='/cliente' />
-    }
-  ]
+      element: (
+        <Login
+          setUser={setUser}
+          setIsLogged={setIsLogged}
+          redirect="/cliente"
+        />
+      ),
+    },
+  ];
 
   return (
     <ThemeProvider theme={theme}>

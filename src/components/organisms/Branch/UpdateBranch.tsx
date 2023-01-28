@@ -33,7 +33,7 @@ const UpdateBranch: React.FC = () => {
     useEffect(() => {
         const fetchProvinces = async () => {
             try {
-                const response = await fetch('http://localhost:8081/api/location/provinces')
+                const response = await fetch('https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/provinces')
                 const data = await response.json()
                 setProvincesData(data)
             } catch (error) {
@@ -56,7 +56,7 @@ const UpdateBranch: React.FC = () => {
         const fetchCantons = async () => {
             try {
                 if (selectedProvince) {
-                    const response = await fetch(`http://localhost:8081/api/location/province/${selectedProvince}`)
+                    const response = await fetch(`https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/province/${selectedProvince}`)
                     const data = await response.json()
                     setCantonsData(data)
                 }
@@ -80,7 +80,7 @@ const UpdateBranch: React.FC = () => {
         const fetchParishes = async () => {
             try {
                 if (selectedCanton) {
-                    const response = await fetch(`http://localhost:8081/api/location/canton/${selectedCanton}`)
+                    const response = await fetch(`https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/canton/${selectedCanton}`)
                     const data = await response.json()
                     setParishesData(data)
                 }
@@ -100,7 +100,7 @@ const UpdateBranch: React.FC = () => {
             const stringOpeningHoursSaturday = openingHoursSaturday ? openingHoursSaturday.format('HH:mm') : ""
             const stringClosingTimeSaturday = closingHoursSaturday ? closingHoursSaturday.format('HH:mm') : ""
 
-            const response = await fetch(`http://localhost:8081/api/branch/name/${selectedBranch}`, {
+            const response = await fetch(`https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/branch/name/${selectedBranch}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
                 body: JSON.stringify({
@@ -142,7 +142,7 @@ const UpdateBranch: React.FC = () => {
     useEffect(() => {
         const fetchProvinces = async () => {
             try {
-                const response = await fetch('http://localhost:8081/api/branch')
+                const response = await fetch('https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/branch')
                 const data = await response.json()
                 setBranchesData(data)
             } catch (error) {
@@ -155,7 +155,7 @@ const UpdateBranch: React.FC = () => {
     useEffect(() => {
         const fetchBranch= async () => {
             try {
-                const response = await fetch(`http://localhost:8081/api/branch/name/${selectedBranch}`)
+                const response = await fetch(`https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/branch/name/${selectedBranch}`)
                 const data = await response.json()
                 setBranchData(data)
             } catch (error) {

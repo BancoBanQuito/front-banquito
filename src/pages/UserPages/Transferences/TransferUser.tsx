@@ -7,14 +7,14 @@ import TransferDataForm from '../../../components/organisms/TransferDataForm';
 import TransferAmountForm from '../../../components/organisms/TransferAmountForm';
 import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
-import { TransactionService } from '../../../services/account/transactionService';
+/* import { TransactionService } from '../../../services/account/transactionService';
 import { TransactionPost } from '../../../services/account/model/TransactionPost';
 import { AccountSimple } from '../../../services/account/model/AccountSimple';
-import { AccountService } from '../../../services/account/accountService';
+import { AccountService } from '../../../services/account/accountService'; */
 
 const TransferUser = () => {
 
-    const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
+    /* const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
 
@@ -59,11 +59,11 @@ const TransferUser = () => {
 
     const handleDecline = () => {
         navigate('/usuario');
-    }
+    } */
 
     return (
         <>
-            <div style={{
+            {/* <div style={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -123,7 +123,7 @@ const TransferUser = () => {
             <ErrorModalOrganism
                 active={activeErrorModal}
                 onDeactive={() => setactiveErrorModal(false)}
-                text={errorMessage} />
+                text={errorMessage} /> */}
         </>
     )
 }

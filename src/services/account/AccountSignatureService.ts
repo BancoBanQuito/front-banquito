@@ -1,21 +1,22 @@
 import axios from "axios";
-import { AccountSignaturePost } from "./model/AccountSignaturePost";
-import { GET_ACCOUNT_SIGNATURE_API, GET_ACCOUNT_SIGNATURE_TEST_API, POST_ACCOUNT_SIGNATURE_API, PUT_ACCOUNT_SIGNATURE_API } from "../../config/API";
+import { PUT_ACCOUNT_SIGNATURE_API, POST_ACCOUNT_SIGNATURE_API, GET_ACCOUNT_SIGNATURE_API, GET_ACCOUNT_SIGNATURE_CODE_API } from "../../config/apis/accountAPI";
 import { ResponseFormat } from "../ResponseFormat";
-import { AccountSignature } from "./model/AccountSignature";
+import { RQSignature } from "./dto/RQSignature";
+import { RQSignatureRoleStatus } from "./dto/RQSignatureRoleStatus";
+import { RSSignature } from "./dto/RSSignature";
 
 export class AccountSignatureService {
-  public static async putAccountSignature(identificationType: string, identification: string, codeLocalAccount: string, codeInternationalAccount: string, body: { role: string, status: string }) {
+  public static async putAccountSignature(identificationType: string, identification: string, codeLocalAccount: string, body: RQSignatureRoleStatus) {
     try {
-      return await axios.put(PUT_ACCOUNT_SIGNATURE_API(identificationType, identification, codeLocalAccount, codeInternationalAccount), body);
+      return await axios.put<ResponseFormat<string>>(PUT_ACCOUNT_SIGNATURE_API(identificationType, identification, codeLocalAccount), body);
     } catch (error) {
       throw error;
     }
   }
 
-  public static async postAccountSignature(accountSignature: AccountSignaturePost) {
+  public static async postAccountSignature(accountSignature: RQSignature) {
     try {
-      return await axios.post(POST_ACCOUNT_SIGNATURE_API(), accountSignature);
+      return await axios.post<ResponseFormat<string>>(POST_ACCOUNT_SIGNATURE_API(), accountSignature);
     } catch (error) {
       throw error;
     }
@@ -23,18 +24,17 @@ export class AccountSignatureService {
 
   public static async getAccountSignature(identificationType: string, identification: string) {
     try {
-      return await axios.get<ResponseFormat<AccountSignature[]>>(GET_ACCOUNT_SIGNATURE_API(identificationType, identification));
+      return await axios.get<ResponseFormat<RSSignature[]>>(GET_ACCOUNT_SIGNATURE_API(identificationType, identification));
     } catch (error) {
       throw error;
     }
   }
 
-  public static async getAccountSignatureTest() {
+  public static async getAccountSignatureByCode(codeLocalAccount: string) {
     try {
-      return await axios.get(GET_ACCOUNT_SIGNATURE_TEST_API());
+      return await axios.get<ResponseFormat<RSSignature[]>>(GET_ACCOUNT_SIGNATURE_CODE_API(codeLocalAccount));
     } catch (error) {
       throw error;
     }
   }
-
 }

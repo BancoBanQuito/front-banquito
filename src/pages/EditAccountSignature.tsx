@@ -5,68 +5,68 @@ import AccountSignatureTableOranism from "../components/organisms/AccountSignatu
 import AccountSignatureEditForm from "../components/organisms/AccountSignature/AccountSignatureEditForm";
 import { AccountSignatureService } from "../services/account/AccountSignatureService";
 import SearchAccount from "../components/organisms/SearchAccount";
-import { AccountSignature } from "../services/account/model/AccountSignature";
-import { AccountService } from "../services/account/accountService";
-import { AccountResponse } from "../services/account/model/AccountResponse";
+// import { AccountSignature } from "../services/account/model/AccountSignature";
+// import { AccountService } from "../services/account/accountService";
+// import { AccountResponse } from "../services/account/model/AccountResponse";
 
 const EditAccountSignature = () => {
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [activeSearchBox, setactiveSearchBox] = useState<boolean>(true);
-  const [signatures, setsignatures] = useState<AccountSignature[]>([]);
-  const [selectSignature, setselectSignature] = useState<AccountSignature>({
-    identification: "",
-    identificationType: "",
-    name: "",
-    role: "",
-    signature: "",
-    status: ""
-  });
-  const [accountID, setaccountID] = useState<{
-    codeLocalAccount: string,
-    codeInternationalAccount: string
-  }>()
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
+  // const [activeSearchBox, setactiveSearchBox] = useState<boolean>(true);
+  // const [signatures, setsignatures] = useState<AccountSignature[]>([]);
+  // const [selectSignature, setselectSignature] = useState<AccountSignature>({
+  //   identification: "",
+  //   identificationType: "",
+  //   name: "",
+  //   role: "",
+  //   signature: "",
+  //   status: ""
+  // });
+  // const [accountID, setaccountID] = useState<{
+  //   codeLocalAccount: string,
+  //   codeInternationalAccount: string
+  // }>()
 
-  const getAccountSignatures = async (data: string) => {
-    try {
-      const account: AccountResponse | undefined = (await AccountService.getAccountsById(data, "DNI")).data?.data?.at(0);
-      if (!account) {
-        console.log("No se han encontrado datos");
-        return;
-      }
-      setaccountID({
-        codeInternationalAccount: account.codeInternationalAccount,
-        codeLocalAccount: account.codeLocalAccount
-      })
-      const signaturesData: AccountSignature[] | undefined = (await AccountSignatureService.getAccountSignature(data, "DNI")).data.data;
-      if (signaturesData) {
-        setsignatures(signaturesData);
-        setactiveSearchBox(false);
-      } else {
-        console.log("No se han encontrado datos");
-      }
-    } catch (error: any) {
-      console.log(error.message)
-    }
-  }
+  // const getAccountSignatures = async (data: string) => {
+  //   try {
+  //     const account: AccountResponse | undefined = (await AccountService.getAccountsById(data, "DNI")).data?.data?.at(0);
+  //     if (!account) {
+  //       console.log("No se han encontrado datos");
+  //       return;
+  //     }
+  //     setaccountID({
+  //       codeInternationalAccount: account.codeInternationalAccount,
+  //       codeLocalAccount: account.codeLocalAccount
+  //     })
+  //     const signaturesData: AccountSignature[] | undefined = (await AccountSignatureService.getAccountSignature(data, "DNI")).data.data;
+  //     if (signaturesData) {
+  //       setsignatures(signaturesData);
+  //       setactiveSearchBox(false);
+  //     } else {
+  //       console.log("No se han encontrado datos");
+  //     }
+  //   } catch (error: any) {
+  //     console.log(error.message)
+  //   }
+  // }
 
-  const handleSubmit = async (data: AccountSignature) => {
-    try {
-      await AccountSignatureService.putAccountSignature(data.identificationType, data.identification, accountID?.codeLocalAccount || "", accountID?.codeInternationalAccount || "", data)
-    } catch (error: any) {
-      console.log(error.message);
-    }
-  }
+  // const handleSubmit = async (data: AccountSignature) => {
+  //   try {
+  //     await AccountSignatureService.putAccountSignature(data.identificationType, data.identification, accountID?.codeLocalAccount || "", accountID?.codeInternationalAccount || "", data)
+  //   } catch (error: any) {
+  //     console.log(error.message);
+  //   }
+  // }
 
-  const handleSearch = (data: string) => {
-    getAccountSignatures(data);
-  }
+  // const handleSearch = (data: string) => {
+  //   getAccountSignatures(data);
+  // }
 
   return (
     <div>
-      {
+      {/* {
         activeSearchBox && <div style={{
           position: 'absolute',
           width: '100%',
@@ -131,7 +131,7 @@ const EditAccountSignature = () => {
             </Modal>
           </div>
         </Box>
-      }
+      } */}
     </div>
   );
 };

@@ -3,8 +3,8 @@ import { Box } from '@mui/system'
 import { Fade, Modal, Typography } from '@mui/material'
 import { ColorPalette } from '../../../style/ColorPalette'
 import { ChevronLeft, Print } from '@mui/icons-material'
-import { AccountStament } from '../../../services/account/model/AccountStatement'
-import { AccountStatementService } from '../../../services/account/accountStatementService'
+// import { AccountStament } from '../../../services/account/model/AccountStatement'
+// import { AccountStatementService } from '../../../services/account/accountStatementService'
 import ButtonIcon from '../../../components/atoms/ButtonIcon'
 import ReactToPrint from 'react-to-print'
 import AccountStatementBody from '../../../components/organisms/AccountStatement/AccountStatementBody'
@@ -12,71 +12,71 @@ import AccountStatementTable from '../../../components/organisms/AccountStatemen
 import { useNavigate } from 'react-router-dom'
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism'
 import LoadOrganism from '../../../components/organisms/LoadOrganism'
-import { AccountService } from '../../../services/account/accountService'
+// import { AccountService } from '../../../services/account/accountService'
 
 const AccountStatementClient = () => {
 
-    const [isLoading, setisLoading] = useState<boolean>(false);
-    const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
-    const [errorMessage, seterrorMessage] = useState<string>("");
-    const [activeAccountStatement, setactiveAccountStatement] = useState<boolean>(false);
-    const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(true);
-    const [accountStatement, setaccountStatement] = useState<AccountStament | undefined>();
-    const [accountStatements, setaccountStatements] = useState<AccountStament[]>();
-    const [accountNumberData, setaccountNumberDate] = useState<string>("1751990332");
+    // const [isLoading, setisLoading] = useState<boolean>(false);
+    // const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
+    // const [errorMessage, seterrorMessage] = useState<string>("");
+    // const [activeAccountStatement, setactiveAccountStatement] = useState<boolean>(false);
+    // const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(true);
+    // const [accountStatement, setaccountStatement] = useState<AccountStament | undefined>();
+    // const [accountStatements, setaccountStatements] = useState<AccountStament[]>();
+    // const [accountNumberData, setaccountNumberDate] = useState<string>("1751990332");
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const printRef = useRef();
+    // const printRef = useRef();
 
-    useEffect(() => {
-        searchAccountStatement(accountNumberData);
-        return () => { }
-    }, [])
+    // useEffect(() => {
+    //     searchAccountStatement(accountNumberData);
+    //     return () => { }
+    // }, [])
 
 
-    const handleBackEvent = () => {
-        setactiveAccountStatementTable(true);
-        setactiveAccountStatement(false);
-        setaccountStatement(undefined);
-    }
+    // const handleBackEvent = () => {
+    //     setactiveAccountStatementTable(true);
+    //     setactiveAccountStatement(false);
+    //     setaccountStatement(undefined);
+    // }
 
-    const handleAccountStatementSelection = (data: AccountStament) => {
-        setaccountStatement(data);
-        setactiveAccountStatementTable(false);
-        setactiveAccountStatement(true);
-    }
+    // const handleAccountStatementSelection = (data: AccountStament) => {
+    //     setaccountStatement(data);
+    //     setactiveAccountStatementTable(false);
+    //     setactiveAccountStatement(true);
+    // }
 
-    const searchAccountStatement = async (identification: string, identificationType?: string) => {
-        setisLoading(true);
-        try {
-            // const data: AccountStament[] = /* (await AccountStatementService.getStatements(accountNumber)).data.data || */ [];
-            const { codeLocalAccount, codeInternationalAccount }: any = (await AccountService.getAccountsById(identification, identificationType || "DNI")).data?.data?.at(0);
-            if (!!codeLocalAccount && !!codeInternationalAccount) {
-                setactiveErrorModal(true);
-                seterrorMessage("No se han encontrado datos");
-                return;
-            }
-            const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount, codeInternationalAccount)).data.data;
-            if (data) {
-                // setaccountStatements(data);
-                setaccountStatement(data);
-                setactiveAccountStatementTable(true);
-            } else {
-                setactiveErrorModal(true);
-                seterrorMessage("No se han encontrado datos");
-            }
-        } catch (error: any) {
-            setactiveErrorModal(true);
-            seterrorMessage(error.message);
-        } finally {
-            setisLoading(false);
-        }
-    }
+    // const searchAccountStatement = async (identification: string, identificationType?: string) => {
+    //     setisLoading(true);
+    //     try {
+    //         // const data: AccountStament[] = /* (await AccountStatementService.getStatements(accountNumber)).data.data || */ [];
+    //         const { codeLocalAccount, codeInternationalAccount }: any = (await AccountService.getAccountsById(identification, identificationType || "DNI")).data?.data?.at(0);
+    //         if (!!codeLocalAccount && !!codeInternationalAccount) {
+    //             setactiveErrorModal(true);
+    //             seterrorMessage("No se han encontrado datos");
+    //             return;
+    //         }
+    //         const data: AccountStament | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount, codeInternationalAccount)).data.data;
+    //         if (data) {
+    //             // setaccountStatements(data);
+    //             setaccountStatement(data);
+    //             setactiveAccountStatementTable(true);
+    //         } else {
+    //             setactiveErrorModal(true);
+    //             seterrorMessage("No se han encontrado datos");
+    //         }
+    //     } catch (error: any) {
+    //         setactiveErrorModal(true);
+    //         seterrorMessage(error.message);
+    //     } finally {
+    //         setisLoading(false);
+    //     }
+    // }
 
     return (
         <>
-            <Box sx={{
+            {/* <Box sx={{
                 position: 'absolute',
                 width: '98%',
             }}>
@@ -137,7 +137,7 @@ const AccountStatementClient = () => {
                 enableButtonBox
                 onConfirm={() => searchAccountStatement(accountNumberData)}
                 onReject={() => navigate('/cliente')}
-            />
+            /> */}
         </>
     )
 }

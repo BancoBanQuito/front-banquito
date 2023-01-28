@@ -82,7 +82,7 @@ export const Product = () => {
 
     return (
         <Stack direction="row" spacing={2} >
-            <Stack direction="column" spacing={2} sx={{ width: "100%" }} alignItems='center'>
+            <Stack direction="column" spacing={2} sx={{ width: "100%", margin: '4rem' }} alignItems='center'>
                 <Typography variant="h4" align="center">Productos</Typography>
 
                 <Stack direction="row" spacing={2} sx={{ width: "80%" }}>

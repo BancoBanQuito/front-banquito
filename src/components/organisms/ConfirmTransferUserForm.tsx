@@ -3,10 +3,10 @@ import { Box, SxProps, Theme } from '@mui/system'
 import { ButtonStyle } from '../../style/ButtonStyle'
 import { ColorPalette } from '../../style/ColorPalette'
 import { SizeButton } from '../atoms/SizeButton'
-import { TransactionPost } from '../../services/account/model/TransactionPost'
+// import { TransactionPost } from '../../services/account/model/TransactionPost'
 
 interface ConfirmFormProps {
-    data: TransactionPost,
+    data: any,
     title?: string,
     onAccept?: (data: any) => void,
     onDecline?: (data: any) => void,
@@ -15,7 +15,7 @@ interface ConfirmFormProps {
 const ConfirmTransferUserForm = (props: ConfirmFormProps) => {
     return (
         <>
-            <Box sx={{
+            {/* <Box sx={{
                 width: '100%',
                 display: 'flex',
                 flexDirection: 'column',
@@ -84,8 +84,8 @@ const ConfirmTransferUserForm = (props: ConfirmFormProps) => {
                         style={ButtonStyle.BIG}
                         onClick={() => { props.onDecline?.(null) }}
                         text='Rechazar' />
-                </Box>
-            </Box>
+                </Box> */}
+            {/* </Box> */}
         </>
     )
 }
