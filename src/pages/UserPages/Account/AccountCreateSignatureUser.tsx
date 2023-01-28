@@ -1,248 +1,211 @@
-import { Box, Typography } from "@mui/material";
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import ButtonIcon from "../../../components/atoms/ButtonIcon";
-import { SizeButton } from "../../../components/atoms/SizeButton";
-import TextFieldAtom from "../../../components/atoms/TextFieldAtom";
-import { AccountService } from "../../../services/account/AccountService";
+import { Box, Card, CardContent, Fade, Modal, Typography } from "@mui/material";
+import React, { FormEvent, useEffect, useState } from "react";
 import { AccountSignatureService } from "../../../services/account/AccountSignatureService";
-import { RSAccount } from "../../../services/account/dto/RSAccount";
-import { ButtonStyle } from "../../../style/ButtonStyle";
-import { ColorPalette } from "../../../style/ColorPalette";
-import { SearchRounded } from "@mui/icons-material";
-import DatePickerAtom from "../../../components/atoms/DatePicker";
-import { Dropdown } from "../../../components/atoms/Dropdown";
 import ErrorModalOrganism from "../../../components/organisms/ErrorModalOrganism";
-import { RQSignature } from "../../../services/account/dto/RQSignature";
-import { Dayjs } from "dayjs";
 import { useNavigate } from "react-router-dom";
-import IdentificationType from '../../../services/.json/IdentificationType.json';
+import AccountSignatureForm from "../../../components/organisms/Account/AccountSignatureForm";
+import { RQSignature } from "../../../services/account/dto/RQSignature";
+import { RSSignature } from "../../../services/account/dto/RSSignature";
+import LoadOrganism from "../../../components/organisms/LoadOrganism";
+import SearchAccount from "../../../components/organisms/Account/SearchAccount";
+import { ColorPalette } from "../../../style/ColorPalette";
+import AccountSignatureTableOranism from "../../../components/organisms/Account/AccountSignatureTableOranism";
+import AccountSignatureEditForm from "../../../components/organisms/Account/AccountSignatureEditForm";
+import { RQSignatureRoleStatus } from "../../../services/account/dto/RQSignatureRoleStatus";
+import ButtonIcon from "../../../components/atoms/ButtonIcon";
+import { Add } from "@mui/icons-material";
 
 const AccountCreateSignatureUser = () => {
 
-  useEffect(() => {
+  const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
+  const [errorMessage, seterrorMessage] = useState<string>("");
+  const [isLoading, setisLoading] = useState<boolean>(false);
+  const [activeSearchBox, setactiveSearchBox] = useState<boolean>(true);
+  const [activeEditModal, setactiveEditModal] = useState<boolean>(false);
+  const [activeCreateModal, setactiveCreateModal] = useState<boolean>(false);
 
-  }, []);
-
-  const [date, setdate] = useState<Dayjs | null>(null)
-
-  const [createSignature, setCreateSignature] = useState<RQSignature>({
-    codeLocalAccount: "",
-    identificationType: "",
-    identification: "",
-    role: "",
-    startDate: new Date(),
-  });
+  const [signatures, setsignatures] = useState<RSSignature[]>([]);
+  const [selectedSignature, setselectedSignature] = useState<RSSignature | undefined>();
+  const [codeLocalAccount, setcodeLocalAccount] = useState<string>();
 
   const navigate = useNavigate();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCreateSignature({
-      ...createSignature,
-      [e.target.name]: e.target.value,
-    });
+  const handleSubmitCreateSignature = async (signature: RQSignature) => {
+    createSignature(signature);
   };
 
-  const handleValidation = () => {
-    if (createSignature.identification.length != 10 && createSignature.identificationType == "DNI") {
+  const createSignature = async (signature: RQSignature) => {
+    setisLoading(true);
+    try {
+      const auxSignature: RQSignature = {
+        ...signature,
+        codeLocalAccount: codeLocalAccount || ""
+      }
+      await AccountSignatureService.postAccountSignature(auxSignature);
+      setactiveCreateModal(false);
+    } catch (error: any) {
+      seterrorMessage(error.message);
       setactiveErrorModal(true);
-      seterrorMessage("La identificación debe tener 10 dígitos");
-    } else if (createSignature.identification.length != 13 && createSignature.identificationType == "RUC") {
-      setactiveErrorModal(true);
-      seterrorMessage("La identificación debe tener 13 dígitos");
-    } else if (createSignature.identification.length < 1 && createSignature.identificationType == "PAS") {
-      setactiveErrorModal(true);
-      seterrorMessage("Identificación incorrecta");
+    } finally {
+      setisLoading(false);
     }
+  }
+
+  const handleSubmitEditSignature = async (signature: RQSignatureRoleStatus) => {
+    editSignature(signature);
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(createSignature);
-    handleValidation();
-    console.log("DATE")
-    console.log(date)
-    setCreateSignature({
-      ...createSignature,
-      startDate: date?.format("YYYY-MM-DDTHH:mm:SS") || "",
-    });
-    console.log("SIGNATURE")
-    console.log(createSignature);
-    await AccountSignatureService.postAccountSignature(createSignature);
-  };
+  const editSignature = async (signature: RQSignatureRoleStatus) => {
+    setisLoading(true);
+    try {
+      if (selectedSignature) {
+        await AccountSignatureService.putAccountSignature(selectedSignature.identificationType, selectedSignature.identification, codeLocalAccount || "", signature);
+        setactiveEditModal(false);
+      }
+    } catch (error: any) {
+      seterrorMessage(error.message);
+      setactiveErrorModal(true);
+    } finally {
+      setisLoading(false);
+    }
+  }
 
-  const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
-  const [errorMessage, seterrorMessage] = useState<string>("");
+  const handleSearch = (data: string) => {
+    getAccountSignatures(data);
+  }
+
+  const getAccountSignatures = async (data: string) => {
+    setisLoading(true);
+    try {
+      const signaturesData: RSSignature[] | undefined = (await AccountSignatureService.getAccountSignatureByCode(data)).data.data;
+      if (signaturesData) {
+        setsignatures(signaturesData);
+        setcodeLocalAccount(data);
+        setactiveSearchBox(false);
+      }
+    } catch (error: any) {
+      seterrorMessage(error.message);
+      setactiveErrorModal(true);
+    } finally {
+      setisLoading(false);
+    }
+  }
+
+  const handleOpenEditModal = (data: RSSignature) => {
+    setselectedSignature(data);
+    setactiveEditModal(true);
+  }
+
+  const handleCloseEditModal = () => {
+    setselectedSignature(undefined);
+    setactiveEditModal(false);
+  }
 
   return (
     <>
-      <Box component="form" onSubmit={handleSubmit}>
-        <Box
+      {
+        activeSearchBox && <div style={{
+          position: 'absolute',
+          width: '100%',
+          height: '80vh',
+          top: 0,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <Fade in={activeSearchBox}>
+            <Card sx={{ minWidth: '450px', maxWidth: '750px' }}>
+              <CardContent>
+                <SearchAccount
+                  color={ColorPalette.SECONDARY}
+                  title='Número de Cuenta'
+                  label="Numero de cuenta"
+                  onSubmit={handleSearch} />
+              </CardContent>
+            </Card>
+          </Fade>
+        </div>
+      }
+      {
+        !activeSearchBox && <Box
           sx={{
             width: "100%",
+            marginTop: '2rem',
+            height: '90vh',
             display: "flex",
+            flexDirection: 'column',
             justifyContent: "center",
             alignItems: "center",
-            marginTop: "5rem",
             verticalAlign: "middle",
             alignText: "center",
-          }}
-        >
+            top: 0
+          }}>
           <div style={{ margin: "2rem" }}>
-            <Typography variant="h4">Agregar firma autorizada</Typography>
+            <Typography variant="h4">Configuración Firma Autorizada</Typography>
+          </div>
+          <ButtonIcon
+            float
+            left
+            bottom
+            color={ColorPalette.PRIMARY}
+            icon={<Add />}
+            onClick={() => setactiveCreateModal(true)} />
+          <AccountSignatureTableOranism
+            accountSignature={signatures}
+            onClick={handleOpenEditModal} />
+        </Box>
+      }
+      <Modal
+        open={activeCreateModal}
+        onClose={() => setactiveCreateModal(false)}>
+        <Box sx={{
+          position: 'absolute' as 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 500,
+          bgcolor: 'background.paper',
+          boxShadow: 24,
+          padding: 2,
+          borderRadius: '10px'
+        }}>
+          <div style={{ width: '100%', textAlign: 'center' }}>
+            <Typography variant="h6">Modificar firma</Typography>
+            <AccountSignatureForm
+              onSubmit={handleSubmitCreateSignature}
+              restore={activeCreateModal} />
           </div>
         </Box>
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            verticalAlign: "middle",
-            alignText: "center",
-          }}
-        >
-          <div style={{ margin: "1rem" }}>
-            <Typography variant="h6"> Número de cuenta:</Typography>
-          </div>
-
-          <TextFieldAtom
-            id="outlined-basic"
-            name="codeLocalAccount"
-            label="Ingrese el número de cuenta:"
-            variant="standard"
-            color="primary"
-            type="text"
-            placeholder="Ingreso número de cuenta"
-            action={handleChange}
-            value={createSignature.codeLocalAccount}
-          />
-        </Box>
-
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            verticalAlign: "middle",
-            alignText: "center",
-          }}
-        >
-          <div style={{ margin: "1rem" }}>
-            <Typography variant="h6"> Identificación:</Typography>
-          </div>
-
-          <TextFieldAtom
-            id="outlined-basic"
-            name="identification"
-            label="Ingrese la identificación"
-            variant="standard"
-            color="primary"
-            type="text"
-            placeholder="Ingreso número de cuenta"
-            value={createSignature.identification}
-            action={handleChange}
-          />
-        </Box>
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            verticalAlign: "middle",
-            alignText: "center",
-          }}
-        >
-          <div style={{ margin: "1rem" }}>
-            <Typography variant="h6"> Tipo Identificación:</Typography>
-          </div>
-
-          <Dropdown
-            label="Tipo de identificación"
-            items={IdentificationType}
-            width={300}
-            height={50}
-            backgroundColor={ColorPalette.SECONDARY}
-            onChange={(value) => setCreateSignature({ ...createSignature, identificationType: value })}
-          />
-        </Box>
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            verticalAlign: "middle",
-            alignText: "center",
-          }}
-        >
-          <div style={{ margin: "1rem" }}>
-            <Typography variant="h6"> Rol:</Typography>
-          </div>
-
-          <TextFieldAtom
-            id="outlined-basic"
-            label="Ingrese el rol"
-            name="role"
-            variant="standard"
-            color="primary"
-            type="text"
-            value={createSignature.role}
-            action={handleChange}
-            placeholder="Ingreso número de cuenta"
-          />
-        </Box>
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            verticalAlign: "middle",
-            alignText: "center",
-          }}
-        >
-          <div style={{ margin: "1rem" }}>
-            <Typography variant="h6"> Fecha de activación:</Typography>
-          </div>
-          <DatePickerAtom
-            label="Fecha de activación"
-            value={date}
-            onChange={setdate}
-          />
-        </Box>
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alingItems: "center",
-            verticalAlign: "middle",
-            alignText: "center",
-          }}
-        >
-          <div style={{ margin: "2rem" }}>
-            <SizeButton
-              text={"Agregar"}
-              style={ButtonStyle.MEDIUM}
-              submit
-              palette={{
-                backgroundColor: ColorPalette.PRIMARY,
-              }}
-            ></SizeButton>
+      </Modal>
+      <Modal
+        open={activeEditModal}
+        onClose={handleCloseEditModal}>
+        <Box sx={{
+          position: 'absolute' as 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          bgcolor: 'background.paper',
+          boxShadow: 24,
+          padding: 2,
+          borderRadius: '10px'
+        }}>
+          <div style={{ width: '100%', textAlign: 'center' }}>
+            <Typography variant="h6">Modificar firma</Typography>
+            {selectedSignature
+              ? <AccountSignatureEditForm
+                signature={selectedSignature || null}
+                onSubmit={handleSubmitEditSignature} />
+              : null}
           </div>
         </Box>
-      </Box>
+      </Modal>
+      <LoadOrganism active={isLoading} />
       <ErrorModalOrganism
         active={activeErrorModal}
-        onDeactive={() => { setactiveErrorModal(false); navigate('/usuario/account/signature') }}
-        text={`${errorMessage}. ¿Desea volver a intentar?`}
-        enableButtonBox
-        //aqui intente que regrese a la función de validación de cantidad de digitos dependiendo 
-        //del tipo de identificación que se ingrese
-        onConfirm={() => handleValidation()}
-        onReject={() => navigate('/usuario/account/signature')}
+        onDeactive={() => setactiveErrorModal(false)}
+        text={errorMessage}
       />
     </>
 

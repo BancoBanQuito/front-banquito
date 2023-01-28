@@ -24,7 +24,6 @@ import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
 import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBeetwenDates";
 import Layout from "./template/Layout";
 import AccountCreateSignatureUser from "./pages/UserPages/Account/AccountCreateSignatureUser";
-import AccountEditSignatureUser from "./pages/UserPages/Account/AccountEditSignatureUser";
 import AccountCancelUser from "./pages/UserPages/Account/AccountCancelUser";
 import AccountAvailableBalance from "./pages/ATMPages/Account/AccountAvailableBalance";
 import AccountCreateClient from "./pages/ClientPages/Account/AccountCreateClient";
@@ -74,10 +73,6 @@ const App = () => {
     {
       path: "cuenta/firma",
       element: <AccountCreateSignatureUser />,
-    },
-    {
-      path: "cuenta/firma/editar",
-      element: <AccountEditSignatureUser />,
     },
     {
       path: "cuenta/cancelar",

@@ -8,7 +8,7 @@ import TableMolecule from '../../molecules/TableMolecule';
 
 interface AccountSignatureTableOranismProps {
     accountSignature: RSSignature[],
-    onClick?: (data: any) => void;
+    onClick?: (data: RSSignature) => void;
 }
 
 const AccountSignatureTableOranism = (props: AccountSignatureTableOranismProps) => {
@@ -17,7 +17,7 @@ const AccountSignatureTableOranism = (props: AccountSignatureTableOranismProps) 
         setRows(props.accountSignature.map(signature => getRows(signature)))
     }, [props.accountSignature])
 
-    
+
 
     const getRows = (data: RSSignature) => {
         return [
