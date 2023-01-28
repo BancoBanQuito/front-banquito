@@ -9,7 +9,7 @@ import TransferDataForm from '../../../components/organisms/Transaction/Transfer
 import { TransactionService } from '../../../services/transaction/TransactionService';
 import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
 import { ColorPalette } from '../../../style/ColorPalette';
-import { AccountService } from '../../../services/account/accountService';
+import { AccountService } from '../../../services/account/AccountService';
 import { RSAccount } from '../../../services/account/dto/RSAccount';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 

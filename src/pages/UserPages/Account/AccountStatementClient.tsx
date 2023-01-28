@@ -8,7 +8,7 @@ import AccountStatementBody from '../../../components/organisms/Account/AccountS
 import AccountStatementTable from '../../../components/organisms/Account/AccountStatementTable';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
-import { AccountService } from '../../../services/account/accountService';
+import { AccountService } from '../../../services/account/AccountService';
 import { RSAccountStatement } from '../../../services/account/dto/RSAccountStatement';
 import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList';
 import { ColorPalette } from '../../../style/ColorPalette';
