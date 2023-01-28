@@ -121,7 +121,7 @@ const App = () => {
     },
     {
       path: "producto-vincular-servicio",
-      element: <ProductLinkAssociatedService onSubmit={() => {}} />,
+      element: <ProductLinkAssociatedService onSubmit={() => { }} />,
     },
     {
       path: "login",
@@ -143,6 +143,10 @@ const App = () => {
     {
       path: "cuenta/crear",
       element: <AccountCreateUser />,
+    },
+    {
+      path: "cliente/editar",
+      element: <UpdateClient />
     },
     {
       path: "sucursales",
@@ -173,7 +177,7 @@ const App = () => {
   ];
 
   return (
-    /*<ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
           <Route path="" element={<Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />}>
@@ -196,8 +200,7 @@ const App = () => {
           <Route path="*" element={<Error404 />} />
         </Routes>
       </BrowserRouter>
-    </ThemeProvider>*/
-    <UpdateClient />
+    </ThemeProvider>
   );
 };
 
