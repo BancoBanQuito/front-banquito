@@ -10,7 +10,7 @@ import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import SelectAccountTypeForm from '../../../components/organisms/SelectAccountTypeForm';
 import { ProductService } from '../../../services/product/productService';
 import { ColorPalette } from '../../../style/ColorPalette';
-import { AccountService } from '../../../services/account/AccountService';
+import { AccountService } from '../../../services/account/accountService';
 
 const entityBankCode = 'aef0fadf647c8d6f';
 const internationalBankCode = 'c88c1afde4c3a564';
