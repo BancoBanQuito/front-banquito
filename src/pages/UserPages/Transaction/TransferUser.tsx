@@ -30,14 +30,18 @@ interface IRecipient {
     recipientType: string
 }
 
-const TransferUser = () => {
+const userLocalAccount = "a3998d173acbf0c893db";
+
+interface TransferUserProps {
+    client?: boolean
+}
+
+const TransferUser = (props: TransferUserProps) => {
     const [isLoading, setisLoading] = useState(false);
     const [loadMessage, setloadMessage] = useState<string | undefined>();
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
-
-    const navigate = useNavigate();
 
     const [transactionData, settransactionData] = useState<ITransaction>({
         codeInternationalAccount: "",
@@ -54,7 +58,20 @@ const TransferUser = () => {
         recipientAccountNumber: "",
         recipientBank: "",
         recipientType: ""
-    })
+    });
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!!props.client) {
+            setindexForm(1);
+            settransactionData({
+                ...transactionData,
+                codeLocalAccount: userLocalAccount,
+            });
+        }
+        return () => { }
+    }, [])
 
     const handleAccept = async () => {
         setisLoading(true);

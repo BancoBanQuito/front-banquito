@@ -3,6 +3,8 @@ import { useState, FormEvent, ChangeEvent } from "react";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import { ColorPalette } from "../../../style/ColorPalette";
 import { SizeButton } from "../../atoms/SizeButton";
+import { ChevronRight } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 
 interface FormTransferInterface {
@@ -20,6 +22,12 @@ interface TransferFormProps {
     showConcept?: boolean,
     showDescription?: boolean,
     showAccountCode?: boolean,
+    atm?: boolean
+}
+
+const buttonATMSize = {
+    height: 75,
+    width: 200
 }
 
 const TransferDataForm = (props: TransferFormProps) => {
@@ -31,6 +39,8 @@ const TransferDataForm = (props: TransferFormProps) => {
         movement: "",
         type: ""
     })
+
+    const navigate = useNavigate();
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -55,7 +65,11 @@ const TransferDataForm = (props: TransferFormProps) => {
         <>
             <Box
                 component="form"
-                onSubmit={submitHandler}>
+                onSubmit={submitHandler}
+                sx={{
+                    overflowX: 'hidden',
+                    overflowY: 'hidden'
+                }}>
                 <Box>
                     <Typography
                         component="h1"
@@ -104,19 +118,41 @@ const TransferDataForm = (props: TransferFormProps) => {
                         />
                     }
                 </Box>
-                <Box>
-                    <SizeButton
-                        palette={{
-                            backgroundColor: ColorPalette.PRIMARY
-                        }}
-                        size={{
-                            height: 'auto',
-                            width: 'auto'
-                        }}
-                        style={ButtonStyle.BIG}
-                        submit
-                        text="Siguiente" />
-                </Box>
+                {!!props.atm ?
+                    <div style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        right: -30,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignContent: 'center'
+                    }}>
+                        <div style={{ margin: '1rem 0' }}>
+                            <SizeButton
+                                submit
+                                text={'Siguiente'}
+                                icon={<ChevronRight />}
+                                style={ButtonStyle.BIG}
+                                size={buttonATMSize}
+                                palette={{
+                                    backgroundColor: ColorPalette.PRIMARY,
+                                }} />
+                        </div>
+                    </div>
+                    : <Box>
+                        <SizeButton
+                            palette={{
+                                backgroundColor: ColorPalette.PRIMARY
+                            }}
+                            size={{
+                                height: 'auto',
+                                width: 'auto'
+                            }}
+                            style={ButtonStyle.BIG}
+                            submit
+                            text="Siguiente" />
+                    </Box>}
             </Box>
         </>
     );

@@ -5,6 +5,9 @@ import SearchAccount from '../../../components/organisms/Account/SearchAccount';
 import { AccountService } from '../../../services/account/AccountService';
 import { RSAccount } from '../../../services/account/dto/RSAccount';
 import { ColorPalette } from '../../../style/ColorPalette';
+import LoadOrganism from '../../../components/organisms/LoadOrganism';
+import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
+import { useNavigate } from 'react-router-dom';
 
 const headersMock = [
   <Typography>No Cuenta</Typography>,
@@ -16,19 +19,31 @@ const headersMock = [
 
 const AccountConsolidatedPositionUser = () => {
 
+  const [isLoading, setisLoading] = useState<boolean>(false);
+  const [showErrorModal, setshowErrorModal] = useState<boolean>(false);
+  const [errorMessage, seterrorMessage] = useState<string>("");
+
   const [consolidatedPosition, setConsolidatedPosition] = useState<RSAccount[]>([]);
   const [activeSearch, setactiveSearch] = useState<boolean>(true);
 
+  const navigate = useNavigate();
+
   const searchAccountStatement = async (typeIdentification: string, identification: string) => {
+    setisLoading(true);
     try {
       const data: RSAccount[] | undefined = (await AccountService.getAccountsById(typeIdentification, identification)).data.data;
       if (data) {
         setConsolidatedPosition(data);
+        setactiveSearch(false);
       } else {
-        console.log("No hay datos disponibles");
+        seterrorMessage("No hay datos disponibles");
+        setshowErrorModal(true);
       }
     } catch (error: any) {
-      console.log(error);
+      seterrorMessage(error.message);
+      setshowErrorModal(true);
+    } finally {
+      setisLoading(false);
     }
   }
 
@@ -80,6 +95,15 @@ const AccountConsolidatedPositionUser = () => {
             rows={consolidatedPosition.map(consolidatedPosition => getRow(consolidatedPosition))} />
         </>
       }
+
+      <LoadOrganism
+        active={isLoading} />
+      <ErrorModalOrganism
+        active={showErrorModal}
+        onDeactive={() => { }}
+        enableButtonBox
+        onReject={() => navigate('../..')}
+        text={errorMessage} />
     </>
   );
 

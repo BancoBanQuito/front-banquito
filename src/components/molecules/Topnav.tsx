@@ -10,6 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link, useNavigate, useNavigation } from 'react-router-dom';
+import BanQuitoIcon from '../../assets/BanQuito-Logo.svg';
 
 interface TopnavProps {
   isLogged: boolean;
@@ -34,7 +35,7 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
       <AppBar position="fixed">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Avatar src='@/assets/BanQuito-Logo.svg' sx={{ 'borderRadius': 0 }} />
+            <Avatar src={BanQuitoIcon} sx={{ 'borderRadius': 0 }} />
 
             <Typography
               noWrap

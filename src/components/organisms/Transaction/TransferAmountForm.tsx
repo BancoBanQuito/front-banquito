@@ -4,6 +4,7 @@ import { Box } from '@mui/system'
 import { ButtonStyle } from '../../../style/ButtonStyle'
 import { ColorPalette } from '../../../style/ColorPalette'
 import { SizeButton } from '../../atoms/SizeButton'
+import { ChevronRight } from '@mui/icons-material'
 
 interface FormTransferUserInterface {
     amount: number
@@ -12,6 +13,12 @@ interface FormTransferUserInterface {
 interface TransferAmountFormProps {
     title?: string,
     onSubmit?: (data: any) => void,
+    atm?: boolean
+}
+
+const buttonATMSize = {
+    height: 75,
+    width: 200
 }
 
 const TransferAmountForm = (props: TransferAmountFormProps) => {
@@ -68,19 +75,41 @@ const TransferAmountForm = (props: TransferAmountFormProps) => {
                         required
                     />
                 </Box>
-                <Box>
-                    <SizeButton
-                        palette={{
-                            backgroundColor: ColorPalette.PRIMARY
-                        }}
-                        size={{
-                            height: 'auto',
-                            width: 'auto'
-                        }}
-                        style={ButtonStyle.BIG}
-                        submit
-                        text="Siguiente" />
-                </Box>
+                {!!props.atm ?
+                    <div style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        right: -30,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignContent: 'center'
+                    }}>
+                        <div style={{ margin: '1rem 0' }}>
+                            <SizeButton
+                                submit
+                                text={'Siguiente'}
+                                icon={<ChevronRight />}
+                                style={ButtonStyle.BIG}
+                                size={buttonATMSize}
+                                palette={{
+                                    backgroundColor: ColorPalette.PRIMARY,
+                                }} />
+                        </div>
+                    </div>
+                    : <Box>
+                        <SizeButton
+                            palette={{
+                                backgroundColor: ColorPalette.PRIMARY
+                            }}
+                            size={{
+                                height: 'auto',
+                                width: 'auto'
+                            }}
+                            style={ButtonStyle.BIG}
+                            submit
+                            text="Siguiente" />
+                    </Box>}
             </Box>
         </>
     )

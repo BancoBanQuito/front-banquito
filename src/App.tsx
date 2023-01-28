@@ -30,7 +30,9 @@ import AccountAvailableBalance from "./pages/ATMPages/Account/AccountAvailableBa
 import AccountCreateClient from "./pages/ClientPages/Account/AccountCreateClient";
 import DepositAtm from "./pages/ATMPages/Transaction/DepositAtm";
 import AccountConsolidatedPositionUser from "./pages/UserPages/Account/AccountConsolidatedPositionUser";
-import { ThemeProvider } from "styled-components";
+import ThemeProvider from "@mui/material/styles/ThemeProvider";
+import Withdrawals from "./pages/Withdrawals";
+
 interface userProps {
   username: string,
   password: string
@@ -118,7 +120,7 @@ const App = () => {
       element: <ProductLinkAssociatedService onSubmit={() => { }} />,
     },
     {
-      path: "cuenta/posicion-consolidada",
+      path: "cuenta/posicion/consolidada",
       element: <AccountConsolidatedPositionUser />,
     },
     {
@@ -151,12 +153,12 @@ const App = () => {
       element: <AccountStatementBankUser client />,
     },
     {
-      path: "transaccion",
-      element: <TransferUser />,
+      path: "cuenta/transaccion",
+      element: <TransferUser client />,
     },
     {
-      path: "fechaTransaccion",
-      element: <TransactionBeetwenDates/>
+      path: "cuenta/transaccion/dias",
+      element: <TransactionBeetwenDates client />
     },
     {
       path: "signup",
@@ -186,8 +188,12 @@ const App = () => {
     {
       path: "cuenta/deposito",
       element: <DepositAtm />
+    },
+    {
+      path: "cuenta/retiro",
+      element: <Withdrawals />
     }
-  ] 
+  ]
 
   return (
     <ThemeProvider theme={theme}>
