@@ -9,7 +9,7 @@ import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 import { useNavigate } from 'react-router-dom';
 import ButtonIcon from '../../../components/atoms/ButtonIcon';
-import { Edit } from '@mui/icons-material';
+import { Close, Edit } from '@mui/icons-material';
 import { Dropdown } from '../../../components/atoms/Dropdown';
 import StatesType from '../../../services/.json/StateType.json';
 import LoadSpinner from '../../../components/atoms/LoadSpinner';
@@ -109,10 +109,16 @@ const AccountConsolidatedPositionUser = () => {
       ,
       <Typography>{data.presentBalance}</Typography>,
       <Typography>{data.availableBalance}</Typography>,
-      <Typography><ButtonIcon
-        color={ColorPalette.PRIMARY}
-        icon={<Edit />}
-        onClick={() => { setselectedIndex(index); console.log(selectedIndex === index); }} /></Typography>
+      <>
+        {selectedIndex === index ? <ButtonIcon
+          color={ColorPalette.PRIMARY}
+          icon={<Close />}
+          onClick={() => setselectedIndex(undefined)} />
+          : <ButtonIcon
+            color={ColorPalette.PRIMARY}
+            icon={<Edit />}
+            onClick={() => setselectedIndex(index)} />}
+      </>
     ]
   }
 
