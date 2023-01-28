@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import ProgressButtonMolecule from "../../../components/molecules/ProgressButtonMolecule";
@@ -11,15 +11,16 @@ import { RSAccount } from "../../../services/account/dto/RSAccount";
 import { TransactionService } from "../../../services/transaction/TransactionService";
 import { RQTransaction } from "../../../services/transaction/dto/RQTransaction";
 import { ColorPalette } from "../../../style/ColorPalette";
+import LoadOrganism from "../../../components/organisms/LoadOrganism";
+
+const userCodeLocalAccount = "a3998d173acbf0c893db";
 
 const WithdrawalsBank = () => {
 
+    const [isLoading, setisLoading] = useState<boolean>(false);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
-
-    const navigate = useNavigate();
-
     const [value, setvalue] = useState<RQTransaction>({
         codeInternationalAccount: "",
         codeLocalAccount: "",
@@ -32,8 +33,18 @@ const WithdrawalsBank = () => {
         type: "RETIRO",
         value: 0
     });
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setvalue({
+            ...value,
+            codeLocalAccount: userCodeLocalAccount
+        });
+        return () => { }
+    }, []);
 
     const handleAccept = async () => {
+        setisLoading(true);
         try {
             const accountSimple: RSAccount | undefined = (await AccountService.getAccountByCode(value.codeLocalAccount)).data.data;
             if (!accountSimple) {
@@ -52,6 +63,8 @@ const WithdrawalsBank = () => {
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
+        } finally {
+            setisLoading(false);
         }
     }
 
@@ -70,7 +83,7 @@ const WithdrawalsBank = () => {
                 <div style={{ marginBottom: 50 }}>
                     <ProgressButtonMolecule
                         color={ColorPalette.PRIMARY}
-                        itemsCount={4}
+                        itemsCount={3}
                         current={indexForm}
                         onUpdate={(value) => setindexForm(value)}
                     />
@@ -79,35 +92,28 @@ const WithdrawalsBank = () => {
                     width: 500,
                 }}>
                     {indexForm === 0 ?
-                        <TransferDataForm
-                            key={0}
-                            showAccountCode
+                        <TransferAmountForm
+                            atm
                             onSubmit={(data: any) => {
                                 setindexForm(1);
                                 setvalue({
                                     ...value,
-                                    codeLocalAccount: data.accountNumber
-                                });
-                            }}
-                            title='Cuenta Retiro' /> :
-                        indexForm === 1 ?
-                            <TransferAmountForm
-                                onSubmit={(data: any) => {
-                                    setindexForm(3);
-                                    setvalue({
-                                        ...value,
-                                        value: data.amount
-                                    })
-                                }} />
-                            :
-                            <ConfirmTransferUserForm
-                                title="Retirar"
-                                showField
-                                onAccept={() => handleAccept()}
-                                onDecline={() => handleDecline()}
-                                data={value} />}
+                                    value: data.amount
+                                })
+                            }} />
+                        :
+                        <ConfirmTransferUserForm
+                            atm
+                            title="Retirar"
+                            showField
+                            onAccept={() => handleAccept()}
+                            onDecline={() => handleDecline()}
+                            data={value} />}
                 </Box>
             </div>
+            <LoadOrganism
+                active={isLoading}
+                text="Validando Retiro..." />
             <ErrorModalOrganism
                 active={activeErrorModal}
                 onDeactive={() => setactiveErrorModal(false)}
