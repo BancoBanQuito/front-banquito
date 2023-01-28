@@ -5,7 +5,7 @@ import BanQuitoLogo from '../../../assets/BanQuito-Logo.svg';
 import StripeAtom from '../../../components/atoms/StripeAtom';
 import AccountFormBank from '../../../components/organisms/Account/AccountFormBank';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
-import { AccountService } from '../../../services/account/AccountService';
+import { AccountService } from '../../../services/account/accountService';
 import { RQCreateAccount } from '../../../services/account/dto/RQCreateAccount';
 import { ProductService } from '../../../services/product/productService';
 import { ColorPalette } from '../../../style/ColorPalette';

@@ -6,7 +6,7 @@ import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransf
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 import TransferAmountForm from '../../../components/organisms/Transaction/TransferAmountForm';
 import TransferDataForm from '../../../components/organisms/Transaction/TransferDataForm';
-import { AccountService } from '../../../services/account/AccountService';
+import { AccountService } from '../../../services/account/accountService';
 import { RSAccount } from '../../../services/account/dto/RSAccount';
 import { TransactionService } from '../../../services/transaction/TransactionService';
 import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
