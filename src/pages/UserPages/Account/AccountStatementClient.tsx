@@ -12,7 +12,7 @@ import { AccountService } from '../../../services/account/AccountService';
 import { RSAccountStatement } from '../../../services/account/dto/RSAccountStatement';
 import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList';
 import { ColorPalette } from '../../../style/ColorPalette';
-import { AccountStatementService } from '../../../services/account/AccountStatementService';
+import { AccountStatementService } from '../../../services/AccountStatementService';
 
 interface AccountStatementClientProps {
     client?:boolean

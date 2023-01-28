@@ -12,7 +12,7 @@ import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import { RSAccountStatement } from '../../../services/account/dto/RSAccountStatement';
 import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList';
 import { ColorPalette } from '../../../style/ColorPalette';
-import { AccountStatementService } from '../../../services/account/AccountStatementService';
+import { AccountStatementService } from '../../../services/AccountStatementService';
 import { SizeButton } from '../../../components/atoms/SizeButton';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 
