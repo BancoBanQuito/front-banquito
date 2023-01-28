@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RSSignature } from '../../../services/account/dto/RSSignature';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
@@ -12,15 +12,22 @@ interface AccountSignatureTableOranismProps {
 }
 
 const AccountSignatureTableOranism = (props: AccountSignatureTableOranismProps) => {
-    const getRows = (data: any) => {
+    const [rows, setRows] = React.useState<any[]>([]);
+    useEffect(() => {
+        setRows(props.accountSignature.map(signature => getRows(signature)))
+    }, [props.accountSignature])
+
+    
+
+    const getRows = (data: RSSignature) => {
         return [
+            <Typography>{data.identificationType}</Typography>,
             <Typography>{data.identification}</Typography>,
-            <Typography>{data.identifucationType}</Typography>,
             <Typography>{data.name}</Typography>,
-            <Typography>{data.rol}</Typography>,
+            <Typography>{data.role}</Typography>,
             <Typography>{data.status}</Typography>,
             <SizeButton
-                text={"Agregar"}
+                text={"Editar"}
                 style={ButtonStyle.MEDIUM}
                 palette={{
                     backgroundColor: ColorPalette.PRIMARY,
@@ -33,14 +40,14 @@ const AccountSignatureTableOranism = (props: AccountSignatureTableOranismProps) 
         <div style={{ textTransform: 'uppercase' }}>
             <TableMolecule
                 headers={[
-                    <Typography>Identificación</Typography>,
                     <Typography>Tipo Identificación</Typography>,
+                    <Typography>Identificación</Typography>,
                     <Typography>Nombre</Typography>,
                     <Typography>Rol</Typography>,
                     <Typography>Estatus</Typography>,
                     <Typography></Typography>,
                 ]}
-                rows={props.accountSignature.map(signature => getRows(signature))}
+                rows={rows}
             />
         </div>
     )
