@@ -31,6 +31,7 @@ import DepositAtm from "./pages/ATMPages/Transaction/DepositAtm";
 import WithdrawalsAtm from "./pages/ATMPages/Transaction/WithdrawalsAtm";
 import AccountConsolidatedPositionUser from "./pages/UserPages/Account/AccountConsolidatedPositionUser";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
+import DepositBank from "./pages/UserPages/Transaction/DepositBank";
 
 interface userProps {
   username: string,
@@ -77,6 +78,10 @@ const App = () => {
     {
       path: "cuenta/cancelar",
       element: <AccountCancelUser />,
+    },
+    {
+      path: "cuenta/deposito",
+      element: <DepositBank />
     },
     {
       path: "cuenta/transaccion/dias",

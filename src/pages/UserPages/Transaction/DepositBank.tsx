@@ -11,12 +11,15 @@ import { AccountService } from '../../../services/account/AccountService';
 import { RSAccount } from '../../../services/account/dto/RSAccount';
 import { TransactionService } from '../../../services/transaction/TransactionService';
 import { ColorPalette } from '../../../style/ColorPalette';
+import LoadOrganism from '../../../components/organisms/LoadOrganism';
 
 const DepositBank = () => {
 
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
+    const [isLoading, setisLoading] = useState<boolean>(false);
+    const [loadMessage, setloadMessage] = useState<string>();
 
     const navigate = useNavigate();
 
@@ -34,24 +37,26 @@ const DepositBank = () => {
     });
 
     const handleAccept = async () => {
+        setisLoading(true);
         try {
+            setloadMessage("Validando Cuenta...");
             const accountSimple: RSAccount | undefined = (await AccountService.getAccountByCode(value.codeLocalAccount)).data.data;
             if (!accountSimple) {
                 console.log("Ha ocurrido un error");
                 return;
             }
-            console.log(accountSimple);
-            setvalue({
+            const depositAccount = {
                 ...value,
                 codeInternationalAccount: accountSimple.codeInternationalAccount
-            })
-            console.log(value);
-            await TransactionService.postTransaction(value);
-            console.log(value);
+            }
+            setloadMessage("Depositando...");
+            await TransactionService.postTransaction(depositAccount);
             navigate('/cliente');
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
+        } finally {
+            setisLoading(false);
         }
     }
 
@@ -89,26 +94,28 @@ const DepositBank = () => {
                                     codeLocalAccount: data.accountNumber
                                 });
                             }}
-                            title='Cuenta Depósito' /> : 
-                            indexForm === 1 ?
-                                <TransferAmountForm
-                                    onSubmit={(data: any) => {
-                                        setindexForm(3);
-                                        setvalue({
-                                            ...value,
-                                            value: data.amount
-                                        })
-                                    }} />
-                                :
-                                <ConfirmTransferUserForm
-                                    title='Transferir'
-                                    showField
-                                    showAccountReceptor
-                                    onAccept={() => handleAccept()}
-                                    onDecline={() => handleDecline()}
-                                    data={value} />}
+                            title='Cuenta Depósito' /> :
+                        indexForm === 1 ?
+                            <TransferAmountForm
+                                onSubmit={(data: any) => {
+                                    setindexForm(3);
+                                    setvalue({
+                                        ...value,
+                                        value: data.amount
+                                    })
+                                }} />
+                            :
+                            <ConfirmTransferUserForm
+                                title='Transferir'
+                                showField
+                                onAccept={() => handleAccept()}
+                                onDecline={() => handleDecline()}
+                                data={value} />}
                 </Box>
             </div>
+            <LoadOrganism
+                active={isLoading}
+                text={loadMessage} />
             <ErrorModalOrganism
                 active={activeErrorModal}
                 onDeactive={() => setactiveErrorModal(false)}
