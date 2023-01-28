@@ -58,6 +58,10 @@ export const UpdateClientLikeBankUser: React.FC = () => {
   const [latitude, setLatitude] = useState<string>("");
   const [longitude, setLongitude] = useState<string>("");
 
+  const [codeSegment, setCodeSegment] = useState<string>("");
+  const [nameSegment, setNameSegment] = useState<string>("");
+  const [statusSegment, setStatusSegment] = useState<string>("");
+
 
   const [isStatusSelected, setIsStatusSelected] = useState<boolean>(true);
 
@@ -114,6 +118,12 @@ export const UpdateClientLikeBankUser: React.FC = () => {
         setLineTwo(data.address.lineTwo);
         setLatitude(data.address.longitude);
         setLongitude(data.address.longitude);
+
+        setCodeSegment(data.segment.code);
+        setNameSegment(data.segment.name);
+        setStatusSegment(data.segment.status);
+
+        
       })
       .catch((error) => {
         console.error(error);
@@ -272,6 +282,61 @@ export const UpdateClientLikeBankUser: React.FC = () => {
               variant="standard"
             />
           </Container>
+
+          <Container sx={containertTitleStyles}>
+            <Typography variant="h5" align="center">
+              Referencia
+            </Typography>
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Nombre:</FormLabel>
+            <TextField
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Teléfono:</FormLabel>
+            <TextField
+              value={phoneReference}
+              onChange={(event) => setPhoneReference(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Relación:</FormLabel>
+            <TextField
+              value={related}
+              onChange={(event) => setRelated(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+
+
+          <Container sx={containertTitleStyles}>
+            <Typography variant="h5" align="center">
+              Segmento
+            </Typography>
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Nombre:</FormLabel>
+            <TextField
+              value={nameSegment}
+              onChange={(event) => setNameSegment(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Estado:</FormLabel>
+            <TextField
+              value={statusSegment}
+              onChange={(event) => setStatusSegment(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+
+
         </Grid>
         <Container sx={containerTextFieldStyles}>
           <Button sx={buttonStyles}>Guardar</Button>
