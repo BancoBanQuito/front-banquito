@@ -17,8 +17,9 @@ interface CarouselCardProps {
 const ActionCard = (props: CarouselCardProps) => {
   return (
     <div style={{
-      width: 225,
-      height: 225,
+      width: 275,
+      height: 275,
+      margin: '2rem 0.25rem',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -39,7 +40,7 @@ const ActionCard = (props: CarouselCardProps) => {
           borderColor: ColorPalette.FOURTH
         }
       }}
-        elevation={2}>
+        elevation={10}>
         <CardContent>
           <div style={{
             display: 'flex',

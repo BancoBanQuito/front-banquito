@@ -31,7 +31,8 @@ const ButtonIcon = (props: Props) => {
                 left: props.float && props.left ? 5 : 'auto',
                 right: props.float && props.right ? 5 : 'auto',
                 width: props.size ? props.size : '60px',
-                height: props.size ? props.size : '60px'
+                height: props.size ? props.size : '60px',
+                zIndex: !!props.float ? 100: 1
             }}
             disabled={!props.disabled}
             onClick={handleClick}>
