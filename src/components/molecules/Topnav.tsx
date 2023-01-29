@@ -11,6 +11,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link, useNavigate, useNavigation } from 'react-router-dom';
 import BanQuitoIcon from '../../assets/BanQuito-Logo.svg';
+import { Button } from '@mui/material';
+import { ColorPalette } from '../../style/ColorPalette';
 
 interface TopnavProps {
   isLogged: boolean;
@@ -19,7 +21,7 @@ interface TopnavProps {
 }
 
 const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
-    
+
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [bankEntity, setBankEntity] = useState('');
@@ -39,7 +41,7 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*", 
+        "Access-Control-Allow-Origin": "*",
       },
     };
     try {
@@ -63,10 +65,10 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
       }
     }
   };
-  
+
   useEffect(() => {
-      getBankEntity();
-    }, []
+    getBankEntity();
+  }, []
   );
 
   return (
@@ -98,7 +100,7 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
             </Typography>
 
             {
-              isLogged && <Box sx={{ flexGrow: 0 }}>
+              isLogged ? <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Configuraciones">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar alt="User image" src="@/assets/user.png" />
@@ -128,6 +130,12 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
                   </MenuItem>
                 </Menu>
               </Box>
+                :
+                <Box sx={{ flexGrow: 0 }}>
+                  <Button sx={{ color: ColorPalette.ACCENT }} onClick={() => navigate("/cliente/signup")}>Crear Usuario</Button>
+                  <Button sx={{ color: ColorPalette.ACCENT }} onClick={() => navigate("/cliente/login")}>Iniciar Sesion</Button>
+                </Box>
+
             }
           </Toolbar>
         </Container>

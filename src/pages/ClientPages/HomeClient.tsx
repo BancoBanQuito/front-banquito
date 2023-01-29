@@ -45,75 +45,6 @@ const HomeClient = ({ user, isLogged }: Props) => {
   return (
     <>
       <div style={{ marginTop: '1rem' }}>
-        {/* <Box
-      display='flex'
-      sx={{
-        width: '100%',
-        height: '90vh',
-        flexDirection: 'column',
-      }}
-      >
-      <Box
-      marginTop='60px'
-      >
-      {
-        isLogged
-        ? <Box>
-              <Typography variant='h2'>Bienvenido Cliente {user?.username}</Typography>
-              <Box
-              display='flex'
-              gap={5}
-                sx={{
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-              <SizeButton text='Crear Cuenta'
-                  style={ButtonStyle.MEDIUM}
-                  palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                  onClick={() => navigate("/cliente/cuenta/crear")}
-                  />
-                  <SizeButton text='Ver estado de cuenta'
-                  style={ButtonStyle.MEDIUM}
-                  palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                  onClick={() => navigate("/cliente/cuenta/estado")}
-                  />
-                  <SizeButton text='Transferencias'
-                  style={ButtonStyle.MEDIUM}
-                  palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                  onClick={() => navigate("/cliente/transaccion")}
-                  />
-                  <SizeButton text='Ver Sucursales'
-                  style={ButtonStyle.MEDIUM}
-                  palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                  onClick={() => navigate("/cliente/sucursales")}
-                />
-              </Box>
-            </Box>
-            : <Box
-            display='flex'
-              sx={{
-                direction: 'column',
-                height: '90vh',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              >
-              <SizeButton text='Iniciar Sesion'
-              style={ButtonStyle.MEDIUM}
-              palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                onClick={() => navigate("/cliente/login")}
-                />
-                <SizeButton text='Unirse'
-                style={ButtonStyle.MEDIUM}
-                palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-                onClick={() => navigate("/cliente/signup")}
-                />
-            </Box>
-          }
-      </Box>
-    </Box> */}
         <Box sx={{
           width: '100%',
           height: '97vh',
@@ -164,11 +95,11 @@ const HomeClient = ({ user, isLogged }: Props) => {
               justifyContent: 'space-around',
               flexWrap: 'wrap'
             }}>
-              <ActionCard icon={<Person />} title={'Crear Cuenta'} description={'Creemos tu nueva cuenta bancaria'} link='/cliente/cuenta/crear' linkText='Crear' />
-              <ActionCard icon={<Assessment />} title={'Estado de Cuenta'} description={'Veamos tu estado de cuenta'} link='/cliente/cuenta/estado' linkText='Ver' />
-              <ActionCard icon={<Send />} title={'Transferencia'} description={'¿Quieres transferir? Hagamoslo'} link='/cliente/cuenta/transaccion' linkText='Ver' />
-              <ActionCard icon={<CalendarMonth />} title={'Historial de Transacciones'} description={'¿Que has realizado?'} link='/cliente/cuenta/transaccion/dia' linkText='Ver' />
-              <ActionCard icon={<Savings />} title={'Ahorros'} description={'El interes ganado con tu ahorros, en un solo lugar'} link='/cliente/interes/cuenta/ahorros' linkText='Ver' />
+              <ActionCard icon={<Person />} title={'Crear Cuenta'} description={'Creemos tu nueva cuenta bancaria'} link={isLogged ? '/cliente/cuenta/crear' : '/cliente/login'} linkText='Crear' />
+              <ActionCard icon={<Assessment />} title={'Estado de Cuenta'} description={'Veamos tu estado de cuenta'} link={isLogged ? '/cliente/cuenta/estado' : '/cliente/login'} linkText='Ver' />
+              <ActionCard icon={<Send />} title={'Transferencia'} description={'¿Quieres transferir? Hagamoslo'} link={isLogged ? '/cliente/cuenta/transaccion' : '/cliente/login'} linkText='Ver' />
+              <ActionCard icon={<CalendarMonth />} title={'Historial de Transacciones'} description={'¿Que has realizado?'} link={isLogged ? '/cliente/cuenta/transaccion/dia' : '/cliente/login'} linkText='Ver' />
+              <ActionCard icon={<Savings />} title={'Ahorros'} description={'El interes ganado con tu ahorros, en un solo lugar'} link={isLogged ? '/cliente/interes/cuenta/ahorros' : '/cliente/login'} linkText='Ver' />
             </div>
           </section>
           <section style={sectionStyle}>
