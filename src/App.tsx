@@ -40,6 +40,7 @@ interface userProps {
   username: string,
   password: string
 }
+import { GeneralInformation } from "./components/organisms/Client/GeneralInformation";
 
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -248,5 +249,67 @@ const App = () => {
     </ThemeProvider>
   );
 };
+
+const userRoutes = [
+  {
+    path: "",
+    element: <HomeUser />,
+  },
+  {
+    path: "ubicaciones",
+    element: <Location />,
+  },
+  {
+    path: "cuenta/crear",
+    element: <AccountCreateBank />,
+  },
+  {
+    path: "cuenta/estado",
+    element: <AccountStatementBank />,
+  },
+  {
+    path: "transaccion",
+    element: <TransferBank />,
+  },
+  {
+    path: "sucursales",
+    element: <BranchUser />,
+  },
+  {
+    path: "account/signature",
+    element: <CreateSignature />,
+  },
+  {
+    path: "edit/account/signature",
+    element: <EditAccountSignature />,
+  },
+  {
+    path: "edit/account/cancel",
+    element: <CancelAccount />,
+  },
+];
+
+const clientRoutes = [
+  {
+    path: "",
+    element: <HomeClient />,
+  },
+  {
+    path: "cuenta/crear",
+    element: <AccountCreateUser />,
+  },
+  {
+    path: "sucursales",
+    element: <Branch />,
+  },
+  {
+    path: "cuenta/estado",
+    element: <AccountStatementClient />,
+  },
+  {
+    path: "transaccion",
+    element: <TransferUser />,
+  },
+];
 
 export default App;
