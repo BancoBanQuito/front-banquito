@@ -5,6 +5,8 @@ import { SizeButton } from '../../components/atoms/SizeButton'
 import { ButtonStyle } from '../../style/ButtonStyle'
 import { ColorPalette } from '../../style/ColorPalette'
 import { display } from '@mui/system'
+import Carousel from '../../components/organisms/Carousel'
+import CarouselCard from '../../components/organisms/CarouselCard'
 
 interface userProps {
   username: string,
@@ -94,16 +96,22 @@ const HomeClient = ({ user, isLogged }: Props) => {
         width: '100%',
         height: '97vh',
         display: 'flex',
-        justifyContent: 'center',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
         alignItems: 'center',
         overflowX: 'hidden',
         overflowY: 'auto'
       }}>
         {/* Carousel */}<section>
-          
+          <Carousel
+            activeSelect
+            items={[1, 2, 3]} />
         </section>
         {/* Servicios */}<section>
-
+          <Carousel activeButtons items={[
+            <CarouselCard />,
+            <CarouselCard />,
+          ]} />
         </section>
         {/* Productos */}<section>
 

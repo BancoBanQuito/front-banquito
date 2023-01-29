@@ -11,6 +11,7 @@ interface ProgressButtonMoleculeProps {
     leftButton?: boolean,
     rightButton?: boolean,
     onUpdate?: (index: number) => void,
+    spotSize?: number | string,
 }
 
 const ProgressButtonMolecule = (props: ProgressButtonMoleculeProps) => {
@@ -84,8 +85,8 @@ const ProgressButtonMolecule = (props: ProgressButtonMoleculeProps) => {
                                 style={{
                                     marginLeft: '1px',
                                     marginRight: '1px',
-                                    width: '20px',
-                                    height: '20px',
+                                    width: props.spotSize || '20px',
+                                    height: props.spotSize || '20px',
                                     backgroundColor: props.color,
                                     opacity: manageOpacity(i),
                                     borderRadius: '100%',
