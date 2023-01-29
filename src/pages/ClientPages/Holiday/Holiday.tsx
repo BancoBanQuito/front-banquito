@@ -1,26 +1,30 @@
 import React from "react";
 import { Container, TextField, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
-
 import TableMolecule from "../../../components/molecules/TableMolecule";
 import { IHoliday } from "../../../components/organisms/Holiday/Types";
 
 const Holiday: React.FC = () => {
-  const [holidays, setBranches] = useState<IHoliday[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const filteredHolidays = holidays.filter((holiday) =>
-    holiday.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const [holidays, setHolidays] = useState<IHoliday[]>([]);
+  const [searchText, setSearchText] = useState("");
+  const filteredHolidays = 
+  holidays.filter(
+    (holiday) => holiday.name.includes(searchText.toUpperCase()),
+  
+    
+    );
+  
+  
 
   useEffect(() => {
-    fetch("http://localhost:8081/api/holiday")
+    fetch("https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/holiday")
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
         }
         return response.json();
       })
-      .then((data) => setBranches(data))
+      .then((data) => setHolidays(data))
       .catch((error) => console.log(error));
   }, []);
 
@@ -40,6 +44,16 @@ const Holiday: React.FC = () => {
           Feriados
         </Typography>
       </Container>
+      <Container sx={{ display: "flex", justifyContent: "flex-start" }}>
+          <TextField
+            label="Buscar por fecha, nombre o codigo"
+            value={searchText}
+            onChange={(event) =>
+              setSearchText(event.target.value.toUpperCase())
+            }
+            sx={{ width: "350px" }}
+          />
+        </Container>
       <Container style={containerTableStyle}>
         <TableMolecule headers={headers} rows={rows} />
       </Container>
@@ -65,3 +79,4 @@ const searchBarStyle = {
   "flex-direction": "column",
   "align-items": "flex-start",
 };
+

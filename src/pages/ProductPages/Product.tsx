@@ -1,9 +1,6 @@
-import { Stack, Typography, Button } from "@mui/material"
-import TableMolecule from "../../components/molecules/TableMolecule"
+import { Typography, Button, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
-import TextAreaAtom from "../../components/atoms/TextAreaAtom";
-import { SizeButton } from "../../components/atoms/SizeButton";
-import { ButtonStyle } from "../../style/ButtonStyle";
+import TableMolecule from "../../components/molecules/TableMolecule";
 import { ActivateDialog } from "./dialog/ActivateDialog";
 import { CreateProduct } from "./dialog/CreateProduct";
 
@@ -15,7 +12,6 @@ const table: any = {
         <Typography>Habilitación</Typography>,
     ]
 }
-
 
 export const Product = () => {
 
@@ -82,7 +78,7 @@ export const Product = () => {
 
     return (
         <Stack direction="row" spacing={2} >
-            <Stack direction="column" spacing={2} sx={{ width: "100%" }} alignItems='center'>
+            <Stack direction="column" spacing={2} sx={{ width: "100%", margin: '4rem' }} alignItems='center'>
                 <Typography variant="h4" align="center">Productos</Typography>
 
                 <Stack direction="row" spacing={2} sx={{ width: "80%" }}>
