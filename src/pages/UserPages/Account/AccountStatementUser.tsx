@@ -135,7 +135,7 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
         <>
             <Box sx={{
                 position: 'relative',
-                top: 0
+                top: 50
             }}>
                 {!(!!props.client) && <div style={{
                     position: 'absolute',
@@ -215,7 +215,6 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
                                 content={() => printRef.current as unknown as ReactInstance | null} />
                             <AccountStatementBody
                                 accountStatement={selectedAccountStatement}
-                                client={client}
                                 ref={printRef} />
                         </div>
                     </Fade>
