@@ -12,6 +12,7 @@ interface Props {
     action?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     value?: string;
     disable?: boolean;
+    fullWidth?: boolean;
 }
 
 const TextFieldAtom = (props: Props) => {
@@ -27,6 +28,7 @@ const TextFieldAtom = (props: Props) => {
             onChange={props.action}
             value={props.value}
             disabled={!!props.disable}
+            fullWidth={!!props.fullWidth}
         >
         </TextField>
 

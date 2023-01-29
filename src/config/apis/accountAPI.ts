@@ -26,6 +26,9 @@ export const GET_ACCOUNT_ID_API = (identificationType: string, identification: s
 
 export const GET_ACCOUNT_CODE_API = (codeLocalAccount: string) =>
     `${URL.ACCOUNT_URL}/api/account/code/${codeLocalAccount}`;
+
+export const GET_ACCOUNT_PRODUCT_API = (codeLocalAccount: string) =>
+    `${URL.ACCOUNT_URL}/api/account/code/${codeLocalAccount}/type`;
 //#endregion
 
 //#region ACCOUNT ASSOCIATED SERVICE
@@ -41,7 +44,7 @@ export const POST_ACCOUNT_SIGNATURE_API = () =>
     `${URL.ACCOUNT_URL}/api/account/signature`;
 
 export const GET_ACCOUNT_SIGNATURE_API = (identificationType: string, identification: string) =>
-    `${URL.ACCOUNT_URL}/api/account/signature/${identificationType}/${identification}`;
+    `${URL.ACCOUNT_URL}/api/account/signature/id/${identificationType}/${identification}`;
 
 export const GET_ACCOUNT_SIGNATURE_CODE_API = (codeLocalAccount: string) =>
     `${URL.ACCOUNT_URL}/api/account/signature/code/${codeLocalAccount}`;

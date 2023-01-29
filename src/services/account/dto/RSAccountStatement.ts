@@ -8,11 +8,13 @@ export interface RSAccountStatement {
     interest: number;
     currentBalance: number;
     averageBalance: number;
-    transactions: {
-        date: string;
-        movement: string;
-        concept: string;
-        amount: number;
-        balance: number;
-    }[];
+    transactions: RSAccountStatementTransaccion[];
+}
+
+export interface RSAccountStatementTransaccion {
+    date: string;
+    movement: string;
+    concept: string;
+    amount: number;
+    balance: number;
 }

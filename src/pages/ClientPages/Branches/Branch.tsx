@@ -1,7 +1,5 @@
-import React from 'react';
-import { Container, TextField, Typography } from '@mui/material';
-import { useState, useEffect } from 'react';
-
+import { Container, Typography, TextField } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import TableMolecule from '../../../components/molecules/TableMolecule';
 import { IBranch } from '../../../components/organisms/Branch/Types';
 

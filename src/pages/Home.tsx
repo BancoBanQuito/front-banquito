@@ -1,45 +1,93 @@
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import { useNavigate } from 'react-router-dom'
-import { SizeButton } from '../components/atoms/SizeButton'
-import { ButtonStyle } from '../style/ButtonStyle'
-import { ColorPalette } from '../style/ColorPalette'
+import React from 'react';
+import { Box, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { SizeButton } from '../components/atoms/SizeButton';
+import { ButtonStyle } from '../style/ButtonStyle';
+import { ColorPalette } from '../style/ColorPalette';
+
+import BackgoundImage from '../assets/cover.mp4'
 
 const Home = () => {
   const navigate = useNavigate();
 
   return (
     <Box
-      display='flex'
       sx={{
-        width: '100%',
-        height: '90vh',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundImage: `url(${BackgoundImage})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover'
       }}
     >
-      <Typography variant='h2'>Banco BanQuito DEMO</Typography>
-      <Typography variant='h6'>Seleccione el tipo de front:</Typography>
-      <br />
+      <video
+        autoPlay
+        loop
+        muted
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          zIndex: -1
+        }}
+      >
+        <source src={BackgoundImage} type='video/mp4' />
+      </video>
       <Box
         display='flex'
-        gap={5}
+        marginTop={{
+          md: 0,
+          sm: 10,
+          xs: 10
+        }}
+        sx={{
+          position: 'relative',
+          zIndex: 1,
+          width: '100%',
+          height: '90vh',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
       >
-        <SizeButton
-          text='Clientes'
-          style={ButtonStyle.BIG}
-          palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-          onClick={() => navigate("/cliente")}
-        />
-        <SizeButton
-          text='Usuarios'
-          style={ButtonStyle.BIG}
-          palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-          onClick={() => navigate("/usuario")}
-        />
+        <Typography variant='h2'>Banco BanQuito DEMO</Typography>
+        <Typography variant='h6'>El presente, es un DEMO de las diferentes pantallas que posee el sistema de pasivos del Banco BanQuito</Typography>
+        <br />
+        <Typography variant='h5'>Seleccione el tipo de front:</Typography>
+        <br />
+        <Box
+          display='flex'
+          gap={2}
+          flexDirection={{
+            md: 'row',
+            sm: 'column',
+            xs: 'column'
+          }}
+        >
+          <SizeButton
+            text='Clientes'
+            style={ButtonStyle.BIG}
+            palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
+            onClick={() => navigate("/cliente")}
+            size={{ width: '200px', height: '75px' }}
+          />
+          <SizeButton
+            text='Usuarios'
+            style={ButtonStyle.BIG}
+            palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
+            onClick={() => navigate("/usuario")}
+            size={{ width: '200px', height: '75px' }}
+          />
+          <SizeButton
+            text='Cajero'
+            style={ButtonStyle.BIG}
+            palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
+            onClick={() => navigate("/atm")}
+            size={{ width: '200px', height: '75px' }}
+          />
+        </Box>
       </Box>
-    </Box>
+    </Box >
   )
 }
 
