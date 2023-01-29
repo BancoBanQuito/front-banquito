@@ -48,7 +48,7 @@ const CreateClient: React.FC = () => {
   const phone = [
     {
       phoneNumber: "",
-      phoneType: "",
+      phoneType: "Celular",
     },
   ];
   const [phoneNumber, setPhoneNumber] = useState(phone[0].phoneNumber);
@@ -184,6 +184,19 @@ const CreateClient: React.FC = () => {
       setGender("Otro");
     }
   };
+  
+  const onChangePhoneType = (value: string) => {
+    setPhoneType(value);
+    if (value === "Casa") {
+      setPhoneType("Casa");
+    } else if (value === "Celular") {
+      setPhoneType("Celular");
+    } else if (value === "Trabajo") {
+      setPhoneType("Trabajo");
+    } else if (value === "Otro") {
+      setPhoneType("Otro");
+    }
+  };
 
   const containerTextFieldStyles = {
     display: "flex",
@@ -254,15 +267,11 @@ const CreateClient: React.FC = () => {
             related,
           },
         ],
-        // segment: {
-        //   codeSegment,
-        //   nameSegment,
-        //   statusSegment,
-        // },
         user: {
           userName,
           password,
           typeUser,
+          status,
           creationDate,
           lastLoginDate,
         },
@@ -405,10 +414,40 @@ const CreateClient: React.FC = () => {
     }
   };
 
+  const handleStartDateChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const date = event.target.value;
+    const parsedDate = parse(date, "yyyy-MM-dd", new Date());
+    if (isValid(parsedDate)) {
+      setStartDate(parsedDate.toISOString());
+      setCreateDateError("");
+    } else {
+      setCreateDateError("Ingrese una fecha válida en el formato yyyy-MM-dd");
+    }
+  };
+
+  const handleEndDateChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const date = event.target.value;
+    const parsedDate = parse(date, "yyyy-MM-dd", new Date());
+    if (isValid(parsedDate)) {
+      setEndDate(parsedDate.toISOString());
+      setCreateDateError("");
+    } else {
+      setCreateDateError("Ingrese una fecha válida en el formato yyyy-MM-dd");
+    }
+  };
+
+
   const optionsIdentificationType = [
     { value: "DNI", label: "DNI" },
     { value: "Pasaporte", label: "Pasaporte" },
     { value: "RUC", label: "RUC" },
+  ];
+
+  const optionsPhoneType = [
+    { value: "Casa", label: "Casa" },
+    { value: "Celular", label: "Celular" },
+    { value: "Trabajo", label: "Trabajo" },
+    { value: "Otro", label: "Otro" },
   ];
 
   const optionsStatus = [
@@ -743,11 +782,25 @@ const CreateClient: React.FC = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
+        <div style={{ marginRight: "10px" }}>
+          <div style={{ marginRight: "10px" }}>
+            <BranchBox
+              label="Tipo de teléfono: "
+              value={phoneType}
+              options={optionsPhoneType}
+              onChange={onChangePhoneType}
+            />
+          </div>
+        </div>
+      </Container>
+
+      <Container sx={containerTextFieldStyles}>
         <FormLabel sx={formLabelStyles}>
           Escriba el número de teléfono:
         </FormLabel>
         <div style={{ marginRight: "10px" }}>
           <TextField
+            placeholder="Ejemplo: 123456789"
             value={phoneNumber}
             onChange={(event) => {
               setPhoneNumber(event.target.value);
@@ -803,7 +856,7 @@ const CreateClient: React.FC = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Escriba Latitud:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Ingrese Latitud:</FormLabel>
         <div style={{ marginRight: "10px" }}>
           <TextField
             value={latitude}
@@ -817,7 +870,7 @@ const CreateClient: React.FC = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Escriba Longitud:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Ingrese Longitud:</FormLabel>
         <div style={{ marginRight: "10px" }}>
           <TextField
             value={longitude}
@@ -831,7 +884,7 @@ const CreateClient: React.FC = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Escriba relationship:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Nombre de relationship:</FormLabel>
         <div style={{ marginRight: "10px" }}>
           <TextField
             value={nameRelationShip}
@@ -840,6 +893,38 @@ const CreateClient: React.FC = () => {
               relationship[0].nameRelationShip = event.target.value;
             }}
             variant="standard"
+          />
+        </div>
+      </Container>
+
+      <Container sx={containerTextFieldStyles}>
+        <FormLabel sx={formLabelStyles}>
+          Fecha de inicio relationship:
+        </FormLabel>
+        <div style={{ marginRight: "10px" }}>
+          <TextField
+            type="date"
+            value={startDate ? new Date(startDate).toISOString().substr(0, 10) : ""}
+            onChange={(event) => {
+              handleStartDateChange(event.target.value);
+              relationship[0].startDate = event.target.value;
+            }}
+          />
+        </div>
+      </Container>
+
+      <Container sx={containerTextFieldStyles}>
+        <FormLabel sx={formLabelStyles}>
+          Fecha de fin relationship:
+        </FormLabel>
+        <div style={{ marginRight: "10px" }}>
+          <TextField
+            type="date"
+            value={endDate ? new Date(endDate).toISOString().substr(0, 10) : ""}
+            onChange={(event) => {
+              handleEndDateChange(event.target.value);
+              relationship[0].endDate = event.target.value;
+            }}
           />
         </div>
       </Container>
@@ -857,6 +942,7 @@ const CreateClient: React.FC = () => {
           />
         </div>
       </Container>
+
 
       <Container sx={containerTextFieldStyles}>
         <Button onClick={handelSubmit} sx={buttonStyles}>
