@@ -15,6 +15,7 @@ import { SizeButton } from '../../atoms/SizeButton';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import FormInterestRate from './FormInterestRate';
 import FormInterestRateLog from './FormInterestRateLog';
+import UserCard from '../../molecules/UserCard';
 // add circle icon
 
 // Styles
@@ -71,72 +72,17 @@ export const ReturnButton = styled.div`
 
 const InteresRate = () => {
 
-    const [interesRate, setInteresRate] = useState('');
-
-
-
-    const headers = [
-        <Typography>Nombre</Typography>,
-        <Typography>Tipo</Typography>,
-        <Typography>Calculo Base</Typography>,
-        <Typography>Acción</Typography>,]
-
-    const rows = [
-        [<Typography>Cell 1</Typography>,
-        <Typography>Cell 2</Typography>,
-        <Typography>Cell 3</Typography>,
-        <Typography>Cell 4</Typography>],
-    ]
-
-    useEffect(() => {
-        console.log('interesRate', interesRate);
-    }, [interesRate])
 
 
     return (
         <Container>
             <Content>
-                <ReturnButton>
-                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspaceIcon />} onClick={() => console.log('Buscar')} top={true} />
-                </ReturnButton>
-                <div>
-                    <h1>Tasas de Interés</h1>
-                </div>
-                {/* Buscar tasa de interes */}
-                <div>
-                    <SearchContainer>
-
-                        <span>Nombre: </span>
-                        <TextFieldAtom
-                            id="id"
-                            label="Nombre tasa de interes"
-                            color="primary"
-                            type="text"
-                            placeholder="id"
-                            variant="standard"
-                            action={(event) => setInteresRate(event.target.value)}
-                            value={interesRate}
-                        />
-                        <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
-                            icon={<SearchIcon />}
-                            onClick={() => console.log('Buscar')}
-                            text="Buscar"
-                            style={ButtonStyle.MEDIUM}
-                        />
-                    </SearchContainer>
-                    <div>
-                        <TableMolecule headers={headers} rows={rows} />
-                    </div>
-
-                    <ContentButtonAddRight>
-                        <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
-                            icon={<AddIcon />}
-                            onClick={() => console.log('Buscar')}
-                            text="Agregar"
-                            style={ButtonStyle.BIG}
-                        />
-                    </ContentButtonAddRight>
-                </div>
+                <UserCard
+                    name="Interes Rate"
+                    accountNumber='123456789'
+                    saldo={1000000}
+                    accountType='Savings'
+                />
             </Content>
         </Container>
     )

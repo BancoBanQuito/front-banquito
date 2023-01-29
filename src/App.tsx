@@ -37,6 +37,7 @@ import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from "./pages/CreateRequestService";
 import { UpdateClient } from "./components/organisms/Client/UpdateClient";
+import InteresRate from "./components/organisms/interestrate/InteresRate";
 
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -89,7 +90,7 @@ const App = () => {
     },
     {
       path: "interes",
-      element: <InterestRateLog />,
+      element: <InteresRate />,
     },
     {
       path: "agregar/tipo-de-producto",
