@@ -40,15 +40,13 @@ interface userProps {
   username: string,
   password: string
 }
-<<<<<<< HEAD
 import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
 import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from './pages/CreateRequestService';
 import CreateClient from "./components/organisms/Client/CreateClient";
-=======
->>>>>>> main
+import { GeneralInformation } from "./components/organisms/Client/GeneralInformation";
 
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -257,5 +255,67 @@ const App = () => {
     </ThemeProvider>
   );
 };
+
+const userRoutes = [
+  {
+    path: "",
+    element: <HomeUser />,
+  },
+  {
+    path: "ubicaciones",
+    element: <Location />,
+  },
+  {
+    path: "cuenta/crear",
+    element: <AccountCreateBank />,
+  },
+  {
+    path: "cuenta/estado",
+    element: <AccountStatementBank />,
+  },
+  {
+    path: "transaccion",
+    element: <TransferBank />,
+  },
+  {
+    path: "sucursales",
+    element: <BranchUser />,
+  },
+  {
+    path: "account/signature",
+    element: <CreateSignature />,
+  },
+  {
+    path: "edit/account/signature",
+    element: <EditAccountSignature />,
+  },
+  {
+    path: "edit/account/cancel",
+    element: <CancelAccount />,
+  },
+];
+
+const clientRoutes = [
+  {
+    path: "",
+    element: <HomeClient />,
+  },
+  {
+    path: "cuenta/crear",
+    element: <AccountCreateUser />,
+  },
+  {
+    path: "sucursales",
+    element: <Branch />,
+  },
+  {
+    path: "cuenta/estado",
+    element: <AccountStatementClient />,
+  },
+  {
+    path: "transaccion",
+    element: <TransferUser />,
+  },
+];
 
 export default App;
