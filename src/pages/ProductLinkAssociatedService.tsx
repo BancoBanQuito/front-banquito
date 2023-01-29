@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { ConfirmationNumberOutlined, KeyboardBackspace, Search } from "@mui/icons-material";
+import { KeyboardBackspace } from "@mui/icons-material";
 import ButtonIcon from "../components/atoms/ButtonIcon";
 import { SizeButton } from "../components/atoms/SizeButton";
-import TextFieldAtom from "../components/atoms/TextFieldAtom";
 import TableMolecule from "../components/molecules/TableMolecule";
 import { ButtonStyle } from "../style/ButtonStyle";
 import { ColorPalette } from "../style/ColorPalette";
-import SearchProductDialog from "./SearchProductDialog";
 import { Typography, Checkbox as MuiCheckbox } from "@mui/material";
 import styled from "styled-components";
-import { Checkbox } from "../components/atoms/Checkbox";
-import { ConfirmationNumberOutlined, South } from "@mui/icons-material";
+import { ConfirmationNumberOutlined } from "@mui/icons-material";
 import SearchProductDialog from "./SearchProductDialog";
-import { Route } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
+
 // Styles
 export const Container = styled.div`
   display: relative;
