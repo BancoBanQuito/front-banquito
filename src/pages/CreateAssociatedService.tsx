@@ -17,7 +17,6 @@ import AddIcon from "@mui/icons-material/Add";
 import { SizeButton } from "../components/atoms/SizeButton";
 import { ButtonStyle } from "../style/ButtonStyle";
 //data
-import IdentificationTypes from "../components/organisms/IdentificationType.json";
 import { Checkbox } from "../components/atoms/Checkbox";
 import { NumberField } from "../components/atoms/NumberField";
 // Styles
@@ -118,7 +117,7 @@ const CreateAssociatedService = (props: AssociatedServiceProps) => {
     try {
       const associatedService = {
         name: data.name,
-        allowPayment: isCheck? "Y" : "N",
+        allowPayment: isCheck ? "Y" : "N",
         paymentMethod: service.paymentMethod,
         chargeVat: "Y",
         fee: cost,
@@ -137,7 +136,7 @@ const CreateAssociatedService = (props: AssociatedServiceProps) => {
       console.log("esta dando error>")
       console.log(error);
     }
-    
+
   };
 
   return (
@@ -209,15 +208,15 @@ const CreateAssociatedService = (props: AssociatedServiceProps) => {
                     value={cost}
                     action={function (value: any): void {
                       setcost(value);
-                    } } label="Metodo de pago"
+                    }} label="Metodo de pago"
                     color="primary"
-                    variant="standard"                 />
+                    variant="standard" />
                 </FormContainer>
                 <ContentButtonAddRight>
                   <SizeButton
                     palette={{ backgroundColor: ColorPalette.PRIMARY }}
                     icon={<AddIcon />}
-                    onClick={() => {}}
+                    onClick={() => { }}
                     text="Agregar"
                     style={ButtonStyle.BIG}
                     submit={true}
