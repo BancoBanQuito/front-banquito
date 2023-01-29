@@ -25,52 +25,52 @@ const UpdateClientDataForm: React.FC = () => {
     localStorage.getItem("typeIdentification")
   );
 
-      const [firstName, setFirstName] = useState<string>("");
-      const [lastName, setLastName] = useState<string>("");
-      const [fullName, setFullName] = useState<string>("");
-      const [status, setStatus] = useState<string>("");
-      const [email, setEmail] = useState<string>("");
-      const [birthDate, setBirthDate] = useState<string>("");
-      const [gender, setGender] = useState<string>("");
-      const [career, setCareer] = useState<string>("");
-      const [companyName, setCompanyName] = useState<string>("");
-      const [companyType, setCompanyType] = useState<string>("");
-      const [createDateCompany, setCreateDateCompany] = useState<string>("");
-      const [appLegalRepresent, setAppLegalRepresent] = useState<string>("");
-      const [articlesAssociatedDoc, setArticlesAssociatedDoc] = useState<string>("");
-      const [basicServicesDocument, setBasicServicesDocument] = useState<string>("");
-      const [fingerPrint, setFingerPrint] = useState<string>("");
-      const [incomeTaxDocument, setIncomeTaxDocument] = useState<string>("");
-      const [lastStatusDate, setLastStatusDate] = useState<string>("");
-      const [maritalStatus, setMaritalStatus] = useState<string>("");
-      const [monthlyAvgIncome, setMonthlyAvgIncome] = useState<string>("");
-      const [nationality, setNationality] = useState<string>("");
-      const [signature, setSignature] = useState<string>("");
-      const [taxPaymentPlace, setTaxPaymentPlace] = useState<string>("");
-      const [tinDocument, setTinDocument] = useState<string>("");
-      const [workStatus, setWorkStatus] = useState<string>("");
-      const [creationDate, setCreationDate] = useState<string>("");
-    
-      const [phone, setPhone] = useState<string>("");
-      const [phoneType, setTypePhone] = useState<string>("");
-    
-      const [name, setName] = useState<string>("");
-      const [phoneReference, setPhoneReference] = useState<string>("");
-      const [related, setRelated] = useState<string>("");
-    
-      const [nameRelation, setNameRelation] = useState<string>("");
-      const [startDateRelation, setStartDateRelation] = useState<string>("");
-      const [endDate, setEndDate] = useState<string>("");
-    
-      const [codeLocation, setCodeLocation] = useState<string>("");
-      const [lineOne, setLineOne] = useState<string>("");
-      const [lineTwo, setLineTwo] = useState<string>("");
-      const [latitude, setLatitude] = useState<string>("");
-      const [longitude, setLongitude] = useState<string>("");
-    
-      const [codeSegment, setCodeSegment] = useState<string>("");
-      const [nameSegment, setNameSegment] = useState<string>("");
-      const [statusSegment, setStatusSegment] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [fullName, setFullName] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [birthDate, setBirthDate] = useState<string>("");
+  const [gender, setGender] = useState<string>("");
+  const [career, setCareer] = useState<string>("");
+  const [companyName, setCompanyName] = useState<string>("");
+  const [companyType, setCompanyType] = useState<string>("");
+  const [createDateCompany, setCreateDateCompany] = useState<string>("");
+  const [appLegalRepresent, setAppLegalRepresent] = useState<string>("");
+  const [articlesAssociatedDoc, setArticlesAssociatedDoc] = useState<string>("");
+  const [basicServicesDocument, setBasicServicesDocument] = useState<string>("");
+  const [fingerPrint, setFingerPrint] = useState<string>("");
+  const [incomeTaxDocument, setIncomeTaxDocument] = useState<string>("");
+  const [lastStatusDate, setLastStatusDate] = useState<string>("");
+  const [maritalStatus, setMaritalStatus] = useState<string>("");
+  const [monthlyAvgIncome, setMonthlyAvgIncome] = useState<string>("");
+  const [nationality, setNationality] = useState<string>("");
+  const [signature, setSignature] = useState<string>("");
+  const [taxPaymentPlace, setTaxPaymentPlace] = useState<string>("");
+  const [tinDocument, setTinDocument] = useState<string>("");
+  const [workStatus, setWorkStatus] = useState<string>("");
+  const [creationDate, setCreationDate] = useState<string>("");
+
+  const [phone, setPhone] = useState<string>("");
+  const [phoneType, setTypePhone] = useState<string>("");
+
+  const [name, setName] = useState<string>("");
+  const [phoneReference, setPhoneReference] = useState<string>("");
+  const [related, setRelated] = useState<string>("");
+
+  const [nameRelation, setNameRelation] = useState<string>("");
+  const [startDateRelation, setStartDateRelation] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
+
+  const [codeLocation, setCodeLocation] = useState<string>("");
+  const [lineOne, setLineOne] = useState<string>("");
+  const [lineTwo, setLineTwo] = useState<string>("");
+  const [latitude, setLatitude] = useState<string>("");
+  const [longitude, setLongitude] = useState<string>("");
+
+  const [codeSegment, setCodeSegment] = useState<string>("");
+  const [nameSegment, setNameSegment] = useState<string>("");
+  const [statusSegment, setStatusSegment] = useState<string>("");
 
   const navigate = useNavigate();
   const formatDate = (date: Date) => {
@@ -89,7 +89,7 @@ const UpdateClientDataForm: React.FC = () => {
       );
       const data = await response.json();
 
-      setIdentification(data.identification);
+      setIdCliente(data.identification);
       setTypeIdentification(data.typeIdentification);
       setEmail(data.email);
       setGender(data.gender);
@@ -100,7 +100,7 @@ const UpdateClientDataForm: React.FC = () => {
       setLineOne(data.address.lineOne);
       setLineTwo(data.address.lineTwo);
       setTypeIdentification(data.identificationType);
-      setIdentification(data.identification);
+      setIdCliente(data.identification);
       setBirthDate(data.birthDate);
       setGender(data.gender);
       setCareer(data.career);
@@ -157,7 +157,7 @@ const UpdateClientDataForm: React.FC = () => {
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">
         </Typography>
-          Actualizar la Información del Cliente
+        Actualizar la Información del Cliente
       </Container>
       <Grid container>
         <Grid item xs={7}>
