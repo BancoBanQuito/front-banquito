@@ -35,16 +35,17 @@ const Home = () => {
       </video>
       <Box
         display='flex'
-        flexDirection={{
-          md: 'column',
-          sm: 'row',
-          xs: 'row'
+        marginTop={{
+          md: 0,
+          sm: 10,
+          xs: 10
         }}
         sx={{
           position: 'relative',
           zIndex: 1,
           width: '100%',
           height: '90vh',
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
         }}
@@ -57,6 +58,11 @@ const Home = () => {
         <Box
           display='flex'
           gap={2}
+          flexDirection={{
+            md: 'row',
+            sm: 'column',
+            xs: 'column'
+          }}
         >
           <SizeButton
             text='Clientes'
