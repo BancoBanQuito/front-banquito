@@ -124,7 +124,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
   const getAssociatedServices = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8081/api/associatedServices`,
+        `http://localhost:8087/api/associatedServices`,
         {
           method: "GET",
         }
@@ -225,7 +225,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
   const setServices = async () => {
     //console.log('{"products":' + JSON.stringify(products) + ',"associatedServices":' + JSON.stringify(associatedServices) + '}');
     try {
-      const response = await fetch(`http://localhost:8081/api/products/product-link-service`,
+      const response = await fetch(`http://localhost:8087/api/products/product-link-service`,
         {
           method: "PUT",
           headers: {
