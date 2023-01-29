@@ -151,6 +151,10 @@ const App = () => {
       element: <AccountCreateClient />,
     },
     {
+      path: "cliente/editar",
+      element: <UpdateClient />
+    },
+    {
       path: "sucursales",
       element: <Branch />,
     },

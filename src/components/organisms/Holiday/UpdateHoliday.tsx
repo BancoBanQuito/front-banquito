@@ -16,7 +16,7 @@ const UpdateHoliday: React.FC = () => {
     if (date && name && type && code) {
       try {
         const dateFormatted = date?.format("YYYY-MM-DD");
-        const response = await fetch("http://localhost:8081/api/holiday", {
+        const response = await fetch("https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/holiday", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
