@@ -33,7 +33,7 @@ const ButtonIcon = (props: Props) => {
                 width: props.size ? props.size : '60px',
                 height: props.size ? props.size : '60px'
             }}
-            disabled={!!props.disabled}
+            disabled={!props.disabled}
             onClick={handleClick}>
             <Avatar sx={{ color: props.color, bgcolor: 'transparent', padding: 0 }}>
                 {props.icon}
