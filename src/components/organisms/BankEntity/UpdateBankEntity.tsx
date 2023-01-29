@@ -1,36 +1,62 @@
 import * as React from 'react';
+import { getBankEntity, updateBankEntity } from './FunctionsBank';
+import { Container, TextField } from '@mui/material';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { SizeButton } from '../../atoms/SizeButton';
-import TextFieldAtom from '../../atoms/TextFieldAtom';
+import { Content } from './BankEntity';
+
+
 export const UpdateBankEntity = () => {
-  const [nameBank, setnameBank] = React.useState('BANCO BANQUITO');
-    return (
-    <div>
-        <h1>INFORMACION DEL {nameBank}</h1>
-      <TextFieldAtom 
-        id="internacionalBankCode"
-        label=""
-        color="primary"
-        type="text"
-        placeholder="Código Internacional de la Entidad Bancaria"
-        variant="standard"
-      />
-      <br></br>
-      <TextFieldAtom 
-        id="name"
-        label=""
-        color="primary"
-        type="text"
-        placeholder="Nombre de la Entidad Bancaria"
-        variant="standard"
-      />
-    <br></br>
-    <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
-        onClick={() => console.log('Actualizar')}
+  const [nameBank, setnameBank] = React.useState('');
+  const [codeBank, setcodeBank] = React.useState('');
+  const updateBank = () => {
+    updateBankEntity(codeBank, nameBank);
+  };
+  const getBank = async () => {
+    let listBank = await getBankEntity();
+    console.log(listBank);
+    setBank(listBank[0]);
+    setnameBank(listBank[0].name);
+    setcodeBank(listBank[0].internationalBankCode);
+  };
+  React.useEffect(() => {
+    getBank();
+  }, []);
+  const [bank, setBank] = React.useState<any>(null);
+
+  return (
+    <Container>
+      <h1>INFORMACION DEL {nameBank}</h1>
+      <Content>
+        <TextField
+          id="internacionalBankCode"
+          label=""
+          color="secondary"
+          type="text"
+          placeholder="Código Internacional de la Entidad Bancaria"
+          variant="standard"
+          onChange={(e) => { setcodeBank(e.target.value); }}
+          value={codeBank}
+          fullWidth
+        />
+        <TextField
+          id="name"
+          label=""
+          color="secondary"
+          type="text"
+          placeholder="Nombre de la Entidad Bancaria"
+          variant="standard"
+          onChange={(e) => { setnameBank(e.target.value); }}
+          value={nameBank}
+          fullWidth
+        />
+      </Content>
+      <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
+        onClick={() => updateBank()}
         text='Actualizar'
         style={ButtonStyle.BIG}
-    />
-    </div>
+      />
+    </Container>
   );
 };

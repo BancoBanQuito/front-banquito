@@ -1,0 +1,14 @@
+[
+    {
+        "name": "ACTIVO",
+        "value": "ACT"
+    },
+    {
+        "name": "SUSPENDIDO",
+        "value": "SUS"
+    },
+    {
+        "name": "BLOQUEADO",
+        "value": "BLO"
+    }
+]

@@ -7,8 +7,9 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 interface Props {
   label: string;
-  value: Dayjs|null;
+  value: Dayjs | null;
   onChange: (newValue: Dayjs | null) => void;
+  fullWidth?: boolean;
 }
 
 
@@ -16,14 +17,14 @@ const DatePickerAtom = (props: Props) => {
   const handleChange = (newValue: Dayjs | null) => {
     props.onChange(newValue);
   };
-  
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
         label={props.label}
         value={props.value}
         onChange={handleChange}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => <TextField fullWidth={!!props.fullWidth} {...params} />}
       />
     </LocalizationProvider>
   );

@@ -15,7 +15,7 @@ const spin = keyframes`
 
 const RotatedBox = styled("div")({
   borderTop: '2px solid',
-  borderRadius: '100%',
+  borderRadius: '100px',
   animation: `${spin} 1s infinite ease`
 });
 

@@ -9,15 +9,17 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-
-const settings = ['Perfil', 'Cerrar sesión'];
+import { Link, useNavigate, useNavigation } from 'react-router-dom';
+import BanQuitoIcon from '../../assets/BanQuito-Logo.svg';
 
 interface TopnavProps {
   isLogged: boolean;
+  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
   user: {};
 }
 
-const Topnav = ({ isLogged, user }: TopnavProps) => {
+const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
+  const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -29,60 +31,69 @@ const Topnav = ({ isLogged, user }: TopnavProps) => {
   };
 
   return (
-    <AppBar position="absolute">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Avatar src='/src/assets/BanQuito-Logo.svg' sx={{ 'borderRadius': 0 }} />
+    <>
+      <AppBar position="fixed">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Avatar src={BanQuitoIcon} sx={{ 'borderRadius': 0 }} />
 
-          <Typography
-            variant="h5"
-            noWrap
-            sx={{
-              ml: 2,
-              display: 'block',
-              flexGrow: 1,
-              fontWeight: 700,
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            BanQuito
-          </Typography>
+            <Typography
+              noWrap
+              sx={{
+                ml: 2,
+                display: 'block',
+                flexGrow: 1,
+              }}
+            >
+              <Link to="/">
+                <Typography
+                  variant="h5"
+                  noWrap
+                  sx={{
+                    fontWeight: 700,
+                    color: '#FFFFFF',
+                    textDecoration: 'none',
+                  }}
+                >BanQuito</Typography>
+              </Link>
+            </Typography>
 
-          {
-            isLogged && <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Configuraciones">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="User image" src="/src/assets/user.png" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+            {
+              isLogged && <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Configuraciones">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt="User image" src="@/assets/user.png" />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={() => navigate('/perfil')}>
+                    <Typography textAlign="center">Perfil</Typography>
                   </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-          }
-        </Toolbar>
-      </Container>
-    </AppBar>
+                  <MenuItem onClick={() => setIsLogged(false)}>
+                    <Typography textAlign="center">Cerrar sesión</Typography>
+                  </MenuItem>
+                </Menu>
+              </Box>
+            }
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </>
   );
 }
 export default Topnav;

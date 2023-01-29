@@ -1,5 +1,5 @@
 export const createProvince = async (provinceName: string) => {
-  const url = `http://localhost:8081/api/location/province`;
+  const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/province`;
   const options = {
     method: "POST",
     headers: {
@@ -31,7 +31,7 @@ export const createCanton = async (
   provinceName: string,
   cantonName: string
 ) => {
-  const url = `http://localhost:8081/api/location/canton`;
+  const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/canton`;
   const options = {
     method: "POST",
     headers: {
@@ -65,7 +65,7 @@ export const createParish = async (
   parishName: string,
   zipCode: string
 ) => {
-  const url = `http://localhost:8081/api/location/parish`;
+  const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/parish`;
   const options = {
     method: "POST",
     headers: {
@@ -94,7 +94,7 @@ export const createParish = async (
 };
 
 export const getProvinces = async () => {
-  const url = `http://localhost:8081/api/location/provinces`;
+  const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/provinces`;
   const options = {
     method: "GET",
     headers: {
@@ -123,7 +123,7 @@ export const getProvinces = async () => {
 };
 
 export const getCantons = async () => {
-  const url = `http://localhost:8081/api/location/cantons`;
+  const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/cantons`;
   const options = {
     method: "GET",
     headers: {
@@ -152,7 +152,7 @@ export const getCantons = async () => {
 };
 
 export const getParishes = async () => {
-  const url = `http://localhost:8081/api/location/parishes`;
+  const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/parishes`;
   const options = {
     method: "GET",
     headers: {
@@ -184,7 +184,7 @@ export const updateProvince = async (
   provinceName: string,
   newProvinceName: string
 ) => {
-  const url = `http://localhost:8081/api/location/province/${provinceName}`;
+  const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/province/${provinceName}`;
   const options = {
     method: "PUT",
     headers: {
@@ -216,7 +216,7 @@ export const updateCanton = async (
   cantonName: string,
   newCantonName: string
 ) => {
-  const url = `http://localhost:8081/api/location/canton/${cantonName}`;
+  const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/canton/${cantonName}`;
   const options = {
     method: "PUT",
     headers: {
@@ -249,7 +249,7 @@ export const updateParish = async (
   newParishName: string,
   newZipCode: string
 ) => {
-  const url = `http://localhost:8081/api/location/parish/${parishName}`;
+  const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/parish/${parishName}`;
   const options = {
     method: "PUT",
     headers: {
@@ -278,7 +278,7 @@ export const updateParish = async (
 };
 
 export const deleteProvince = async (provinceName: string) => {
-  const url = `http://localhost:8081/api/location/province/${provinceName}`;
+  const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/province/${provinceName}`;
   const options = {
     method: "DELETE",
     headers: {
@@ -306,7 +306,7 @@ export const deleteProvince = async (provinceName: string) => {
 };
 
 export const deleteCanton = async (cantonName: string) => {
-  const url = `http://localhost:8081/api/location/canton/${cantonName}`;
+  const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/canton/${cantonName}`;
   const options = {
     method: "DELETE",
     headers: {
@@ -334,7 +334,7 @@ export const deleteCanton = async (cantonName: string) => {
 };
 
 export const deleteParish = async (parishName: string) => {
-  const url = `http://localhost:8081/api/location/parish/${parishName}`;
+  const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/parish/${parishName}`;
   const options = {
     method: "DELETE",
     headers: {
