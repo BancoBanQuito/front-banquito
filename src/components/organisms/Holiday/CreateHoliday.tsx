@@ -13,9 +13,10 @@ const CreateHoliday: React.FC = () => {
   const [date, setDate] = useState<Dayjs | null>(null);
   const handleSubmit = async () => {
     if (date && name && type && code) {
+      
       try {
         const dateFormatted = date?.format("YYYY-MM-DD");
-        const response = await fetch("http://localhost:8081/api/holiday/", {
+        const response = await fetch("https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/holiday/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -24,6 +25,7 @@ const CreateHoliday: React.FC = () => {
           body: JSON.stringify({
             name: name,
             type: type,
+            
             date: dateFormatted,
             code: code,
           }),
@@ -33,7 +35,7 @@ const CreateHoliday: React.FC = () => {
         }
         alert("Creada con éxito");
       } catch (error) {
-        console.error(error);
+        alert("Ya existe la fecha seleccionada");
       }
     } else {
       alert("Todos los campos son obligatorios");
@@ -44,7 +46,7 @@ const CreateHoliday: React.FC = () => {
     <>
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">
-          Crear Feriado
+          Feriado
         </Typography>
       </Container>
       <Container sx={containerTextFieldStyles}>

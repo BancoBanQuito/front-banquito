@@ -2,7 +2,7 @@ export const saveBankEntity = async (
     internacionBankCode: string,
     name: string,
 ) => {
-    const url = `http://localhost:8081/api/bank-entity`;
+    const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/bank-entity`;
     const options = {
       method: "POST",
       headers: {
@@ -34,7 +34,7 @@ export const updateBankEntity = async (
     internacionBankCode: string,
     name: string,
 ) => {
-    const url = `http://localhost:8081/api/bank-entity`;
+    const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/bank-entity`;
   const options = {
     method: "PUT",
     headers: {
@@ -62,7 +62,7 @@ export const updateBankEntity = async (
   }
 };
 export const getBankEntity = async () => {
-    const url = `http://localhost:8081/api/bank-entity`;
+    const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/bank-entity`;
     const options = {
       method: "GET",
       headers: {

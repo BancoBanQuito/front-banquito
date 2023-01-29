@@ -1,20 +1,14 @@
-import { TextField, Typography } from "@mui/material";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { ConfirmationNumberOutlined, KeyboardBackspace, Search } from "@mui/icons-material";
+import ButtonIcon from "../components/atoms/ButtonIcon";
+import { SizeButton } from "../components/atoms/SizeButton";
 import TextFieldAtom from "../components/atoms/TextFieldAtom";
 import TableMolecule from "../components/molecules/TableMolecule";
-import ButtonIcon from "../components/atoms/ButtonIcon";
-// search icon
-import SearchIcon from "@mui/icons-material/Search";
-import { Checkbox as MuiCheckbox } from "@mui/material";
-import styled from "styled-components";
-// icon keyboar backspace
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { ColorPalette } from "../style/ColorPalette";
-// Add icon
-import { SizeButton } from "../components/atoms/SizeButton";
 import { ButtonStyle } from "../style/ButtonStyle";
-//data
-//import IdentificationTypes from "../components/organisms/IdentificationType.json";
+import { ColorPalette } from "../style/ColorPalette";
+import SearchProductDialog from "./SearchProductDialog";
+import { Typography, Checkbox as MuiCheckbox } from "@mui/material";
+import styled from "styled-components";
 import { Checkbox } from "../components/atoms/Checkbox";
 import { ConfirmationNumberOutlined, South } from "@mui/icons-material";
 import SearchProductDialog from "./SearchProductDialog";
@@ -176,31 +170,31 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
   };
 
   const getProducts = async () => {
-      const productsList = products.map((prod: any) => {
-        return {
-          name: <Typography>{prod.name}</Typography>,
-          type: <Typography>{prod.productType.name}</Typography>,
-          //link: <Checkbox {...searchBarProps}>{service.name}</Checkbox>
-          link: (
-            <MuiCheckbox
-              size={"medium"}
-              onChange={(
-                event: React.ChangeEvent<HTMLInputElement>,
-                value: boolean
-              ) => setProductList(prod, value)}
-              color="primary"
-              name={prod.name}
-              defaultChecked={true}
-            />
-          ),
-        };
-      });
+    const productsList = products.map((prod: any) => {
+      return {
+        name: <Typography>{prod.name}</Typography>,
+        type: <Typography>{prod.productType.name}</Typography>,
+        //link: <Checkbox {...searchBarProps}>{service.name}</Checkbox>
+        link: (
+          <MuiCheckbox
+            size={"medium"}
+            onChange={(
+              event: React.ChangeEvent<HTMLInputElement>,
+              value: boolean
+            ) => setProductList(prod, value)}
+            color="primary"
+            name={prod.name}
+            defaultChecked={true}
+          />
+        ),
+      };
+    });
 
-      const rowsProduct: any = [];
-      productsList.forEach((product: any) => {
-        rowsProduct.push([product.name, product.type, product.link]);
-      });
-      setRowProduct(rowsProduct);
+    const rowsProduct: any = [];
+    productsList.forEach((product: any) => {
+      rowsProduct.push([product.name, product.type, product.link]);
+    });
+    setRowProduct(rowsProduct);
 
   };
 
@@ -229,12 +223,12 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
         {
           method: "PUT",
           headers: {
-              'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
           },
           body: '{"products":' + JSON.stringify(products) + ',"associatedServices":' + JSON.stringify(associatedServices) + '}'
         }
       );
-        
+
     } catch (error) {
       console.log(error);
     }
@@ -253,7 +247,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
         <ReturnButton>
           <ButtonIcon
             color={ColorPalette.PRIMARY}
-            icon={<KeyboardBackspaceIcon />}
+            icon={<KeyboardBackspace />}
             onClick={() => {
               console.log("back");
             }}

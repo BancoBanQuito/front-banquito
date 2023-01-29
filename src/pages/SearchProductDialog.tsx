@@ -67,7 +67,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
     <Typography>Tipo</Typography>,
     <Typography>Vincular</Typography>,
   ];
-  
+
   const getProductByName = async () => {
     try {
       const response = await fetch(
@@ -77,22 +77,22 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
         }
       );
       const data = await response.json();
-      const product =  {
-          name: <Typography>{data.name}</Typography>,
-          type: <Typography>{data.productType.name}</Typography>,
-          //link: <Checkbox {...searchBarProps}>{service.name}</Checkbox>
-          link: (
-            <MuiCheckbox
-              size={"medium"}
-              onChange={(
-                event: React.ChangeEvent<HTMLInputElement>,
-                value: boolean
-              ) => setProductList(data, value)}
-              color="primary"
-              name={data.name}
-            />
-          ),
-        };
+      const product = {
+        name: <Typography>{data.name}</Typography>,
+        type: <Typography>{data.productType.name}</Typography>,
+        //link: <Checkbox {...searchBarProps}>{service.name}</Checkbox>
+        link: (
+          <MuiCheckbox
+            size={"medium"}
+            onChange={(
+              event: React.ChangeEvent<HTMLInputElement>,
+              value: boolean
+            ) => setProductList(data, value)}
+            color="primary"
+            name={data.name}
+          />
+        ),
+      };
 
       const rowsProduct: any = [];
       rowsProduct.push([product.name, product.type, product.link]);
@@ -189,7 +189,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
         <SizeButton
           palette={{ backgroundColor: ColorPalette.TERNARY }}
           icon={<AddIcon />}
-          onClick={ () => setProductsFromDialog()}
+          onClick={() => setProductsFromDialog()}
           text="Agregar"
           style={ButtonStyle.BIG}
         />

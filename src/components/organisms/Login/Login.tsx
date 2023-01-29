@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Container, FormLabel, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
-import EnvManager from '../../../config/EnvManager';
 import { useNavigate } from 'react-router-dom';
 
 interface userProps {
@@ -10,10 +9,11 @@ interface userProps {
 }
 interface Props {
     setUser: React.Dispatch<React.SetStateAction<userProps | null>>,
-    setIsLogged: React.Dispatch<React.SetStateAction<boolean>>
+    setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
+    redirect: string
 }
 
-const Login = ({ setUser, setIsLogged }: Props) => {
+const Login = ({ setUser, setIsLogged, redirect }: Props) => {
 
     const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ const Login = ({ setUser, setIsLogged }: Props) => {
             setUser({ username: userName, password: password })
             setIsLogged(true)
 
-            navigate('/cliente')
+            navigate(redirect)
 
         } catch (error) {
             console.error(error)

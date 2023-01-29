@@ -1,5 +1,5 @@
-import { Fade, Typography } from '@mui/material'
 import React from 'react'
+import { Fade, Typography } from '@mui/material'
 import LoadSpinner from '../atoms/LoadSpinner'
 
 interface LoaderProps {
