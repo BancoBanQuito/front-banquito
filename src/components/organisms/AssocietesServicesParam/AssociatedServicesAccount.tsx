@@ -47,62 +47,91 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 80%;
+  width: 90%;
   padding-top: 20px;
   padding-bottom: 20px;
   margin-left: 60px;
 `;
 
-interface Props {
-  openDialog: boolean;
-}
-
 export const AssociatedServicesAccount = () => {
-  
-
+  const initRow =[<>No existe Data</>]
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [value, setValue] = useState("");
+  const [row, setRow] = useState(initRow);
   const [branches, setBranches] = useState<AssociatedService[]>([]);
  
+  const getData = async () => {
+    fetch("http://localhost:8081/api/product/associatedServices")
+      .then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => setBranches(data))
+      .catch((error) => console.log(error));
+  };
+
   useEffect(() => {
-      fetch('http://localhost:8081/api/product/associatedServices')
-          .then((response) => {
-              if (!response.ok) {
-                  throw Error(response.statusText);
-              }
-              return response.json();
-          })
-          .then((data) => setBranches(data))
-          .catch((error) => console.log(error));
+    getData();
+    
   }, []);
 
   const headers = [
       <>ID</>,
-      <>Status</>,
-      <>Text Value</>,
-      <>Date Value</>,
-      <>Number Value</>,
-      <>Create Date</>,
-      <>End Date</>,
+      <>Nombre</>,
+      <>Estado</>,
+      <>Texto</>,
+      <>Fecha</>,
+      <>Numero</>,
+      <>Fecha de Creacion</>,
+      <>Fecha de Culminacion</>,
+      <>Acciones</>
      
   ];
 
-  const rows = branches.forEach(branch =>
-  branch.params.flatMap((param)=>
-  param?.account?.map((account) =>[
-    <>{branch.id}</>,
-    <>{account.status}</>,
-    <>{account.textValue}</>,
-    <>{account.dateValue}</>,
-    <>{account.numberValue}</>,
-    <>{account.createDate}</>,
-    <>{account.endDate}</>
-  ]))
-  
-     
-  );
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
+
+  console.log(branches)
+  
+  const rows =()=>{
+    const aux:any = [];
+    branches.forEach((branch) =>
+    branch.params.forEach((account) =>
+    account.account?.forEach(data =>aux.push([
+      <>{branch.id}</>,
+      <>{branch.name}</>,
+      <>{data.status}</>,
+      <>{data.textValue}</>,
+      <>{data.dateValue}</>,
+      <>{data.numberValue}</>,
+      <>{data.createDate}</>,
+      <>{data.endDate}</>,
+      <>
+      </>
+    ])))
+  );
+  return aux;
+  } 
+  
+
+
+  console.log(rows)
+
+
+  const filterByValue = () => {
+    if (value === "") return getData();
+    else {
+      const filtered = branches.filter((branch) => {
+        return branch.id.includes(value);
+      });
+      return setBranches(filtered);
+    }
+  };
+
 
   return (
     <Container>
@@ -115,8 +144,10 @@ export const AssociatedServicesAccount = () => {
           type="text"
           placeholder="id"
           variant="standard"
-          action={(event) => {}}
-          value=""
+          action={(event) => {
+            setValue(event.target.value);
+          }}
+          value={value}
         />
         <SizeButton
           palette={{ backgroundColor: ColorPalette.PRIMARY }}
@@ -127,13 +158,13 @@ export const AssociatedServicesAccount = () => {
         />
       </SearchContainer>
       <Container>
-        {/* <TableMolecule headers={headers} rows={rows} />
+         <TableMolecule headers={headers} rows={rows()} />
         <ButtonIcon
           color={ColorPalette.PRIMARY}
           icon={<ControlPointIcon />}
           onClick={() => handleOpen()}
           top={true}
-        /> */}
+        />  
         <SizeButton
           palette={{ backgroundColor: ColorPalette.PRIMARY }}
           onClick={() => console.log("Guardar")}

@@ -30,8 +30,8 @@ const App = () => {
   const [user, setUser] = useState({});
 
   return (
-    <AssociatedServiceParam></AssociatedServiceParam>
-    //<AssociatedServicesAccount></AssociatedServicesAccount>
+  //<AssociatedServiceParam></AssociatedServiceParam>
+    <AssociatedServicesAccount></AssociatedServicesAccount>
   );
 };
 

@@ -56,13 +56,33 @@ export const Container = styled.div`
   margin-left: 60px;
 `;
 
-interface Props {
-  openDialog: boolean;
-}
 
 export const AssociatedServiceParam = () => {
-  const [branchId, setbranchId] = useState<any>()
+
+  const [selectBranch,setSelectBranch] = useState<any>("")
+  const [selectParam,setSelectParam] = useState<any>("")
+  const [open, setOpen] = React.useState(false);
+  const [openNew, setOpenNew] = React.useState(false);
+  const handleOpen = (branch: any ) => {
+    setOpen(true)
+    setSelectBranch(branch);
+  
+  };
+  const handleOpenNew = (branch: any , param: any) => {
+    setOpenNew(true)
+    setSelectBranch(branch)
+    setSelectParam(param)
+
+  };
+  const handleClose = () => setOpen(false);
+  const handleCloseNew = () => setOpenNew(false);
+  const [value, setValue] = useState("");
+  const [addName, setAddName]=useState("");
+  const [addValue, setAddValue]=useState("");
   const [branches, setBranches] = useState<AssociatedService[]>([]);
+
+
+
   const getData = async () => {
     fetch("http://localhost:8081/api/product/associatedServices")
       .then((response) => {
@@ -79,7 +99,7 @@ export const AssociatedServiceParam = () => {
     getData();
   }, []);
 
-  const headers = [<>ID</>, <>Name</>, <>Value Type</>, <>Actions</>];
+  const headers = [<>ID</>, <>Nombre del Parametro</>, <>Valor</>, <>Acciones</>];
 
   const rows = branches.flatMap((branch) =>
     branch.params.map((param) => [
@@ -103,22 +123,6 @@ export const AssociatedServiceParam = () => {
     ])
   );
 
-  const [selectBranch,setSelectBranch] = useState<any>("")
-  const [selectParam,setSelectParam] = useState<any>("")
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = (branch: any ) => {setOpen(true)
-    setSelectBranch(branch);
-  };
-  const handleOpenNew = (branch: any , param: any) => {
-    setOpen(true)
-    setSelectBranch(branch)
-    setSelectParam(param)
-  };
-  const handleClose = () => setOpen(false);
-  const [value, setValue] = useState("");
-  const [addName, setAddName]=useState("");
-  const [addValue, setAddValue]=useState("");
-
   const filterByValue = () => {
     if (value === "") return getData();
     else {
@@ -133,13 +137,7 @@ export const AssociatedServiceParam = () => {
     filterByValue();
   }, [value]);
 
-
     const postData = async (branch :any ) => {
-      console.log(JSON.stringify({
-        valueType:addValue,
-        name:addName
-    }))
-    console.log(branch.id)
       fetch(`http://localhost:8081/api/associatedServiceParam/addparam/${branch.id}`,
       {
         method:"POST",
@@ -155,13 +153,14 @@ export const AssociatedServiceParam = () => {
           if (!response.ok) {
             throw Error(response.statusText);
           }
+          getData();
           return response.json();
+
         })
         .catch((error) => console.log(error));
     };
 
     const handleSubmit = async (branch: any , param:any ) => {
-           
       try {
           console.log(branch.id)
           console.log(param.name)
@@ -177,6 +176,7 @@ export const AssociatedServiceParam = () => {
               throw new Error(response.statusText)
           }
           alert("Actualizada con éxito")
+          getData();
       } catch (error) {
           console.error(error)
       }
@@ -192,7 +192,7 @@ export const AssociatedServiceParam = () => {
           label="Parametro Asociado"
           color="primary"
           type="text"
-          placeholder="id"
+          placeholder="id del servicio asociado"
           variant="standard"
           action={(event) => {
             setValue(event.target.value);
@@ -210,6 +210,7 @@ export const AssociatedServiceParam = () => {
       <Container>
         <TableMolecule headers={headers} rows={rows} />
       </Container>
+{/* Modal para crear un nuevo parametro */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -242,21 +243,18 @@ export const AssociatedServiceParam = () => {
               </div>
               <div>
                 <span>Tipo de Dato: </span>
-                <Dropdown
-                  label="Tipo de Dato"
-                  items={[
-                    { name: "TEX", value: "TEX" },
-                    { name: "DAT", value: "DAT" },
-                    { name: "NUM", value: "NUM" },
-                    { name: "DEC", value: "DEC" },
-                  ]}
-                  width={200}
-                  height={50}
-                  selectedTextColor={ColorPalette.BLACK}
-                  onChange={(addValue: string)=>{
-                    setAddValue(addValue)
-                  }}
-                />
+                <TextFieldAtom
+                    id="id"
+                    label="Tipo valor"
+                    color="primary"
+                    type="text"
+                    placeholder="nombre"
+                    variant="standard"
+                    action={(event) => {
+                      setAddValue(event.target.value)
+                    }}
+                    value={addValue}
+                  />
               </div>
               <Container>
                 <SizeButton
@@ -271,10 +269,10 @@ export const AssociatedServiceParam = () => {
         </Box>
       </Modal>
 
-
+{/* Modal para actualizar un parametro */}
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={openNew}
+        onClose={handleCloseNew}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -303,21 +301,18 @@ export const AssociatedServiceParam = () => {
               </div>
               <div>
                 <span>Tipo de Dato: </span>
-                <Dropdown
-                  label="Tipo de Dato"
-                  items={[
-                    { name: "TEX", value: "TEX" },
-                    { name: "DAT", value: "DAT" },
-                    { name: "NUM", value: "NUM" },
-                    { name: "DEC", value: "DEC" },
-                  ]}
-                  width={200}
-                  height={50}
-                  selectedTextColor={ColorPalette.BLACK}
-                  onChange={(addValue: string)=>{
-                    setAddValue(addValue)
-                  }}
-                />
+                <TextFieldAtom
+                    id="id"
+                    label="Tipo valor"
+                    color="primary"
+                    type="text"
+                    placeholder="nombre"
+                    variant="standard"
+                    action={(event) => {
+                      setAddValue(event.target.value)
+                    }}
+                    value={addValue}
+                  />
               </div>
               <Container>
                 <SizeButton
