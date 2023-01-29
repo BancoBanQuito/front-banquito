@@ -82,6 +82,8 @@ const CreateSegment: React.FC = () => {
   const optionsStatus = [
     { value: "Activo", label: "Activo" },
     { value: "Inactivo", label: "Inactivo" },
+    { value: "Bloqueado", label: "Bloqueado"},
+    { value: "Eliminado", label: "Eliminado"},
   ];
 
   const handleSubmit = async (event: React.FormEvent) => {
