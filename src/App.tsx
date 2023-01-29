@@ -34,6 +34,7 @@ import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import DepositBank from "./pages/UserPages/Transaction/DepositBank";
 import WithdrawBank from "./pages/UserPages/Transaction/WithdrawBank";
 import InterestSavingAccounts from "./pages/ClientPages/Transaction/InterestSavingAccounts";
+import { UpdateClient } from "./components/organisms/Client/UpdateClient";
 
 interface userProps {
   username: string,
