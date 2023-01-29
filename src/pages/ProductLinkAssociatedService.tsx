@@ -18,6 +18,7 @@ import { ButtonStyle } from "../style/ButtonStyle";
 import { Checkbox } from "../components/atoms/Checkbox";
 import { ConfirmationNumberOutlined, South } from "@mui/icons-material";
 import SearchProductDialog from "./SearchProductDialog";
+import { Route } from "react-router-dom";
 // Styles
 export const Container = styled.div`
   display: relative;
@@ -37,7 +38,7 @@ export const Content = styled.div`
 export const FormContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: baseline;
+  align-items: flex-end;
   justify-content: end;
   width: 100%;
   height: 80%;
@@ -69,7 +70,8 @@ export const ReturnButton = styled.div`
 `;
 
 export const Span = styled.span`
-  width: 100px;
+  width: 220px;
+  padding-bottom: 10px;
 `;
 
 interface ProductLinkAssociatedService {
@@ -86,37 +88,19 @@ interface AssociatedService {
   params: [];
 }
 
-interface CheckBoxList {
-  name: String;
-  checked: Boolean;
-}
-
 const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
   const [rowAssociatedServices, setRowAssociatedServices] = useState<any>([]);
   const [rowProduct, setRowProduct] = useState<any>([]);
-  const [associatedServices, setAssociatedServices] = useState<AssociatedService[]>([]);
+  const [associatedServices, setAssociatedServices] = useState<
+    AssociatedService[]
+  >([]);
   const [products, setProducts] = useState<any>([]);
-  //const [checkBoxList, setCheckBoxList] = useState<CheckBoxList[]>([]);
-
-  const searchBarProps = {
-    // make sure all required component's inputs/Props keys&types match
-    label: "",
-    onchange: (service: AssociatedService, value: Boolean) =>
-      setServiceList(service, value),
-  };
+  const [dialog, setDialog] = useState(false);
 
   const headers = [
-    <Typography>Cuenta</Typography>,
     <Typography>Nombre del Producto</Typography>,
+    <Typography>Tipo</Typography>,
     <Typography>Vincular</Typography>,
-  ];
-
-  const rows = [
-    [
-      <Typography>asb001</Typography>,
-      <Typography>Cuenta ahorros</Typography>,
-      <Checkbox {...searchBarProps}>Cell 3</Checkbox>,
-    ],
   ];
 
   const headersService = [
@@ -179,44 +163,23 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
   };
 
   const setServiceList = (service: AssociatedService, value: Boolean) => {
+    let asociateServices: AssociatedService[] = associatedServices;
     if (value) {
-      let asociateServices: AssociatedService[] = associatedServices;
       asociateServices.push(service);
-      setAssociatedServices(asociateServices);
     } else {
-      let asociateServices: AssociatedService[] = associatedServices.filter((serv) => 
-        serv.name != service.name
+      let index: number = associatedServices.findIndex(
+        (serv) => serv.name == service.name
       );
-      setAssociatedServices(asociateServices);
+      asociateServices.splice(index, 1);
     }
-    /* console.log("entra");
-    console.log(checkBoxList);
-    const checkBoxUpdated = checkBoxList.map(element => {
-      if(element.name == name){
-        console.log("entra al if");
-        element.checked = value;
-        return element;
-      } else {
-        console.log("entra al else");
-        return element;
-      } 
-    });
-    setCheckBoxList(checkBoxUpdated); */
+    setAssociatedServices(asociateServices);
   };
 
   const getProducts = async () => {
-    try {
-      const response = await fetch(
-        `http://127.0.0.1:8081/api/products/products`,
-        {
-          method: "GET",
-        }
-      );
-      const data = await response.json();
-      const products = data.map((prod: any) => {
+      const productsList = products.map((prod: any) => {
         return {
-          id: <Typography>{prod.id}</Typography>,
           name: <Typography>{prod.name}</Typography>,
+          type: <Typography>{prod.productType.name}</Typography>,
           //link: <Checkbox {...searchBarProps}>{service.name}</Checkbox>
           link: (
             <MuiCheckbox
@@ -227,38 +190,41 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
               ) => setProductList(prod, value)}
               color="primary"
               name={prod.name}
+              defaultChecked={true}
             />
           ),
         };
       });
 
       const rowsProduct: any = [];
-      products.forEach((product: any) => {
-        rowsProduct.push([product.id, product.name, product.link]);
+      productsList.forEach((product: any) => {
+        rowsProduct.push([product.name, product.type, product.link]);
       });
       setRowProduct(rowsProduct);
-    } catch (error) {
-      console.log(error);
-    }
+
   };
 
   const setProductList = (product: any, value: Boolean) => {
+    let productsAux = products;
     if (value) {
-      setProducts(products.concat(product));
+      productsAux.push(product);
+    } else {
+      let index: number = productsAux.findIndex(
+        (prod: { name: any; }) => prod.name == product.name
+      );
+      productsAux.splice(index, 1);
     }
+    setProducts(productsAux);
   };
 
   useEffect(() => {
     getAssociatedServices();
     getProducts();
-  }, []);
+  }, [dialog]);
 
   const setServices = async () => {
-    console.log("el array de servicios>");
-    console.log(associatedServices);
-    console.log(JSON.stringify(associatedServices));
     //console.log('{"products":' + JSON.stringify(products) + ',"associatedServices":' + JSON.stringify(associatedServices) + '}');
-    /*try {
+    try {
       const response = await fetch(`http://localhost:8081/api/products/product-link-service`,
         {
           method: "PUT",
@@ -271,12 +237,19 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
         
     } catch (error) {
       console.log(error);
-    }*/
+    }
   };
 
   return (
     <Container>
       <Content>
+        <SearchProductDialog
+          open={dialog}
+          setProducts={setProducts}
+          onClose={function (): void {
+            setDialog(false);
+          }}
+        ></SearchProductDialog>
         <ReturnButton>
           <ButtonIcon
             color={ColorPalette.PRIMARY}
@@ -291,8 +264,8 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
           <h1>Vinculacion de productos con servicios asociados</h1>
         </div>
         <FormContainer>
-          <Span>Nombre: </Span>
-          <TextFieldAtom
+          <Span>Busca productos para vincular: </Span>
+          {/* <TextFieldAtom
             id="id"
             label="Nombre del producto"
             color="primary"
@@ -300,13 +273,14 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
             placeholder="Nombre del producto"
             variant="standard"
             action={(event) => console.log(event.target.value)}
-            value={""}
-          />
+          /> */}
           <pre> </pre>
           <SizeButton
             palette={{ backgroundColor: ColorPalette.PRIMARY }}
             icon={<SearchIcon />}
-            onClick={handleClickOpen}
+            onClick={() => {
+              setDialog(true);
+            }}
             text="Buscar"
             style={ButtonStyle.MEDIUM}
           />
@@ -334,11 +308,6 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
           />
         </ContentButtonAddRight>
       </Content>
-      <SearchProductDialog
-        open={open}
-        onClose={handleClose}
-        selectedValue={selectedValue}
-      ></SearchProductDialog>
     </Container>
   );
 };
