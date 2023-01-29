@@ -16,7 +16,7 @@ import InfoModalOrganism from "../../../components/organisms/InfoModalOrganism";
 
 const userCodeLocalAccount = "87c6d872679c7e96365c";
 
-const WithdrawalsBank = () => {
+const WithdrawAtm = () => {
 
     const [showInfoModal, setshowInfoModal] = useState<boolean>(false);
     const [isLoading, setisLoading] = useState<boolean>(false);
@@ -129,4 +129,4 @@ const WithdrawalsBank = () => {
     )
 }
 
-export default WithdrawalsBank
+export default WithdrawAtm

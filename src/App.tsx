@@ -28,7 +28,7 @@ import AccountCancelUser from "./pages/UserPages/Account/AccountCancelUser";
 import AccountAvailableBalance from "./pages/ATMPages/Account/AccountAvailableBalance";
 import AccountCreateClient from "./pages/ClientPages/Account/AccountCreateClient";
 import DepositAtm from "./pages/ATMPages/Transaction/DepositAtm";
-import WithdrawalsAtm from "./pages/ATMPages/Transaction/WithdrawalsAtm";
+import WithdrawAtm from "./pages/ATMPages/Transaction/WithdrawAtm";
 import AccountConsolidatedPositionUser from "./pages/UserPages/Account/AccountConsolidatedPositionUser";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import DepositBank from "./pages/UserPages/Transaction/DepositBank";
@@ -205,7 +205,7 @@ const App = () => {
     },
     {
       path: "cuenta/retiro",
-      element: <WithdrawalsAtm />
+      element: <WithdrawAtm />
     }
   ]
 
