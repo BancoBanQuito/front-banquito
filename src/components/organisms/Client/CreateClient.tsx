@@ -82,13 +82,6 @@ const CreateClient: React.FC = () => {
   const [startDate, setStartDate] = useState(relationship[0].startDate);
   const [endDate, setEndDate] = useState(relationship[0].endDate);
 
-  // const [nameRelationShip, setNameRelationShip] = useState<string[]>([]);
-  // const [startDate, setStartDate] = useState<Date[]>([]);
-  // const [endDate, setEndDate] = useState<Date[]>([]);
-  // const [nameReference, setNameReference] = useState<string[]>([]);
-  // const [phoneReference, setPhoneReference] = useState<string[]>([]);
-  // const [related, setRelated] = useState<string[]>([]);
-
   const reference = [
     {
       nameReference: "",
@@ -97,12 +90,8 @@ const CreateClient: React.FC = () => {
     },
   ];
 
-  const [nameReference, setNameReference] = useState(
-    reference[0].nameReference
-  );
-  const [phoneReference, setPhoneReference] = useState(
-    reference[0].phoneReference
-  );
+  const [nameReference, setNameReference] = useState(reference[0].nameReference);
+  const [phoneReference, setPhoneReference] = useState(reference[0].phoneReference);
   const [related, setRelated] = useState(reference[0].related);
 
   const [codeSegment, setCodeSegment] = useState<string>();
@@ -883,7 +872,7 @@ const CreateClient: React.FC = () => {
         </div>
       </Container>
 
-      <Container sx={containerTextFieldStyles}>
+      {/* <Container sx={containerTextFieldStyles}>
         <FormLabel sx={formLabelStyles}>Nombre de relationship:</FormLabel>
         <div style={{ marginRight: "10px" }}>
           <TextField
@@ -911,9 +900,9 @@ const CreateClient: React.FC = () => {
             }}
           />
         </div>
-      </Container>
+      </Container> */}
 
-      <Container sx={containerTextFieldStyles}>
+      {/* <Container sx={containerTextFieldStyles}>
         <FormLabel sx={formLabelStyles}>
           Fecha de fin relationship:
         </FormLabel>
@@ -927,7 +916,7 @@ const CreateClient: React.FC = () => {
             }}
           />
         </div>
-      </Container>
+      </Container> */}
 
       <Container sx={containerTextFieldStyles}>
         <FormLabel sx={formLabelStyles}>Escriba reference:</FormLabel>
@@ -937,6 +926,34 @@ const CreateClient: React.FC = () => {
             onChange={(event) => {
               setNameReference(event.target.value);
               reference[0].nameReference = event.target.value;
+            }}
+            variant="standard"
+          />
+        </div>
+      </Container>
+
+      <Container sx={containerTextFieldStyles}>
+        <FormLabel sx={formLabelStyles}>Escriba el telefono de reference:</FormLabel>
+        <div style={{ marginRight: "10px" }}>
+          <TextField
+            value={phoneReference}
+            onChange={(event) => {
+              setPhoneReference(event.target.value);
+              reference[0].phoneReference = event.target.value;
+            }}
+            variant="standard"
+          />
+        </div>
+      </Container>
+
+      <Container sx={containerTextFieldStyles}>
+        <FormLabel sx={formLabelStyles}>Tipo de relación:</FormLabel>
+        <div style={{ marginRight: "10px" }}>
+          <TextField
+            value={related}
+            onChange={(event) => {
+              setRelated(event.target.value);
+              reference[0].related = event.target.value;
             }}
             variant="standard"
           />
