@@ -1,7 +1,5 @@
-import React from 'react';
-import { Container, TextField, Typography } from '@mui/material';
-import { useState, useEffect } from 'react';
-
+import { Container, Typography, TextField } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import TableMolecule from '../../../components/molecules/TableMolecule';
 import { IBranch } from '../../../components/organisms/Branch/Types';
 
@@ -15,7 +13,7 @@ const Branch: React.FC = () => {
     );
 
     useEffect(() => {
-        fetch('http://localhost:8081/api/branch')
+        fetch('https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/branch')
             .then((response) => {
                 if (!response.ok) {
                     throw Error(response.statusText);
@@ -55,12 +53,13 @@ const Branch: React.FC = () => {
                     Sucursales
                 </Typography>
             </Container>
-            <TextField
-                label="Buscar por provincia"
-                value={searchTerm}
-                onChange={(event) => setSearchTerm(event.target.value)}
-                style={searchBarStyle}
-            />
+            <Container style={searchBarStyle}>
+                <TextField
+                    label="Buscar por provincia"
+                    value={searchTerm}
+                    onChange={(event) => setSearchTerm(event.target.value)}
+                />
+            </Container>
             <Container style={containerTableStyle}>
                 <TableMolecule headers={headers} rows={rows} />
             </Container>
@@ -73,7 +72,8 @@ export default Branch;
 const containerStyle = {
     display: 'flex',
     'flex-direction': 'column',
-    'align-items': 'flex-start'
+    'align-items': 'flex-start',
+    marginTop: '70px'
 };
 
 const containerTableStyle = {
@@ -82,6 +82,6 @@ const containerTableStyle = {
 
 const searchBarStyle = {
     display: 'flex',
-    justifyContent: 'flex-end',
-    marginLeft: '900px'
+    'flex-direction': 'column',
+    'align-items': 'flex-end'
 };

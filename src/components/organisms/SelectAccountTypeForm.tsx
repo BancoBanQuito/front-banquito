@@ -1,11 +1,10 @@
+import { Theme } from '@emotion/react';
+import { Wallet, Savings, AccountBalance } from '@mui/icons-material';
+import { SxProps, Box, Typography } from '@mui/material';
 import React from 'react'
-import { Box, SxProps, Theme, Typography } from '@mui/material';
-import { SizeButton } from '../atoms/SizeButton';
-import { ColorPalette } from '../../style/ColorPalette';
 import { ButtonStyle } from '../../style/ButtonStyle';
-import { AccountBalance } from '@mui/icons-material';
-import { Savings } from '@mui/icons-material';
-import { Wallet } from '@mui/icons-material';
+import { ColorPalette } from '../../style/ColorPalette';
+import { SizeButton } from '../atoms/SizeButton';
 
 const mainBoxStyle = (): SxProps<Theme> => {
     return {
@@ -60,7 +59,7 @@ const SelectAccountTypeForm = (props: SelectAccountFormProps) => {
                     <div style={{ margin: 5 }}>
                         <SizeButton
                             palette={{ backgroundColor: ColorPalette.PRIMARY }}
-                            onClick={() => props.onSelect("1", 0)}
+                            onClick={() => props.onSelect("be04e60db27fd509df44cfdb72dcfd74", 0)}
                             style={ButtonStyle.BIG}
                             text='Inversion'
                             column
@@ -71,7 +70,7 @@ const SelectAccountTypeForm = (props: SelectAccountFormProps) => {
                     <div style={{ margin: 5 }}>
                         <SizeButton
                             palette={{ backgroundColor: ColorPalette.PRIMARY }}
-                            onClick={() => props.onSelect("2", 1)}
+                            onClick={() => props.onSelect("6c24027751bc43c5b232242e307880a7", 1)}
                             style={ButtonStyle.BIG}
                             text='Ahorros'
                             column
@@ -82,7 +81,7 @@ const SelectAccountTypeForm = (props: SelectAccountFormProps) => {
                     <div style={{ margin: 5 }}>
                         <SizeButton
                             palette={{ backgroundColor: ColorPalette.PRIMARY }}
-                            onClick={() => props.onSelect("3", 2)}
+                            onClick={() => props.onSelect("bdc60173d3f0a82a1a04557e2d14ee32", 2)}
                             style={ButtonStyle.BIG}
                             text='Corriente'
                             column
