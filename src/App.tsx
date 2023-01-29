@@ -13,30 +13,18 @@ import CreateRequestService from './pages/CreateRequestService';
 import AccountCreateUser from "./pages/UserPages/Account/AccountCreateUser";
 import AccountStatementBankUser from "./pages/UserPages/Account/AccountStatementUser";
 import TransferUser from "./pages/UserPages/Transaction/TransferUser";
-import { Home } from "@mui/icons-material";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import CreateUser from "./components/organisms/Login/CreateUser";
-import InterestRateLog from "./components/organisms/interestrate/InterestRateLog";
 import Branch from "./pages/ClientPages/Branches/Branch";
-import ProductLinkAssociatedService from "./pages/ProductLinkAssociatedService";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
-import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
 import InterestRateLog from "./components/organisms/interestrate/InterestRateLog";
 import ProductLinkAssociatedService from "./pages/ProductLinkAssociatedService";
 import Home from "./pages/Home";
 import CreateUser from "./components/organisms/Login/CreateUser";
-import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
-import { UpdateBankEntity } from "./components/organisms/BankEntity/UpdateBankEntity";
-import { Product } from "./pages/ProductPages/Product";
-import { ProductType } from "./pages/ProductPages/ProductType";
-import CreateRequestService from "./pages/CreateRequestService";
 import SearchCardClient from "./pages/UserPages/SearchCardClient/SearchCardClient";
 import SearchClientDataForm from "./pages/UserPages/SearchClientData/SearchClientDataForm";
 import UpdateClientDataForm from "./pages/UserPages/UpdateClientLikeBankUser/UpdateClientLikeBankUser";
 
-import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBeetwenDates";
 import Layout from "./template/Layout";
 import AccountCreateSignatureUser from "./pages/UserPages/Account/AccountCreateSignatureUser";
 import AccountCancelUser from "./pages/UserPages/Account/AccountCancelUser";
@@ -50,18 +38,13 @@ import DepositBank from "./pages/UserPages/Transaction/DepositBank";
 import WithdrawBank from "./pages/UserPages/Transaction/WithdrawBank";
 import InterestSavingAccounts from "./pages/ClientPages/Transaction/InterestSavingAccounts";
 import { UpdateClient } from "./components/organisms/Client/UpdateClient";
+import { GeneralInformation } from "./components/organisms/Client/GeneralInformation";
+import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBeetwenDates";
 
 interface userProps {
   username: string,
   password: string
 }
-import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
-import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
-import { Product } from "./pages/ProductPages/Product";
-import { ProductType } from "./pages/ProductPages/ProductType";
-import CreateRequestService from './pages/CreateRequestService';
-import CreateClient from "./components/organisms/Client/CreateClient";
-import { GeneralInformation } from "./components/organisms/Client/GeneralInformation";
 
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -98,7 +81,7 @@ const App = () => {
     },
     {
       path: "cuenta/firma",
-      element: <AccountCreateSignatureUser />,,
+      element: <AccountCreateSignatureUser />,
     },
     {
       path: "cuenta/cancelar",
@@ -191,7 +174,7 @@ const App = () => {
     },
     {
       path: "sucursales",
-      element: <Branch />,,
+      element: <Branch />,
     },
     {
       path: "cuenta/estado",
@@ -288,66 +271,5 @@ const App = () => {
   );
 };
 
-const userRoutes = [
-  {
-    path: "",
-    element: <HomeUser />,
-  },
-  {
-    path: "ubicaciones",
-    element: <Location />,
-  },
-  {
-    path: "cuenta/crear",
-    element: <AccountCreateBank />,
-  },
-  {
-    path: "cuenta/estado",
-    element: <AccountStatementBank />,
-  },
-  {
-    path: "transaccion",
-    element: <TransferBank />,
-  },
-  {
-    path: "sucursales",
-    element: <BranchUser />,
-  },
-  {
-    path: "account/signature",
-    element: <CreateSignature />,
-  },
-  {
-    path: "edit/account/signature",
-    element: <EditAccountSignature />,
-  },
-  {
-    path: "edit/account/cancel",
-    element: <CancelAccount />,
-  },
-];
-
-const clientRoutes = [
-  {
-    path: "",
-    element: <HomeClient />,
-  },
-  {
-    path: "cuenta/crear",
-    element: <AccountCreateUser />,
-  },
-  {
-    path: "sucursales",
-    element: <Branch />,
-  },
-  {
-    path: "cuenta/estado",
-    element: <AccountStatementClient />,
-  },
-  {
-    path: "transaccion",
-    element: <TransferUser />,
-  },
-];
 
 export default App;
