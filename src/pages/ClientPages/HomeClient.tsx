@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { SizeButton } from '../../components/atoms/SizeButton'
 import { ButtonStyle } from '../../style/ButtonStyle'
 import { ColorPalette } from '../../style/ColorPalette'
+import { display } from '@mui/system'
 
 interface userProps {
   username: string,
@@ -19,7 +20,8 @@ const HomeClient = ({ user, isLogged }: Props) => {
   const navigate = useNavigate();
 
   return (
-    <Box
+    <>
+      {/* <Box
       display='flex'
       sx={{
         width: '100%',
@@ -87,7 +89,30 @@ const HomeClient = ({ user, isLogged }: Props) => {
             </Box>
         }
       </Box>
-    </Box>
+    </Box> */}
+      <Box sx={{
+        width: '100%',
+        height: '97vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflowX: 'hidden',
+        overflowY: 'auto'
+      }}>
+        {/* Carousel */}<section>
+
+        </section>
+        {/* Servicios */}<section>
+
+        </section>
+        {/* Productos */}<section>
+
+        </section>
+        {/* Footer */}<footer>
+
+        </footer>
+      </Box>
+    </>
   )
 }
 
