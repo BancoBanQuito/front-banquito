@@ -169,7 +169,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
           <Route path="" element={<Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />}>
             <Route index element={<Home />} />
@@ -190,8 +190,7 @@ const App = () => {
           </Route>
           <Route path="*" element={<Error404 />} />
         </Routes>
-      </BrowserRouter> */}
-      <CreateClient />
+      </BrowserRouter>
     </ThemeProvider>
   );
 };
