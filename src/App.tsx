@@ -40,6 +40,12 @@ interface userProps {
   username: string,
   password: string
 }
+import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
+import { UpdateBankEntity } from './components/organisms/BankEntity/UpdateBankEntity';
+import { Product } from "./pages/ProductPages/Product";
+import { ProductType } from "./pages/ProductPages/ProductType";
+import CreateRequestService from './pages/CreateRequestService';
+import CreateClient from "./components/organisms/Client/CreateClient";
 import { GeneralInformation } from "./components/organisms/Client/GeneralInformation";
 
 const App = () => {
