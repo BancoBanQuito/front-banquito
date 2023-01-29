@@ -32,6 +32,7 @@ import { ProductType } from "./pages/ProductPages/ProductType";
 import CreateRequestService from "./pages/CreateRequestService";
 import SearchCardClient from "./pages/UserPages/SearchCardClient/SearchCardClient";
 import SearchClientDataForm from "./pages/UserPages/SearchClientData/SearchClientDataForm";
+import UpdateClientDataForm from "./pages/UserPages/UpdateClientLikeBankUser/UpdateClientLikeBankUser";
 
 interface userProps {
   username: string;
@@ -140,6 +141,10 @@ const App = () => {
     {
       path: "buscar-info-cliente",
       element: <SearchCardClient />,
+    },
+    {
+      path: "actualizar-info-cliente",
+      element: <UpdateClientDataForm />,
     },
   ];
 

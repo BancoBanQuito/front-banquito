@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 const urlCloud =
   "https://client-banquito-abigailscl-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/client/";
 
-const local = "http://localhost:8080/api/client/";
+const local = "https://client-banquito-abigailscl-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/client/";
 
 const isAvailable = true;
 
@@ -48,7 +48,8 @@ const SearchClientDataForm: React.FC = () => {
     try {
       setTypeIdentification(localStorage.getItem("typeIdentification"));
       const response = await fetch(
-        local + `${idCliente}/${typeIdentification}`
+        // urlCloud + `${idCliente}/${typeIdentification}`
+        urlCloud + `${idCliente}`
       );
       const data = await response.json();
       setEmail(data.email);
@@ -59,7 +60,7 @@ const SearchClientDataForm: React.FC = () => {
       setReferencia(data.reference.name + " (" + data.reference.related + ")");
       setTelefono(data.phone.phoneNumber);
       setDireccion(data.address.lineOne + " y " + data.address.lineTwo);
-      setSegmento("VIP");
+      setSegmento(data.segment.name);
       setGenero(data.gender);
       setEstadoCivil(data.maritalStatus);
       setStatus(data.status);
