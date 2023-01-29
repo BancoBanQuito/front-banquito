@@ -1,12 +1,11 @@
 import React from 'react';
 import { Box, Container } from '@mui/material';
 import { useState } from 'react';
-
 import { LocationTabs } from '../../../components/organisms/Location/LocationTabs';
-import Branch from '../../ClientPages/Branches/Branch';
 import CreateBranch from '../../../components/organisms/Branch/CreateBranch';
-import UpdateBranch from '../../../components/organisms/Branch/UpdateBranch';
 import DeleteBranch from '../../../components/organisms/Branch/DeleteBranch';
+import UpdateBranch from '../../../components/organisms/Branch/UpdateBranch';
+import Branch from '../../ClientPages/Branches/Branch';
 
 
 const BranchUser: React.FC = () => {

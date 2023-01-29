@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Container } from "@mui/material";
-import { useState } from "react";
+import CreateHoliday from "../../../components/organisms/Holiday/CreateHoliday";
 import { HolidayTabs } from "../../../components/organisms/Holiday/HolidayTabs";
 import Holiday from "../../ClientPages/Holiday/Holiday";
 import CreateHolidayD from "../../../components/organisms/Holiday/CreateHoliday";
 import CreateHolidayY from "../../../components/organisms/Holiday/CreateHolidayYear";
+import DeleteHoliday from "../../../components/organisms/Holiday/DeleteHoliday";
+import UpdateHoliday from "../../../components/organisms/Holiday/UpdateHoliday";
 import Branch from "../../ClientPages/Branches/Branch";
 import CreateBranch from "../../../components/organisms/Branch/CreateBranch";
 
@@ -24,6 +26,8 @@ const HolidayUser: React.FC = () => {
         </Container>
         {tabValue === "CrearA" && <CreateHolidayY />}
         {tabValue === "CrearD" && <CreateHolidayD />}
+        {tabValue === "Actualizr" && <UpdateHoliday/>}
+        {tabValue === "Eliminar" && <DeleteHoliday />}
       </Box>
     </Box>
   );

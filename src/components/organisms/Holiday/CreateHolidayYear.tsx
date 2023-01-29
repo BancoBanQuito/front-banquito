@@ -13,7 +13,7 @@ const CreateHolidayYear: React.FC = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:8081/api/holiday/${date}`,
+        `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/holiday/${date}`,
         {
           method: "POST",
           headers: {
@@ -24,10 +24,10 @@ const CreateHolidayYear: React.FC = () => {
       );
       if (response.ok) {
         setIsLoading(false);
-        alert("Creada con éxito");
+        alert("Fines de semana creados para el año "+ date );
       } else {
         setIsLoading(false);
-        throw new Error(response.statusText);
+        alert("Ya existen los fines de semana para el año " + date);
       }
     } catch (error) {
       setIsLoading(false);
@@ -39,7 +39,7 @@ const CreateHolidayYear: React.FC = () => {
     <>
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">
-          Crear Feriado
+          Fines de Semana
         </Typography>
       </Container>
       <Container sx={containerFormLabelStyles}></Container>
