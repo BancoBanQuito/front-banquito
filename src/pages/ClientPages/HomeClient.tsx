@@ -100,7 +100,7 @@ const HomeClient = ({ user, isLogged }: Props) => {
         overflowY: 'auto'
       }}>
         {/* Carousel */}<section>
-
+          
         </section>
         {/* Servicios */}<section>
 
