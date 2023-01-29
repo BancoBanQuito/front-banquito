@@ -1,10 +1,6 @@
-import { Stack, Typography, Button } from "@mui/material"
-import TableMolecule from "../../components/molecules/TableMolecule"
+import { Typography, Stack, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import TextAreaAtom from "../../components/atoms/TextAreaAtom";
-import { SizeButton } from "../../components/atoms/SizeButton";
-import { ButtonStyle } from "../../style/ButtonStyle";
-import { ActivateDialog } from "./dialog/ActivateDialog";
+import TableMolecule from "../../components/molecules/TableMolecule";
 import { CreateTypeProduct } from "./dialog/CreateTypeProduct";
 
 const table: any = {

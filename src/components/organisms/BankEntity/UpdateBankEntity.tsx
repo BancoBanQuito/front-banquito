@@ -1,11 +1,12 @@
-import { SetMeal } from '@mui/icons-material';
-import { TextField } from '@mui/material';
 import * as React from 'react';
+import { getBankEntity, updateBankEntity } from './FunctionsBank';
+import { Container, TextField } from '@mui/material';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { SizeButton } from '../../atoms/SizeButton';
-import { Container, Content } from './BankEntity';
-import { getBankEntity, updateBankEntity } from './FunctionsBank';
+import { Content } from './BankEntity';
+
+
 export const UpdateBankEntity = () => {
   const [nameBank, setnameBank] = React.useState('');
   const [codeBank, setcodeBank] = React.useState('');

@@ -1,7 +1,8 @@
 import axios from "axios";
-import { PUT_ACCOUNT_STATUS_API, PUT_ACCOUNT_BALANCE_API, POST_ACCOUNT_API, GET_ACCOUNT_ID_API, GET_ACCOUNT_CODE_API } from "../../config/apis/accountAPI";
+import { PUT_ACCOUNT_STATUS_API, PUT_ACCOUNT_BALANCE_API, POST_ACCOUNT_API, GET_ACCOUNT_ID_API, GET_ACCOUNT_CODE_API, GET_ACCOUNT_PRODUCT_API } from "../../config/apis/accountAPI";
 import { ResponseFormat } from "../ResponseFormat";
 import { RQAccountBalance } from "./dto/RQAccountBalance";
+import { RSProductTypeAndClientName } from "./dto/RSProductTypeAndClientName";
 import { RQAccountStatus } from "./dto/RQAccountStatus";
 import { RQCreateAccount } from "./dto/RQCreateAccount";
 import { RSAccount } from "./dto/RSAccount";
@@ -44,6 +45,14 @@ export class AccountService {
     public static async getAccountByCode(codeLocalAccount: string) {
         try {
             return await axios.get<ResponseFormat<RSAccount>>(GET_ACCOUNT_CODE_API(codeLocalAccount));
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public static async getAccountProductByCode(codeLocalAccount: string) {
+        try {
+            return await axios.get<ResponseFormat<RSProductTypeAndClientName>>(GET_ACCOUNT_PRODUCT_API(codeLocalAccount));
         } catch (error) {
             throw error;
         }
