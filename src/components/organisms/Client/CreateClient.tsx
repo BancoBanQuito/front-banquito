@@ -36,23 +36,15 @@ const CreateClient: React.FC = () => {
   const [fingerPrint, setFingerPrint] = useState<string>("");
   const [incomeTaxDocument, setIncomeTaxDocument] = useState<string>("");
   const [lastStatusDate, setLastStatusDate] = useState<Date>(new Date());
-  const [maritalStatus, setMaritalStatus] = useState<string>("");
+  const [maritalStatus, setMaritalStatus] = useState<string>("Soltero");
   const [monthlyAvgIncome, setMonthlyAvgIncome] = useState<string>("");
   const [nationality, setNationality] = useState<string>("");
   const [signature, setSignature] = useState<string>("");
   const [taxPaymentPlace, setTaxPaymentPlace] = useState<string>("");
   const [tinDocument, setTinDocument] = useState<string>("");
-  const [workStatus, setWorkStatus] = useState<string>("");
+  const [workStatus, setWorkStatus] = useState<string>("Otro");
   const [creationDate, setCreationDate] = useState<Date>(new Date());
-
-  // const [phone, setPhone] = useState<string>("");
-  // const [address, setAddress] = useState<string>("");
-  // const [relationship, setRelationship] = useState<string>("");
-  // const [reference, setReference] = useState<string>("");
-  // const [segment, setSegment] = useState<string>("");
   const [user, setUser] = useState<string>("");
-  // const [phoneNumber, setPhoneNumber] = useState<string[]>([]);
-  // const [phoneType, setPhoneType] = useState<string[]>([]);
   const phone = [
     {
       phoneNumber: "",
@@ -61,9 +53,6 @@ const CreateClient: React.FC = () => {
   ];
   const [phoneNumber, setPhoneNumber] = useState(phone[0].phoneNumber);
   const [phoneType, setPhoneType] = useState(phone[0].phoneType);
-
-  // const [codeLocation, setCodeLocation] = useState<string[]>([]);
-
   const address = [
     {
       codeLocation: "",
@@ -79,12 +68,6 @@ const CreateClient: React.FC = () => {
   const [lineTwo, setLineTwo] = useState(address[0].lineTwo);
   const [latitude, setLatitude] = useState(address[0].latitude);
   const [longitude, setLongitude] = useState(address[0].longitude);
-
-  // const [lineOne, setLineOne] = useState<string[]>([]);
-  // const [lineTwo, setLineTwo] = useState<string[]>([]);
-  // const [latitude, setLatitude] = useState<string[]>([]);
-  // const [longitude, setLongitude] = useState<string[]>([]);
-
   const relationship = [
     {
       nameRelationShip: "",
@@ -154,6 +137,40 @@ const CreateClient: React.FC = () => {
       setStatus("Suspendido");
     } else if (value === "Bloqueado") {
       setStatus("Bloqueado");
+    }
+  };
+
+  const onChangeWorkStatus = (value: string) => {
+    setWorkStatus(value);
+    if (value === "Empleado") {
+      setWorkStatus("Empleado");
+    } else if (value === "Independiente") {
+      setWorkStatus("Independiente");
+    } else if (value === "Desempleado") {
+      setWorkStatus("Desempleado");
+    } else if (value === "Jubilado") {
+      setWorkStatus("Jubilado");
+    } else if (value === "Estudiante") {
+      setWorkStatus("Estudiante");
+    } else if (value === "Otro") {
+      setWorkStatus("Otro");
+    }
+  };
+
+
+  //para estado civil
+  const onChangeMaritalStatus = (value: string) => {
+    setMaritalStatus(value);
+    if (value === "Soltero") {
+      setMaritalStatus("Soltero");
+    } else if (value === "Casado") {
+      setMaritalStatus("Casado");
+    } else if (value === "Divorciado") {
+      setMaritalStatus("Divorciado");
+    } else if (value === "Viudo") {
+      setMaritalStatus("Viudo");
+    } else if (value === "Union Libre") {
+      setMaritalStatus("Union Libre");
     }
   };
 
@@ -328,7 +345,7 @@ const CreateClient: React.FC = () => {
           },
         }),
       });
-      if (response.ok) {
+      if (!response.ok) {
         throw new Error(response.statusText);
       }
       alert("Client created successfully");
@@ -401,6 +418,26 @@ const CreateClient: React.FC = () => {
     { value: "Bloqueado", label: "Bloqueado" },
   ];
 
+  const optionsWorkStatus = [
+    { value: "Empleado", label: "Empleado" },
+    { value: "Independiente", label: "Independiente" },
+    { value: "Desempleado", label: "Desempleado" },
+    { value: "Jubilado", label: "Jubilado" },
+    { value: "Estudiante", label: "Estudiante" },
+    { value: "Otro", label: "Otro" },
+  ];
+
+  const optionsCivilStatus = [
+    { value: "Soltero", label: "Soltero" },
+    { value: "Casado", label: "Casado" },
+    { value: "Divorciado", label: "Divorciado" },
+    { value: "Viudo", label: "Viudo" },
+    { value: "Union Libre", label: "Union Libre" },
+  ];
+
+
+ 
+
   const optionsGender = [
     { value: "Otro", label: "Otro" },
     { value: "Masculino", label: "Masculino" },
@@ -463,9 +500,10 @@ const CreateClient: React.FC = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
+      <FormLabel sx={formLabelStyles}>Email:</FormLabel>
         <div style={{ marginRight: "10px" }}>
           <TextField
-            label="Email"
+            placeholder="ejemplo@ejemplo.com"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             onBlur={handleBlur}
@@ -477,14 +515,20 @@ const CreateClient: React.FC = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Fecha de Nacimiento:</FormLabel>
+        <FormLabel sx={formLabelStyles}>
+          Fecha de nacimiento:
+        </FormLabel>
         <div style={{ marginRight: "10px" }}>
           <TextField
             type="date"
-            value={birthDate}
+            value={
+              birthDate
+                ? birthDate.toISOString().substr(0, 10)
+                : ""
+            }
             onChange={handleBirthDateChange}
-            error={error}
-            helperText={error ? "Ingresa una fecha válida" : ""}
+            error={createDateError !== ""}
+            helperText={createDateError}
           />
         </div>
       </Container>
@@ -529,7 +573,7 @@ const CreateClient: React.FC = () => {
 
       <Container sx={containerTextFieldStyles}>
         <FormLabel sx={formLabelStyles}>
-          Fecha de creación de la empresa:
+          Fecha de ingreso a la empresa:
         </FormLabel>
         <div style={{ marginRight: "10px" }}>
           <TextField
@@ -610,25 +654,12 @@ const CreateClient: React.FC = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>
-          Número de impuesto sobre la renta
-        </FormLabel>
         <div style={{ marginRight: "10px" }}>
-          <TextField
-            value={incomeTaxDocument}
-            onChange={(event) => setIncomeTaxDocument(event.target.value)}
-            variant="standard"
-          />
-        </div>
-      </Container>
-
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Estado civil</FormLabel>
-        <div style={{ marginRight: "10px" }}>
-          <TextField
+          <BranchBox
+            label="Estado civil: "
             value={maritalStatus}
-            onChange={(event) => setMaritalStatus(event.target.value)}
-            variant="standard"
+            options={optionsCivilStatus}
+            onChange={onChangeMaritalStatus}
           />
         </div>
       </Container>
@@ -685,16 +716,19 @@ const CreateClient: React.FC = () => {
           />
         </div>
       </Container>
+
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Estado laboral</FormLabel>
         <div style={{ marginRight: "10px" }}>
-          <TextField
+          <BranchBox
+            label="Estado laboral: "
             value={workStatus}
-            onChange={(event) => setWorkStatus(event.target.value)}
-            variant="standard"
+            options={optionsWorkStatus}
+            onChange={onChangeWorkStatus}
           />
         </div>
       </Container>
+
+
       <Container sx={containerTextFieldStyles}>
         <FormLabel sx={formLabelStyles}>
           Fecha de agregación de la empresa:
@@ -741,7 +775,7 @@ const CreateClient: React.FC = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Escriba Line one:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Escriba la primera línea de dericción:</FormLabel>
         <div style={{ marginRight: "10px" }}>
           <TextField
             value={lineOne}
@@ -755,7 +789,7 @@ const CreateClient: React.FC = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Escriba Line two:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Escriba la segunda línea de dericción:</FormLabel>
         <div style={{ marginRight: "10px" }}>
           <TextField
             value={lineTwo}
