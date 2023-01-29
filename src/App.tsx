@@ -20,7 +20,22 @@ import InterestRateLog from "./components/organisms/interestrate/InterestRateLog
 import Branch from "./pages/ClientPages/Branches/Branch";
 import ProductLinkAssociatedService from "./pages/ProductLinkAssociatedService";
 import BranchUser from "./pages/UserPages/Branches/BranchUser";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HolidayUser from "./pages/UserPages/Holidays/HolidayUser";
+import TransactionBeetwenDates from "./pages/UserPages/Transferences/TransactionBeetwenDates";
+import InterestRateLog from "./components/organisms/interestrate/InterestRateLog";
+import ProductLinkAssociatedService from "./pages/ProductLinkAssociatedService";
+import Home from "./pages/Home";
+import CreateUser from "./components/organisms/Login/CreateUser";
+import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
+import { UpdateBankEntity } from "./components/organisms/BankEntity/UpdateBankEntity";
+import { Product } from "./pages/ProductPages/Product";
+import { ProductType } from "./pages/ProductPages/ProductType";
+import CreateRequestService from "./pages/CreateRequestService";
+import SearchCardClient from "./pages/UserPages/SearchCardClient/SearchCardClient";
+import SearchClientDataForm from "./pages/UserPages/SearchClientData/SearchClientDataForm";
+import UpdateClientDataForm from "./pages/UserPages/UpdateClientLikeBankUser/UpdateClientLikeBankUser";
+
 import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBeetwenDates";
 import Layout from "./template/Layout";
 import AccountCreateSignatureUser from "./pages/UserPages/Account/AccountCreateSignatureUser";
@@ -83,7 +98,7 @@ const App = () => {
     },
     {
       path: "cuenta/firma",
-      element: <AccountCreateSignatureUser />,
+      element: <AccountCreateSignatureUser />,,
     },
     {
       path: "cuenta/cancelar",
@@ -147,6 +162,18 @@ const App = () => {
         />
       ),
     },
+    {
+      path: "info-cliente",
+      element: <SearchClientDataForm />,
+    },
+    {
+      path: "buscar-info-cliente",
+      element: <SearchCardClient />,
+    },
+    {
+      path: "actualizar-info-cliente",
+      element: <UpdateClientDataForm />,
+    },
   ];
 
   const clientRoutes = [
@@ -164,7 +191,7 @@ const App = () => {
     },
     {
       path: "sucursales",
-      element: <Branch />,
+      element: <Branch />,,
     },
     {
       path: "cuenta/estado",
@@ -225,7 +252,12 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path="" element={<Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />}>
+          <Route
+            path=""
+            element={
+              <Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />
+            }
+          >
             <Route index element={<Home />} />
             {userRoutes.map((route) => (
               <Route
