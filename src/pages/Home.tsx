@@ -35,12 +35,16 @@ const Home = () => {
       </video>
       <Box
         display='flex'
+        flexDirection={{
+          md: 'column',
+          sm: 'row',
+          xs: 'row'
+        }}
         sx={{
           position: 'relative',
           zIndex: 1,
           width: '100%',
           height: '90vh',
-          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
         }}
