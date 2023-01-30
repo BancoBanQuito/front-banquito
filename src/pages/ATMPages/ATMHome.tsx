@@ -11,25 +11,23 @@ const ATMHomePage: React.FC = () => {
         window.location.href = '/atm/cuenta/deposito';
     };
 
+    const handleAccountAvailableBalanceClick = () => {
+        window.location.href = '/atm/cuenta/saldo';
+    };
+
     return (
         <div style={{ backgroundColor: 'gray', width: '100vw', height: '100vh', marginLeft: '-20px', marginBottom: '-20px' }}>
             <Container sx={atmContainerStyles}>
-                <Container sx={{
-                    ...optionsContainerStyles,
-                    flexDirection: 'column'
-                }}>
+                <Container sx={optionsContainerStyles}>
                     <Button sx={optionStyles} onClick={handleWithdrawalsClick}>Retiros</Button>
-                    <Button sx={optionStyles} onClick={() => { window.location.href = '/atm/cuenta/saldo' }}>Saldo</Button>
-                </Container>
-                <Container>
-                    <Typography sx={welcomeStyles}>Bienvenido</Typography>
-                    <img src={Logo} alt="ATM Machine" />
-                </Container>
-                <Container sx={{
-                    ...optionsContainerStyles,
-                    flexDirection: 'column'
-                }}>
-                    <Button sx={optionStyles} onClick={handleDepositsClick}>Depósitos</Button>
+                    <Container>
+                        <Typography sx={welcomeStyles}>Bienvenido</Typography>
+                        <img src={Logo} alt="ATM Machine" />
+                    </Container>
+                    <div style={{flexDirection: 'column'}}>
+                        <Button sx={optionStyles} onClick={handleDepositsClick}>Depósitos</Button>
+                        <Button sx={optionStyles} onClick={handleAccountAvailableBalanceClick}>Saldo</Button>
+                    </div>
                 </Container>
                 <Container sx={imageContainerStyles}>
                     <Typography sx={atmStyles}>ATM</Typography>
@@ -40,7 +38,7 @@ const ATMHomePage: React.FC = () => {
             <Container sx={receiveMoneyContainerStyles}>
                 <Container sx={receiveMoneyStyles}></Container>
             </Container>
-        </div >
+        </div>
     );
 };
 
@@ -66,6 +64,10 @@ const optionsContainerStyles = () => ({
     border: "5px solid black",
     boxShadow: "0 0 0 5px lightgray, -10px -10px 20px 20px black",
     borderRadius: "10px",
+});
+
+const buttonStyles = () => ({
+    flexDirection: 'column',
 });
 
 const optionStyles = () => ({
@@ -98,7 +100,8 @@ const welcomeStyles = () => ({
     marginTop: '100px',
     fontSize: '50px',
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
+    color: 'black'
 });
 
 const atmStyles = () => ({
