@@ -40,6 +40,7 @@ import InterestSavingAccounts from "./pages/ClientPages/Transaction/InterestSavi
 import { UpdateClient } from "./components/organisms/Client/UpdateClient";
 import { GeneralInformation } from "./components/organisms/Client/GeneralInformation";
 import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBeetwenDates";
+import ATMHome from "./pages/ATMPages/ATMHome";
 
 interface userProps {
   username: string,
@@ -215,7 +216,7 @@ const App = () => {
   const atmRoutes = [
     {
       path: "",
-      element: <HomeClient user={user} isLogged={isLogged} />,
+      element: <ATMHome />,
     },
     {
       path: "cuenta/saldo",
