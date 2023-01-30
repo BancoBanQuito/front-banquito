@@ -1,14 +1,22 @@
-import { Card, CardActionArea, CardContent, Typography, Dialog, Stack, Divider, Select, MenuItem, Button } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
-import styled from 'styled-components';
-import ButtonIcon from '../components/atoms/ButtonIcon';
-import { SizeButton } from '../components/atoms/SizeButton';
-import TextFieldAtom from '../components/atoms/TextFieldAtom';
-import { ButtonStyle } from '../style/ButtonStyle';
-import { ColorPalette } from '../style/ColorPalette';
-import { KeyboardBackspace, Search } from '@mui/icons-material';
-import EnvManager from '../config/EnvManager';
+import { Button, CardActionArea, CardContent, Dialog, Divider, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import TextFieldAtom from "../components/atoms/TextFieldAtom";
+
+import ButtonIcon from "../components/atoms/ButtonIcon";
+
+// search icon
+import SearchIcon from "@mui/icons-material/Search";
+import styled from "styled-components";
+// icon keyboar backspace
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { ColorPalette } from "../style/ColorPalette";
+// Add icon
+import { SizeButton } from "../components/atoms/SizeButton";
+import { ButtonStyle } from "../style/ButtonStyle";
+//data
+import Card from "@mui/material/Card";
+
+import { useForm, FormProvider } from "react-hook-form";
 
 // Styles
 export const Container = styled.div`
@@ -64,89 +72,118 @@ export const style = {
     p: 3,
 };
 
+type account = {
+    codeLocalAccount: String,
+    name: String,
+    typeProduct: String,
+    product: String
+};
+
+type nameProduct = {
+
+    nameProductType: String,
+
+};
+
 interface Props {
     openDialog: boolean;
-}
+};
 
 const CreateRequestService = ({ openDialog }: Props) => {
 
 
     const [open, setOpen] = useState(openDialog);
-    const [associtedService, setAssociatedService] = useState<any[]>([]);
     const methods = useForm();
     const { register, handleSubmit } = methods;
-    const [accountdata, setAccountData] = useState(false);
+    const [accountdata, setAccountData] = useState<account>();
     const [product, setProduct] = useState<any[]>([]);
+    const [id, setId] = useState("");
+    const [nameProduct, setNameProduct] = useState<nameProduct>();
 
     const handleClose = () => {
         methods.reset({ name: "" }, { keepValues: false });
         setOpen(false);
     }
 
-    const getAccount = async (id: string) => {
+    const getAccount = async (id: String) => {
         try {
-            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/product-types/type?id=${id}`, {
+            const response = await fetch(`https://banquitoaccount-dalopez18-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/account/code/${id}/type`, {
+                method: 'GET',
+            });
+            const { data } = await response.json();
+            const account = {
+                codeLocalAccount: data.codeLocalAccount,
+                name: data.name,
+                typeProduct: data.productType,
+                product: data.product
+            }
+            
+            if (account.codeLocalAccount === undefined) {
+                return [];
+            } setAccountData(account)
+            return [account]
+        } catch (error) {
+            console.log("Error", error);
+
+        }
+    }
+
+    const getnameProduct = async () => {
+        try {
+            const response = await fetch(`http://localhost:8087/api/product-types/type?id=63cf1f424afc455eb703d48f`, {
                 method: 'GET',
             });
             const data = await response.json();
             const account = {
-                accountNumber: data.accountNumber,
-                fullName: data.fullName,
+                nameProductType: data.name,
             }
-            console.log(account)
-            if (account.accountNumber === undefined) {
-                return [];
-            } setAccountData(true);
+
+            setNameProduct(account);
             return [account]
         } catch (error) {
-            console.log(error);
+            console.log("Error", error);
+
         }
     }
 
-    const getAssociatedService = async () => {
-        try {
-            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/associatedServices`, {
-                method: 'GET',
-            });
-            const data = await response.json();
-            setAssociatedService(data);
 
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     const getProduct = async () => {
         try {
-            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/products`, {
+            const response = await fetch(`http://127.0.0.1:8087/api/products/id-product?id=63cf21444afc455eb703d492`, {
                 method: 'GET',
             });
             const data = await response.json();
-            setProduct(data);
+            const account = data.associatedService.map(
+                (service: any) => service.name
+            )
+            setProduct(account);
 
         } catch (error) {
             console.log(error);
         }
     }
+
+
 
     const handleSubmitForm = async (data: any) => {
         try {
 
             const requestService = {
-                accountNumber: "22265622",
-                fullName: "prueba 2",
+                accountNumber: accountdata?.codeLocalAccount,
+                fullName: accountdata?.name,
                 nameAssociatedService: data.requestService,
             }
 
-            await fetch(`${EnvManager.PRODUCT_URL}/api/request-service`, {
+            await fetch(`http://localhost:8087/api/request-service`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                //body: '{"accountNumber": "2258954863","fullName": "Jileidy zamora","nameAssociatedService": "pepe1"}'
+
                 body: JSON.stringify(requestService)
             })
-            console.log(requestService)
+
 
             handleClose();
         } catch (error) {
@@ -162,9 +199,10 @@ const CreateRequestService = ({ openDialog }: Props) => {
     }, [openDialog])
 
     useEffect(() => {
-        getAssociatedService();
+        getAccount(id);
         getProduct();
-    }, [])
+        getnameProduct();
+    }, [id])
 
     const handleOpenProduct = () => setOpen(true);
 
@@ -174,8 +212,8 @@ const CreateRequestService = ({ openDialog }: Props) => {
                 <ReturnButton>
                     <ButtonIcon
                         color={ColorPalette.PRIMARY}
-                        icon={<KeyboardBackspace />}
-                        onClick={() => console.log(product)}
+                        icon={<KeyboardBackspaceIcon />}
+                        //onClick={() => }
                         top={true}
                     />
                 </ReturnButton>
@@ -185,17 +223,18 @@ const CreateRequestService = ({ openDialog }: Props) => {
                 <div>
                     <SearchContainer>
                         <span>Cuenta: </span>
-                        <TextFieldAtom
+                        <TextField
                             id="id"
                             label="Número cuenta"
                             color="primary"
-                            type="number"
+                            type="text"
                             placeholder=""
                             variant="standard"
+                            onChange={(value) => setId(value.target.value)}
                         />
                         <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
-                            icon={<Search />}
-                            onClick={() => setAccountData(true)}
+                            icon={<SearchIcon />}
+                            onClick={() => getAccount(id)}
                             text="Buscar"
                             style={ButtonStyle.MEDIUM}
                         />
@@ -207,13 +246,13 @@ const CreateRequestService = ({ openDialog }: Props) => {
                             <CardActionArea onClick={handleOpenProduct} >
                                 <CardContent>
                                     <Typography gutterBottom variant="h6" component="h2" color="common.white">
-                                        Cuenta ahorros
+                                        {nameProduct?.nameProductType}
                                     </Typography>
                                     <Typography gutterBottom variant="subtitle1" component="h2" color="common.white">
-                                        2265987412
+                                        {accountdata.codeLocalAccount}
                                     </Typography>
                                     <Typography gutterBottom variant="subtitle1" component="h2" color="common.white">
-                                        Steven Leiva
+                                        {accountdata.name}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -239,10 +278,8 @@ const CreateRequestService = ({ openDialog }: Props) => {
                                                         {...register("requestService", { required: false })}
                                                         onChange={(e) => e.target.value}
                                                     >
-                                                        {associtedService.map((service: any) => (
-                                                            <MenuItem id={service.id} value={service.name}>{service.name}</MenuItem>
+                                                        {product?.map((service: any) => (<MenuItem value={service}>{service}</MenuItem>))}
 
-                                                        ))}
                                                     </Select>
                                                 </Stack>
                                             </Stack>
