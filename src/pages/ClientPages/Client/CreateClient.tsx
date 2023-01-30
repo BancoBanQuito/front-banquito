@@ -113,13 +113,12 @@ const CreateClient: React.FC = () => {
 
   const onChangeSegment = (value: string) => {
     setNameSegment(value);
-    setCodeSegment("");
-    setStatusSegment("");
-    if (value !== "") {
-      setIsStatusSelected(false);
-    } else {
-      setIsStatusSelected(true);
-    }
+    segments.map(segment => {
+      if (segment['name'] === value) {
+        setCodeSegment(segment['idSegment']);
+        setStatusSegment(segment['status']);
+      }
+    })
   };
 
   const onChangeIdentificationType = (value: string) => {
@@ -197,14 +196,10 @@ const CreateClient: React.FC = () => {
 
   const onChangePhoneType = (value: string) => {
     setPhoneType(value);
-    if (value === "Casa") {
-      setPhoneType("Casa");
-    } else if (value === "Celular") {
-      setPhoneType("Celular");
-    } else if (value === "Trabajo") {
-      setPhoneType("Trabajo");
-    } else if (value === "Otro") {
-      setPhoneType("Otro");
+    if (value === "Movil") {
+      setPhoneType("MBL");
+    } else if (value === "Convencional") {
+      setPhoneType("CON");
     }
   };
 
