@@ -1,7 +1,8 @@
 import axios from 'axios';
 import IAssociatedServices from '../models/asociatedServices.model';
+import EnvManager from '../../../config/EnvManager'
 
-const baseUrl = 'http://localhost:8087/api/request-service';
+const baseUrl = `${EnvManager.PRODUCT_URL}/api/request-service`;
 
 export default class RequestServiceService {
     public static async getRequestServices(): Promise<IAssociatedServices[]> {
