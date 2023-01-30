@@ -41,6 +41,7 @@ import { UpdateClient } from "./components/organisms/Client/UpdateClient";
 import { GeneralInformation } from "./components/organisms/Client/GeneralInformation";
 import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBeetwenDates";
 import ATMHome from "./pages/ATMPages/ATMHome";
+import ATMReturnHome from "./pages/ATMPages/ATMReturnHome";
 
 interface userProps {
   username: string,
@@ -217,6 +218,10 @@ const App = () => {
     {
       path: "",
       element: <ATMHome />,
+    },
+    {
+      path: "load",
+      element: <ATMReturnHome />,
     },
     {
       path: "cuenta/saldo",

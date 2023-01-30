@@ -47,7 +47,6 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
       if (response.ok) {
         const data = await response.json();
         setBankEntity(data[0].name);
-        console.log(data[0].name);
         return data;
       } else {
         throw new Error(response.statusText);
@@ -59,7 +58,6 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
         alert("Error en el servidor, intente más tarde");
       } else {
         alert("Error desconocido, intente más tarde");
-        console.log(error);
       }
     }
   };

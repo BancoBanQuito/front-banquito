@@ -13,24 +13,33 @@ const ATMHomePage: React.FC = () => {
     return (
         <div style={{ backgroundColor: 'gray', width: '100vw', height: '100vh', marginLeft: '-20px', marginBottom: '-20px' }}>
             <Container sx={atmContainerStyles}>
-                <Container sx={optionsContainerStyles}>
+                <Container sx={{
+                    ...optionsContainerStyles,
+                    flexDirection: 'column'
+                }}>
                     <Button sx={optionStyles} onClick={handleWithdrawalsClick}>Retiros</Button>
-                    <Container>
-                        <Typography sx={welcomeStyles}>Bienvenido</Typography>
-                        <img src={"/src/assets/BanQuito-Logo.svg"} alt="ATM Machine" />
-                    </Container>
+                    <Button sx={optionStyles} onClick={() => { window.location.href = '/atm/cuenta/saldo' }}>Saldo</Button>
+                </Container>
+                <Container>
+                    <Typography sx={welcomeStyles}>Bienvenido</Typography>
+                    <img src={"/src/assets/BanQuito-Logo.svg"} alt="ATM Machine" />
+                </Container>
+                <Container sx={{
+                    ...optionsContainerStyles,
+                    flexDirection: 'column'
+                }}>
                     <Button sx={optionStyles} onClick={handleDepositsClick}>Depósitos</Button>
                 </Container>
                 <Container sx={imageContainerStyles}>
                     <Typography sx={atmStyles}>ATM</Typography>
-                    <img src={"/src/assets/BanQuito-Logo.svg"} alt="ATM Machine" style={{marginLeft: '70px'}} />
+                    <img src={"/src/assets/BanQuito-Logo.svg"} alt="ATM Machine" style={{ marginLeft: '70px' }} />
                     <Container sx={cardSlotStyles}></Container>
                 </Container>
             </Container>
             <Container sx={receiveMoneyContainerStyles}>
                 <Container sx={receiveMoneyStyles}></Container>
             </Container>
-        </div>
+        </div >
     );
 };
 
