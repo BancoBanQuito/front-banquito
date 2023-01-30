@@ -17,6 +17,7 @@ import ClientBox from "./ClientBox";
 import { Spinner } from "../../../components/atoms/Spinner";
 import { SizeButton } from "../../../components/atoms/SizeButton";
 import { ButtonStyle } from "../../../style/ButtonStyle";
+import { Canton, Province } from "../../../components/organisms/Location/types";
 
 const CreateClient: React.FC = () => {
   const [isNatural, setIsNatural] = useState<boolean>(true);
@@ -410,6 +411,97 @@ const CreateClient: React.FC = () => {
     fetchSegment();
   }, []);
 
+  const [provincesData, setProvincesData] = useState<Province[]>([])
+  const [selectedProvince, setSelectedProvince] = useState<string>('')
+  const [isProvinceSelected, setIsProvinceSelected] = useState<boolean>(true);
+  const onChangeProvince = (value: string) => {
+    setSelectedProvince(value)
+    if (value !== '') {
+      setIsProvinceSelected(false);
+    } else {
+      setIsProvinceSelected(true);
+    }
+  }
+  const optionsProvince = provincesData.map(({ provinceName }) => ({
+    value: provinceName,
+    label: provinceName
+  }))
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        setActivateSpinner(true)
+        const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/provinces`)
+        const data = await response.json()
+        setProvincesData(data)
+        setActivateSpinner(false)
+      } catch (error) {
+        console.error(error)
+        setActivateSpinner(false)
+      }
+    }
+    fetchProvinces()
+  }, [])
+
+  const [cantonsData, setCantonsData] = useState<Province>()
+  const [selectedCanton, setSelectedCanton] = useState<string>('')
+  const [isCantonSelected, setIsCantonSelected] = useState<boolean>(true);
+  const onChangeCanton = (value: string) => {
+    setSelectedCanton(value)
+    if (value !== '') {
+      setIsCantonSelected(false);
+    } else {
+      setIsCantonSelected(true);
+    }
+  }
+  const optionsCanton = cantonsData ? cantonsData.cantons.map(({ cantonName }) => ({
+    value: cantonName,
+    label: cantonName
+  })) : []
+  useEffect(() => {
+    const fetchCantons = async () => {
+      try {
+        if (selectedProvince) {
+          setActivateSpinner(true)
+          const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/province/${selectedProvince}`)
+          const data = await response.json()
+          setCantonsData(data)
+          setActivateSpinner(false)
+        }
+      } catch (error) {
+        setActivateSpinner(false)
+        console.error(error)
+      }
+    }
+    fetchCantons()
+  }, [selectedProvince])
+
+  const [parishesData, setParishesData] = useState<Canton>()
+  const [selectedParish, setSelectedParish] = useState<string>('')
+  const onChangeParish = (value: string) => {
+    setSelectedParish(value)
+  }
+  const optionsParish = parishesData ? parishesData.parishes.map(({ parishName }) => ({
+    value: parishName,
+    label: parishName
+  })) : []
+  useEffect(() => {
+    const fetchParishes = async () => {
+      try {
+        if (selectedCanton) {
+          setActivateSpinner(true)
+          const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/canton/${selectedCanton}`)
+          const data = await response.json()
+          setParishesData(data)
+          setActivateSpinner(false)
+        }
+      } catch (error) {
+        setActivateSpinner(false)
+        console.error(error)
+      }
+    }
+    fetchParishes()
+  }, [selectedCanton])
+
   return (
     <>
       {activateSpinner ? <Spinner /> : null}
@@ -716,17 +808,33 @@ const CreateClient: React.FC = () => {
           </Box>
           <Typography variant="h5" align="center" mt={5}>Dirección</Typography>
           <Box sx={inputLayout}>
-            <FormLabel>Código de locación*</FormLabel>
-            <TextField
-              value={codeLocation}
-              onChange={(event) => {
-                setCodeLocation(event.target.value);
-                address.codeLocation = event.target.value;
-              }}
-              variant="outlined"
-              fullWidth
+            <BranchBox
+              label="Provincia*"
+              value={selectedProvince}
+              options={optionsProvince}
+              onChange={onChangeProvince}
             />
-          </Box>
+          </Box >
+          <div style={{ display: isProvinceSelected ? 'none' : 'block' }}>
+            <Box sx={inputLayout}>
+              <BranchBox
+                label="Cantón*"
+                value={selectedCanton}
+                options={optionsCanton}
+                onChange={onChangeCanton}
+              />
+            </Box >
+          </div>
+          <div style={{ display: isCantonSelected ? 'none' : 'block' }}>
+            <Box sx={inputLayout}>
+              <BranchBox
+                label="Parroquia*"
+                value={selectedParish}
+                options={optionsParish}
+                onChange={onChangeParish}
+              />
+            </Box >
+          </div>
           <Box sx={inputLayout}>
             <FormLabel>Primera línea*</FormLabel>
             <TextField
