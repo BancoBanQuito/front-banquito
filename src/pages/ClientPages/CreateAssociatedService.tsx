@@ -1,24 +1,25 @@
 import { TextField, Typography } from "@mui/material";
 import React, { FormEvent, useEffect, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import TextFieldAtom from "../components/atoms/TextFieldAtom";
-import TableMolecule from "../components/molecules/TableMolecule";
-import ButtonIcon from "../components/atoms/ButtonIcon";
+import TextFieldAtom from "../../components/atoms/TextFieldAtom";
+import TableMolecule from "../../components/molecules/TableMolecule";
+import ButtonIcon from "../../components/atoms/ButtonIcon";
 import { Box, SxProps, Theme } from "@mui/system";
-import { Dropdown } from "../components/atoms/Dropdown";
+import { Dropdown } from "../../components/atoms/Dropdown";
 // search icon
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
 // icon keyboar backspace
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { ColorPalette } from "../style/ColorPalette";
+import { ColorPalette } from "../../style/ColorPalette";
 // Add icon
 import AddIcon from "@mui/icons-material/Add";
-import { SizeButton } from "../components/atoms/SizeButton";
-import { ButtonStyle } from "../style/ButtonStyle";
+import { SizeButton } from "../../components/atoms/SizeButton";
+import { ButtonStyle } from "../../style/ButtonStyle";
 //data
-import { Checkbox } from "../components/atoms/Checkbox";
-import { NumberField } from "../components/atoms/NumberField";
+import { Checkbox } from "../../components/atoms/Checkbox";
+import { NumberField } from "../../components/atoms/NumberField";
+import EnvManager from "../../config/EnvManager";
 // Styles
 export const Container = styled.div`
   display: relative;
@@ -123,18 +124,16 @@ const CreateAssociatedService = (props: AssociatedServiceProps) => {
         fee: cost,
         params: []
       };
-      await fetch('http://localhost:8081/api/product/associatedService', {
+      await fetch(`${EnvManager.PRODUCT_URL}/api/product/associatedService`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(associatedService)
-        //'{ "name": "pepe4", "allowPayment": "N", "paymentMethod": "credit card", "chargeVat": "Y", "fee": 15.2, "params": [] }'
       });
       props.onSubmit(associatedService);
     } catch (error) {
-      console.log("esta dando error>")
-      console.log(error);
+      console.error(error);
     }
 
   };

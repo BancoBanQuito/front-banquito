@@ -41,6 +41,7 @@ import { UpdateClient } from "./components/organisms/Client/UpdateClient";
 import { GeneralInformation } from "./components/organisms/Client/GeneralInformation";
 import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBeetwenDates";
 import ATMHome from "./pages/ATMPages/ATMHome";
+import InterestInvestmentPolicies from "./pages/ClientPages/Transaction/InterestInvestmentPolicies";
 
 interface userProps {
   username: string;
@@ -196,11 +197,11 @@ const App = () => {
     {
       path: "interes/cuenta/ahorros",
       element: <InterestSavingAccounts />,
-    } /* 
+    },
     {
       path: "interes/inversion",
       element: <InterestInvestmentPolicies />,
-    }, */,
+    },
     {
       path: "login",
       element: (

@@ -11,6 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link, useNavigate, useNavigation } from 'react-router-dom';
 import BanQuitoIcon from '../../assets/BanQuito-Logo.svg';
+import EnvManager from '../../config/EnvManager';
 
 interface TopnavProps {
   isLogged: boolean;
@@ -19,7 +20,7 @@ interface TopnavProps {
 }
 
 const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
-    
+
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [bankEntity, setBankEntity] = useState('');
@@ -34,12 +35,12 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
 
 
   const getBankEntity = async () => {
-    const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/bank-entity`;
+    const url = `${EnvManager.SETTINGS_URL}/api/bank-entity`;
     const options = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*", 
+        "Access-Control-Allow-Origin": "*",
       },
     };
     try {
@@ -47,7 +48,6 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
       if (response.ok) {
         const data = await response.json();
         setBankEntity(data[0].name);
-        console.log(data[0].name);
         return data;
       } else {
         throw new Error(response.statusText);
@@ -63,10 +63,10 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
       }
     }
   };
-  
+
   useEffect(() => {
-      getBankEntity();
-    }, []
+    getBankEntity();
+  }, []
   );
 
   return (
@@ -78,6 +78,7 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
 
             <Typography
               noWrap
+              variant='h1'
               sx={{
                 ml: 2,
                 display: 'block',
