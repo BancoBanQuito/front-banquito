@@ -73,8 +73,6 @@ export const Product = () => {
             handleOpen();
         }
         setOpen(false);
-        getProducts();
-        console.log(products)
     }, [open]);
 
     useEffect(() => {
@@ -82,8 +80,6 @@ export const Product = () => {
             handleOpenProduct();
         }
         setOpenDialog(false);
-        getProducts();
-        console.log(products)
     }, [openDialog]);
 
     return (
