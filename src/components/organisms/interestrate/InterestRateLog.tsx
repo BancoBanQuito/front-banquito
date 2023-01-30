@@ -63,12 +63,10 @@ const InterestRateLog = () => {
         return rows;
     }
     const getInteretRateListByName = async () => {
-        setActivateSpinner(true);
         let interestList = await InterestRateService.getInterestRatesByName(name);
         console.log(interestList);
         let rows = row(interestList);
-        setRows(rows);
-        setActivateSpinner(false);
+        setRows(rows);  
         return rows;
     }
 
@@ -204,7 +202,7 @@ const InterestRateLog = () => {
                             placeholder="id"
                             variant="standard"
                             action={(event) => setName(event.target.value)}
-                            value=""
+                            value={name}
                         />
                     </SearchContainer>
                     <ContentButtonAddRight>
