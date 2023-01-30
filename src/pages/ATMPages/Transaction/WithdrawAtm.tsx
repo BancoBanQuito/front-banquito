@@ -13,16 +13,29 @@ import { RQTransaction } from "../../../services/transaction/dto/RQTransaction";
 import { ColorPalette } from "../../../style/ColorPalette";
 import LoadOrganism from "../../../components/organisms/LoadOrganism";
 import InfoModalOrganism from "../../../components/organisms/InfoModalOrganism";
+import AtmLoginForm from "../../../components/organisms/AtmLoginForm";
+import { AtmLoginService } from "../../../services/login/AtmLoginService";
+import { RSAtmLogin } from "../../../services/login/dto/RSAtmLogin";
 
-const userCodeLocalAccount = "87c6d872679c7e96365c";
+interface ATMLoginForm {
+    codeLocalAccount: string,
+    password: string,
+}
 
 const WithdrawAtm = () => {
 
     const [showInfoModal, setshowInfoModal] = useState<boolean>(false);
     const [isLoading, setisLoading] = useState<boolean>(false);
+    const [loadingMessage, setloadingMessage] = useState<string | undefined>();
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
+
+    const [login, setlogin] = useState<ATMLoginForm>({
+        codeLocalAccount: "",
+        password: ""
+    });
+
     const [value, setvalue] = useState<RQTransaction>({
         codeInternationalAccount: "",
         codeLocalAccount: "",
@@ -38,26 +51,13 @@ const WithdrawAtm = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        setvalue({
-            ...value,
-            codeLocalAccount: userCodeLocalAccount
-        });
         return () => { }
     }, []);
 
     const handleAccept = async () => {
         setisLoading(true);
         try {
-            const accountSimple: RSAccount | undefined = (await AccountService.getAccountByCode(value.codeLocalAccount)).data.data;
-            if (!accountSimple) {
-                console.log("Ha ocurrido un error");
-                return;
-            }
-            console.log(accountSimple);
-            setvalue({
-                ...value,
-                codeInternationalAccount: accountSimple.codeInternationalAccount
-            })
+            setloadingMessage("Validando transaccion...");
             await TransactionService.postTransaction(value);
             setshowInfoModal(true);
         } catch (error: any) {
@@ -69,7 +69,49 @@ const WithdrawAtm = () => {
     }
 
     const handleDecline = () => {
-        navigate('/usuario');
+        navigate('/atm');
+    }
+
+    const handleLogin = async (password: string) => {
+        setisLoading(true);
+        try {
+            setloadingMessage("Validando cuenta...")
+            const account: RSAccount | undefined = (await AccountService.getAccountByCode(login.codeLocalAccount)).data.data;
+            if (account) {
+                setvalue({
+                    ...value,
+                    codeLocalAccount: login.codeLocalAccount,
+                    codeInternationalAccount: account.codeInternationalAccount
+                });
+                setindexForm(2);
+                setloadingMessage("Validando contraseña...")
+                const user: RSAtmLogin | undefined = (await (AtmLoginService.getLoginCredentials(account.identification))).data;
+                if (user) {
+                    if (user.user.password === password) {
+                        setvalue({
+                            ...value,
+                            codeLocalAccount: login.codeLocalAccount,
+                            codeInternationalAccount: account.codeInternationalAccount
+                        });
+                        setindexForm(2);
+                    } else {
+                        seterrorMessage("Contraseña invalida");
+                        setactiveErrorModal(true);
+                    }
+                } else {
+                    seterrorMessage("Cuenta no encontrada");
+                    setactiveErrorModal(true);
+                }
+            } else {
+                seterrorMessage("Cuenta no encontrada");
+                setactiveErrorModal(true);
+            }
+        } catch (error: any) {
+            seterrorMessage(error.message);
+            setactiveErrorModal(true);
+        } finally {
+            setisLoading(false);
+        }
     }
 
     return (
@@ -92,23 +134,46 @@ const WithdrawAtm = () => {
                     width: 500,
                 }}>
                     {indexForm === 0 ?
-                        <TransferAmountForm
+                        <AtmLoginForm
                             atm
+                            codeLocalAccount
                             onSubmit={(data: any) => {
                                 setindexForm(1);
-                                setvalue({
-                                    ...value,
-                                    value: data.amount
-                                })
+                                setlogin({
+                                    ...login,
+                                    codeLocalAccount: data.codeLocalAccount
+                                });
                             }} />
-                        :
-                        <ConfirmTransferUserForm
-                            atm
-                            title="Retirar"
-                            showField
-                            onAccept={() => handleAccept()}
-                            onDecline={() => handleDecline()}
-                            data={value} />}
+                        : indexForm === 1 ?
+                            <AtmLoginForm
+                                atm
+                                password
+                                title="Contraseña"
+                                onSubmit={(data: any) => {
+                                    setlogin({
+                                        ...login,
+                                        password: data.password
+                                    });
+                                    handleLogin(data.password);
+                                }} />
+                            : indexForm === 2 ?
+                                <TransferAmountForm
+                                    atm
+                                    onSubmit={(data: any) => {
+                                        setindexForm(3);
+                                        setvalue({
+                                            ...value,
+                                            value: data.amount
+                                        })
+                                    }} />
+                                :
+                                <ConfirmTransferUserForm
+                                    atm
+                                    title="Retirar"
+                                    showField
+                                    onAccept={() => handleAccept()}
+                                    onDecline={() => handleDecline()}
+                                    data={value} />}
                 </Box>
             </div>
             <InfoModalOrganism
@@ -117,14 +182,16 @@ const WithdrawAtm = () => {
                 title='Retiro Completo'
                 text={'Puede retirar su dinero'}
                 buttonText='Ok'
-                onClick={() => navigate('/usuario')} />
+                onClick={() => navigate('/atm/load')} />
             <LoadOrganism
                 active={isLoading}
-                text="Validando Retiro..." />
+                text={loadingMessage} />
             <ErrorModalOrganism
+                enableButtonBox
+                onReject={() => { navigate('/atm') }}
                 active={activeErrorModal}
-                onDeactive={() => setactiveErrorModal(false)}
-                text={errorMessage} />
+                onDeactive={() => { }}
+                text={`${errorMessage} ¿Deseas volver a intentar?`} />
         </>
     )
 }

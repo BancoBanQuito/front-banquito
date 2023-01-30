@@ -62,7 +62,6 @@ const Topnav = ({ isLogged, setIsLogged, user, to }: TopnavProps) => {
         alert("Error en el servidor, intente más tarde");
       } else {
         alert("Error desconocido, intente más tarde");
-        console.log(error);
       }
     }
   };

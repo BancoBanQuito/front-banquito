@@ -40,6 +40,7 @@ import InterestSavingAccounts from "./pages/ClientPages/Transaction/InterestSavi
 import { UpdateClient } from "./pages/ClientPages/Client/UpdateClient";
 import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBeetwenDates";
 import ATMHome from "./pages/ATMPages/ATMHome";
+import ATMReturnHome from "./pages/ATMPages/ATMReturnHome";
 import InterestInvestmentPolicies from "./pages/ClientPages/Transaction/InterestInvestmentPolicies";
 import CreateClient from "./pages/ClientPages/Client/CreateClient";
 

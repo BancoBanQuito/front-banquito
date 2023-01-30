@@ -129,9 +129,9 @@ const DepositAtm = () => {
                 text='Depositando...' />
             <ErrorModalOrganism
                 active={activeErrorModal}
-                onDeactive={() => setactiveErrorModal(false)}
+                onDeactive={() => {}}
                 enableButtonBox
-                onReject={() => navigate('/atm')}
+                onReject={() => { navigate('/atm') }}
                 text={errorMessage} />
         </>
     )
