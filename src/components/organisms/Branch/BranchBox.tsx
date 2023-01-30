@@ -29,7 +29,7 @@ const BranchBox = ({ value, label, options, onChange }: ComboBoxProps) => {
 export default BranchBox;
 
 const selectStyles = () => ({
-    width: '200px',
+    width: '300px',
     background: '#1D3557',
     color: 'white',
     fontWeight: 'bold'

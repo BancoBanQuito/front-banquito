@@ -7,24 +7,24 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import moment from "moment";
 import Button from "@mui/material/Button";
 import BranchBox from "../../../components/organisms/Branch/BranchBox";
-import { OptionUnstyled } from "@mui/base";
-import { style } from "../../CreateRequestService";
 import { parse, isValid } from "date-fns";
-import { defineConfig } from "vite";
 import EnvManager from "../../../config/EnvManager";
 import { useNavigate } from "react-router";
 import { ISegment } from "./Types";
 import ClientBox from "./ClientBox";
+import { SizeButton } from "../../../components/atoms/SizeButton";
+import { ButtonStyle } from "../../../style/ButtonStyle";
 
 const CreateClient: React.FC = () => {
+  const [isNatural, setIsNatural] = useState<boolean>(true);
+  const [clientType, setClientType] = useState<string>("NAT");
   const [identificationType, setIdentificationType] = useState<string>("DNI");
   const [identification, setIdentification] = useState<string>("");
   const [lastname, setLastname] = useState<string>("");
   const [firstname, setFirstname] = useState<string>("");
-  const [status, setStatus] = useState<string>("Activo");
+  const [status, setStatus] = useState<string>("ACT");
   const [email, setEmail] = useState<string>("");
   const [emailError, setEmailError] = useState("");
   const [birthDate, setBirthDate] = useState<Date | null>(null);
@@ -42,8 +42,7 @@ const CreateClient: React.FC = () => {
   const [appLegalRepresent, setAppLegalRepresent] = useState<string>("");
   const [articlesAssociatedDoc, setArticlesAssociatedDoc] =
     useState<string>("");
-  const [basicServicesDocument, setBasicServicesDocument] =
-    useState<string>("");
+  const [basicServicesDocument, setBasicServicesDocument] = useState<string>("");
   const [fingerPrint, setFingerPrint] = useState<string>("");
   const [incomeTaxDocument, setIncomeTaxDocument] = useState<string>("");
   const [lastStatusDate, setLastStatusDate] = useState<Date>(new Date());
@@ -56,20 +55,20 @@ const CreateClient: React.FC = () => {
   const [workStatus, setWorkStatus] = useState<string>("Otro");
   const [creationDate, setCreationDate] = useState<Date>(new Date());
   const phone =
-    {
-      phoneNumber: "",
-      phoneType: "Celular",
-    };
+  {
+    phoneNumber: "",
+    phoneType: "Celular",
+  };
   const [phoneNumber, setPhoneNumber] = useState(phone.phoneNumber);
   const [phoneType, setPhoneType] = useState(phone.phoneType);
   const address =
-    {
-      codeLocation: "",
-      lineOne: "",
-      lineTwo: "",
-      latitude: "",
-      longitude: "",
-    };
+  {
+    codeLocation: "",
+    lineOne: "",
+    lineTwo: "",
+    latitude: "",
+    longitude: "",
+  };
 
   const [codeLocation, setCodeLocation] = useState(address.codeLocation);
   const [lineOne, setLineOne] = useState(address.lineOne);
@@ -77,11 +76,11 @@ const CreateClient: React.FC = () => {
   const [latitude, setLatitude] = useState(address.latitude);
   const [longitude, setLongitude] = useState(address.longitude);
   const relationship =
-    {
-      nameRelationShip: "",
-      startDate: "",
-      endDate: "",
-    };
+  {
+    nameRelationShip: "",
+    startDate: "",
+    endDate: "",
+  };
 
   const [nameRelationShip, setNameRelationShip] = useState(
     relationship.nameRelationShip
@@ -90,11 +89,11 @@ const CreateClient: React.FC = () => {
   const [endDate, setEndDate] = useState(relationship.endDate);
 
   const reference =
-    {
-      nameReference: "",
-      phoneReference: "",
-      related: "",
-    };
+  {
+    nameReference: "",
+    phoneReference: "",
+    related: "",
+  };
 
   const [nameReference, setNameReference] = useState(reference.nameReference);
   const [phoneReference, setPhoneReference] = useState(reference.phoneReference);
@@ -132,7 +131,10 @@ const CreateClient: React.FC = () => {
     }
   };
 
-  const date = parse("2022-01-01", "yyyy-MM-dd", new Date());
+  const onChangeClientType = (value: string) => {
+    setClientType(value === "NAT" ? "NAT" : "JUR");
+    setIsNatural(value === "NAT");
+  };
 
   const onChangeStatus = (value: string) => {
     setStatus(value);
@@ -163,7 +165,6 @@ const CreateClient: React.FC = () => {
       setWorkStatus("Otro");
     }
   };
-
 
   //para estado civil
   const onChangeMaritalStatus = (value: string) => {
@@ -203,11 +204,6 @@ const CreateClient: React.FC = () => {
     } else if (value === "Otro") {
       setPhoneType("Otro");
     }
-  };
-
-  const containerTextFieldStyles = {
-    display: "flex",
-    alignItems: "center",
   };
 
   const emailRegex =
@@ -250,30 +246,30 @@ const CreateClient: React.FC = () => {
           workStatus,
           creationDate,
           phone:
-            {
-              phoneNumber,
-              phoneType,
-            },
+          {
+            phoneNumber,
+            phoneType,
+          },
           address:
-            {
-              codeLocation,
-              lineOne,
-              lineTwo,
-              latitude,
-              longitude,
-            },
-          relationship: 
-            {
-              nameRelationShip,
-              startDate,
-              endDate,
-            },
-          reference: 
-            {
-              nameReference,
-              phoneReference,
-              related,
-            },
+          {
+            codeLocation,
+            lineOne,
+            lineTwo,
+            latitude,
+            longitude,
+          },
+          relationship:
+          {
+            nameRelationShip,
+            startDate,
+            endDate,
+          },
+          reference:
+          {
+            nameReference,
+            phoneReference,
+            related,
+          },
           segment: {
             codeSegment,
             nameSegment,
@@ -284,7 +280,7 @@ const CreateClient: React.FC = () => {
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      alert("Client created successfully");
+      alert("Se ha creado al cliente satisfactoriamente!");
     } catch (error) {
       console.log(error);
     }
@@ -306,14 +302,6 @@ const CreateClient: React.FC = () => {
       setCreateDateError("");
     } else {
       setCreateDateError("Ingrese una fecha válida en el formato yyyy-MM-dd");
-    }
-  };
-
-  const handleError = (event: ChangeEvent<HTMLInputElement>) => {
-    if (!event.currentTarget.value) {
-      setError(true);
-    } else {
-      setError(false);
     }
   };
 
@@ -341,37 +329,19 @@ const CreateClient: React.FC = () => {
     }
   };
 
-  const handleStartDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const date = event.target.value;
-    const parsedDate = parse(date, "yyyy-MM-dd", new Date());
-    if (isValid(parsedDate)) {
-      setStartDate(parsedDate.toISOString());
-      setCreateDateError("");
-    } else {
-      setCreateDateError("Ingrese una fecha válida en el formato yyyy-MM-dd");
-    }
-  };
-
-  const handleEndDateChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const date = event.target.value;
-    const parsedDate = parse(date, "yyyy-MM-dd", new Date());
-    if (isValid(parsedDate)) {
-      setEndDate(parsedDate.toISOString());
-      setCreateDateError("");
-    } else {
-      setCreateDateError("Ingrese una fecha válida en el formato yyyy-MM-dd");
-    }
-  };
-
-
   const optionsIdentificationType = [
     { value: "DNI", label: "DNI" },
     { value: "PAS", label: "Pasaporte" },
     { value: "RUC", label: "RUC" },
   ];
 
+  const optionsClientType = [
+    { value: "NAT", label: "Natural" },
+    { value: "JUR", label: "Juridico" },
+  ];
+
   const optionsPhoneType = [
-    { value: "MBL", label: "Móvil" },
+    { value: "MBL", label: "Movil" },
     { value: "CON", label: "Convencional" },
   ];
 
@@ -399,9 +369,6 @@ const CreateClient: React.FC = () => {
     { value: "Union Libre", label: "Union Libre" },
   ];
 
-
-
-
   const optionsGender = [
     { value: "Otro", label: "Otro" },
     { value: "Masculino", label: "Masculino" },
@@ -413,7 +380,8 @@ const CreateClient: React.FC = () => {
     return value.forEach(element => {
       segmentOpstions.push({
         value: element.name,
-        label: element.name});
+        label: element.name
+      });
     });
   };
 
@@ -436,511 +404,415 @@ const CreateClient: React.FC = () => {
 
   return (
     <>
-      <Container sx={containertTitleStyles}>
-        <Typography variant="h4" align="center">
-          Ingresar un nuevo Cliente
-        </Typography>
-      </Container>
-      <Grid container>
-        <Grid item xs={7}>
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Identificación:</FormLabel>
-            <TextField
-              value={identification}
-              onChange={(event) => setIdentification(event.target.value)}
-              variant="standard"
-            />
-          </Container>
-          <Container sx={containerTextFieldStyles}>
-          <div style={{ marginRight: "10px" }}>
+      <Typography
+        variant="h3"
+        align="center"
+        sx={{ mt: 10, mb: 5 }}
+      >
+        Ingresar un nuevo Cliente
+      </Typography>
+      <Box
+        display='flex'
+        flexDirection='row'
+        gap={20}
+        width='100%'
+        mb={5}
+      >
+        <Box
+          display='flex'
+          flexDirection='column'
+          width='45%'
+          gap={1}
+          sx={{ ml: 5 }}
+        >
+          <Typography variant="h5" align="center">Cliente</Typography>
+          <Box sx={inputLayout}>
             <BranchBox
-              label="Tipo de identificación: "
+              label="Tipo de cliente*"
+              value={clientType}
+              options={optionsClientType}
+              onChange={onChangeClientType}
+            />
+          </Box>
+          <Box sx={inputLayout} >
+            <BranchBox
+              label="Tipo de identificación*"
               value={identificationType}
               options={optionsIdentificationType}
               onChange={onChangeIdentificationType}
             />
-          </div>
-        </Container>
-        <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Apellido:</FormLabel>
+          </Box>
+          <Box sx={inputLayout}>
+            <FormLabel>Identificación*</FormLabel>
             <TextField
-              value={lastname}
-              onChange={(event) => setLastname(event.target.value)}
-              variant="standard"
+              value={identification}
+              onChange={(event) => setIdentification(event.target.value)}
+              variant="outlined"
+              sx={{ width: '300px' }}
             />
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Nombre:</FormLabel>
+          </Box>
+          <Box sx={inputLayout}>
+            <FormLabel>Nombre*</FormLabel>
             <TextField
               value={firstname}
               onChange={(event) => setFirstname(event.target.value)}
-              variant="standard"
+              variant="outlined"
+              sx={{ width: '300px' }}
             />
-          </Container>
-          <Container sx={containerTextFieldStyles}>
-            <div style={{ marginRight: "10px" }}>
-              <BranchBox
-                label="Estado: "
-                value={status}
-                options={optionsStatus}
-                onChange={onChangeStatus}
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Email:</FormLabel>
-            <div style={{ marginRight: "10px" }}>
+          </Box>
+          {
+            isNatural
+            && <Box sx={inputLayout}>
+              <FormLabel>Apellido*</FormLabel>
               <TextField
-                placeholder="ejemplo@ejemplo.com"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                onBlur={handleBlur}
-                error={!!emailError}
-                helperText={emailError}
-                variant="standard"
+                value={lastname}
+                onChange={(event) => setLastname(event.target.value)}
+                variant="outlined"
+                sx={{ width: '300px' }}
               />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>
-              Fecha de nacimiento:
-            </FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                type="date"
-                value={
-                  birthDate
-                    ? birthDate.toISOString().substr(0, 10)
-                    : ""
-                }
-                onChange={handleBirthDateChange}
-                error={createDateError !== ""}
-                helperText={createDateError}
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <div style={{ marginRight: "10px" }}>
+            </Box>
+          }
+          <Box sx={inputLayout}>
+            <FormLabel>Email*</FormLabel>
+            <TextField
+              placeholder="ejemplo@ejemplo.com"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              onBlur={handleBlur}
+              error={!!emailError}
+              helperText={emailError}
+              variant="outlined"
+              sx={{ width: '300px' }}
+            />
+          </Box>
+          <Box sx={inputLayout}>
+            <FormLabel>{`Fecha de ${isNatural ? 'nacimiento' : 'creacion'}*`}</FormLabel>
+            <TextField
+              type="date"
+              value={
+                birthDate
+                  ? birthDate.toISOString().substr(0, 10)
+                  : ""
+              }
+              onChange={handleBirthDateChange}
+              error={createDateError !== ""}
+              helperText={createDateError}
+              sx={{ width: '300px' }}
+            />
+          </Box>
+          {
+            isNatural
+            && <Box sx={inputLayout}>
               <BranchBox
-                label="Género: "
+                label="Género*"
                 value={gender}
                 options={optionsGender}
                 onChange={onChangeGender}
               />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Carrera:</FormLabel>
+            </Box>
+          }
+          <Box sx={inputLayout}>
+            <FormLabel>Nacionalidad*</FormLabel>
+            <TextField
+              value={nationality}
+              onChange={(event) => setNationality(event.target.value)}
+              variant="outlined"
+              sx={{ width: '300px' }}
+            />
+          </Box>
+          <Box sx={inputLayout}>
+            <FormLabel>Lugar de pago de impuestos*</FormLabel>
+            <TextField
+              value={taxPaymentPlace}
+              onChange={(event) => setTaxPaymentPlace(event.target.value)}
+              variant="outlined"
+              sx={{ width: '300px' }}
+            />
+          </Box>
+          <Box sx={inputLayout}>
+            <FormLabel>{`${isNatural ? 'Profesion' : 'Sector'}*`}</FormLabel>
             <TextField
               value={career}
               onChange={(event) => setCareer(event.target.value)}
-              variant="standard"
+              variant="outlined"
+              sx={{ width: '300px' }}
             />
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Nombre de compañia:</FormLabel>
+          </Box>
+          <Box sx={inputLayout}>
+            <FormLabel>Ingreso promedio mensual*</FormLabel>
             <TextField
-              value={companyName}
-              onChange={(event) => setCompanyName(event.target.value)}
-              variant="standard"
+              value={monthlyAvgIncome}
+              onChange={(event) => setMonthlyAvgIncome(event.target.value)}
+              variant="outlined"
+              sx={{ width: '300px' }}
             />
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Tipo de compañia:</FormLabel>
+          </Box>
+          {
+            isNatural
+              ? <>
+                <Box sx={inputLayout}>
+                  <BranchBox
+                    label="Estado laboral*"
+                    value={workStatus}
+                    options={optionsWorkStatus}
+                    onChange={onChangeWorkStatus}
+                  />
+                </Box>
+                <Box sx={inputLayout}>
+                  <FormLabel>Nombre de compañia</FormLabel>
+                  <TextField
+                    value={companyName}
+                    onChange={(event) => setCompanyName(event.target.value)}
+                    variant="outlined"
+                    sx={{ width: '300px' }}
+                  />
+                </Box>
+                <Box sx={inputLayout}>
+                  <FormLabel>Tipo de compañia</FormLabel>
+                  <TextField
+                    value={companyType}
+                    onChange={(event) => setCompanyType(event.target.value)}
+                    variant="outlined"
+                    sx={{ width: '300px' }}
+                  />
+                </Box>
+                <Box sx={inputLayout}>
+                  <FormLabel>Fecha de ingreso a la empresa</FormLabel>
+                  <TextField
+                    type="date"
+                    value={
+                      createDateCompany
+                        ? createDateCompany.toISOString().substr(0, 10)
+                        : ""
+                    }
+                    onChange={handleCreateDateCompanyChange}
+                    error={createDateError !== ""}
+                    helperText={createDateError}
+                    sx={{ width: '300px' }}
+                  />
+                </Box>
+                <Box sx={inputLayout}>
+                  <BranchBox
+                    label="Estado civil*"
+                    value={maritalStatus}
+                    options={optionsCivilStatus}
+                    onChange={onChangeMaritalStatus}
+                  />
+                </Box>
+              </>
+              : <>
+                <Box sx={inputLayout}>
+                  <FormLabel>Tipo de compañia*</FormLabel>
+                  <TextField
+                    value={companyType}
+                    onChange={(event) => setCompanyType(event.target.value)}
+                    variant="outlined"
+                    sx={{ width: '300px' }}
+                  />
+                </Box>
+                <Box sx={inputLayout}>
+                  <FormLabel>Representante legal*</FormLabel>
+                  <TextField
+                    value={appLegalRepresent}
+                    onChange={(event) => setAppLegalRepresent(event.target.value)}
+                    variant="outlined"
+                    sx={{ width: '300px' }}
+                  />
+                </Box>
+                <Box sx={inputLayout}>
+                  <FormLabel>Documentos asociados al representante legal*</FormLabel>
+                  <TextField
+                    value={articlesAssociatedDoc}
+                    onChange={(event) => setArticlesAssociatedDoc(event.target.value)}
+                    variant="outlined"
+                    sx={{ width: '300px' }}
+                  />
+                </Box>
+                <Box sx={inputLayout}>
+                  <FormLabel>Documento de servicios básicos*</FormLabel>
+                  <TextField
+                    value={basicServicesDocument}
+                    onChange={(event) => setBasicServicesDocument(event.target.value)}
+                    variant="outlined"
+                    sx={{ width: '300px' }}
+                  />
+                </Box>
+                <Box sx={inputLayout}>
+                  <FormLabel>Documento de impuesto a la renta*</FormLabel>
+                  <TextField
+                    value={incomeTaxDocument}
+                    onChange={(event) => setIncomeTaxDocument(event.target.value)}
+                    variant="outlined"
+                    sx={{ width: '300px' }}
+                  />
+                </Box>
+                <Box sx={inputLayout}>
+                  <FormLabel>Documento de NIT*</FormLabel>
+                  <TextField
+                    value={tinDocument}
+                    onChange={(event) => setTinDocument(event.target.value)}
+                    variant="outlined"
+                    sx={{ width: '300px' }}
+                  />
+                </Box>
+              </>
+          }
+          <Box sx={inputLayout}>
+            <FormLabel>Firma*</FormLabel>
             <TextField
-              value={companyType}
-              onChange={(event) => setCompanyType(event.target.value)}
-              variant="standard"
+              value={signature}
+              onChange={(event) => setSignature(event.target.value)}
+              variant="outlined"
+              sx={{ width: '300px' }}
             />
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>
-              Fecha de ingreso a la empresa:
-            </FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                type="date"
-                value={
-                  createDateCompany
-                    ? createDateCompany.toISOString().substr(0, 10)
-                    : ""
-                }
-                onChange={handleCreateDateCompanyChange}
-                error={createDateError !== ""}
-                helperText={createDateError}
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>
-              Nombre del Representante legal
-            </FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={appLegalRepresent}
-                onChange={(event) => setAppLegalRepresent(event.target.value)}
-                variant="standard"
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>
-              Documentos asociados al representante legal
-            </FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={articlesAssociatedDoc}
-                onChange={(event) => setArticlesAssociatedDoc(event.target.value)}
-                variant="standard"
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>
-              Documento de servicios básicos
-            </FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={basicServicesDocument}
-                onChange={(event) => setBasicServicesDocument(event.target.value)}
-                variant="standard"
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Huella digital</FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={fingerPrint}
-                onChange={(event) => setFingerPrint(event.target.value)}
-                variant="standard"
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>
-              Documento de impuesto sobre la renta
-            </FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={incomeTaxDocument}
-                onChange={(event) => setIncomeTaxDocument(event.target.value)}
-                variant="standard"
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <div style={{ marginRight: "10px" }}>
-              <BranchBox
-                label="Estado civil: "
-                value={maritalStatus}
-                options={optionsCivilStatus}
-                onChange={onChangeMaritalStatus}
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Ingreso promedio mensual</FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={monthlyAvgIncome}
-                onChange={(event) => setMonthlyAvgIncome(event.target.value)}
-                variant="standard"
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Nacionalidad</FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={nationality}
-                onChange={(event) => setNationality(event.target.value)}
-                variant="standard"
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Firma</FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={signature}
-                onChange={(event) => setSignature(event.target.value)}
-                variant="standard"
-              />
-            </div>
-          </Container>
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Lugar de pago de impuestos</FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={taxPaymentPlace}
-                onChange={(event) => setTaxPaymentPlace(event.target.value)}
-                variant="standard"
-              />
-            </div>
-          </Container>
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Documento de NIT</FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={tinDocument}
-                onChange={(event) => setTinDocument(event.target.value)}
-                variant="standard"
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <div style={{ marginRight: "10px" }}>
-              <BranchBox
-                label="Estado laboral: "
-                value={workStatus}
-                options={optionsWorkStatus}
-                onChange={onChangeWorkStatus}
-              />
-            </div>
-          </Container>
-
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>
-              Fecha de agregación de la empresa:
-            </FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                type="date"
-                value={creationDate ? creationDate.toISOString().substr(0, 10) : ""}
-                onChange={handleCreateChange}
-              />
-            </div>
-          </Container>
-        </Grid>
-        <Grid item xs={3}>
-          <Container sx={containerTextFieldStyles}>
-            <div style={{ marginRight: "10px" }}>
-              <div style={{ marginRight: "10px" }}>
-                <BranchBox
-                  label="Tipo de teléfono: "
-                  value={phoneType}
-                  options={optionsPhoneType}
-                  onChange={onChangePhoneType}
-                />
-              </div>
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>
-              Escriba el número de teléfono:
-            </FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                placeholder="Ejemplo: +593111111111"
-                value={phoneNumber}
-                onChange={(event) => {
-                  setPhoneNumber(event.target.value);
-                  phone.phoneNumber = event.target.value;
-                }}
-                variant="standard"
-              />
-            </div>
-          </Container>
-          <Container sx={containertTitleStyles}>
-            <Typography variant="h5" align="center">
-              Dirección
-            </Typography>
-          </Container>
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>
-              Código de locación:
-            </FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={codeLocation}
-                onChange={(event) => {
-                  setCodeLocation(event.target.value);
-                  address.codeLocation = event.target.value;
-                }}
-                variant="standard"
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Primera línea de dericción:</FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={lineOne}
-                onChange={(event) => {
-                  setLineOne(event.target.value);
-                  address.lineOne = event.target.value;
-                }}
-                variant="standard"
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Segunda línea de dericción:</FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={lineTwo}
-                onChange={(event) => {
-                  setLineTwo(event.target.value);
-                  address.lineTwo = event.target.value;
-                }}
-                variant="standard"
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Ingrese Latitud:</FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={latitude}
-                onChange={(event) => {
-                  setLatitude(event.target.value);
-                  address.latitude = event.target.value;
-                }}
-                variant="standard"
-              />
-            </div>
-          </Container>
-
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Ingrese Longitud:</FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={longitude}
-                onChange={(event) => {
-                  setLongitude(event.target.value);
-                  address.longitude = event.target.value;
-                }}
-                variant="standard"
-              />
-            </div>
-          </Container>
-          <Container sx={containertTitleStyles}>
-            <Typography variant="h5" align="center">
-              Referencia
-            </Typography>
-          </Container>
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Escriba el nombre:</FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={nameReference}
-                onChange={(event) => {
-                  setNameReference(event.target.value);
-                  reference.nameReference = event.target.value;
-                }}
-                variant="standard"
-              />
-            </div>
-          </Container>
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Escriba el teléfono:</FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={phoneReference}
-                onChange={(event) => {
-                  setPhoneReference(event.target.value);
-                  reference.phoneReference = event.target.value;
-                }}
-                variant="standard"
-              />
-            </div>
-          </Container>
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Tipo de relación:</FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <TextField
-                value={related}
-                onChange={(event) => {
-                  setRelated(event.target.value);
-                  reference.related = event.target.value;
-                }}
-                variant="standard"
-              />
-            </div>
-          </Container>
-          <Container sx={containertTitleStyles}>
-            <Typography variant="h5" align="center">
-              Segmento
-            </Typography>
-          </Container>
-          <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}> </FormLabel>
-            <div style={{ marginRight: "10px" }}>
-              <ClientBox
-                label="Segmento:"
-                value={nameSegment}
-                options={segmentOpstions}
-                onChange={onChangeSegment}
-              />
-            </div>
-          </Container>
-            <Container sx={containerTextFieldStyles}>
-              <Button
-                onClick={() => {
-                  handelSubmit();
-                  navigate("/usuario");
-                }}
-                sx={buttonStyles}
-              >
-                Guardar
-              </Button>
-          </Container>
-        </Grid>
-      </Grid>
+          </Box>
+          <Box sx={inputLayout}>
+            <FormLabel>Huella digital*</FormLabel>
+            <TextField
+              value={fingerPrint}
+              onChange={(event) => setFingerPrint(event.target.value)}
+              variant="outlined"
+              sx={{ width: '300px' }}
+            />
+          </Box>
+        </Box>
+        <Box
+          display='flex'
+          flexDirection='column'
+          width='45%'
+          gap={1}
+          pr={5}
+        >
+          <Typography variant="h5" align="center">Telefono</Typography>
+          <Box sx={inputLayout}>
+            <BranchBox
+              label="Tipo de teléfono*"
+              value={phoneType}
+              options={optionsPhoneType}
+              onChange={onChangePhoneType}
+            />
+          </Box>
+          <Box sx={inputLayout}>
+            <FormLabel>Número de teléfono*</FormLabel>
+            <TextField
+              placeholder="+593 9999 999"
+              value={phoneNumber}
+              onChange={(event) => {
+                setPhoneNumber(event.target.value);
+                phone.phoneNumber = event.target.value;
+              }}
+              variant="outlined"
+              sx={{ width: '300px' }}
+            />
+          </Box>
+          <Typography variant="h5" align="center" mt={5}>Dirección</Typography>
+          <Box sx={inputLayout}>
+            <FormLabel>Código de locación*</FormLabel>
+            <TextField
+              value={codeLocation}
+              onChange={(event) => {
+                setCodeLocation(event.target.value);
+                address.codeLocation = event.target.value;
+              }}
+              variant="outlined"
+              sx={{ width: '300px' }}
+            />
+          </Box>
+          <Box sx={inputLayout}>
+            <FormLabel>Primera línea*</FormLabel>
+            <TextField
+              value={lineOne}
+              onChange={(event) => {
+                setLineOne(event.target.value);
+                address.lineOne = event.target.value;
+              }}
+              variant="outlined"
+              sx={{ width: '300px' }}
+            />
+          </Box>
+          <Box sx={inputLayout}>
+            <FormLabel>Segunda línea*</FormLabel>
+            <TextField
+              value={lineTwo}
+              onChange={(event) => {
+                setLineTwo(event.target.value);
+                address.lineTwo = event.target.value;
+              }}
+              variant="outlined"
+              sx={{ width: '300px' }}
+            />
+          </Box>
+          <Typography variant="h5" align="center" mt={5}>Referencia</Typography>
+          <Box sx={inputLayout}>
+            <FormLabel>Nombre completo*</FormLabel>
+            <TextField
+              value={nameReference}
+              onChange={(event) => {
+                setNameReference(event.target.value);
+                reference.nameReference = event.target.value;
+              }}
+              variant="outlined"
+              sx={{ width: '300px' }}
+            />
+          </Box>
+          <Box sx={inputLayout}>
+            <FormLabel>Teléfono*</FormLabel>
+            <TextField
+              value={phoneReference}
+              onChange={(event) => {
+                setPhoneReference(event.target.value);
+                reference.phoneReference = event.target.value;
+              }}
+              variant="outlined"
+              sx={{ width: '300px' }}
+            />
+          </Box>
+          <Box sx={inputLayout}>
+            <FormLabel>Relación*</FormLabel>
+            <TextField
+              value={related}
+              onChange={(event) => {
+                setRelated(event.target.value);
+                reference.related = event.target.value;
+              }}
+              variant="outlined"
+              sx={{ width: '300px' }}
+            />
+          </Box>
+          <Typography variant="h5" align="center" mt={5}>Segmento</Typography>
+          <Box sx={inputLayout}>
+            <ClientBox
+              label="Segmento*"
+              value={nameSegment}
+              options={segmentOpstions}
+              onChange={onChangeSegment}
+            />
+          </Box>
+          <Box
+            mt={10}>
+            <SizeButton
+              text="Guardar"
+              style={ButtonStyle.BIG}
+              palette={{ backgroundColor: 'red' }}
+              size={{ width: '100%', height: '80px' }}
+              onClick={() => {
+                handelSubmit();
+                navigate("/usuario");
+              }}
+            />
+          </Box>
+        </Box>
+      </Box>
     </>
   );
 };
 
 export default CreateClient;
 
-const containertTitleStyles = () => ({
-  textAlign: "center",
-  marginTop: "70px",
-  marginBottom: "20px",
-});
-
-const containerTextFieldStyles = () => ({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  textAlign: "center",
-  marginTop: "50px",
-  marginBottom: "20px",
-});
-
-const formLabelStyles = () => ({
-  marginRight: "10px",
-});
-
-const buttonStyles = () => ({
-  background: "#E63946",
-  color: "white",
-  ":hover": {
-    background: "#E63946",
-    color: "white",
-  },
-});
+const inputLayout = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  gap: 5
+}
