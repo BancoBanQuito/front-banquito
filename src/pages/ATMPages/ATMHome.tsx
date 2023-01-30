@@ -17,13 +17,13 @@ const ATMHomePage: React.FC = () => {
                     <Button sx={optionStyles} onClick={handleWithdrawalsClick}>Retiros</Button>
                     <Container>
                         <Typography sx={welcomeStyles}>Bienvenido</Typography>
-                        <img src={"/src/assets/BanQuito-Logo.svg"} alt="ATM Machine" />
+                        <img src={"../../assets/BanQuito-Logo.svg"} alt="ATM Machine" />
                     </Container>
                     <Button sx={optionStyles} onClick={handleDepositsClick}>Depósitos</Button>
                 </Container>
                 <Container sx={imageContainerStyles}>
                     <Typography sx={atmStyles}>ATM</Typography>
-                    <img src={"/src/assets/BanQuito-Logo.svg"} alt="ATM Machine" style={{marginLeft: '70px'}} />
+                    <img src={"../../assets/BanQuito-Logo.svg"} alt="ATM Machine" style={{ marginLeft: '70px' }} />
                     <Container sx={cardSlotStyles}></Container>
                 </Container>
             </Container>
