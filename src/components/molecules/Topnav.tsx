@@ -9,17 +9,21 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Link, useNavigate, useNavigation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import BanQuitoIcon from '../../assets/BanQuito-Logo.svg';
+import { Button } from '@mui/material';
+import { ColorPalette } from '../../style/ColorPalette';
+import EnvManager from '../../config/EnvManager';
 
 interface TopnavProps {
   isLogged: boolean;
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
   user: {};
+  to: string;
 }
 
-const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
-    
+const Topnav = ({ isLogged, setIsLogged, user, to }: TopnavProps) => {
+
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [bankEntity, setBankEntity] = useState('');
@@ -32,22 +36,21 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
     setAnchorElUser(null);
   };
 
-
   const getBankEntity = async () => {
-    const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/bank-entity`;
+    const url = `${EnvManager.SETTINGS_URL}/api/bank-entity`;
     const options = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*", 
+        "Access-Control-Allow-Origin": "*",
       },
     };
+
     try {
       const response = await fetch(url, options);
       if (response.ok) {
         const data = await response.json();
         setBankEntity(data[0].name);
-        console.log(data[0].name);
         return data;
       } else {
         throw new Error(response.statusText);
@@ -59,14 +62,13 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
         alert("Error en el servidor, intente más tarde");
       } else {
         alert("Error desconocido, intente más tarde");
-        console.log(error);
       }
     }
   };
-  
+
   useEffect(() => {
-      getBankEntity();
-    }, []
+    getBankEntity();
+  }, []
   );
 
   return (
@@ -78,6 +80,7 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
 
             <Typography
               noWrap
+              variant='h1'
               sx={{
                 ml: 2,
                 display: 'block',
@@ -98,10 +101,10 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
             </Typography>
 
             {
-              isLogged && <Box sx={{ flexGrow: 0 }}>
+              isLogged ? <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Configuraciones">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="User image" src="@/assets/user.png" />
+                    <Avatar alt="User image" src="/assets/user.png" />
                   </IconButton>
                 </Tooltip>
                 <Menu
@@ -120,14 +123,16 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  <MenuItem onClick={() => navigate('/perfil')}>
-                    <Typography textAlign="center">Perfil</Typography>
-                  </MenuItem>
                   <MenuItem onClick={() => setIsLogged(false)}>
                     <Typography textAlign="center">Cerrar sesión</Typography>
                   </MenuItem>
                 </Menu>
               </Box>
+                :
+                <Box sx={{ flexGrow: 0 }}>
+                  <Button sx={{ color: ColorPalette.ACCENT }} onClick={() => navigate(`/${to}/signup`)}>Crear Usuario</Button>
+                  <Button sx={{ color: ColorPalette.ACCENT }} onClick={() => navigate(`/${to}/login`)}>Iniciar Sesion</Button>
+                </Box>
             }
           </Toolbar>
         </Container>

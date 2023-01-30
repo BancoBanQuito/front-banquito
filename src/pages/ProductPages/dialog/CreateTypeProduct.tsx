@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Dialog, Stack, Typography, Divider, Button, TextField, Select, MenuItem } from "@mui/material";
 import { useForm, FormProvider } from "react-hook-form";
+import EnvManager from "../../../config/EnvManager";
 
 interface Props {
     openDialog: boolean;
@@ -20,7 +21,7 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
     const getProduct = async (name: string) => {
         try {
             console.log(name)
-            const response = await fetch(`http://localhost:8087/api/products/name-product?name=${name}`, {
+            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/name-product?name=${name}`, {
                 method: 'GET',
             });
             const data = await response.json();
@@ -41,7 +42,7 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
 
     const getProducts = async () => {
         try {
-            const response = await fetch(`http://localhost:8087/api/products/products`, {
+            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/products`, {
                 method: 'GET',
             });
             const data = await response.json();
@@ -63,7 +64,7 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
                 products: productTyp
 
             }
-            await fetch(`http://localhost:8087/api/product-types/types`, {
+            await fetch(`${EnvManager.PRODUCT_URL}/api/product-types/types`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

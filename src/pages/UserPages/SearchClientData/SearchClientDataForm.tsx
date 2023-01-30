@@ -9,11 +9,9 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import EnvManager from "../../../config/EnvManager";
 
-const urlCloud =
-  "https://client-banquito-abigailscl-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/client/";
-
-const local = "https://client-banquito-abigailscl-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/client/";
+const urlCloud = `${EnvManager.CLIENT_URL}/api/client/`;
 
 const isAvailable = true;
 
@@ -48,8 +46,7 @@ const SearchClientDataForm: React.FC = () => {
     try {
       setTypeIdentification(localStorage.getItem("typeIdentification"));
       const response = await fetch(
-        // urlCloud + `${idCliente}/${typeIdentification}`
-        urlCloud + `${idCliente}`
+        urlCloud + `${idCliente}/${typeIdentification}`
       );
       const data = await response.json();
       setEmail(data.email);

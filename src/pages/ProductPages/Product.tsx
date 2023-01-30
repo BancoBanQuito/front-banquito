@@ -1,6 +1,7 @@
 import { Typography, Button, Stack } from "@mui/material";
 import { useEffect, useLayoutEffect, useState } from "react";
 import TableMolecule from "../../components/molecules/TableMolecule";
+import EnvManager from "../../config/EnvManager";
 import { ActivateDialog } from "./dialog/ActivateDialog";
 import { CreateProduct } from "./dialog/CreateProduct";
 import axios from "axios";
@@ -27,7 +28,7 @@ export const Product = () => {
 
     const getProducts = async () => {
         try {
-            const response = await axios.get('http://localhost:8087/api/products/products');
+            const response = await axios.get(`${EnvManager.PRODUCT_URL}/api/products/products`);
             const data = response.data;
             const product = data.map((product: any) => {
                 const services: any = []
@@ -67,50 +68,51 @@ export const Product = () => {
 
     useEffect(() => {
         getProducts();
-    }, []);
+    }, [])
+}, []);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            getProducts();
-        }, 5000);
-        return () => clearInterval(interval);
-    }, []);
+useEffect(() => {
+    const interval = setInterval(() => {
+        getProducts();
+    }, 5000);
+    return () => clearInterval(interval);
+}, []);
 
-    useEffect(() => {
-        if (open) {
-            handleOpen();
-        }
-        setOpen(false);
+useEffect(() => {
+    if (open) {
+        handleOpen();
+    }
+    setOpen(false);
 
-    }, [open]);
+}, [open]);
 
-    useEffect(() => {
-        if (openDialog) {
-            handleOpenProduct();
-        }
-        setOpenDialog(false);
-    }, [openDialog]);
+useEffect(() => {
+    if (openDialog) {
+        handleOpenProduct();
+    }
+    setOpenDialog(false);
+}, [openDialog]);
 
-    return (
-        <Stack direction="row" spacing={2} >
-            <Stack direction="column" spacing={2} sx={{ width: "100%", margin: '4rem' }} alignItems='center'>
-                <Typography variant="h4" align="center">Productos</Typography>
+return (
+    <Stack direction="row" spacing={2} >
+        <Stack direction="column" spacing={2} sx={{ width: "100%", margin: '4rem' }} alignItems='center'>
+            <Typography variant="h4" align="center">Productos</Typography>
 
-                <Stack direction="row" spacing={2} sx={{ width: "80%" }}>
-                    <TableMolecule headers={table.headers} rows={products} />
-                </Stack>
-                <Stack direction="column" spacing={2} sx={{ width: "100%" }} alignItems='center'>
-                    <Button variant="contained" onClick={handleOpenProduct}>Crear Nuevo Producto</Button>
-                </Stack>
+            <Stack direction="row" spacing={2} sx={{ width: "80%" }}>
+                <TableMolecule headers={table.headers} rows={products} />
             </Stack>
-            <ActivateDialog
-                openDialog={open}
-                name={id}
-                state={status}
-            />
-            <CreateProduct
-                openDialog={openDialog}
-            />
-        </Stack >
-    )
+            <Stack direction="column" spacing={2} sx={{ width: "100%" }} alignItems='center'>
+                <Button variant="contained" onClick={handleOpenProduct}>Crear Nuevo Producto</Button>
+            </Stack>
+        </Stack>
+        <ActivateDialog
+            openDialog={open}
+            name={id}
+            state={status}
+        />
+        <CreateProduct
+            openDialog={openDialog}
+        />
+    </Stack >
+)
 }

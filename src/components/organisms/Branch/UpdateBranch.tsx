@@ -9,6 +9,7 @@ import { Canton, Province } from '../Location/types';
 import BranchBox from './BranchBox';
 import Button from '@mui/material/Button';
 import { IBranch } from './Types';
+import EnvManager from '../../../config/EnvManager';
 
 
 const UpdateBranch: React.FC = () => {
@@ -33,7 +34,7 @@ const UpdateBranch: React.FC = () => {
     useEffect(() => {
         const fetchProvinces = async () => {
             try {
-                const response = await fetch('https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/provinces')
+                const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/provinces`)
                 const data = await response.json()
                 setProvincesData(data)
             } catch (error) {
@@ -56,7 +57,7 @@ const UpdateBranch: React.FC = () => {
         const fetchCantons = async () => {
             try {
                 if (selectedProvince) {
-                    const response = await fetch(`https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/province/${selectedProvince}`)
+                    const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/province/${selectedProvince}`)
                     const data = await response.json()
                     setCantonsData(data)
                 }
@@ -80,7 +81,7 @@ const UpdateBranch: React.FC = () => {
         const fetchParishes = async () => {
             try {
                 if (selectedCanton) {
-                    const response = await fetch(`https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/location/canton/${selectedCanton}`)
+                    const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/canton/${selectedCanton}`)
                     const data = await response.json()
                     setParishesData(data)
                 }
@@ -100,7 +101,7 @@ const UpdateBranch: React.FC = () => {
             const stringOpeningHoursSaturday = openingHoursSaturday ? openingHoursSaturday.format('HH:mm') : ""
             const stringClosingTimeSaturday = closingHoursSaturday ? closingHoursSaturday.format('HH:mm') : ""
 
-            const response = await fetch(`https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/branch/name/${selectedBranch}`, {
+            const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch/name/${selectedBranch}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
                 body: JSON.stringify({
@@ -142,7 +143,7 @@ const UpdateBranch: React.FC = () => {
     useEffect(() => {
         const fetchProvinces = async () => {
             try {
-                const response = await fetch('https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/branch')
+                const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch`)
                 const data = await response.json()
                 setBranchesData(data)
             } catch (error) {
@@ -153,9 +154,9 @@ const UpdateBranch: React.FC = () => {
     }, [])
 
     useEffect(() => {
-        const fetchBranch= async () => {
+        const fetchBranch = async () => {
             try {
-                const response = await fetch(`https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/branch/name/${selectedBranch}`)
+                const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch/name/${selectedBranch}`)
                 const data = await response.json()
                 setBranchData(data)
             } catch (error) {
@@ -189,12 +190,12 @@ const UpdateBranch: React.FC = () => {
                 </Typography>
             </Container>
             <Container sx={containerSelectStyles}>
-            <BranchBox
-                label="Selecciona la sucursal a actualizar:"
-                value={selectedBranch}
-                options={optionsBranch}
-                onChange={onChangeBranch}
-            />
+                <BranchBox
+                    label="Selecciona la sucursal a actualizar:"
+                    value={selectedBranch}
+                    options={optionsBranch}
+                    onChange={onChangeBranch}
+                />
             </Container>
             {
                 selectedBranch != ""

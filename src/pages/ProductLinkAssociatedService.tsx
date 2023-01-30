@@ -10,6 +10,7 @@ import styled from "styled-components";
 import { ConfirmationNumberOutlined } from "@mui/icons-material";
 import SearchProductDialog from "./SearchProductDialog";
 import SearchIcon from "@mui/icons-material/Search";
+import EnvManager from "../config/EnvManager";
 
 // Styles
 export const Container = styled.div`
@@ -116,7 +117,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
   const getAssociatedServices = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8087/api/associatedServices`,
+        `${EnvManager.PRODUCT_URL}/api/associatedServices`,
         {
           method: "GET",
         }
@@ -215,9 +216,8 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
   }, [dialog]);
 
   const setServices = async () => {
-    //console.log('{"products":' + JSON.stringify(products) + ',"associatedServices":' + JSON.stringify(associatedServices) + '}');
     try {
-      const response = await fetch(`http://localhost:8087/api/products/product-link-service`,
+      const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/product-link-service`,
         {
           method: "PUT",
           headers: {
@@ -228,7 +228,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
       );
 
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

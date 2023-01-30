@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Buscar información de cliente",
+    "description": "Buscar y visualizar información de cliente",
+    "imageUrl": "https://images.pexels.com/photos/7319070/pexels-photo-7319070.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/usuario/buscar-info-cliente"
+  },
+  {
+    "title": "Actualizar información de cliente",
+    "description": "Actualice la información de cliente",
+    "imageUrl": "https://images.pexels.com/photos/5699456/pexels-photo-5699456.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/usuario/buscar-info-cliente"
+  },
+  {
+    "title": "Crear un nuevo cliente",
+    "description": "Cree un nuevo cliente",
+    "imageUrl": "https://images.pexels.com/photos/5699456/pexels-photo-5699456.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/usuario/crear-cliente"
+  }
+]

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Container, FormLabel, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import EnvManager from '../../../config/EnvManager';
 
 
 interface Props {
@@ -22,8 +23,29 @@ const CreateUser = ({ redirect }: Props) => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
         try {
-            alert("Creado con éxito")
+            const response = await fetch(`${EnvManager.CLIENT_URL}/api/client/signup`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+                body: JSON.stringify({
+                    "identificationType": identificationType,
+                    "identification": identification,
+                    "email": email,
+                    "user": {
+                      "userName": userName,
+                      "password": password,
+                      "type": "client",
+                      "status": "INA",
+                      "creationDate": "2023-01-30T02:44:20.618Z",
+                      "lastLoginDate": "2023-01-30T02:44:20.618Z"
+                    }
+                  })
+            })
+            if (!response.ok) {
+                throw new Error(response.statusText)
+            }
+            alert("Ingresa con éxito");
             navigate(redirect)
+
         } catch (error) {
             console.error(error)
         }

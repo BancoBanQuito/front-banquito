@@ -1,5 +1,6 @@
 import { Dialog, Button, Stack, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
+import EnvManager from "../../../config/EnvManager";
 
 interface Props {
     openDialog: boolean;
@@ -23,7 +24,7 @@ export const ActivateDialog = ({ openDialog, name, state }: Props) => {
             if (state === 'INC') {
                 newState = 'ACT';
             }
-            await fetch(`http://localhost:8087/api/products/product?name=${name}&status=${newState}`, {
+            await fetch(`${EnvManager.PRODUCT_URL}/api/products/product?name=${name}&status=${newState}`, {
                 method: 'PUT',
             }
             );

@@ -3,6 +3,7 @@ import BranchBox from './BranchBox';
 import { Button, Container, Typography } from '@mui/material';
 
 import { IBranch } from './Types';
+import EnvManager from '../../../config/EnvManager';
 
 const DeleteBranch: React.FC = () => {
 
@@ -18,7 +19,7 @@ const DeleteBranch: React.FC = () => {
     useEffect(() => {
         const fetchProvinces = async () => {
             try {
-                const response = await fetch('https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/branch')
+                const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch`)
                 const data = await response.json()
                 setBranchesData(data)
             } catch (error) {
@@ -31,7 +32,7 @@ const DeleteBranch: React.FC = () => {
     useEffect(() => {
         const fetchProvinces = async () => {
             try {
-                const response = await fetch(`https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/branch/name/${selectedBranch}`)
+                const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch/name/${selectedBranch}`)
                 const data = await response.json()
             } catch (error) {
                 console.error(error)
@@ -43,7 +44,7 @@ const DeleteBranch: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
         try {
-            const response = await fetch(`https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/branch/name/${selectedBranch}`, {
+            const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch/name/${selectedBranch}`, {
                 method: "DELETE",
             });
             alert("Eliminada con éxito")

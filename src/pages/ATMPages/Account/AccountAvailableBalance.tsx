@@ -9,9 +9,13 @@ import { AccountService } from '../../../services/account/AccountService'
 import { RSAccount } from '../../../services/account/dto/RSAccount'
 import { ButtonStyle } from '../../../style/ButtonStyle'
 import { ColorPalette } from '../../../style/ColorPalette'
+import AtmLoginForm from '../../../components/organisms/AtmLoginForm'
+import { AtmLoginService } from '../../../services/login/AtmLoginService'
+import { RSAtmLogin } from '../../../services/login/dto/RSAtmLogin'
 
-const tempUser = {
-  codeLocalAccount: 'a3998d173acbf0c893db'
+interface ATMLoginForm {
+  codeLocalAccount: string,
+  password: string,
 }
 
 const buttonSize = {
@@ -21,12 +25,20 @@ const buttonSize = {
 
 const AccountAvailableBalance = () => {
 
+  const [loadingMessage, setloadingMessage] = useState<string | undefined>();
   const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false)
   const [isLoading, setisLoading] = useState<boolean>(false);
   const [errorMessage, seterrorMessage] = useState<string>("");
+  const [indexForm, setindexForm] = useState<number>(0);
+  const [login, setlogin] = useState<ATMLoginForm>({
+    codeLocalAccount: "",
+    password: ""
+  });
   const [account, setaccount] = useState<RSAccount>({
     codeLocalAccount: '',
     codeInternationalAccount: '',
+    identification: '',
+    identificationType: '',
     status: '',
     product: '',
     presentBalance: 0,
@@ -35,19 +47,32 @@ const AccountAvailableBalance = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getAccount();
-    return () => { }
-  }, []);
+  const handleClose = () => {
+    navigate('/atm');
+  }
 
-  const getAccount = async () => {
+  const handleLogin = async (password: string) => {
     setisLoading(true);
     try {
-      const auxAccount: RSAccount | undefined = (await AccountService.getAccountByCode(tempUser.codeLocalAccount)).data.data;
-      if (auxAccount) {
-        setaccount(auxAccount);
+      setloadingMessage("Validando cuenta...")
+      const account: RSAccount | undefined = (await AccountService.getAccountByCode(login.codeLocalAccount)).data.data;
+      if (account) {
+        setloadingMessage("Validando contraseña...")
+        const user: RSAtmLogin | undefined = (await (AtmLoginService.getLoginCredentials(account.identification))).data;
+        if (user) {
+          if (user.user.password === password) {
+            setaccount(account);
+            setindexForm(2);
+          } else {
+            seterrorMessage("Contraseña invalida");
+            setactiveErrorModal(true);
+          }
+        } else {
+          seterrorMessage("Cuenta no encontrada");
+          setactiveErrorModal(true);
+        }
       } else {
-        seterrorMessage('No se han encontrado datos');
+        seterrorMessage("Cuenta no encontrada");
         setactiveErrorModal(true);
       }
     } catch (error: any) {
@@ -58,113 +83,149 @@ const AccountAvailableBalance = () => {
     }
   }
 
-
-  const handleClose = () => {
-    navigate('/atm');
-  }
-
   return (
     <>
-      <div
-        style={{
-          position: 'relative',
-          width: '100%',
-          height: '97vh',
-          overflowY: 'hidden',
-          overflowX: 'hidden'
-        }}>
-        <Box
-          component="div"
-          sx={{
-            position: 'absolute',
-            top: '50%',
+      {
+        indexForm === 0 ?
+          <div style={{
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            alignContent: 'center',
-            textAlign: 'center',
-            width: '100%'
+            alignItems: 'center',
+            marginTop: '6rem'
           }}>
-          <Typography
-            sx={{
-              fontSize: '1.5rem'
-            }}>Tu saldo disponible es</Typography>
-          <Typography
-            sx={{
-              fontWeight: 'bold',
-              fontSize: '3rem'
-            }}
-          >$ {(Math.round(account.availableBalance * 100) / 100).toFixed(2)}</Typography>
-        </Box>
-        <div style={{
-          position: 'absolute',
-          bottom: 0,
-          right: -30,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignContent: 'center'
-        }}>
-          <div style={{ margin: '1rem 0' }}>
-            <SizeButton
-              text={'Retirar'}
-              icon={<Paid />}
-              style={ButtonStyle.BIG}
-              size={buttonSize}
-              onClick={handleClose}
-              palette={{
-                backgroundColor: ColorPalette.PRIMARY,
-              }} />
+            <Box sx={{
+              width: 500,
+            }}>
+              <AtmLoginForm
+                atm
+                codeLocalAccount
+                onSubmit={(data: any) => {
+                  setindexForm(1);
+                  setlogin({
+                    ...login,
+                    codeLocalAccount: data.codeLocalAccount
+                  });
+                }} />
+            </Box>
           </div>
-          <div style={{ margin: '1rem 0' }}>
-            <SizeButton
-              text={'Imprimir'}
-              icon={<PrintRounded />}
-              style={ButtonStyle.BIG}
-              size={buttonSize}
-              onClick={handleClose}
-              palette={{
-                backgroundColor: ColorPalette.PRIMARY,
-              }} />
-          </div>
-          <div style={{ margin: '1rem 0' }}>
-            <SizeButton
-              text={'Salir'}
-              icon={<Close />}
-              style={ButtonStyle.BIG}
-              size={buttonSize}
-              onClick={handleClose}
-              palette={{
-                backgroundColor: ColorPalette.PRIMARY,
-              }} />
-          </div>
-        </div>
-        <div style={{
-          position: 'absolute',
-          bottom: 0,
-          left: -30
-        }}>
-          <div style={{ margin: '1rem 0' }}>
-            <SizeButton
-              text={'Volver'}
-              icon={<ChevronLeft />}
-              style={ButtonStyle.BIG}
-              size={buttonSize}
-              onClick={handleClose}
-              palette={{
-                backgroundColor: ColorPalette.PRIMARY,
-              }} />
-          </div>
-        </div>
-      </div>
-      <LoadOrganism active={isLoading} />
+          : indexForm === 1 ?
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: '6rem'
+            }}>
+              <Box sx={{
+                width: 500,
+              }}>
+
+                <AtmLoginForm
+                  atm
+                  password
+                  title="Contraseña"
+                  onSubmit={(data: any) => {
+                    setlogin({
+                      ...login,
+                      password: data.password
+                    });
+                    handleLogin(data.password);
+                  }} />
+              </Box>
+            </div>
+            : <div
+              style={{
+                position: 'relative',
+                width: '100%',
+                height: '97vh',
+                overflowY: 'hidden',
+                overflowX: 'hidden'
+              }}>
+              <Box
+                component="div"
+                sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  textAlign: 'center',
+                  width: '100%'
+                }}>
+                <Typography
+                  sx={{
+                    fontSize: '1.5rem'
+                  }}>Tu saldo disponible es</Typography>
+                <Typography
+                  sx={{
+                    fontWeight: 'bold',
+                    fontSize: '3rem'
+                  }}
+                >$ {(Math.round(account.availableBalance * 100) / 100).toFixed(2)}</Typography>
+              </Box>
+              <div style={{
+                position: 'absolute',
+                bottom: 0,
+                right: -30,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignContent: 'center'
+              }}>
+                <div style={{ margin: '1rem 0' }}>
+                  <SizeButton
+                    text={'Imprimir'}
+                    icon={<PrintRounded />}
+                    style={ButtonStyle.BIG}
+                    size={buttonSize}
+                    onClick={handleClose}
+                    palette={{
+                      backgroundColor: ColorPalette.PRIMARY,
+                    }} />
+                </div>
+                <div style={{ margin: '1rem 0' }}>
+                  <SizeButton
+                    text={'Salir'}
+                    icon={<Close />}
+                    style={ButtonStyle.BIG}
+                    size={buttonSize}
+                    onClick={handleClose}
+                    palette={{
+                      backgroundColor: ColorPalette.PRIMARY,
+                    }} />
+                </div>
+              </div>
+              <div style={{
+                position: 'absolute',
+                bottom: 0,
+                left: -30
+              }}>
+                <div style={{ margin: '1rem 0' }}>
+                  <SizeButton
+                    text={'Volver'}
+                    icon={<ChevronLeft />}
+                    style={ButtonStyle.BIG}
+                    size={buttonSize}
+                    onClick={handleClose}
+                    palette={{
+                      backgroundColor: ColorPalette.PRIMARY,
+                    }} />
+                </div>
+              </div>
+            </div>
+      }
+      <LoadOrganism
+        active={isLoading}
+        text={loadingMessage} />
       <ErrorModalOrganism
         active={activeErrorModal}
         onDeactive={() => { setactiveErrorModal(false); navigate('/cliente') }}
         text={`${errorMessage}. ¿Desea volver a intentar?`}
         enableButtonBox
-        onConfirm={() => getAccount()}
-        onReject={() => navigate('/cliente')}
+        onConfirm={() => navigate('/')}
+        onReject={() => navigate('/atm')}
       />
     </>
   )

@@ -1,6 +1,7 @@
 import { Typography, Stack, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import TableMolecule from "../../components/molecules/TableMolecule";
+import EnvManager from "../../config/EnvManager";
 import { CreateTypeProduct } from "./dialog/CreateTypeProduct";
 
 const table: any = {
@@ -20,7 +21,7 @@ export const ProductType = () => {
 
     const getTypeProducts = async () => {
         try {
-            const response = await fetch('http://localhost:8087/api/product-types/types');
+            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/product-types/types`);
             const data = await response.json();
             const product = data.map((product: any) => {
                 return {
@@ -40,6 +41,7 @@ export const ProductType = () => {
             console.log(error);
         }
     }
+
 
 
     useEffect(() => {
