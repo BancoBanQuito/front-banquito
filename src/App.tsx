@@ -3,13 +3,13 @@ import { Location } from "./pages/UserPages/Locations/Location";
 import theme from "./style/Theme";
 import Error404 from "./pages/ErrorPages/Error404";
 import HomeClient from "./pages/ClientPages/HomeClient";
-import HomeUser from "./pages/UserPages/HomeUser";
+import HomeUser from "./pages/UserPages/HomeUser/HomeUser";
 import Login from "./components/organisms/Login/Login";
 import { BankEntity } from "./components/organisms/BankEntity/BankEntity";
 import { UpdateBankEntity } from "./components/organisms/BankEntity/UpdateBankEntity";
 import { Product } from "./pages/ProductPages/Product";
 import { ProductType } from "./pages/ProductPages/ProductType";
-import CreateRequestService from './pages/CreateRequestService';
+import CreateRequestService from "./pages/CreateRequestService";
 import AccountCreateUser from "./pages/UserPages/Account/AccountCreateUser";
 import AccountStatementBankUser from "./pages/UserPages/Account/AccountStatementUser";
 import TransferUser from "./pages/UserPages/Transaction/TransferUser";
@@ -43,8 +43,8 @@ import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBe
 import ATMHome from "./pages/ATMPages/ATMHome";
 
 interface userProps {
-  username: string,
-  password: string
+  username: string;
+  password: string;
 }
 
 const App = () => {
@@ -90,11 +90,11 @@ const App = () => {
     },
     {
       path: "cuenta/deposito",
-      element: <DepositBank />
+      element: <DepositBank />,
     },
     {
       path: "cuenta/retiro",
-      element: <WithdrawBank />
+      element: <WithdrawBank />,
     },
     {
       path: "cuenta/transaccion/dias",
@@ -130,7 +130,7 @@ const App = () => {
     },
     {
       path: "producto/vincular/servicio",
-      element: <ProductLinkAssociatedService onSubmit={() => { }} />,
+      element: <ProductLinkAssociatedService onSubmit={() => {}} />,
     },
     {
       path: "cuenta/posicion/consolidada",
@@ -171,7 +171,7 @@ const App = () => {
     },
     {
       path: "cliente/editar",
-      element: <UpdateClient />
+      element: <UpdateClient />,
     },
     {
       path: "sucursales",
@@ -187,7 +187,7 @@ const App = () => {
     },
     {
       path: "cuenta/transaccion/dias",
-      element: <TransactionBeetwenDates client />
+      element: <TransactionBeetwenDates client />,
     },
     {
       path: "signup",
@@ -196,11 +196,11 @@ const App = () => {
     {
       path: "interes/cuenta/ahorros",
       element: <InterestSavingAccounts />,
-    },/* 
+    } /* 
     {
       path: "interes/inversion",
       element: <InterestInvestmentPolicies />,
-    }, */
+    }, */,
     {
       path: "login",
       element: (
@@ -220,17 +220,17 @@ const App = () => {
     },
     {
       path: "cuenta/saldo",
-      element: <AccountAvailableBalance />
+      element: <AccountAvailableBalance />,
     },
     {
       path: "cuenta/deposito",
-      element: <DepositAtm />
+      element: <DepositAtm />,
     },
     {
       path: "cuenta/retiro",
-      element: <WithdrawAtm />
-    }
-  ]
+      element: <WithdrawAtm />,
+    },
+  ];
 
   return (
     <ThemeProvider theme={theme}>
@@ -271,6 +271,5 @@ const App = () => {
     </ThemeProvider>
   );
 };
-
 
 export default App;
