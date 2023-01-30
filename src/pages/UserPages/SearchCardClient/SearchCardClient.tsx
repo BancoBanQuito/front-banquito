@@ -32,8 +32,17 @@ const SearchCardClient: React.FC = () => {
     try {
       localStorage.setItem("identification", identification);
       localStorage.setItem("typeIdentification", typeIdentification);
-      //location.href = "/usuario/info-cliente";
       navigate("/usuario/info-cliente");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const editClient = (event: React.FormEvent) => {
+    try {
+      localStorage.setItem("identification", identification);
+      localStorage.setItem("typeIdentification", typeIdentification);
+      navigate("/usuario/actualizar-info-cliente");
     } catch (error) {
       console.error(error);
     }
@@ -48,7 +57,7 @@ const SearchCardClient: React.FC = () => {
       </Container>
       {/* Label Input*/}
       <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Identificación:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Identificación: </FormLabel>
         <TextField
           value={identification}
           onChange={(event) => setIdentification(event.target.value)}
@@ -60,7 +69,7 @@ const SearchCardClient: React.FC = () => {
       <Container sx={containerTextFieldStyles}>
         <div style={{ marginRight: "10px" }}>
           <BranchBox
-            label="Tipo Identificación:"
+            label="Tipo Identificación: "
             value={typeIdentification}
             options={identificationOptions}
             onChange={onChangeStatus}
@@ -74,7 +83,7 @@ const SearchCardClient: React.FC = () => {
         </Button>
       </Container>
       <Container sx={containerTextFieldStyles}>
-        <Button onClick={() => {}} sx={buttonStyles}>
+        <Button onClick={editClient} sx={buttonStyles}>
           Editar
         </Button>
       </Container>
