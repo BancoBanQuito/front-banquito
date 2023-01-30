@@ -9,6 +9,7 @@ const table: any = {
         <Typography>Producto</Typography>,
         <Typography>Estado</Typography>,
         <Typography>Tipo de producto</Typography>,
+        <Typography>Servicio asociado</Typography>,
         <Typography>Habilitación</Typography>,
     ]
 }
@@ -28,10 +29,15 @@ export const Product = () => {
             const response = await fetch('http://localhost:8087/api/products/products');
             const data = await response.json();
             const product = data.map((product: any) => {
+                const services: any = []
+                product.associatedService.forEach((service: any) => {
+                    services.push(service.name, "\n")
+                })
                 return {
                     name: <Typography>{product.name}</Typography>,
                     status: <Typography>{product.status}</Typography>,
                     type: <Typography>{product.productType.name}</Typography>,
+                    service: <Typography>{services}</Typography>,
                     enable: <Button
                         variant="contained"
                         color={product.status.toUpperCase() === 'ACT' ? "error" : "primary"}
@@ -43,7 +49,7 @@ export const Product = () => {
 
             const rows: any = [];
             product.forEach((product: any) => {
-                rows.push([product.name, product.status, product.type, product.enable])
+                rows.push([product.name, product.status, product.type, product.service, product.enable])
             })
             setProducts(rows);
 
@@ -67,6 +73,8 @@ export const Product = () => {
             handleOpen();
         }
         setOpen(false);
+        getProducts();
+        console.log(products)
     }, [open]);
 
     useEffect(() => {
@@ -74,6 +82,8 @@ export const Product = () => {
             handleOpenProduct();
         }
         setOpenDialog(false);
+        getProducts();
+        console.log(products)
     }, [openDialog]);
 
     return (

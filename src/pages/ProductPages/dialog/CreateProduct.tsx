@@ -3,6 +3,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import DatePickerAtom from "../../../components/atoms/DatePicker";
+import Swal from 'sweetalert2'
 
 interface Props {
     openDialog: boolean;
@@ -116,7 +117,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
             }
 
             console.log(typeProduct)
-            await fetch(`http://localhost:8087/api/products/product`, {
+            const response = await fetch(`http://localhost:8087/api/products/product`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -124,8 +125,26 @@ export const CreateProduct = ({ openDialog }: Props) => {
                 body: JSON.stringify(typeProduct)
             })
             handleClose();
+            if(!response.ok){
+                Swal.fire({
+                    title: 'Error al crear el producto',
+                    icon: 'error',
+                    showConfirmButton: true,
+                })
+                return;
+            }
+            Swal.fire({
+                title: 'Producto creado',
+                icon: 'success',
+                showConfirmButton: true,
+            })
         } catch (error) {
             console.log(error);
+            Swal.fire({
+                title: 'Error al crear el producto',
+                icon: 'error',
+                showConfirmButton: true,
+            })
         }
     }
 
@@ -166,8 +185,8 @@ export const CreateProduct = ({ openDialog }: Props) => {
                                             defaultValue={"ACT"}
                                             {...register("status", { required: true })}
                                         >
-                                            <MenuItem value={"ACT"}>Activo</MenuItem>
-                                            <MenuItem value={"INC"}>Inactivo</MenuItem>
+                                            <MenuItem value={"ACT"} key={"ACT"}>Activo</MenuItem>
+                                            <MenuItem value={"INC"} key={"INC"}>Inactivo</MenuItem>
                                         </Select>
                                     </Stack>
 
@@ -206,9 +225,9 @@ export const CreateProduct = ({ openDialog }: Props) => {
                                             {...register("temporalyAccountState", { required: false })}
                                             onChange={(e) => e.target.value}
                                         >
-                                            <MenuItem value={"DAI"}>Diario</MenuItem>
-                                            <MenuItem value={"MOM"}>Mensual</MenuItem>
-                                            <MenuItem value={"BIM"}>Bimestral</MenuItem>
+                                            <MenuItem value={"DAI"} key={"DAI"}>Diario</MenuItem>
+                                            <MenuItem value={"MOM"} key={"MOM"}>Mensual</MenuItem>
+                                            <MenuItem value={"BIM"} key={"BIM"}>Bimestral</MenuItem>
                                         </Select>
                                     </Stack>
 
@@ -222,8 +241,8 @@ export const CreateProduct = ({ openDialog }: Props) => {
                                             {...register("useCheckbook", { required: false })}
                                             onChange={(e) => e.target.value}
                                         >
-                                            <MenuItem id="Y" value="Y">Si</MenuItem>
-                                            <MenuItem id="N" value="N">No</MenuItem>
+                                            <MenuItem id="Y" value="Y" key={"Y"}>Si</MenuItem>
+                                            <MenuItem id="N" value="N" key={"N"}>No</MenuItem>
                                         </Select>
                                     </Stack>
                                 </Stack>
@@ -241,8 +260,8 @@ export const CreateProduct = ({ openDialog }: Props) => {
                                             {...register("allowTransference", { required: false })}
                                             onChange={(e) => e.target.value}
                                         >
-                                            <MenuItem id="Y" value="Y">Si</MenuItem>
-                                            <MenuItem id="N" value="N">No</MenuItem>
+                                            <MenuItem id="Y" value="Y" key={"Y"}>Si</MenuItem>
+                                            <MenuItem id="N" value="N" key={"N"}>No</MenuItem>
                                         </Select>
                                     </Stack>
 
@@ -256,8 +275,8 @@ export const CreateProduct = ({ openDialog }: Props) => {
                                             {...register("typeClient", { required: false })}
                                             onChange={(e) => e.target.value}
                                         >
-                                            <MenuItem value={"NAT"}>Natural</MenuItem>
-                                            <MenuItem value={"BUS"}>Empresarial</MenuItem>
+                                            <MenuItem value={"NAT"} key={"NAT"}>Natural</MenuItem>
+                                            <MenuItem value={"BUS"} key={"BUS"}>Empresarial</MenuItem>
                                         </Select>
                                     </Stack>
 
@@ -282,6 +301,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
                                             {interest.map((inter: any) => (
                                                 <MenuItem
                                                     id={inter.id}
+                                                    key={inter.id}
                                                     value={inter.id + "/" + inter.name + "/" + inter.type + "/" + inter.calcBase}
                                                 >
                                                     {inter.name}
@@ -302,6 +322,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
                                             {products.map((product: any) => (
                                                 <MenuItem
                                                     id={product.id}
+                                                    key={product.id}
                                                     value={product.id + "/" + product.name}
                                                 >
                                                     {product.name}
@@ -322,6 +343,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
                                             {associatedServices.map((service: any) => (
                                                 <MenuItem
                                                     id={service.id}
+                                                    key={service.id}
                                                     value={service.id + "/" + service.name + "/" + service.allowPayment + "/"
                                                         + service.paymentMethod + "/" + service.chargeVat + "/" + service.fee}>
                                                     {service.name}

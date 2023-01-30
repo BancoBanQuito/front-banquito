@@ -40,22 +40,23 @@ export const ProductType = () => {
             console.log(error);
         }
     }
-   
+
 
     useEffect(() => {
         getTypeProducts();
     }, [])
-    
+
     useEffect(() => {
         if (open) {
             handleOpen();
         }
         setOpen(false);
+        getTypeProducts();
     }, [open]);
 
     return (
         <Stack direction="row" spacing={2} >
-            <Stack direction="column" spacing={2} sx={{ width: "100%", margin:'4rem' }} alignItems='center'>
+            <Stack direction="column" spacing={2} sx={{ width: "100%", margin: '4rem' }} alignItems='center'>
                 <Typography variant="h4" align="center">Tipos de Productos</Typography>
 
                 <Stack direction="row" spacing={2} sx={{ width: "80%" }}>

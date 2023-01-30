@@ -32,6 +32,7 @@
     "react-to-print": "^2.14.11",
     "sort-by": "^0.0.2",
     "styled-components": "^5.3.6",
+    "sweetalert2": "^11.7.1",
     "vite-tsconfig-paths": "^4.0.5"
   },
   "devDependencies": {
