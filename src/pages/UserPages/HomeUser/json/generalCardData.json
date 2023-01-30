@@ -18,12 +18,6 @@
     "url": "/usuario/feriados"
   },
   {
-    "title": "Entidad Financiera",
-    "description": "Gestione la entidad financiera",
-    "imageUrl": "https://images.pexels.com/photos/1398431/pexels-photo-1398431.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "url": "/usuario/entidad"
-  },
-  {
     "title": "Actualizar Entidad",
     "description": "Actualice la entidad financiera",
     "imageUrl": "https://images.pexels.com/photos/7821685/pexels-photo-7821685.jpeg?auto=compress&cs=tinysrgb&w=600",

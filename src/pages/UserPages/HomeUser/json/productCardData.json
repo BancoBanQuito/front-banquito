@@ -9,7 +9,7 @@
     "title": "Tipos de productos",
     "description": "Gestionar información de tipos de productos",
     "imageUrl": "https://images.pexels.com/photos/6214382/pexels-photo-6214382.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "url": "/usuario/producto/tipos"
+    "url": "/usuario/producto/tipo"
   },
   {
     "title": "Servicio del Banco",
