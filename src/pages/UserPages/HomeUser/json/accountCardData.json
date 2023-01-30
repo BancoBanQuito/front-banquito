@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Crear cuenta",
+    "description": "Crea una cuenta para un cliente en el sistema.",
+    "imageUrl": "https://images.pexels.com/photos/164501/pexels-photo-164501.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/usuario/cuenta/crear"
+  },
+  {
+    "title": "Ver estado de cuenta",
+    "description": "Ver el estado de cuenta de un cliente.",
+    "imageUrl": "https://images.pexels.com/photos/4968639/pexels-photo-4968639.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/usuario/cuenta/estado"
+  },
+  {
+    "title": "Cancelar cuenta",
+    "description": "Cancelar una cuenta de un cliente.",
+    "imageUrl": "https://images.pexels.com/photos/7821513/pexels-photo-7821513.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/usuario/cuenta/cancelar"
+  },
+  {
+    "title": "Transaccion",
+    "description": "Realizar una transaccion.",
+    "imageUrl": "https://images.pexels.com/photos/4968639/pexels-photo-4968639.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/usuario/cuenta/transaccion"
+  },
+  {
+    "title": "Crear firma de cuenta",
+    "description": "Cree una firma de cuenta para un cliente.",
+    "imageUrl": "https://images.pexels.com/photos/48148/document-agreement-documents-sign-48148.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/usuario/cuenta/firma"
+  },
+  {
+    "title": "Deposito",
+    "description": "Realizar un deposito.",
+    "imageUrl": "https://images.pexels.com/photos/4386431/pexels-photo-4386431.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/usuario/cuenta/deposito"
+  },
+  {
+    "title": "Retiro",
+    "description": "Realizar un retiro.",
+    "imageUrl": "https://images.pexels.com/photos/5699339/pexels-photo-5699339.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/usuario/cuenta/retiro"
+  },
+  {
+    "title": "Búsqueda de transacciones",
+    "description": "Buscar transacciones por fecha.",
+    "imageUrl": "https://images.pexels.com/photos/7412098/pexels-photo-7412098.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/usuario/cuenta/transaccion/dias"
+  },
+  {
+    "title": "Interés",
+    "description": "Gestionar intereses",
+    "imageUrl": "https://images.pexels.com/photos/6289026/pexels-photo-6289026.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/usuario/cuenta/interes"
+  },
+  {
+    "title": "Posición Consolidada",
+    "description": "Ver la posición consolidada de un cliente.",
+    "imageUrl": "https://images.pexels.com/photos/6634170/pexels-photo-6634170.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "url": "/usuario/cuenta/posicion/consolidada"
+  }
+]
