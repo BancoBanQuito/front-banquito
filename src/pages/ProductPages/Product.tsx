@@ -69,50 +69,50 @@ export const Product = () => {
     useEffect(() => {
         getProducts();
     }, [])
-}, []);
 
-useEffect(() => {
-    const interval = setInterval(() => {
-        getProducts();
-    }, 5000);
-    return () => clearInterval(interval);
-}, []);
 
-useEffect(() => {
-    if (open) {
-        handleOpen();
-    }
-    setOpen(false);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getProducts();
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
 
-}, [open]);
+    useEffect(() => {
+        if (open) {
+            handleOpen();
+        }
+        setOpen(false);
 
-useEffect(() => {
-    if (openDialog) {
-        handleOpenProduct();
-    }
-    setOpenDialog(false);
-}, [openDialog]);
+    }, [open]);
 
-return (
-    <Stack direction="row" spacing={2} >
-        <Stack direction="column" spacing={2} sx={{ width: "100%", margin: '4rem' }} alignItems='center'>
-            <Typography variant="h4" align="center">Productos</Typography>
+    useEffect(() => {
+        if (openDialog) {
+            handleOpenProduct();
+        }
+        setOpenDialog(false);
+    }, [openDialog]);
 
-            <Stack direction="row" spacing={2} sx={{ width: "80%" }}>
-                <TableMolecule headers={table.headers} rows={products} />
+    return (
+        <Stack direction="row" spacing={2} >
+            <Stack direction="column" spacing={2} sx={{ width: "100%", margin: '4rem' }} alignItems='center'>
+                <Typography variant="h4" align="center">Productos</Typography>
+
+                <Stack direction="row" spacing={2} sx={{ width: "80%" }}>
+                    <TableMolecule headers={table.headers} rows={products} />
+                </Stack>
+                <Stack direction="column" spacing={2} sx={{ width: "100%" }} alignItems='center'>
+                    <Button variant="contained" onClick={handleOpenProduct}>Crear Nuevo Producto</Button>
+                </Stack>
             </Stack>
-            <Stack direction="column" spacing={2} sx={{ width: "100%" }} alignItems='center'>
-                <Button variant="contained" onClick={handleOpenProduct}>Crear Nuevo Producto</Button>
-            </Stack>
-        </Stack>
-        <ActivateDialog
-            openDialog={open}
-            name={id}
-            state={status}
-        />
-        <CreateProduct
-            openDialog={openDialog}
-        />
-    </Stack >
-)
-}
+            <ActivateDialog
+                openDialog={open}
+                name={id}
+                state={status}
+            />
+            <CreateProduct
+                openDialog={openDialog}
+            />
+        </Stack >
+    )
+};

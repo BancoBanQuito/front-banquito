@@ -8,7 +8,7 @@ const table: any = {
     headers: [
         <Typography>Tipo de Producto</Typography>,
         <Typography>Tipo</Typography>,
-        <Typography>Temmporalidad de interes</Typography>,
+        <Typography>Temporalidad de interes</Typography>,
     ]
 }
 
