@@ -63,10 +63,12 @@ const InterestRateLog = () => {
         return rows;
     }
     const getInteretRateListByName = async () => {
+        setActivateSpinner(true);
         let interestList = await InterestRateService.getInterestRatesByName(name);
         console.log(interestList);
         let rows = row(interestList);
-        setRows(rows);  
+        setRows(rows);
+        setActivateSpinner(false);
         return rows;
     }
 

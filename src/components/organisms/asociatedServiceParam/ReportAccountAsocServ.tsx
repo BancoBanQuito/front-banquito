@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import TableMolecule from '../../molecules/TableMolecule'
 import { Container, Content } from '../interestrate/InteresRate'
 import RequestServiceService from '../../../services/product/asociatedServices/asociatedServices.service';
@@ -46,7 +46,7 @@ export const ReportAccountAsocServ = () => {
 
     return (
         <Container>
-            {activateSpinner? <Spinner /> : null}
+            {activateSpinner ? <Spinner /> : null}
             <Content>
                 <h1>Solicitudes de servicios asociados</h1>
 
