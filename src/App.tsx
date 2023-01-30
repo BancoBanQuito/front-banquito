@@ -62,6 +62,17 @@ const App = () => {
   const [identificationType, setidentificationType] = useState<string>("");
   const [accounts, setaccounts] = useState<{ name: string, value: string }[]>([]);
 
+  useEffect(() => {
+    const data: string | null = localStorage.getItem("user");
+    if (data) {
+      const user = JSON.parse(data);
+      setUser(user);
+      setidentification(user.identification);
+      setidentificationType(user.typeIdentification);
+      setIsLogged(true);
+    }
+  }, [])
+
   const handleLogin = async (data: userProps) => {
     try {
       setidentification(data.identification);

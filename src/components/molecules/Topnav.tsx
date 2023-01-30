@@ -72,6 +72,11 @@ const Topnav = ({ isLogged, setIsLogged, user, to }: TopnavProps) => {
     }
   };
 
+  const handleLogout = () => {
+    setIsLogged(false);
+    localStorage.removeItem("user");
+  };
+
   useEffect(() => {
     getBankEntity();
   }, []
@@ -79,7 +84,7 @@ const Topnav = ({ isLogged, setIsLogged, user, to }: TopnavProps) => {
 
   return (
     <>
-      {activateSpinner? <Spinner /> : null}
+      {activateSpinner ? <Spinner /> : null}
       <AppBar position="fixed">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -130,7 +135,7 @@ const Topnav = ({ isLogged, setIsLogged, user, to }: TopnavProps) => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  <MenuItem onClick={() => setIsLogged(false)}>
+                  <MenuItem onClick={() => handleLogout()}>
                     <Typography textAlign="center">Cerrar sesión</Typography>
                   </MenuItem>
                 </Menu>
