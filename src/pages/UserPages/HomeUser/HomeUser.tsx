@@ -10,6 +10,7 @@ import accountCardJson from "./json/accountCardData.json";
 import clientCardJson from "./json/clientCardData.json";
 import generalCardJson from "./json/generalCardData.json";
 import productCardJson from "./json/productCardData.json";
+import segmentCardJson from "./json/segmentCartData.json";
 
 import {
   Box,
@@ -68,6 +69,12 @@ const HomeUser = ({ user, isLogged }: Props) => {
             title="General"
             description="Use este panel para gestionar informacion general"
             jsonData={generalCardJson}
+            isLogged={isLogged}
+          />
+          <AccordionComponent
+            title="Segmento"
+            description="Use este panel para gestionar segmentos"
+            jsonData={segmentCardJson}
             isLogged={isLogged}
           />
         </>
