@@ -457,7 +457,7 @@ const CreateClient: React.FC = () => {
               value={identification}
               onChange={(event) => setIdentification(event.target.value)}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           <Box sx={inputLayout}>
@@ -466,7 +466,7 @@ const CreateClient: React.FC = () => {
               value={firstname}
               onChange={(event) => setFirstname(event.target.value)}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           {
@@ -477,7 +477,7 @@ const CreateClient: React.FC = () => {
                 value={lastname}
                 onChange={(event) => setLastname(event.target.value)}
                 variant="outlined"
-                sx={{ width: '300px' }}
+                fullWidth
               />
             </Box>
           }
@@ -491,7 +491,7 @@ const CreateClient: React.FC = () => {
               error={!!emailError}
               helperText={emailError}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           <Box sx={inputLayout}>
@@ -506,7 +506,7 @@ const CreateClient: React.FC = () => {
               onChange={handleBirthDateChange}
               error={createDateError !== ""}
               helperText={createDateError}
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           {
@@ -526,7 +526,7 @@ const CreateClient: React.FC = () => {
               value={nationality}
               onChange={(event) => setNationality(event.target.value)}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           <Box sx={inputLayout}>
@@ -535,7 +535,7 @@ const CreateClient: React.FC = () => {
               value={taxPaymentPlace}
               onChange={(event) => setTaxPaymentPlace(event.target.value)}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           <Box sx={inputLayout}>
@@ -544,7 +544,7 @@ const CreateClient: React.FC = () => {
               value={career}
               onChange={(event) => setCareer(event.target.value)}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           <Box sx={inputLayout}>
@@ -553,7 +553,7 @@ const CreateClient: React.FC = () => {
               value={monthlyAvgIncome}
               onChange={(event) => setMonthlyAvgIncome(event.target.value)}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           {
@@ -573,7 +573,7 @@ const CreateClient: React.FC = () => {
                     value={companyName}
                     onChange={(event) => setCompanyName(event.target.value)}
                     variant="outlined"
-                    sx={{ width: '300px' }}
+                    fullWidth
                   />
                 </Box>
                 <Box sx={inputLayout}>
@@ -582,7 +582,7 @@ const CreateClient: React.FC = () => {
                     value={companyType}
                     onChange={(event) => setCompanyType(event.target.value)}
                     variant="outlined"
-                    sx={{ width: '300px' }}
+                    fullWidth
                   />
                 </Box>
                 <Box sx={inputLayout}>
@@ -597,7 +597,7 @@ const CreateClient: React.FC = () => {
                     onChange={handleCreateDateCompanyChange}
                     error={createDateError !== ""}
                     helperText={createDateError}
-                    sx={{ width: '300px' }}
+                    fullWidth
                   />
                 </Box>
                 <Box sx={inputLayout}>
@@ -616,7 +616,7 @@ const CreateClient: React.FC = () => {
                     value={companyType}
                     onChange={(event) => setCompanyType(event.target.value)}
                     variant="outlined"
-                    sx={{ width: '300px' }}
+                    fullWidth
                   />
                 </Box>
                 <Box sx={inputLayout}>
@@ -625,7 +625,7 @@ const CreateClient: React.FC = () => {
                     value={appLegalRepresent}
                     onChange={(event) => setAppLegalRepresent(event.target.value)}
                     variant="outlined"
-                    sx={{ width: '300px' }}
+                    fullWidth
                   />
                 </Box>
                 <Box sx={inputLayout}>
@@ -634,7 +634,7 @@ const CreateClient: React.FC = () => {
                     value={articlesAssociatedDoc}
                     onChange={(event) => setArticlesAssociatedDoc(event.target.value)}
                     variant="outlined"
-                    sx={{ width: '300px' }}
+                    fullWidth
                   />
                 </Box>
                 <Box sx={inputLayout}>
@@ -643,7 +643,7 @@ const CreateClient: React.FC = () => {
                     value={basicServicesDocument}
                     onChange={(event) => setBasicServicesDocument(event.target.value)}
                     variant="outlined"
-                    sx={{ width: '300px' }}
+                    fullWidth
                   />
                 </Box>
                 <Box sx={inputLayout}>
@@ -652,7 +652,7 @@ const CreateClient: React.FC = () => {
                     value={incomeTaxDocument}
                     onChange={(event) => setIncomeTaxDocument(event.target.value)}
                     variant="outlined"
-                    sx={{ width: '300px' }}
+                    fullWidth
                   />
                 </Box>
                 <Box sx={inputLayout}>
@@ -661,7 +661,7 @@ const CreateClient: React.FC = () => {
                     value={tinDocument}
                     onChange={(event) => setTinDocument(event.target.value)}
                     variant="outlined"
-                    sx={{ width: '300px' }}
+                    fullWidth
                   />
                 </Box>
               </>
@@ -672,7 +672,7 @@ const CreateClient: React.FC = () => {
               value={signature}
               onChange={(event) => setSignature(event.target.value)}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           <Box sx={inputLayout}>
@@ -681,7 +681,7 @@ const CreateClient: React.FC = () => {
               value={fingerPrint}
               onChange={(event) => setFingerPrint(event.target.value)}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
         </Box>
@@ -711,7 +711,7 @@ const CreateClient: React.FC = () => {
                 phone.phoneNumber = event.target.value;
               }}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           <Typography variant="h5" align="center" mt={5}>Dirección</Typography>
@@ -724,7 +724,7 @@ const CreateClient: React.FC = () => {
                 address.codeLocation = event.target.value;
               }}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           <Box sx={inputLayout}>
@@ -736,7 +736,7 @@ const CreateClient: React.FC = () => {
                 address.lineOne = event.target.value;
               }}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           <Box sx={inputLayout}>
@@ -748,7 +748,7 @@ const CreateClient: React.FC = () => {
                 address.lineTwo = event.target.value;
               }}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           <Typography variant="h5" align="center" mt={5}>Referencia</Typography>
@@ -761,7 +761,7 @@ const CreateClient: React.FC = () => {
                 reference.nameReference = event.target.value;
               }}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           <Box sx={inputLayout}>
@@ -773,7 +773,7 @@ const CreateClient: React.FC = () => {
                 reference.phoneReference = event.target.value;
               }}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           <Box sx={inputLayout}>
@@ -785,7 +785,7 @@ const CreateClient: React.FC = () => {
                 reference.related = event.target.value;
               }}
               variant="outlined"
-              sx={{ width: '300px' }}
+              fullWidth
             />
           </Box>
           <Typography variant="h5" align="center" mt={5}>Segmento</Typography>

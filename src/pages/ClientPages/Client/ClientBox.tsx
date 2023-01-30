@@ -29,7 +29,7 @@ const SegmentBox = ({ value, label, options, onChange }: ComboBoxProps) => {
 export default SegmentBox;
 
 const selectStyles = () => ({
-    width: '300px',
+    width: '100%',
     background: '#1D3557',
     color: 'white',
     fontWeight: 'bold'
