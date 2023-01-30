@@ -98,7 +98,7 @@ const HomeClient = ({ user, isLogged }: Props) => {
               <ActionCard icon={<Person />} title={'Crear Cuenta'} description={'Creemos tu nueva cuenta bancaria'} link={isLogged ? '/cliente/cuenta/crear' : '/cliente/login'} linkText='Crear' />
               <ActionCard icon={<Assessment />} title={'Estado de Cuenta'} description={'Veamos tu estado de cuenta'} link={isLogged ? '/cliente/cuenta/estado' : '/cliente/login'} linkText='Ver' />
               <ActionCard icon={<Send />} title={'Transferencia'} description={'¿Quieres transferir? Hagamoslo'} link={isLogged ? '/cliente/cuenta/transaccion' : '/cliente/login'} linkText='Ver' />
-              <ActionCard icon={<CalendarMonth />} title={'Historial de Transacciones'} description={'¿Que has realizado?'} link={isLogged ? '/cliente/cuenta/transaccion/dia' : '/cliente/login'} linkText='Ver' />
+              <ActionCard icon={<CalendarMonth />} title={'Historial de Transacciones'} description={'¿Que has realizado?'} link={isLogged ? '/cliente/cuenta/transaccion/dias' : '/cliente/login'} linkText='Ver' />
               <ActionCard icon={<Savings />} title={'Ahorros'} description={'El interes ganado con tu ahorros, en un solo lugar'} link={isLogged ? '/cliente/interes/cuenta/ahorros' : '/cliente/login'} linkText='Ver' />
             </div>
           </section>

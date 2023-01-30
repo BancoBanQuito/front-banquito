@@ -1,5 +1,5 @@
 import { ChevronLeft, Print } from '@mui/icons-material';
-import { Box, Fade, Card, CardContent } from '@mui/material';
+import { Box, Fade, Card, CardContent, Typography } from '@mui/material';
 import React, { ReactInstance, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import ReactToPrint from 'react-to-print';
@@ -15,12 +15,12 @@ import { ColorPalette } from '../../../style/ColorPalette';
 import { SizeButton } from '../../../components/atoms/SizeButton';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { AccountStatementService } from '../../../services/account/AccountStatementService';
+import { Dropdown } from '../../../components/atoms/Dropdown';
 
 interface AccountStatementBankUserProps {
-    client?: boolean
+    client?: boolean;
+    account?: { name: string, value: string }[]
 }
-
-const userCodeLocalAccount = 'a3998d173acbf0c893db';
 
 const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
     const [isLoading, setisLoading] = useState<boolean>(false);
@@ -32,28 +32,9 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
     const [accountStatementList, setaccountStatementList] = useState<RSAccountStatementList[]>();
     const [selectedAccountStatement, setselectedAccountStatement] = useState<RSAccountStatement>();
     const [codeLocalAccount, setcodeLocalAccount] = useState<string>("");
-    const [client, setclient] = useState<{ name: string, identification: string } | undefined>();
 
     const navigate = useNavigate();
     const printRef = useRef();
-
-    useEffect(() => {
-        if (!!props.client) {
-            setactiveSearchBox(false);
-            handleSearch(userCodeLocalAccount);
-        } else {
-            setactiveSearchBox(true);
-        }
-        getClient();
-        return () => { }
-    }, []);
-
-    const getClient = async () => {
-        setclient({
-            name: "Sample",
-            identification: "xxx"
-        })
-    }
 
     const handleBackEvent = () => {
         setactiveAccountStatementTable(true);
@@ -74,7 +55,6 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
             if (data) {
                 setaccountStatementList(data);
                 setactiveAccountStatementTable(true);
-                console.log(accountStatementList);
             } else {
                 setactiveErrorModal(true);
                 seterrorMessage("No se han encontrado datos");
@@ -137,7 +117,40 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
                 position: 'relative',
                 top: 50
             }}>
-                {!(!!props.client) && <div style={{
+                {!!props.client && !!props.account ? <div style={{
+                    position: 'absolute',
+                    width: '100%',
+                    height: '80vh',
+                    top: 0,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    zIndex: activeSearchBox ? '100' : '0'
+                }}>
+                    <Fade in={activeSearchBox}>
+                        <Card sx={{ minWidth: '450px', maxWidth: '750px' }}>
+                            <CardContent>
+                                {props.account.length <= 0 ? <Typography variant='h6'>Es necesario crear una cuenta</Typography> :
+                                    <>
+                                        <Box mb={2} sx={{ fontStyle: 'italic', color: ColorPalette.SECONDARY }}>
+                                            <Typography variant='h4' component='h6'>
+                                                Selector de cuentas
+                                            </Typography>
+                                            <Typography variant='body1' component='h6'>
+                                                Buscador
+                                            </Typography>
+                                        </Box>
+                                        <Dropdown
+                                            label={'Cuentas'}
+                                            items={props.account}
+                                            onChange={handleSearch}
+                                            width={'100%'}
+                                            height={'auto'} />
+                                    </>}
+                            </CardContent>
+                        </Card>
+                    </Fade>
+                </div> : <div style={{
                     position: 'absolute',
                     width: '100%',
                     height: '80vh',

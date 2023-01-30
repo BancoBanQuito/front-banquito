@@ -3,6 +3,7 @@ import { Container, FormLabel, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import EnvManager from '../../../config/EnvManager';
+import LoadOrganism from '../LoadOrganism';
 
 interface userProps {
     username: string,
@@ -11,7 +12,7 @@ interface userProps {
     typeIdentification: string
 }
 interface Props {
-    setUser: React.Dispatch<React.SetStateAction<userProps | null>>,
+    setUser: (data: any) => void,
     setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
     redirect: string
 }
@@ -22,23 +23,26 @@ const Login = ({ setUser, setIsLogged, redirect }: Props) => {
 
     const [userName, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [isLoading, setisLoading] = useState<boolean>(false);
 
     const urlGetClientWithEmail = `${EnvManager.CLIENT_URL}/api/client/email/`;
 
     const fetchClient = async () => {
         try {
-          const response = await fetch(
-            urlGetClientWithEmail + `${userName}`
-          );
-          const data = await response.json();
-          setUser({ username: userName, password: password, identification: data.identification, typeIdentification: data.typeIdentification })
+            const response = await fetch(
+                urlGetClientWithEmail + `${userName}`
+            );
+            const data = await response.json();
+            console.log(data);
+            setUser({ username: userName, password: password, identification: data.identification, typeIdentification: data.identificationType })
         } catch (error) {
-          console.error(error)
+            console.error(error)
         }
-      };
+    };
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
+        setisLoading(true);
         try {
             const response = await fetch(`${EnvManager.CLIENT_URL}/api/client/login`, {
                 method: 'POST',
@@ -52,13 +56,15 @@ const Login = ({ setUser, setIsLogged, redirect }: Props) => {
                 throw new Error(response.statusText)
             }
             alert("Ingresa con éxito")
-            
+
             setIsLogged(true)
             fetchClient();
             navigate(redirect)
 
         } catch (error) {
             console.error(error)
+        } finally {
+            setisLoading(false);
         }
     }
 
@@ -91,6 +97,7 @@ const Login = ({ setUser, setIsLogged, redirect }: Props) => {
             <Container sx={containerTextFieldStyles}>
                 <Button onClick={handleSubmit} sx={buttonStyles}>Ingresar</Button>
             </Container>
+            <LoadOrganism active={isLoading} />
         </>
     )
 }

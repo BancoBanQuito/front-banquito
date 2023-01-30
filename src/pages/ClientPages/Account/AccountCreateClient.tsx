@@ -12,11 +12,18 @@ import { ColorPalette } from '../../../style/ColorPalette';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 
 
-const entityBankCode = '123';
-const internationalBankCode = 'a371bff9a1d856ff01f26a195b50675fc8s';
-const codeBranch = '123';
+const entityBankCode = 'aef0fadf647c8d6f';
+const internationalBankCode = 'c88c1afde4c3a564';
+const codeBranch = '252';
 
-const AccountCreateClient = () => {
+interface AccountCreateClientProps {
+    client?: {
+        identification?: string;
+        identificationType?: string;
+    }
+}
+
+const AccountCreateClient = (props: AccountCreateClientProps) => {
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [products, setproducts] = useState<any[] | undefined>([]);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
@@ -41,17 +48,17 @@ const AccountCreateClient = () => {
             ...data,
             entityBankCode: entityBankCode,
             internationalBankCode: internationalBankCode,
-            codeBranch: codeBranch,         
-            codeProductType: "2",
+            codeBranch: codeBranch,
+            codeProductType: "6c24027751bc43c5b232242e307880a7",
         };
         setaccountData(account);
         saveAccount(account);
-
     }
 
     const saveAccount = async (data: RQCreateAccount) => {
         setisLoading(true);
         try {
+            console.log(data);
             await AccountService.postAccount(data);
             navigate('/cliente');
         } catch (error: any) {
@@ -90,7 +97,9 @@ const AccountCreateClient = () => {
                     <CardContent>
                         <AccountFormBank
                             onSubmit={handleSubmit}
-                            products={products ? products : []} />
+                            products={products ? products : []}
+                            identification={props.client?.identification}
+                            identificationType={props.client?.identificationType} />
                     </CardContent>
                     <div style={{ margin: '0.5rem', position: 'absolute', bottom: 0, right: 0 }}>
                         <Avatar src={BanQuitoLogo} variant="square" />
