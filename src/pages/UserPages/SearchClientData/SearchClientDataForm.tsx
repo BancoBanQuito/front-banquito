@@ -46,8 +46,7 @@ const SearchClientDataForm: React.FC = () => {
     try {
       setTypeIdentification(localStorage.getItem("typeIdentification"));
       const response = await fetch(
-        // urlCloud + `${idCliente}/${typeIdentification}`
-        urlCloud + `${idCliente}`
+        urlCloud + `${idCliente}/${typeIdentification}`
       );
       const data = await response.json();
       setEmail(data.email);

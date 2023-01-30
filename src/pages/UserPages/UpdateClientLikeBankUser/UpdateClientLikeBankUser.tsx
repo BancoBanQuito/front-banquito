@@ -9,20 +9,63 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import BranchBox from "../../../components/organisms/Branch/BranchBox";
+import { ISegment } from "./Type";
+import { LabelRounded } from "@mui/icons-material";
 import EnvManager from "../../../config/EnvManager";
 
 const urlCloud = `${EnvManager.CLIENT_URL}/api/client/`;
-
+const segmentUrl = `${EnvManager.SEGMENT_URL}/api/segments`;
 const isAvailable = true;
 
 const UpdateClientDataForm: React.FC = () => {
+  const [isStatusSelected, setIsStatusSelected] = useState<boolean>(true);
   const [idCliente, setIdCliente] = useState<string | null>(
     localStorage.getItem("identification")
   );
   const [typeIdentification, setTypeIdentification] = useState<string | null>(
     localStorage.getItem("typeIdentification")
   );
-
+  const optionTypePhone = [
+    { value: "MBL", label: "Móvil" },
+    { value: "CON", label: "Convencional" },
+  ];
+  const segmentOpstions: { value: string; label: string; }[] = [];
+  const getSegmentNames = (value: Array<ISegment>) => {
+    return value.forEach(element => {
+      segmentOpstions.push({
+        value: element.name,
+        label: element.name});
+    });
+  };
+  const onChangeTypePhone = (value: string) => {
+    setTypePhone(value);
+    if (value !== "") {
+      setIsStatusSelected(false);
+    } else {
+      setIsStatusSelected(true);
+    }
+  };
+  const onChangeSegment = (value: string) => {
+    setNameSegment(value);
+    if (value !== "") {
+      setIsStatusSelected(false);
+    } else {
+      setIsStatusSelected(true);
+    }
+  };
+  const onChangeGender = (value: string) => {
+    setGender(value);
+    if (value !== "") {
+      setIsStatusSelected(false);
+    } else {
+      setIsStatusSelected(true);
+    }
+  };
+  const optionsGender = [
+    { value: "M", label: "Masculino" },
+    { value: "F", label: "Femenino" },
+  ];
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [fullName, setFullName] = useState<string>("");
@@ -70,6 +113,8 @@ const UpdateClientDataForm: React.FC = () => {
   const [nameSegment, setNameSegment] = useState<string>("");
   const [statusSegment, setStatusSegment] = useState<string>("");
 
+  const [segments, setSegments] = useState([]);
+
   const navigate = useNavigate();
   const formatDate = (date: Date) => {
     return date.toLocaleDateString("es-ES", {
@@ -78,23 +123,38 @@ const UpdateClientDataForm: React.FC = () => {
       year: "numeric",
     });
   };
+  const fetchSegment = async () => {
+    try {
+      const response = await fetch(
+        segmentUrl
+      );
+      const data = await response.json();
+      setSegments(data);
+    } catch (error) {
+      console.error(error)
+    }
+  };
+  
+  getSegmentNames(segments);
+
   const fetchClientByIdAndTypeId = async () => {
     try {
       setTypeIdentification(localStorage.getItem("typeIdentification"));
       const response = await fetch(
-        // urlCloud + `${idCliente}/${typeIdentification}`
-        urlCloud + `${idCliente}`
+        urlCloud + `${idCliente}/${typeIdentification}`
       );
       const data = await response.json();
-
       setIdCliente(data.identification);
       setTypeIdentification(data.typeIdentification);
       setEmail(data.email);
       setGender(data.gender);
       setCareer(data.career);
+      setStatus(data.status);
       setTypePhone(data.phone.phoneType);
       setPhone(data.phone.phoneNumber);
       setFullName(data.fullname);
+      setFirstName(data.firstname);
+      setLastName(data.lastname);
       setLineOne(data.address.lineOne);
       setLineTwo(data.address.lineTwo);
       setTypeIdentification(data.identificationType);
@@ -142,29 +202,114 @@ const UpdateClientDataForm: React.FC = () => {
       setStatusSegment(data.segment.status);
 
     } catch (error) {
-      console.error(error);
+      console.error(error)
+    }
+  };
+
+  const fetchUpdateClient = async () => {
+    try {
+      setTypeIdentification(localStorage.getItem("typeIdentification"));
+      const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(
+          {
+            "identificationType": typeIdentification,
+            "identification": idCliente,
+            "lastname": lastName,
+            "firstname": firstName,
+            "email": email,
+            "birthDate": birthDate,
+            "gender": gender,
+            "career": career,
+            "companyName": companyName,
+            "companyType": companyType,
+            "createDateCompany": createDateCompany,
+            "appLegalRepresent": appLegalRepresent,
+            "articlesAssociatedDoc": articlesAssociatedDoc,
+            "basicServicesDocument": basicServicesDocument,
+            "fingerPrint": fingerPrint,
+            "incomeTaxDocument": incomeTaxDocument,
+            "lastStatusDate": lastStatusDate,
+            "maritalStatus": maritalStatus,
+            "monthlyAvgIncome": monthlyAvgIncome,
+            "nationality": nationality,
+            "signature": signature,
+            "taxPaymentPlace": taxPaymentPlace,
+            "tinDocument": tinDocument,
+            "workStatus": workStatus,
+            "address": {
+              "codeLocation": codeLocation,
+              "lineOne": lineOne,
+              "lineTwo": lineTwo,
+              "latitude": latitude,
+              "longitude": latitude
+            },
+            "phone": {
+              "phoneNumber": phone,
+              "phoneType": phoneType
+            },
+            "reference": {
+              "name": name,
+              "phone": phoneReference,
+              "related": related
+            },
+            "relationship": {
+              "name": nameRelation,
+              "startDate": startDateRelation,
+              "endDate": endDate
+            },
+            "segment": {
+              "code": codeSegment,
+              "name": nameSegment,
+              "status": statusSegment
+            }
+          }
+        )
+    };
+      const response = await fetch(
+        urlCloud + `user/${idCliente}`,
+        requestOptions
+      );
+      const data = await response.json();
+    } catch (error) {
+      console.error(error)
     }
   };
 
   useEffect(() => {
     fetchClientByIdAndTypeId();
+    fetchSegment();
   }, []);
-
   return (
     <>
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">
-        </Typography>
         Actualizar la Información del Cliente
+        </Typography>
       </Container>
       <Grid container>
         <Grid item xs={7}>
           {/* Label Input*/}
+          <Container sx={containertTitleStyles}>
+            <Typography variant="h5" align="center">
+              Datos Personales
+            </Typography>
+          </Container>
           <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Email:</FormLabel>
+            <FormLabel sx={formLabelStyles}>Nombre:</FormLabel>
             <TextField
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              value={firstName}
+              onChange={(event) => setFirstName(event.target.value)}
+              variant="standard"
+              disabled={isAvailable}
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Apellido:</FormLabel>
+            <TextField
+              value={lastName}
+              onChange={(event) => setLastName(event.target.value)}
               variant="standard"
               disabled={isAvailable}
             />
@@ -179,31 +324,153 @@ const UpdateClientDataForm: React.FC = () => {
             />
           </Container>
           <Container sx={containerTextFieldStyles}>
+            <div style={{ marginRight: "10px" }}>
+              <BranchBox
+                label="Género:"
+                value={gender}
+                options={optionsGender}
+                onChange={onChangeGender}
+              />
+            </div>
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Nacionalidad:</FormLabel>
+            <TextField
+              value={nationality}
+              onChange={(event) => setNationality(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Correo:</FormLabel>
+            <TextField
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
             <FormLabel sx={formLabelStyles}>Carrera:</FormLabel>
             <TextField
               value={career}
               onChange={(event) => setCareer(event.target.value)}
               variant="standard"
-              disabled={isAvailable}
             />
           </Container>
           <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Lugar de Trabajo:</FormLabel>
+            <FormLabel sx={formLabelStyles}>Estado de empleo:</FormLabel>
+            <TextField
+              value={workStatus }
+              onChange={(event) => setWorkStatus(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Trabaja en:</FormLabel>
             <TextField
               value={companyName}
               onChange={(event) => setCompanyName(event.target.value)}
               variant="standard"
-              disabled={isAvailable}
             />
           </Container>
           <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Referencia:</FormLabel>
+            <FormLabel sx={formLabelStyles}>Tipo de empresa:</FormLabel>
             <TextField
-              value={name}
-              onChange={(event) => setName(event.target.value)}
+              value={companyType}
+              onChange={(event) => setCompanyType(event.target.value)}
               variant="standard"
-              disabled={isAvailable}
             />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Representante Legal:</FormLabel>
+            <TextField
+              value={appLegalRepresent}
+              onChange={(event) => setAppLegalRepresent(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Artículos asociados :</FormLabel>
+            <TextField
+              value={articlesAssociatedDoc}
+              onChange={(event) => setArticlesAssociatedDoc(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Documentación de servicios básicos :</FormLabel>
+            <TextField
+              value={basicServicesDocument}
+              onChange={(event) => setBasicServicesDocument(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Huella digital :</FormLabel>
+            <TextField
+              value={fingerPrint}
+              onChange={(event) => setFingerPrint(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Documento de impuesto a la renta :</FormLabel>
+            <TextField
+              value={incomeTaxDocument}
+              onChange={(event) => setIncomeTaxDocument(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Estado civil :</FormLabel>
+            <TextField
+              value={maritalStatus}
+              onChange={(event) => setMaritalStatus(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Ingreso medio mensual:</FormLabel>
+            <TextField
+              value={monthlyAvgIncome}
+              onChange={(event) => setMonthlyAvgIncome(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Firma:</FormLabel>
+            <TextField
+              value={signature}
+              onChange={(event) => setSignature(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Lugar de pago de impuestos:</FormLabel>
+            <TextField
+              value={taxPaymentPlace}
+              onChange={(event) => setTaxPaymentPlace(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Documento TIN:</FormLabel>
+            <TextField
+              value={tinDocument }
+              onChange={(event) => setTinDocument(event.target.value)}
+              variant="standard"
+            />
+          </Container>
+        </Grid>
+
+        <Grid item xs={3}>
+          <Container>
+            <Box sx={boxStile}>
+              <p>Nombre completo: {fullName}</p>
+              <p>{fullName}</p>
+              <p>Identificación: {idCliente}</p>
+              <p>Tipo de Itentificación: {typeIdentification}</p>
+            </Box>
           </Container>
           <Container sx={containerTextFieldStyles}>
             <FormLabel sx={formLabelStyles}>Telefono:</FormLabel>
@@ -214,52 +481,85 @@ const UpdateClientDataForm: React.FC = () => {
               disabled={isAvailable}
             />
           </Container>
-        </Grid>
-
-        <Grid item xs={3}>
-          <Container>
-            <Box sx={boxStile}>
-              <p>{fullName}</p>
-              <p>Identificación: {idCliente}</p>
-              <p>Tipo de Itentificación: {typeIdentification}</p>
-              <p>Estado: {status}</p>
-            </Box>
-          </Container>
           <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Direccion:</FormLabel>
+            <div style={{ marginRight: "10px" }}>
+              <BranchBox
+                label="Tipo Teléfono:"
+                value={phoneType}
+                options={optionTypePhone}
+                onChange={onChangeTypePhone}
+              />
+            </div>
+          </Container>
+
+          <Container sx={containertTitleStyles}>
+            <Typography variant="h5" align="center">
+              Dirección
+            </Typography>
+          </Container>
+
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Linea uno:</FormLabel>
             <TextField
               value={lineOne}
               onChange={(event) => setLineOne(event.target.value)}
               variant="standard"
-              disabled={isAvailable}
             />
           </Container>
           <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Segmento:</FormLabel>
+            <FormLabel sx={formLabelStyles}>Linea dos:</FormLabel>
             <TextField
-              value={nameSegment}
-              onChange={(event) => setNameSegment(event.target.value)}
+              value={lineTwo}
+              onChange={(event) => setLineTwo(event.target.value)}
               variant="standard"
-              disabled={isAvailable}
             />
           </Container>
 
+          <Container sx={containertTitleStyles}>
+            <Typography variant="h5" align="center">
+              Segmento
+            </Typography>
+          </Container>
+          
           <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Estado Civil:</FormLabel>
+            <FormLabel sx={formLabelStyles}> </FormLabel>
+            <div style={{ marginRight: "10px" }}>
+              <BranchBox
+                label="Segmento:"
+                value={nameSegment}
+                options={segmentOpstions}
+                onChange={onChangeSegment}
+              />
+            </div>
+          </Container>
+
+          <Container sx={containertTitleStyles}>
+            <Typography variant="h5" align="center">
+              Referencia
+            </Typography>
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Nombre referencia:</FormLabel>
             <TextField
-              value={maritalStatus}
-              onChange={(event) => setMaritalStatus(event.target.value)}
+              value={name}
+              onChange={(event) => setName(event.target.value)}
               variant="standard"
-              disabled={isAvailable}
             />
           </Container>
           <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Genero:</FormLabel>
+            <FormLabel sx={formLabelStyles}>Teléfono referencia:</FormLabel>
             <TextField
-              value={gender}
-              onChange={(event) => setGender(event.target.value)}
+              value={phoneReference}
+              onChange={(event) => setPhoneReference(event.target.value)}
               variant="standard"
-              disabled={isAvailable}
+            />
+          </Container>
+          <Container sx={containerTextFieldStyles}>
+            <FormLabel sx={formLabelStyles}>Relación:</FormLabel>
+            <TextField
+              value={related}
+              onChange={(event) => setRelated(event.target.value)}
+              variant="standard"
             />
           </Container>
         </Grid>
@@ -267,6 +567,7 @@ const UpdateClientDataForm: React.FC = () => {
         <Container sx={containerTextFieldStyles}>
           <Button
             onClick={() => {
+              fetchUpdateClient();
               navigate("/usuario");
             }}
             sx={buttonStyles}

@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { Container, FormLabel, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import EnvManager from '../../../config/EnvManager';
 
 interface userProps {
     username: string,
-    password: string
+    password: string,
+    identification: string,
+    typeIdentification: string
 }
 interface Props {
     setUser: React.Dispatch<React.SetStateAction<userProps | null>>,
@@ -20,26 +23,38 @@ const Login = ({ setUser, setIsLogged, redirect }: Props) => {
     const [userName, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
+    const urlGetClientWithEmail = `${EnvManager.CLIENT_URL}/api/client/email/`;
+
+    const fetchClient = async () => {
+        try {
+          const response = await fetch(
+            urlGetClientWithEmail + `${userName}`
+          );
+          const data = await response.json();
+          setUser({ username: userName, password: password, identification: data.identification, typeIdentification: data.typeIdentification })
+        } catch (error) {
+          console.error(error)
+        }
+      };
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
         try {
-            // const response = await fetch(`${EnvManager.CLIENT_URL}/api/client/login`, {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
-            //     body: JSON.stringify({
-            //         userName: userName,
-            //         password: password
-            //     })
-            // })
-            // if (!response.ok) {
-            //     throw new Error(response.statusText)
-            // }
+            const response = await fetch(`${EnvManager.CLIENT_URL}/api/client/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+                body: JSON.stringify({
+                    "userName": userName,
+                    "password": password
+                })
+            })
+            if (!response.ok) {
+                throw new Error(response.statusText)
+            }
             alert("Ingresa con éxito")
-
-            // set general states
-            setUser({ username: userName, password: password })
+            
             setIsLogged(true)
-
+            fetchClient();
             navigate(redirect)
 
         } catch (error) {
