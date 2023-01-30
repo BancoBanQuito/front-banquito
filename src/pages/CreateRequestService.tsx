@@ -130,7 +130,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
 
     const getnameProduct = async () => {
         try {
-            const response = await fetch(`http://localhost:8087/api/product-types/type?id=63cf1f424afc455eb703d48f`, {
+            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/product-types/type?id=63cf1f424afc455eb703d48f`, {
                 method: 'GET',
             });
             const data = await response.json();
