@@ -10,6 +10,7 @@ import {
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import EnvManager from "../../../config/EnvManager";
+import { Spinner } from "../../../components/atoms/Spinner";
 
 const urlCloud = `${EnvManager.CLIENT_URL}/api/client/`;
 
@@ -35,6 +36,7 @@ const SearchClientDataForm: React.FC = () => {
   const [segmento, setSegmento] = useState("");
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const formatDate = (date: Date) => {
     return date.toLocaleDateString("es-ES", {
       day: "2-digit",
@@ -44,6 +46,7 @@ const SearchClientDataForm: React.FC = () => {
   };
   const fetchClientByIdAndTypeId = async () => {
     try {
+      setActivateSpinner(true);
       setTypeIdentification(localStorage.getItem("typeIdentification"));
       const response = await fetch(
         urlCloud + `${idCliente}/${typeIdentification}`
@@ -61,7 +64,9 @@ const SearchClientDataForm: React.FC = () => {
       setGenero(data.gender);
       setEstadoCivil(data.maritalStatus);
       setStatus(data.status);
+      setActivateSpinner(false);
     } catch (error) {
+      setActivateSpinner(false);
       console.error(error);
     }
   };
@@ -72,6 +77,7 @@ const SearchClientDataForm: React.FC = () => {
 
   return (
     <>
+      {activateSpinner ? <Spinner /> : null}
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">
           Informacion Cliente

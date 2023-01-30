@@ -13,6 +13,7 @@ import { Close, Edit } from '@mui/icons-material';
 import { Dropdown } from '../../../components/atoms/Dropdown';
 import StatesType from '../../../services/.json/StateType.json';
 import LoadSpinner from '../../../components/atoms/LoadSpinner';
+import { Spinner } from '../../../components/atoms/Spinner';
 
 const headersMock = [
   <Typography>No Cuenta</Typography>,
@@ -34,7 +35,7 @@ const AccountConsolidatedPositionUser = () => {
 
   const [selectedIndex, setselectedIndex] = useState<number | undefined>();
   const [loadIndex, setloadIndex] = useState<number | undefined>();
-
+  const [activateSpinner, setActivateSpinner] = useState(false);
 
   const navigate = useNavigate();
 
@@ -73,13 +74,17 @@ const AccountConsolidatedPositionUser = () => {
         setshowErrorModal(true);
         return;
       }
+      setActivateSpinner(true);
       await AccountService.putAccountStatus(codeLocalAccount, { status: status });
       consolidatedPosition[selectedIndex].status = status;
       setselectedIndex(undefined);
+      setActivateSpinner(false);
     } catch (error: any) {
+      setActivateSpinner(false);
       seterrorMessage(error.message);
       setshowErrorModal(true);
     } finally {
+      setActivateSpinner(false);
       setloadIndex(undefined);
     }
   }
@@ -124,6 +129,7 @@ const AccountConsolidatedPositionUser = () => {
 
   return (
     <>
+      {activateSpinner ? <Spinner /> : null}
       {
         activeSearch && <div style={{
           position: 'absolute',
