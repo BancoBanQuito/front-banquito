@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Container, Typography } from '@mui/material';
+import Logo from '../../assets/BanQuito-Logo.svg'
 
 const ATMHomePage: React.FC = () => {
     const handleWithdrawalsClick = () => {
@@ -22,7 +23,7 @@ const ATMHomePage: React.FC = () => {
                 </Container>
                 <Container>
                     <Typography sx={welcomeStyles}>Bienvenido</Typography>
-                    <img src={"/src/assets/BanQuito-Logo.svg"} alt="ATM Machine" />
+                    <img src={Logo} alt="ATM Machine" />
                 </Container>
                 <Container sx={{
                     ...optionsContainerStyles,
@@ -32,7 +33,7 @@ const ATMHomePage: React.FC = () => {
                 </Container>
                 <Container sx={imageContainerStyles}>
                     <Typography sx={atmStyles}>ATM</Typography>
-                    <img src={"/src/assets/BanQuito-Logo.svg"} alt="ATM Machine" style={{ marginLeft: '70px' }} />
+                    <img src={Logo} alt="ATM Machine" style={{ marginLeft: '70px' }} />
                     <Container sx={cardSlotStyles}></Container>
                 </Container>
             </Container>
