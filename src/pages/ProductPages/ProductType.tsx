@@ -1,10 +1,7 @@
-import { Stack, Typography, Button } from "@mui/material"
-import TableMolecule from "../../components/molecules/TableMolecule"
+import { Typography, Stack, Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import TextAreaAtom from "../../components/atoms/TextAreaAtom";
-import { SizeButton } from "../../components/atoms/SizeButton";
-import { ButtonStyle } from "../../style/ButtonStyle";
-import { ActivateDialog } from "./dialog/ActivateDialog";
+import TableMolecule from "../../components/molecules/TableMolecule";
+import EnvManager from "../../config/EnvManager";
 import { CreateTypeProduct } from "./dialog/CreateTypeProduct";
 
 const table: any = {
@@ -24,7 +21,7 @@ export const ProductType = () => {
 
     const getTypeProducts = async () => {
         try {
-            const response = await fetch('http://localhost:8087/api/product-types/types');
+            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/product-types/types`);
             const data = await response.json();
             const product = data.map((product: any) => {
                 return {
@@ -44,12 +41,12 @@ export const ProductType = () => {
             console.log(error);
         }
     }
-   
+
 
     useEffect(() => {
         getTypeProducts();
     }, [])
-    
+
     useEffect(() => {
         if (open) {
             handleOpen();
@@ -59,7 +56,7 @@ export const ProductType = () => {
 
     return (
         <Stack direction="row" spacing={2} >
-            <Stack direction="column" spacing={2} sx={{ width: "100%", margin:'4rem' }} alignItems='center'>
+            <Stack direction="column" spacing={2} sx={{ width: "100%", margin: '4rem' }} alignItems='center'>
                 <Typography variant="h4" align="center">Tipos de Productos</Typography>
 
                 <Stack direction="row" spacing={2} sx={{ width: "80%" }}>

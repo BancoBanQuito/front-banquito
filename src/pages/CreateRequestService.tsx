@@ -1,22 +1,14 @@
-import { Button, CardActionArea, CardContent, Dialog, Divider, MenuItem, Select, Stack, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import TextFieldAtom from "../components/atoms/TextFieldAtom";
-
-import ButtonIcon from "../components/atoms/ButtonIcon";
-
-// search icon
-import SearchIcon from "@mui/icons-material/Search";
-import styled from "styled-components";
-// icon keyboar backspace
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { ColorPalette } from "../style/ColorPalette";
-// Add icon
-import { SizeButton } from "../components/atoms/SizeButton";
-import { ButtonStyle } from "../style/ButtonStyle";
-//data
-import Card from "@mui/material/Card";
-
-import { useForm, FormProvider } from "react-hook-form";
+import { Card, CardActionArea, CardContent, Typography, Dialog, Stack, Divider, Select, MenuItem, Button } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useForm, FormProvider } from 'react-hook-form';
+import styled from 'styled-components';
+import ButtonIcon from '../components/atoms/ButtonIcon';
+import { SizeButton } from '../components/atoms/SizeButton';
+import TextFieldAtom from '../components/atoms/TextFieldAtom';
+import { ButtonStyle } from '../style/ButtonStyle';
+import { ColorPalette } from '../style/ColorPalette';
+import { KeyboardBackspace, Search } from '@mui/icons-material';
+import EnvManager from '../config/EnvManager';
 
 // Styles
 export const Container = styled.div`
@@ -93,7 +85,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
 
     const getAccount = async (id: string) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8087/api/product-types/type?id=${id}`, {
+            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/product-types/type?id=${id}`, {
                 method: 'GET',
             });
             const data = await response.json();
@@ -113,7 +105,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
 
     const getAssociatedService = async () => {
         try {
-            const response = await fetch(`http://localhost:8087/api/associatedServices`, {
+            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/associatedServices`, {
                 method: 'GET',
             });
             const data = await response.json();
@@ -126,7 +118,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
 
     const getProduct = async () => {
         try {
-            const response = await fetch(`http://localhost:8087/api/products/products`, {
+            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/products`, {
                 method: 'GET',
             });
             const data = await response.json();
@@ -146,7 +138,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
                 nameAssociatedService: data.requestService,
             }
 
-            await fetch(`http://localhost:8087/api/request-service`, {
+            await fetch(`${EnvManager.PRODUCT_URL}/api/request-service`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -182,7 +174,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
                 <ReturnButton>
                     <ButtonIcon
                         color={ColorPalette.PRIMARY}
-                        icon={<KeyboardBackspaceIcon />}
+                        icon={<KeyboardBackspace />}
                         onClick={() => console.log(product)}
                         top={true}
                     />
@@ -202,7 +194,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
                             variant="standard"
                         />
                         <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
-                            icon={<SearchIcon />}
+                            icon={<Search />}
                             onClick={() => setAccountData(true)}
                             text="Buscar"
                             style={ButtonStyle.MEDIUM}

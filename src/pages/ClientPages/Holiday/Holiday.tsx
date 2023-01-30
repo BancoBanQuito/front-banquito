@@ -1,24 +1,20 @@
 import React from "react";
 import { Container, TextField, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
-
 import TableMolecule from "../../../components/molecules/TableMolecule";
 import { IHoliday } from "../../../components/organisms/Holiday/Types";
+import EnvManager from "../../../config/EnvManager";
 
 const Holiday: React.FC = () => {
   const [holidays, setHolidays] = useState<IHoliday[]>([]);
   const [searchText, setSearchText] = useState("");
-  const filteredHolidays = 
-  holidays.filter(
-    (holiday) => holiday.name.includes(searchText.toUpperCase()),
-  
-    
+  const filteredHolidays =
+    holidays.filter(
+      (holiday) => holiday.name.includes(searchText.toUpperCase()),
     );
-  
-  
 
   useEffect(() => {
-    fetch("https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/holiday")
+    fetch(`${EnvManager.SETTINGS_URL}/api/holiday`)
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -46,15 +42,15 @@ const Holiday: React.FC = () => {
         </Typography>
       </Container>
       <Container sx={{ display: "flex", justifyContent: "flex-start" }}>
-          <TextField
-            label="Buscar por fecha, nombre o codigo"
-            value={searchText}
-            onChange={(event) =>
-              setSearchText(event.target.value.toUpperCase())
-            }
-            sx={{ width: "350px" }}
-          />
-        </Container>
+        <TextField
+          label="Buscar por fecha, nombre o codigo"
+          value={searchText}
+          onChange={(event) =>
+            setSearchText(event.target.value.toUpperCase())
+          }
+          sx={{ width: "350px" }}
+        />
+      </Container>
       <Container style={containerTableStyle}>
         <TableMolecule headers={headers} rows={rows} />
       </Container>

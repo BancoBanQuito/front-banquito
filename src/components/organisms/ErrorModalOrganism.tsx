@@ -1,8 +1,8 @@
-import { Modal, Box, Typography } from '@mui/material';
+import { Modal, Box, Typography } from '@mui/material'
 import React from 'react'
-import { SizeButton } from '../atoms/SizeButton';
-import { ColorPalette } from '../../style/ColorPalette';
-import { ButtonStyle } from '../../style/ButtonStyle';
+import { ButtonStyle } from '../../style/ButtonStyle'
+import { ColorPalette } from '../../style/ColorPalette'
+import { SizeButton } from '../atoms/SizeButton'
 
 interface ErrorModalOrganismProps {
     active: boolean,
@@ -23,10 +23,16 @@ const ErrorModalOrganism = (props: ErrorModalOrganismProps) => {
                 position: 'absolute' as 'absolute',
                 top: '50%',
                 left: '50%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignContent: 'center',
+                textAlign: 'center',
                 transform: 'translate(-50%, -50%)',
                 width: 400,
+                height: 400,
+                borderRadius: 10,
                 bgcolor: 'background.paper',
-                border: '2px solid #000',
                 boxShadow: 24,
                 p: 4,
             }}>
@@ -43,7 +49,7 @@ const ErrorModalOrganism = (props: ErrorModalOrganismProps) => {
                             flexDirection: 'row',
                             justifyContent: 'space-around',
                             alignItems: 'center',
-                            marginTop: '1rem'
+                            marginTop: '5rem'
                         }}>
                             {
                                 props.onConfirm && <SizeButton

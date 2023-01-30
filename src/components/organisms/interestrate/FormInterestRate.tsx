@@ -1,24 +1,16 @@
-import React from 'react'
-import { Container, Content, ReturnButton } from './InteresRate'
-
-// icon keyboar backspace
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import ButtonIcon from '../../atoms/ButtonIcon';
-// search icon
-import SearchIcon from '@mui/icons-material/Search';
-import { ColorPalette } from '../../../style/ColorPalette';
+import { AlertProps, Snackbar } from '@mui/material';
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
-import TextFieldAtom from '../../atoms/TextFieldAtom';
+import InterestRateService from '../../../services/product/interestrate/interestRate.service';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
+import ButtonIcon from '../../atoms/ButtonIcon';
 import { Dropdown } from '../../atoms/Dropdown';
 import { SizeButton } from '../../atoms/SizeButton';
-import { ButtonStyle } from '../../../style/ButtonStyle';
-import { string } from 'prop-types';
-import { useEffect, useState } from 'react';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import InterestRateService from '../../../services/product/interestrate/interestRate.service';
-import IInterestRateAdd from '../../../services/product/models/interestRate.model';
-// ContainParent
+import TextFieldAtom from '../../atoms/TextFieldAtom';
+import { ReturnButton } from './InteresRate';
+import { KeyboardBackspace } from '@mui/icons-material';
+
 export const ContainParent = styled.div`
 display: grid;
 grid-template-columns: 0.6fr 1fr;
@@ -28,7 +20,6 @@ grid-row-gap: 2rem;
 padding: 1rem;
 justify-content: center;
 align-items: center;
-
 `;
 
 const interestTypes: { name: string, value: string }[] = [{ name: 'Activo', value: 'ACT' }, { name: 'Pasivo', value: 'PAS' }]
@@ -96,7 +87,7 @@ export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert
     props,
     ref,
 ) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    return <Alert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 interface FormInterestRateProps {
@@ -123,7 +114,7 @@ const FormInterestRate = ({
             setOpen(true);
         } else {
             console.log('createInterestRate')
-            let data: IInterestRateAdd = {
+            let data = {
                 name: name,
                 type: type,
                 calcBase: calcBase,
@@ -163,7 +154,7 @@ const FormInterestRate = ({
         <ContainerForm>
             <ContentForm>
                 <ReturnButton>
-                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspaceIcon />} onClick={() => action()} top={true} />
+                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspace />} onClick={() => action()} top={true} />
                 </ReturnButton>
                 <h1>Formulario de Tasa de Interes</h1>
                 <ContainParent>

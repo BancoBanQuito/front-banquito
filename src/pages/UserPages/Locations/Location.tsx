@@ -1,10 +1,11 @@
 import { Box, Container } from "@mui/material";
 import React, { useState } from "react";
 import { CreateLocation } from "../../../components/organisms/Location/CreateLocation";
+import { DeleteLocation } from "../../../components/organisms/Location/DeleteLocation";
 import { LocationTabs } from "../../../components/organisms/Location/LocationTabs";
 import { UpdateLocation } from "../../../components/organisms/Location/UpdateLocation";
-import { DeleteLocation } from "../../../components/organisms/Location/DeleteLocation";
 import { ViewLocations } from "../../../components/organisms/Location/ViewLocations";
+
 
 export const Location = () => {
   const [tabValue, setTabValue] = useState("Ver");

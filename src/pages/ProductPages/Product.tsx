@@ -1,9 +1,7 @@
-import { Stack, Typography, Button } from "@mui/material"
-import TableMolecule from "../../components/molecules/TableMolecule"
+import { Typography, Button, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
-import TextAreaAtom from "../../components/atoms/TextAreaAtom";
-import { SizeButton } from "../../components/atoms/SizeButton";
-import { ButtonStyle } from "../../style/ButtonStyle";
+import TableMolecule from "../../components/molecules/TableMolecule";
+import EnvManager from "../../config/EnvManager";
 import { ActivateDialog } from "./dialog/ActivateDialog";
 import { CreateProduct } from "./dialog/CreateProduct";
 
@@ -15,7 +13,6 @@ const table: any = {
         <Typography>Habilitación</Typography>,
     ]
 }
-
 
 export const Product = () => {
 
@@ -29,7 +26,7 @@ export const Product = () => {
 
     const getProducts = async () => {
         try {
-            const response = await fetch('http://localhost:8087/api/products/products');
+            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/products`);
             const data = await response.json();
             const product = data.map((product: any) => {
                 return {
