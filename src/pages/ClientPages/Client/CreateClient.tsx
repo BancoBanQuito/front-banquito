@@ -514,7 +514,7 @@ const CreateClient: React.FC = () => {
       </Typography>
       <Box
         display='flex'
-        flexDirection='row'
+        flexDirection={{ md: 'row', sm: 'column', xs: 'column' }}
         gap={20}
         width='100%'
         mb={5}
@@ -522,7 +522,11 @@ const CreateClient: React.FC = () => {
         <Box
           display='flex'
           flexDirection='column'
-          width='45%'
+          width={{
+            md: '50%',
+            sm: '90%',
+            xs: '90%^'
+          }}
           gap={1}
           sx={{ ml: 5 }}
         >
@@ -780,7 +784,11 @@ const CreateClient: React.FC = () => {
         <Box
           display='flex'
           flexDirection='column'
-          width='45%'
+          width={{
+            md: '50%',
+            sm: '90%',
+            xs: '90%^'
+          }}
           gap={1}
           pr={5}
         >
