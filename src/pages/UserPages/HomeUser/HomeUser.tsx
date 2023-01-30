@@ -44,7 +44,7 @@ const HomeUser = ({ user, isLogged }: Props) => {
     >
       <Box marginTop="60px">
         <Typography variant="h4" textAlign="center" p={4}>
-          Bienvenido Usuario {user?.username}
+          Bienvenido Usuario {user?.username.split("@")[0]}
         </Typography>
         <>
           <AccordionComponent
@@ -110,7 +110,7 @@ const AccordionComponent = (props: AccordionComponentProps) => {
       <AccordionDetails sx={{ backgroundColor: ColorPalette.ACCENT }}>
         <Grid container spacing={2} width="100%" justifyContent="center">
           {jsonData.map((card: any) => (
-            <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Grid item xs={12} sm={6} md={4} lg={3} key={card.title}>
               <HomeUserCard
                 title={card.title}
                 description={card.description}
