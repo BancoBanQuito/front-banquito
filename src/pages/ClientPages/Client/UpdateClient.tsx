@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import Button from "@mui/material/Button";
-import BranchBox from "../Branch/BranchBox";
+import BranchBox from "./ClientBox";
 import EnvManager from "../../../config/EnvManager";
 
 export const UpdateClient: React.FC = () => {

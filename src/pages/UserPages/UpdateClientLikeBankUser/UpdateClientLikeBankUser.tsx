@@ -522,10 +522,10 @@ const UpdateClientDataForm: React.FC = () => {
           </Container>
           
           <Container sx={containerTextFieldStyles}>
-            <FormLabel sx={formLabelStyles}>Segmento:</FormLabel>
+            <FormLabel sx={formLabelStyles}> </FormLabel>
             <div style={{ marginRight: "10px" }}>
               <BranchBox
-                label="Tipo Teléfono:"
+                label="Segmento:"
                 value={nameSegment}
                 options={segmentOpstions}
                 onChange={onChangeSegment}
