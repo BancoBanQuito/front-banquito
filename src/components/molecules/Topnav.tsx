@@ -47,6 +47,7 @@ const Topnav = ({ isLogged, setIsLogged, user, to }: TopnavProps) => {
         "Access-Control-Allow-Origin": "*",
       },
     };
+
     try {
       const response = await fetch(url, options);
       if (response.ok) {
