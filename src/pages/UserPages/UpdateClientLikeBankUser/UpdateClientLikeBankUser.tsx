@@ -15,7 +15,7 @@ import { LabelRounded } from "@mui/icons-material";
 import EnvManager from "../../../config/EnvManager";
 
 const urlCloud = `${EnvManager.CLIENT_URL}/api/client/`;
-
+const segmentUrl = `${EnvManager.SEGMENT_URL}/api/segments`;
 const isAvailable = true;
 
 const UpdateClientDataForm: React.FC = () => {
