@@ -42,64 +42,35 @@ const HomeUser = ({ user, isLogged }: Props) => {
       }}
     >
       <Box marginTop="60px">
-        {isLogged ? (
-          <>
-            <Typography variant="h4" textAlign="center" p={4}>
-              Bienvenido Usuario {user?.username}
-            </Typography>
-            <>
-              <AccordionComponent
-                title="Cuentas"
-                description="Use este panel para gestionar cuentas de clientes"
-                jsonData={accountCardJson}
-              />
-              <AccordionComponent
-                title="Clientes"
-                description="Use este panel para gestionar clientes"
-                jsonData={clientCardJson}
-              />
-              <AccordionComponent
-                title="Productos"
-                description="Use este panel para gestionar productos"
-                jsonData={productCardJson}
-              />
-              <AccordionComponent
-                title="General"
-                description="Use este panel para gestionar informacion general"
-                jsonData={generalCardJson}
-              />
-            </>
-          </>
-        ) : (
-          <Box
-            display="flex"
-            sx={{
-              direction: "column",
-              height: "90vh",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <SizeButton
-              text="Iniciar Sesion"
-              style={ButtonStyle.MEDIUM}
-              palette={{
-                backgroundColor: ColorPalette.PRIMARY,
-                accent: ColorPalette.ACCENT,
-              }}
-              onClick={() => navigate("/usuario/login")}
-            />
-            <SizeButton
-              text="Unirse"
-              style={ButtonStyle.MEDIUM}
-              palette={{
-                backgroundColor: ColorPalette.PRIMARY,
-                accent: ColorPalette.ACCENT,
-              }}
-              onClick={() => navigate("/usuario/signup")}
-            />
-          </Box>
-        )}
+        <Typography variant="h4" textAlign="center" p={4}>
+          Bienvenido Usuario {user?.username}
+        </Typography>
+        <>
+          <AccordionComponent
+            title="Cuentas"
+            description="Use este panel para gestionar cuentas de clientes"
+            jsonData={accountCardJson}
+            isLogged={isLogged}
+          />
+          <AccordionComponent
+            title="Clientes"
+            description="Use este panel para gestionar clientes"
+            jsonData={clientCardJson}
+            isLogged={isLogged}
+          />
+          <AccordionComponent
+            title="Productos"
+            description="Use este panel para gestionar productos"
+            jsonData={productCardJson}
+            isLogged={isLogged}
+          />
+          <AccordionComponent
+            title="General"
+            description="Use este panel para gestionar informacion general"
+            jsonData={generalCardJson}
+            isLogged={isLogged}
+          />
+        </>
       </Box>
     </Box>
   );
@@ -109,10 +80,11 @@ interface AccordionComponentProps {
   title: string;
   description: string;
   jsonData: any;
+  isLogged: boolean;
 }
 
 const AccordionComponent = (props: AccordionComponentProps) => {
-  const { title, description, jsonData } = props;
+  const { title, description, jsonData, isLogged } = props;
 
   const [isClicked, setisClicked] = useState(false);
 
@@ -137,6 +109,7 @@ const AccordionComponent = (props: AccordionComponentProps) => {
                 description={card.description}
                 imageUrl={card.imageUrl}
                 url={card.url}
+                isLogged={isLogged}
               />
             </Grid>
           ))}

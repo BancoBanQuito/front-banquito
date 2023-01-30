@@ -16,10 +16,11 @@ interface HomeUserCardProps {
   description: string;
   imageUrl: string;
   url: string;
+  isLogged: boolean;
 }
 
 export const HomeUserCard = (props: HomeUserCardProps) => {
-  const { title, description, imageUrl, url } = props;
+  const { title, description, imageUrl, url, isLogged } = props;
   const navigate = useNavigate();
   return (
     <Card
@@ -28,7 +29,7 @@ export const HomeUserCard = (props: HomeUserCardProps) => {
         height: "100%",
         cursor: "pointer",
       }}
-      onClick={() => navigate(url)}
+      onClick={() => isLogged ? navigate(url) : navigate("/usuario/login")}
     >
       <CardMedia
         component="img"

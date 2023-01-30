@@ -27,7 +27,7 @@ const Home = () => {
         }}
         sx={{
           width: '100%',
-          height: '98vh',
+          height: '100vh',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',

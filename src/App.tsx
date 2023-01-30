@@ -54,10 +54,6 @@ const App = () => {
 
   const userRoutes = [
     {
-      path: "",
-      element: <HomeUser user={user} isLogged={isLogged} />,
-    },
-    {
       path: "ubicaciones",
       element: <Location />,
     },
@@ -131,7 +127,7 @@ const App = () => {
     },
     {
       path: "producto/vincular/servicio",
-      element: <ProductLinkAssociatedService onSubmit={() => {}} />,
+      element: <ProductLinkAssociatedService onSubmit={() => { }} />,
     },
     {
       path: "cuenta/posicion/consolidada",
@@ -162,10 +158,6 @@ const App = () => {
   ];
 
   const clientRoutes = [
-    {
-      path: "",
-      element: <HomeClient user={user} isLogged={isLogged} />,
-    },
     {
       path: "cuenta/crear",
       element: <AccountCreateClient />,
@@ -216,10 +208,6 @@ const App = () => {
 
   const atmRoutes = [
     {
-      path: "",
-      element: <ATMHome />,
-    },
-    {
       path: "cuenta/saldo",
       element: <AccountAvailableBalance />,
     },
@@ -237,31 +225,53 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
+          <Route path="" element={<Home />} />
           <Route
-            path=""
+            path="/usuario"
             element={
-              <Layout isLogged={isLogged} setIsLogged={setIsLogged} user={{}} />
+              <Layout
+                isLogged={isLogged}
+                setIsLogged={setIsLogged}
+                user={{}}
+                to="usuario"
+              />
             }
           >
-            <Route index element={<Home />} />
+            <Route index element={<HomeUser user={user} isLogged={isLogged} />} />
             {userRoutes.map((route) => (
               <Route
                 key={route.path}
-                path={`usuario/${route.path}`}
+                path={`/usuario/${route.path}`}
                 element={route.element}
               />
             ))}
+          </Route>
+          <Route
+            path="/cliente"
+            element={
+              <Layout
+                isLogged={isLogged}
+                setIsLogged={setIsLogged}
+                user={{}}
+                to="cliente"
+              />
+            }
+          >
+            <Route index element={<HomeClient user={user} isLogged={isLogged} />} />
             {clientRoutes.map((route) => (
               <Route
                 key={route.path}
-                path={`cliente/${route.path}`}
+                path={`/cliente/${route.path}`}
                 element={route.element}
               />
             ))}
+          </Route>
+          <Route path="/atm">
+            <Route index element={<ATMHome />} />
             {atmRoutes.map((route) => (
               <Route
                 key={route.path}
-                path={`atm/${route.path}`}
+                path={`/atm/${route.path}`}
                 element={route.element}
               />
             ))}

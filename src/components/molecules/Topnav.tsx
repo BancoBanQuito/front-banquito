@@ -9,7 +9,7 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Link, useNavigate, useNavigation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import BanQuitoIcon from '../../assets/BanQuito-Logo.svg';
 import { Button } from '@mui/material';
 import { ColorPalette } from '../../style/ColorPalette';
@@ -19,9 +19,10 @@ interface TopnavProps {
   isLogged: boolean;
   setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
   user: {};
+  to: string;
 }
 
-const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
+const Topnav = ({ isLogged, setIsLogged, user, to }: TopnavProps) => {
 
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -104,7 +105,7 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
               isLogged ? <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Configuraciones">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="User image" src="@/assets/user.png" />
+                    <Avatar alt="User image" src="/assets/user.png" />
                   </IconButton>
                 </Tooltip>
                 <Menu
@@ -123,9 +124,6 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  <MenuItem onClick={() => navigate('/perfil')}>
-                    <Typography textAlign="center">Perfil</Typography>
-                  </MenuItem>
                   <MenuItem onClick={() => setIsLogged(false)}>
                     <Typography textAlign="center">Cerrar sesión</Typography>
                   </MenuItem>
@@ -133,10 +131,9 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
               </Box>
                 :
                 <Box sx={{ flexGrow: 0 }}>
-                  <Button sx={{ color: ColorPalette.ACCENT }} onClick={() => navigate("/cliente/signup")}>Crear Usuario</Button>
-                  <Button sx={{ color: ColorPalette.ACCENT }} onClick={() => navigate("/cliente/login")}>Iniciar Sesion</Button>
+                  <Button sx={{ color: ColorPalette.ACCENT }} onClick={() => navigate(`/${to}/signup`)}>Crear Usuario</Button>
+                  <Button sx={{ color: ColorPalette.ACCENT }} onClick={() => navigate(`/${to}/login`)}>Iniciar Sesion</Button>
                 </Box>
-
             }
           </Toolbar>
         </Container>
