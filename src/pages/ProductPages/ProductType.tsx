@@ -47,6 +47,13 @@ export const ProductType = () => {
     }, [])
 
     useEffect(() => {
+        const interval = setInterval(() => {
+            getTypeProducts();
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
         if (open) {
             handleOpen();
         }

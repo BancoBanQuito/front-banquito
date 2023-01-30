@@ -1,8 +1,9 @@
 import { Typography, Button, Stack } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import TableMolecule from "../../components/molecules/TableMolecule";
 import { ActivateDialog } from "./dialog/ActivateDialog";
 import { CreateProduct } from "./dialog/CreateProduct";
+import axios from "axios";
 
 const table: any = {
     headers: [
@@ -26,8 +27,8 @@ export const Product = () => {
 
     const getProducts = async () => {
         try {
-            const response = await fetch('http://localhost:8087/api/products/products');
-            const data = await response.json();
+            const response = await axios.get('http://localhost:8087/api/products/products');
+            const data = response.data;
             const product = data.map((product: any) => {
                 const services: any = []
                 product.associatedService.forEach((service: any) => {
@@ -66,13 +67,21 @@ export const Product = () => {
 
     useEffect(() => {
         getProducts();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getProducts();
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         if (open) {
             handleOpen();
         }
         setOpen(false);
+
     }, [open]);
 
     useEffect(() => {
