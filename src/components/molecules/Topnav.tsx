@@ -39,6 +39,7 @@ const Topnav = ({ isLogged, setIsLogged, user, to }: TopnavProps) => {
 
   const getBankEntity = async () => {
     const url = `${EnvManager.SETTINGS_URL}/api/bank-entity`;
+    console.log(url);
     const options = {
       method: "GET",
       headers: {
