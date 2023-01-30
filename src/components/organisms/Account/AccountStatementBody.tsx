@@ -7,7 +7,6 @@ import moment from 'moment';
 
 interface AccountStatementProps {
     accountStatement: RSAccountStatement | undefined,
-    client: { name: string, identification: string } | undefined;
 }
 
 const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref) => {
@@ -25,7 +24,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
         <>
             <div ref={ref as LegacyRef<HTMLDivElement> | undefined}>
                 {
-                    !!props.accountStatement && !!props.client ?
+                    !!props.accountStatement ?
                         <Container sx={{ width: '100%' }}>
                             <div style={{
                                 display: 'flex',
@@ -51,7 +50,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                                     }}>
                                         <div style={{ height: '80%', width: '100%' }}>
                                             <Typography variant='h6'>
-                                                {props.client.name}
+                                                {props.accountStatement.fullName}
                                             </Typography>
                                             <Typography variant='body1'>
                                                 Cuenta: {props.accountStatement.localCodeAccount}
@@ -59,7 +58,7 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                                         </div>
                                         <div style={{ height: '20%', width: '100%' }}>
                                             <Typography variant='body1'>
-                                                {props.client.identification}
+                                                {props.accountStatement.identification}
                                             </Typography>
                                         </div>
                                     </Box>
@@ -169,10 +168,10 @@ const AccountStatementBody = React.forwardRef((props: AccountStatementProps, ref
                                         padding: 1
                                     }}>
                                         <Typography sx={{ width: '50%' }} variant='h6'>
-                                            {props.client.name}
+                                            {props.accountStatement.fullName}
                                         </Typography>
                                         <Typography sx={{ width: '50%', textAlign: 'end' }} variant='body1'>
-                                            {props.client.identification}
+                                            {props.accountStatement.identification}
                                         </Typography>
                                         <Typography variant='body1'>
                                             Cuenta: {props.accountStatement.localCodeAccount}

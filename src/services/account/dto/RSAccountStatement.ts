@@ -1,5 +1,8 @@
 export interface RSAccountStatement {
     localCodeAccount: string;
+    identificationType: string;
+    identification: string;
+    fullName: string;
     lastCutOffDate: Date;
     currentCutOffDate: Date;
     previousBalance: number;
