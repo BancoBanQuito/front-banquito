@@ -18,8 +18,6 @@ const headersMock = [
   <Typography>Saldo</Typography>,
 ]
 
-
-
 const InterestSavingAccounts = () => {
 
   const [interestSavingAccounts, setInterestSavingAccounts] = useState<RSSavingsAccountInterest[]>([]);

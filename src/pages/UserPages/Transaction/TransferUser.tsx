@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, Card, CardContent, Fade, Typography } from '@mui/material';
 import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
 import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransferUserForm';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
@@ -13,6 +13,7 @@ import { AccountService } from '../../../services/account/AccountService';
 import { RSAccount } from '../../../services/account/dto/RSAccount';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import InfoModalOrganism from '../../../components/organisms/InfoModalOrganism';
+import { Dropdown } from '../../../components/atoms/Dropdown';
 
 interface ITransaction {
     codeInternationalAccount: string,
@@ -34,7 +35,8 @@ interface IRecipient {
 const userLocalAccount = "a3998d173acbf0c893db";
 
 interface TransferUserProps {
-    client?: boolean
+    client?: boolean,
+    accounts?: { name: string, value: string }[]
 }
 
 const TransferUser = (props: TransferUserProps) => {
@@ -64,17 +66,6 @@ const TransferUser = (props: TransferUserProps) => {
     });
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!!props.client) {
-            setindexForm(1);
-            settransactionData({
-                ...transactionData,
-                codeLocalAccount: userLocalAccount,
-            });
-        }
-        return () => { }
-    }, [])
 
     const handleAccept = async () => {
         setisLoading(true);
@@ -153,23 +144,65 @@ const TransferUser = (props: TransferUserProps) => {
                     width: 500,
                 }}>
                     {indexForm === 0 ?
-                        <TransferDataForm
-                            key={1}
-                            showAccountCode
-                            showConcept
-                            showDescription
-                            onSubmit={(data: any) => {
-                                setindexForm(1);
-                                settransactionData({
-                                    ...transactionData,
-                                    concept: data.concept,
-                                    description: data.description,
-                                    codeLocalAccount: data.accountNumber,
-                                    type: data.type,
-                                    bank: data.bank,
-                                });
-                            }}
-                            title='Cuenta(Emisor)' /> :
+                        !!props.client && !!props.accounts ? < div style={{
+                            position: 'absolute',
+                            width: '100%',
+                            height: '80vh',
+                            top: 0,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}>
+                            <Card sx={{ minWidth: '450px', maxWidth: '750px' }}>
+                                <CardContent>
+                                    {props.accounts.length <= 0 ? <Typography variant='h6'>Es necesario crear una cuenta</Typography> :
+                                        <>
+                                            <Box mb={2} sx={{ fontStyle: 'italic', color: ColorPalette.SECONDARY }}>
+                                                <Typography variant='h4' component='h6'>
+                                                    Selector de cuentas
+                                                </Typography>
+                                                <Typography variant='body1' component='h6'>
+                                                    Buscador
+                                                </Typography>
+                                            </Box>
+                                            <Dropdown
+                                                label={'Cuentas'}
+                                                items={props.accounts}
+                                                onChange={(data: string) => {
+                                                    setindexForm(1);
+                                                    settransactionData({
+                                                        ...transactionData,
+                                                        concept: "",
+                                                        description: "",
+                                                        codeLocalAccount: data,
+                                                        type: "",
+                                                        bank: "BANQUITO"
+                                                    });
+                                                }}
+                                                width={'100%'}
+                                                height={'auto'} />
+                                        </>}
+                                </CardContent>
+                            </Card>
+                        </div>
+                            :
+                            <TransferDataForm
+                                key={1}
+                                showAccountCode
+                                showConcept
+                                showDescription
+                                onSubmit={(data: any) => {
+                                    setindexForm(1);
+                                    settransactionData({
+                                        ...transactionData,
+                                        concept: data.concept,
+                                        description: data.description,
+                                        codeLocalAccount: data.accountNumber,
+                                        type: data.type,
+                                        bank: data.bank,
+                                    });
+                                }}
+                                title='Cuenta(Emisor)' /> :
                         indexForm === 1 ?
                             <TransferDataForm
                                 key={2}
@@ -206,7 +239,7 @@ const TransferUser = (props: TransferUserProps) => {
                                         recipientAccountNumber: recipient.recipientAccountNumber
                                     }} />}
                 </Box>
-            </div>
+            </div >
             <InfoModalOrganism
                 active={showInfoModal}
                 text='La transferencia ha sido completada'

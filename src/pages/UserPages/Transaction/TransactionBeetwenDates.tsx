@@ -1,5 +1,5 @@
 import react, { FormEvent, useEffect, useState } from "react";
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, Card, CardContent, TextField, Typography } from "@mui/material";
 import { Dayjs } from "dayjs";
 import DatePickerAtom from "../../../components/atoms/DatePicker";
 import { SizeButton } from "../../../components/atoms/SizeButton";
@@ -11,6 +11,7 @@ import { ColorPalette } from "../../../style/ColorPalette";
 import ErrorModalOrganism from "../../../components/organisms/ErrorModalOrganism";
 import LoadOrganism from "../../../components/organisms/LoadOrganism";
 import { useNavigate } from "react-router-dom";
+import { Dropdown } from "../../../components/atoms/Dropdown";
 
 const headersMock = [
   <Typography>Fecha</Typography>,
@@ -20,10 +21,9 @@ const headersMock = [
   <Typography>Saldo disponible</Typography>
 ]
 
-const userLocalAccount = "a3998d173acbf0c893db";
-
 interface TransactionBeetwenDatesProps {
   client?: boolean;
+  accounts?: { name: string, value: string }[]
 }
 
 const TransactionBeetwenDates = (props: TransactionBeetwenDatesProps) => {
@@ -38,14 +38,6 @@ const TransactionBeetwenDates = (props: TransactionBeetwenDatesProps) => {
   const [isLoading, setisLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!props.client) {
-      setNumAccount(userLocalAccount);
-    }
-    return () => { }
-  }, [])
-
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -117,7 +109,29 @@ const TransactionBeetwenDates = (props: TransactionBeetwenDatesProps) => {
               verticalAlign: "middle",
               alignText: "center",
             }}>
-            { !props.client && <TextField
+            {!!props.client && !!props.accounts &&
+              <Card sx={{ minWidth: '450px', maxWidth: '750px' }}>
+                <CardContent>
+                  {props.accounts.length <= 0 ? <Typography variant='h6'>Es necesario crear una cuenta</Typography> :
+                    <>
+                      <Box mb={2} sx={{ fontStyle: 'italic', color: ColorPalette.SECONDARY }}>
+                        <Typography variant='h4' component='h6'>
+                          Selector de cuentas
+                        </Typography>
+                        <Typography variant='body1' component='h6'>
+                          Buscador
+                        </Typography>
+                      </Box>
+                      <Dropdown
+                        label={'Cuentas'}
+                        items={props.accounts}
+                        onChange={(event) => setNumAccount(event)}
+                        width={'100%'}
+                        height={'auto'} />
+                    </>}
+                </CardContent>
+              </Card>}
+            {!props.client && <TextField
               label="Número de cuenta"
               value={numAccount}
               onChange={(event) => setNumAccount(event.target.value)}

@@ -3,7 +3,7 @@ import { Container, FormLabel, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import EnvManager from '../../../config/EnvManager';
-import { Spinner } from '../../atoms/Spinner';
+import LoadOrganism from '../LoadOrganism';
 
 interface userProps {
     username: string,
@@ -12,7 +12,7 @@ interface userProps {
     typeIdentification: string
 }
 interface Props {
-    setUser: React.Dispatch<React.SetStateAction<userProps | null>>,
+    setUser: (data: any) => void,
     setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
     redirect: string
 }
@@ -23,28 +23,26 @@ const Login = ({ setUser, setIsLogged, redirect }: Props) => {
 
     const [userName, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [activateSpinner, setActivateSpinner] = useState(false);
+    const [isLoading, setisLoading] = useState<boolean>(false);
+
     const urlGetClientWithEmail = `${EnvManager.CLIENT_URL}/api/client/email/`;
 
     const fetchClient = async () => {
         try {
-            setActivateSpinner(true)
             const response = await fetch(
                 urlGetClientWithEmail + `${userName}`
             );
             const data = await response.json();
-            setUser({ username: userName, password: password, identification: data.identification, typeIdentification: data.typeIdentification })
-            setActivateSpinner(false)
+            setUser({ username: userName, password: password, identification: data.identification, typeIdentification: data.identificationType })
         } catch (error) {
-            setActivateSpinner(false)
             console.error(error)
         }
     };
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
+        setisLoading(true);
         try {
-            setActivateSpinner(true)
             const response = await fetch(`${EnvManager.CLIENT_URL}/api/client/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -54,10 +52,8 @@ const Login = ({ setUser, setIsLogged, redirect }: Props) => {
                 })
             })
             if (!response.ok) {
-                setActivateSpinner(false)
                 throw new Error(response.statusText)
             }
-            setActivateSpinner(false)
             alert("Ingresa con éxito")
 
             setIsLogged(true)
@@ -65,14 +61,14 @@ const Login = ({ setUser, setIsLogged, redirect }: Props) => {
             navigate(redirect)
 
         } catch (error) {
-            setActivateSpinner(false)
             console.error(error)
+        } finally {
+            setisLoading(false);
         }
     }
 
     return (
         <>
-            {activateSpinner ? <Spinner /> : null}
             <Container sx={containertTitleStyles}>
                 <Typography variant="h4" align="center">
                     Iniciar Sesion
@@ -100,6 +96,7 @@ const Login = ({ setUser, setIsLogged, redirect }: Props) => {
             <Container sx={containerTextFieldStyles}>
                 <Button onClick={handleSubmit} sx={buttonStyles}>Ingresar</Button>
             </Container>
+            <LoadOrganism active={isLoading} />
         </>
     )
 }

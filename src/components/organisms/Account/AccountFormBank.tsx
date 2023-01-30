@@ -1,6 +1,6 @@
 import { Theme } from "@emotion/react";
 import { SxProps, Box, Typography, TextField, FormControlLabel, Checkbox } from "@mui/material";
-import { useState, FormEvent, ChangeEvent } from "react";
+import { useState, FormEvent, ChangeEvent, useEffect } from "react";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import { ColorPalette } from "../../../style/ColorPalette";
 import { CIUtils } from "../../../utils/CIUtils";
@@ -54,6 +54,8 @@ interface FormAccountInterface {
 interface AccountFormProps {
     onSubmit: (data: any) => void,
     products: any[],
+    identification?: string;
+    identificationType?: string;
 }
 
 const AccountFormBank = (props: AccountFormProps) => {
@@ -63,13 +65,19 @@ const AccountFormBank = (props: AccountFormProps) => {
     const [usePassport, setusePassport] = useState<boolean>(false)
 
     const [account, setaccount] = useState<FormAccountInterface>({
-        identification: "",
-        identificationType: "",
+        identification: props.identification || "",
+        identificationType: props.identificationType || "",
         codeProduct: "",
         codeBranch: "123",
         entityBankCode: "12345",
         internationalBankCode: "12345",
     });
+
+    useEffect(() => {
+        console.log(props);
+        return () => { }
+    }, [])
+
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -162,6 +170,8 @@ const AccountFormBank = (props: AccountFormProps) => {
                         label={textHelpers.identificationPlaceholder}
                         error={showIdentificationError}
                         helperText={showIdentificationError && errorMessage}
+                        value={account.identification}
+                        disabled={!!props.identification}
                         required
                     />
                     <FormControlLabel
