@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import { Dropdown } from "../../atoms/Dropdown";
 import { ColorPalette } from "../../../style/ColorPalette";
 import DatePickerAtom from "../../atoms/DatePicker";
+import EnvManager from "../../../config/EnvManager";
 
 export const GeneralInformation = () => {
   const [identification, setIdentification] = useState<string>("");
@@ -141,7 +142,7 @@ export const GeneralInformation = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:8083/api/client", {
+      const response = await fetch(`${EnvManager.CLIENT_URL}/api/client`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

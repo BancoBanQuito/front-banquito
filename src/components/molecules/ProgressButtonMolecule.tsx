@@ -11,7 +11,22 @@ interface ProgressButtonMoleculeProps {
     leftButton?: boolean,
     rightButton?: boolean,
     onUpdate?: (index: number) => void,
+    spotSize?: number | string,
+    indicatorHidden?: boolean
 }
+
+const spanChild = (color: string, opacity: number | string, spotSize?: number | string, select?: boolean, onClick?: () => void) => <span
+    style={{
+        marginLeft: '1px',
+        marginRight: '1px',
+        width: spotSize || '20px',
+        height: spotSize || '20px',
+        backgroundColor: color,
+        opacity: opacity,
+        borderRadius: '100%',
+        cursor: (!!select) ? 'pointer' : 'auto'
+    }}
+    onClick={onClick && onClick} />
 
 const ProgressButtonMolecule = (props: ProgressButtonMoleculeProps) => {
 
@@ -22,26 +37,32 @@ const ProgressButtonMolecule = (props: ProgressButtonMoleculeProps) => {
     useEffect(() => {
         enableButtons();
         return () => { }
-    })
+    }, [index]);
 
 
     const clickHandler = (flag: boolean) => {
-        setindex((flag) ? index + 1 : index - 1);
         enableButtons();
-        if (index >= props.itemsCount) setindex(props.itemsCount - 1);
-        if (index < 0) setindex(0);
-        props.onUpdate?.(index);
+        updateIndex(flag ? index + 1 : index - 1);
+    }
+
+    const updateIndex = (value: number) => {
+        if (value <= 0) {
+            value = 0;
+        } else if (value >= props.itemsCount - 1) {
+            value - 1;
+        }
+        setindex(value);
+        props.onUpdate?.(value);
     }
 
     const enableButtons = () => {
         setshowRight(true);
         setshowLeft(true);
-        if (index > props.itemsCount - 2) setshowRight(false);
-        if (index < 1) setshowLeft(false);
+        if (index >= props.itemsCount - 2) setshowRight(false);
+        if (index <= 0) setshowLeft(false);
     }
 
     const manageOpacity = (i: number) => {
-
         if (props.current) {
             return (props.current == i) ? '100%' : '50%';
         } else {
@@ -50,71 +71,43 @@ const ProgressButtonMolecule = (props: ProgressButtonMoleculeProps) => {
     }
 
     return (
-        <>
-            <Box sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 'auto'
-            }}>
-                {
-                    showLeft && props.leftButton ? <ButtonIcon
-                        color={props.color}
+        <div style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center'
+        }}>
+            {
+                <div style={{ margin: '5px' }}>
+                    <ButtonIcon
+                        color={(showLeft && props.leftButton) ? props.color : 'transparent'}
+                        disabled={(showLeft && props.leftButton)}
                         icon={<ChevronLeft />}
-                        onClick={() => clickHandler(false)} />
-                        : <ButtonIcon
-                            disabled
-                            color='transparent'
-                            icon={<ChevronLeft />}
-                            onClick={() => clickHandler(false)} />
-                }
-                <Box sx={{
-                    margin: '1px',
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    width: 'auto'
-                }}>
-                    {
-                        Array.from(Array(props.itemsCount).keys()).map((i, key) => {
-                            return <span
-                                key={i}
-                                style={{
-                                    marginLeft: '1px',
-                                    marginRight: '1px',
-                                    width: '20px',
-                                    height: '20px',
-                                    backgroundColor: props.color,
-                                    opacity: manageOpacity(i),
-                                    borderRadius: '100%',
-                                    cursor: (!!props.select) ? 'pointer' : 'auto'
-                                }}
-                                onClick={() => {
-                                    if (!!props.select) {
-                                        setindex(i);
-                                        enableButtons();
-                                        props.onUpdate?.(i);
-                                    }
-                                }} />
-                        })
-                    }
-
-                </Box>
-                {
-                    showRight && props.rightButton ? <ButtonIcon
-                        color={props.color}
+                        onClick={() => (showLeft && props.leftButton) && clickHandler(false)} />
+                </div>
+            }
+            {
+                !!!props.indicatorHidden && [...Array(5).keys()].map(value => {
+                    return spanChild(
+                        props.color,
+                        manageOpacity(value),
+                        props.spotSize,
+                        props.select,
+                        () => { props.select && updateIndex(value) }
+                    );
+                })
+            }
+            {
+                <div style={{ margin: '5px' }}>
+                    <ButtonIcon
+                        color={(showRight && props.rightButton) ? props.color : 'transparent'}
+                        disabled={(showRight && props.rightButton)}
                         icon={<ChevronRight />}
-                        onClick={() => clickHandler(true)} />
-                        : <ButtonIcon
-                            disabled
-                            color='transparent'
-                            icon={<ChevronLeft />}
-                            onClick={() => clickHandler(false)} />
-                }
-            </Box>
-        </>
+                        onClick={() => (showRight && props.rightButton) && clickHandler(true)} />
+                </div>
+            }
+        </div>
     )
 }
 

@@ -9,19 +9,19 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import BranchBox from "../Branch/BranchBox";
-import TableMolecule from "../../molecules/TableMolecule";
+import EnvManager from "../../../config/EnvManager";
 
 export const UpdateClient: React.FC = () => {
   const [email, setEmail] = useState<string>("");
-  const [gender, setGender] = useState<string>("OTRO");
+  const [gender, setGender] = useState<string>("");
   const [career, setCareer] = useState<string>("");
   const [typePhone, setTypePhone] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
-  const [fullName, setFullName] = useState<string>("Full Name");
+  const [fullName, setFullName] = useState<string>("");
   const [lineOne, setLineOne] = useState<string>("");
   const [lineTwo, setLineTwo] = useState<string>("");
-  const [identification, setIdentification] = useState<string>("111111111");
-  const [typeIdentification, setTypeIdentification] = useState<string>("DNI");
+  const [identification, setIdentification] = useState<string>("");
+  const [typeIdentification, setTypeIdentification] = useState<string>("");
 
   const [isStatusSelected, setIsStatusSelected] = useState<boolean>(true);
 
@@ -54,7 +54,7 @@ export const UpdateClient: React.FC = () => {
   ];
 
   useEffect(() => {
-    fetch(`http://localhost:8083/api/client/email/dpaz@espe.edu.ec`)
+    fetch(`${EnvManager.CLIENT_URL}/api/client/email/dpaz@espe.edu.ec`)
       .then((response) => response.json())
       .then((data) => {
         setEmail(data.email);
