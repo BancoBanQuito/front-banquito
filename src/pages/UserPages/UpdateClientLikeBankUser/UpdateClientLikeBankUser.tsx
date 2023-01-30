@@ -50,11 +50,12 @@ const UpdateClientDataForm: React.FC = () => {
   };
   const onChangeSegment = (value: string) => {
     setNameSegment(value);
-    if (value !== "") {
-      setIsStatusSelected(false);
-    } else {
-      setIsStatusSelected(true);
-    }
+    segments.map(segment => {
+      if (segment['name'] === value) {
+        setCodeSegment(segment['idSegment']);
+        setStatusSegment(segment['status']);
+      }
+    })
   };
   const onChangeGender = (value: string) => {
     setGender(value);
