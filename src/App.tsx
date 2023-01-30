@@ -43,6 +43,7 @@ import ATMHome from "./pages/ATMPages/ATMHome";
 import ATMReturnHome from "./pages/ATMPages/ATMReturnHome";
 import InterestInvestmentPolicies from "./pages/ClientPages/Transaction/InterestInvestmentPolicies";
 import CreateClient from "./pages/ClientPages/Client/CreateClient";
+import CreateSegment from "./pages/UserPages/Segment/CreateSegment";
 
 interface userProps {
   username: string;
@@ -161,6 +162,10 @@ const App = () => {
     {
       path: "crear-cliente",
       element: <CreateClient />,
+    },
+    {
+      path: "segmento",
+      element: <CreateSegment />,
     },
   ];
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Container, FormLabel, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
-import BranchBox from "../Branch/BranchBox";
-import TableMolecule from "../../molecules/TableMolecule";
+import BranchBox from "../../../components/organisms/Branch/BranchBox";
+import TableMolecule from "../../../components/molecules/TableMolecule";
 import EnvManager from "../../../config/EnvManager";
 
 const CreateSegment: React.FC = () => {
