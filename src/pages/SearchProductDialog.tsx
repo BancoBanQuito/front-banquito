@@ -17,6 +17,7 @@ import { ColorPalette } from "../style/ColorPalette";
 //add icon
 import { ButtonStyle } from "../style/ButtonStyle";
 import { useEffect, useState } from "react";
+import EnvManager from "../config/EnvManager";
 
 
 // Container for the search
@@ -71,7 +72,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
   const getProductByName = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8081/api/products/name-product?name=${productName}`,
+        `${EnvManager.PRODUCT_URL}/api/products/name-product?name=${productName}`,
         {
           method: "GET",
         }
@@ -105,7 +106,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
   const getProducts = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8081/api/products/products`,
+        `${EnvManager.PRODUCT_URL}/api/products/products`,
         {
           method: "GET",
         }

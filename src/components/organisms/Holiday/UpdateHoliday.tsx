@@ -5,7 +5,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Dayjs } from "dayjs";
 import Button from "@mui/material/Button";
-import { Dropdown } from "../../atoms/Dropdown";
+import EnvManager from "../../../config/EnvManager";
 
 const UpdateHoliday: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -16,7 +16,7 @@ const UpdateHoliday: React.FC = () => {
     if (date && name && type && code) {
       try {
         const dateFormatted = date?.format("YYYY-MM-DD");
-        const response = await fetch("https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/holiday", {
+        const response = await fetch(`${EnvManager.SETTINGS_URL}/api/holiday`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const UpdateHoliday: React.FC = () => {
       </Container>
       <Container sx={containerTextFieldStyles}>
         <FormLabel sx={formLabelStyles}>Tipo:</FormLabel>
-        
+
         <TextField
           value={type}
           onChange={(event) => setType(event.target.value)}

@@ -5,6 +5,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Dayjs } from "dayjs";
 import Button from "@mui/material/Button";
+import EnvManager from "../../../config/EnvManager";
 
 const CreateHoliday: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -13,10 +14,10 @@ const CreateHoliday: React.FC = () => {
   const [date, setDate] = useState<Dayjs | null>(null);
   const handleSubmit = async () => {
     if (date && name && type && code) {
-      
+
       try {
         const dateFormatted = date?.format("YYYY-MM-DD");
-        const response = await fetch("https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/holiday/", {
+        const response = await fetch(`${EnvManager.SETTINGS_URL}/api/holiday/`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -25,7 +26,7 @@ const CreateHoliday: React.FC = () => {
           body: JSON.stringify({
             name: name,
             type: type,
-            
+
             date: dateFormatted,
             code: code,
           }),

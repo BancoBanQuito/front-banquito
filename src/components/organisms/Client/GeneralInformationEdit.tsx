@@ -7,6 +7,7 @@ import { Dayjs } from "dayjs";
 import { Canton, Province } from "../Location/types";
 //import LoginBox from "./LoginBox";
 import Button from "@mui/material/Button";
+import EnvManager from "../../../config/EnvManager";
 
 export const GeneralInformation = () => {
   const [identification, setIdentification] = useState<string>("");
@@ -54,7 +55,7 @@ export const GeneralInformation = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:8083/api/client", {
+      const response = await fetch(`${EnvManager.CLIENT_URL}/api/client`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
