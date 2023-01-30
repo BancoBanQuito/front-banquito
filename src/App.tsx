@@ -47,6 +47,8 @@ import CreateClient from "./pages/ClientPages/Client/CreateClient";
 interface userProps {
   username: string;
   password: string;
+  identification : string;
+  typeIdentification: string;
 }
 
 const App = () => {
