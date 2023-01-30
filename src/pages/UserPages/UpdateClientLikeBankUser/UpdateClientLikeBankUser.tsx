@@ -42,10 +42,10 @@ const UpdateClientDataForm: React.FC = () => {
   };
   const onChangeTypePhone = (value: string) => {
     setTypePhone(value);
-    if (value !== "") {
-      setIsStatusSelected(false);
-    } else {
-      setIsStatusSelected(true);
+    if (value === "Movil") {
+      setPhoneType("MBL");
+    } else if (value === "Convencional") {
+      setPhoneType("CON");
     }
   };
   const onChangeSegment = (value: string) => {
