@@ -6,7 +6,9 @@ import EnvManager from '../../../config/EnvManager';
 
 interface userProps {
     username: string,
-    password: string
+    password: string,
+    identification: string,
+    typeIdentification: string
 }
 interface Props {
     setUser: React.Dispatch<React.SetStateAction<userProps | null>>,
@@ -29,6 +31,7 @@ const Login = ({ setUser, setIsLogged, redirect }: Props) => {
             urlGetClientWithEmail + `${userName}`
           );
           const data = await response.json();
+          setUser({ username: userName, password: password, identification: data.identification, typeIdentification: data.typeIdentification })
         } catch (error) {
           console.error(error)
         }
@@ -49,7 +52,7 @@ const Login = ({ setUser, setIsLogged, redirect }: Props) => {
                 throw new Error(response.statusText)
             }
             alert("Ingresa con éxito")
-            setUser({ username: userName, password: password })
+            
             setIsLogged(true)
             fetchClient();
             navigate(redirect)
