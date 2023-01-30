@@ -175,7 +175,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
                 nameAssociatedService: data.requestService,
             }
 
-            await fetch(`http://localhost:8087/api/request-service`, {
+            await fetch(`${EnvManager.PRODUCT_URL}/api/request-service`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
