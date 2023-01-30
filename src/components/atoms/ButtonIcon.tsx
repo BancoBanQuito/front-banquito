@@ -5,7 +5,7 @@ interface Props {
     color: string,
     backgroundColor?: string | 'transparent',
     icon: any,
-    disabled?: boolean,
+    disabled?: boolean|false,
     onClick?: () => void,
     float?: boolean,
     top?: boolean,
@@ -34,7 +34,7 @@ const ButtonIcon = (props: Props) => {
                 height: props.size ? props.size : '60px',
                 zIndex: !!props.float ? 100: 1
             }}
-            disabled={!props.disabled}
+            disabled={props.disabled}
             onClick={handleClick}>
             <Avatar sx={{ color: props.color, bgcolor: 'transparent', padding: 0 }}>
                 {props.icon}

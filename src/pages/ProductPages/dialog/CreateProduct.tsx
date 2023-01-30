@@ -5,6 +5,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import DatePickerAtom from "../../../components/atoms/DatePicker";
 import Swal from 'sweetalert2'
 import EnvManager from "../../../config/EnvManager";
+import { Spinner } from "../../../components/atoms/Spinner";
 
 interface Props {
     openDialog: boolean;
@@ -15,6 +16,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
     const [products, setProducts] = useState<any[]>([]);
     const [interest, setInterest] = useState<any[]>([]);
     const [associatedServices, setAssociatedServices] = useState<any[]>([]);
+    const [activateSpinner, setActivateSpinner] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Dayjs | null>(
         dayjs('2022-08-18'),
     );
@@ -39,36 +41,45 @@ export const CreateProduct = ({ openDialog }: Props) => {
 
     const getInterest = async () => {
         try {
+            setActivateSpinner(true);
             const response = await fetch(`${EnvManager.PRODUCT_URL}/api/interest-rate`, {
                 method: 'GET',
             });
             const data = await response.json();
             setInterest(data);
+            setActivateSpinner(false);
         } catch (error) {
+            setActivateSpinner(false);
             console.log(error);
         }
     }
 
     const getAssociatedServices = async () => {
         try {
+            setActivateSpinner
             const response = await fetch(`${EnvManager.PRODUCT_URL}/api/associatedServices`, {
                 method: 'GET',
             });
             const data = await response.json();
             setAssociatedServices(data);
+            setActivateSpinner(false);
         } catch (error) {
+            setActivateSpinner(false);
             console.log(error);
         }
     }
 
     const getProductTypes = async () => {
         try {
+            setActivateSpinner(true);
             const response = await fetch(`${EnvManager.PRODUCT_URL}/api/product-types/types`, {
                 method: 'GET',
             });
             const data = await response.json();
             setProducts(data);
+            setActivateSpinner(false);
         } catch (error) {
+            setActivateSpinner(false);
             console.log(error);
         }
     }
@@ -118,6 +129,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
             }
 
             console.log(typeProduct)
+            setActivateSpinner(true);
             const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/product`, {
                 method: 'POST',
                 headers: {
@@ -126,6 +138,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
                 body: JSON.stringify(typeProduct)
             })
             handleClose();
+            setActivateSpinner(false);
             if (!response.ok) {
                 Swal.fire({
                     title: 'Error al crear el producto',
@@ -140,6 +153,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
                 showConfirmButton: true,
             })
         } catch (error) {
+            setActivateSpinner(false);
             console.log(error);
             Swal.fire({
                 title: 'Error al crear el producto',
@@ -163,6 +177,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
 
     return (
         <Dialog open={open} onClose={handleClose} fullWidth maxWidth="lg">
+            {activateSpinner ? <Spinner /> : null}
             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ p: 2, margin: 3 }}>
                 <Stack direction="column" spacing={2} sx={{ width: "100%" }} >
                     <Typography variant="h5">Crear Tipo de Producto</Typography>

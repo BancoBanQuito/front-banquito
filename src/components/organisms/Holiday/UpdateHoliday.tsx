@@ -6,15 +6,18 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Dayjs } from "dayjs";
 import Button from "@mui/material/Button";
 import EnvManager from "../../../config/EnvManager";
+import { Spinner } from "../../atoms/Spinner";
 
 const UpdateHoliday: React.FC = () => {
   const [name, setName] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [code, setCode] = useState<string>("");
   const [date, setDate] = useState<Dayjs | null>(null);
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const handleSubmit = async () => {
     if (date && name && type && code) {
       try {
+        setActivateSpinner(true);
         const dateFormatted = date?.format("YYYY-MM-DD");
         const response = await fetch(`${EnvManager.SETTINGS_URL}/api/holiday`, {
           method: "PUT",
@@ -30,10 +33,13 @@ const UpdateHoliday: React.FC = () => {
           }),
         });
         if (!response.ok) {
+          setActivateSpinner(false);
           throw new Error(response.statusText);
         }
+        setActivateSpinner(false);
         alert("Actualizacion exitosa");
       } catch (error) {
+        setActivateSpinner(false);
         alert("No existe informacion del feriado ingresado");
       }
     } else {
@@ -43,6 +49,7 @@ const UpdateHoliday: React.FC = () => {
 
   return (
     <>
+      {activateSpinner ? <Spinner /> : null}
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">
           Actualizar Informacion

@@ -8,6 +8,7 @@ import { Canton, Province } from "../../../components/organisms/Location/types";
 //import LoginBox from "./LoginBox";
 import Button from "@mui/material/Button";
 import EnvManager from "../../../config/EnvManager";
+import { Spinner } from "../../../components/atoms/Spinner";
 
 export const GeneralInformation = () => {
   const [identification, setIdentification] = useState<string>("");
@@ -51,10 +52,11 @@ export const GeneralInformation = () => {
   const [endDate, setEndDate] = useState<string>("");
   const [code, setCode] = useState<string>("");
   const [status, setStatus] = useState<string>("");
-
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
+      setActivateSpinner(true);
       const response = await fetch(`${EnvManager.CLIENT_URL}/api/client`, {
         method: "POST",
         headers: {
@@ -126,16 +128,20 @@ export const GeneralInformation = () => {
         }),
       });
       if (!response.ok) {
+        setActivateSpinner(false);
         throw new Error(response.statusText);
       }
+      setActivateSpinner(false);
       alert("Creado con éxito");
     } catch (error) {
+      setActivateSpinner(false);
       console.error(error);
     }
   };
 
   return (
     <>
+      {activateSpinner ? <Spinner /> : null}
       <Container sx={containertTitleStyles}>
         <Typography variant="h5" align="center">
           Crear Usuario

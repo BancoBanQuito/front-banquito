@@ -24,12 +24,14 @@ const AccountCreateUser = () => {
   const [selectedAccount, setselectedAccount] = useState<string>("");
   const [products, setproducts] = useState<any[] | undefined>([]);
   const [accountData, setaccountData] = useState<any>();
-
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const navigate = useNavigate();
 
   const getProducts = async (id: string) => {
+    setActivateSpinner(true);
     const productsAsync = await ProductService.getProducts(id);
     setproducts(productsAsync);
+    setActivateSpinner(false);
   }
 
   const handleTypeAccountButton = (data: string) => {

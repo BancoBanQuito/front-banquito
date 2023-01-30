@@ -82,7 +82,7 @@ const ProgressButtonMolecule = (props: ProgressButtonMoleculeProps) => {
                 <div style={{ margin: '5px' }}>
                     <ButtonIcon
                         color={(showLeft && props.leftButton) ? props.color : 'transparent'}
-                        disabled={(showLeft && props.leftButton)}
+                        disabled={!(showLeft && props.leftButton)}
                         icon={<ChevronLeft />}
                         onClick={() => (showLeft && props.leftButton) && clickHandler(false)} />
                 </div>
@@ -102,7 +102,7 @@ const ProgressButtonMolecule = (props: ProgressButtonMoleculeProps) => {
                 <div style={{ margin: '5px' }}>
                     <ButtonIcon
                         color={(showRight && props.rightButton) ? props.color : 'transparent'}
-                        disabled={(showRight && props.rightButton)}
+                        disabled={!(showRight && props.rightButton)}
                         icon={<ChevronRight />}
                         onClick={() => (showRight && props.rightButton) && clickHandler(true)} />
                 </div>

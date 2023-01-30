@@ -18,6 +18,7 @@ import EnvManager from "../../../config/EnvManager";
 import { useNavigate } from "react-router";
 import { ISegment } from "./Types";
 import ClientBox from "./ClientBox";
+import { Spinner } from "../../../components/atoms/Spinner";
 
 const CreateClient: React.FC = () => {
   const [identificationType, setIdentificationType] = useState<string>("DNI");
@@ -56,20 +57,20 @@ const CreateClient: React.FC = () => {
   const [workStatus, setWorkStatus] = useState<string>("Otro");
   const [creationDate, setCreationDate] = useState<Date>(new Date());
   const phone =
-    {
-      phoneNumber: "",
-      phoneType: "Celular",
-    };
+  {
+    phoneNumber: "",
+    phoneType: "Celular",
+  };
   const [phoneNumber, setPhoneNumber] = useState(phone.phoneNumber);
   const [phoneType, setPhoneType] = useState(phone.phoneType);
   const address =
-    {
-      codeLocation: "",
-      lineOne: "",
-      lineTwo: "",
-      latitude: "",
-      longitude: "",
-    };
+  {
+    codeLocation: "",
+    lineOne: "",
+    lineTwo: "",
+    latitude: "",
+    longitude: "",
+  };
 
   const [codeLocation, setCodeLocation] = useState(address.codeLocation);
   const [lineOne, setLineOne] = useState(address.lineOne);
@@ -77,11 +78,11 @@ const CreateClient: React.FC = () => {
   const [latitude, setLatitude] = useState(address.latitude);
   const [longitude, setLongitude] = useState(address.longitude);
   const relationship =
-    {
-      nameRelationShip: "",
-      startDate: "",
-      endDate: "",
-    };
+  {
+    nameRelationShip: "",
+    startDate: "",
+    endDate: "",
+  };
 
   const [nameRelationShip, setNameRelationShip] = useState(
     relationship.nameRelationShip
@@ -90,11 +91,11 @@ const CreateClient: React.FC = () => {
   const [endDate, setEndDate] = useState(relationship.endDate);
 
   const reference =
-    {
-      nameReference: "",
-      phoneReference: "",
-      related: "",
-    };
+  {
+    nameReference: "",
+    phoneReference: "",
+    related: "",
+  };
 
   const [nameReference, setNameReference] = useState(reference.nameReference);
   const [phoneReference, setPhoneReference] = useState(reference.phoneReference);
@@ -106,7 +107,7 @@ const CreateClient: React.FC = () => {
   const [lastLoginDate, setLastLoginDate] = useState<Date>();
   const [isStatusSelected, setIsStatusSelected] = useState<boolean>(true);
   const [segments, setSegments] = useState([]);
-
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const navigate = useNavigate();
   const segmentUrl = `${EnvManager.SEGMENT_URL}/api/segments`;
 
@@ -216,6 +217,7 @@ const CreateClient: React.FC = () => {
 
   const handelSubmit = async () => {
     try {
+      setActivateSpinner(true);
       const response = await fetch(`${EnvManager.CLIENT_URL}/api/client`, {
         method: "POST",
         headers: {
@@ -250,30 +252,30 @@ const CreateClient: React.FC = () => {
           workStatus,
           creationDate,
           phone:
-            {
-              phoneNumber,
-              phoneType,
-            },
+          {
+            phoneNumber,
+            phoneType,
+          },
           address:
-            {
-              codeLocation,
-              lineOne,
-              lineTwo,
-              latitude,
-              longitude,
-            },
-          relationship: 
-            {
-              nameRelationShip,
-              startDate,
-              endDate,
-            },
-          reference: 
-            {
-              nameReference,
-              phoneReference,
-              related,
-            },
+          {
+            codeLocation,
+            lineOne,
+            lineTwo,
+            latitude,
+            longitude,
+          },
+          relationship:
+          {
+            nameRelationShip,
+            startDate,
+            endDate,
+          },
+          reference:
+          {
+            nameReference,
+            phoneReference,
+            related,
+          },
           segment: {
             codeSegment,
             nameSegment,
@@ -282,10 +284,13 @@ const CreateClient: React.FC = () => {
         }),
       });
       if (!response.ok) {
+        setActivateSpinner(false);
         throw new Error(response.statusText);
       }
+      setActivateSpinner(false);
       alert("Client created successfully");
     } catch (error) {
+      setActivateSpinner(false);
       console.log(error);
     }
   };
@@ -413,18 +418,22 @@ const CreateClient: React.FC = () => {
     return value.forEach(element => {
       segmentOpstions.push({
         value: element.name,
-        label: element.name});
+        label: element.name
+      });
     });
   };
 
   const fetchSegment = async () => {
     try {
+      setActivateSpinner(true);
       const response = await fetch(
         segmentUrl
       );
       const data = await response.json();
+      setActivateSpinner(false);
       setSegments(data);
     } catch (error) {
+      setActivateSpinner(false);
       console.error(error)
     }
   };
@@ -436,6 +445,7 @@ const CreateClient: React.FC = () => {
 
   return (
     <>
+      {activateSpinner ? <Spinner /> : null}
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">
           Ingresar un nuevo Cliente
@@ -452,16 +462,16 @@ const CreateClient: React.FC = () => {
             />
           </Container>
           <Container sx={containerTextFieldStyles}>
-          <div style={{ marginRight: "10px" }}>
-            <BranchBox
-              label="Tipo de identificación: "
-              value={identificationType}
-              options={optionsIdentificationType}
-              onChange={onChangeIdentificationType}
-            />
-          </div>
-        </Container>
-        <Container sx={containerTextFieldStyles}>
+            <div style={{ marginRight: "10px" }}>
+              <BranchBox
+                label="Tipo de identificación: "
+                value={identificationType}
+                options={optionsIdentificationType}
+                onChange={onChangeIdentificationType}
+              />
+            </div>
+          </Container>
+          <Container sx={containerTextFieldStyles}>
             <FormLabel sx={formLabelStyles}>Apellido:</FormLabel>
             <TextField
               value={lastname}
@@ -898,16 +908,16 @@ const CreateClient: React.FC = () => {
               />
             </div>
           </Container>
-            <Container sx={containerTextFieldStyles}>
-              <Button
-                onClick={() => {
-                  handelSubmit();
-                  navigate("/usuario");
-                }}
-                sx={buttonStyles}
-              >
-                Guardar
-              </Button>
+          <Container sx={containerTextFieldStyles}>
+            <Button
+              onClick={() => {
+                handelSubmit();
+                navigate("/usuario");
+              }}
+              sx={buttonStyles}
+            >
+              Guardar
+            </Button>
           </Container>
         </Grid>
       </Grid>

@@ -1,5 +1,6 @@
 import { Box, Typography, Modal, Card, CardContent, Fade } from "@mui/material";
 import React, { useState } from "react";
+import { Spinner } from "../../../components/atoms/Spinner";
 import AccountConfigurationEditForm from "../../../components/organisms/Account/AccountConfigurationEditForm";
 import AccountConfigurationTableOranism from "../../../components/organisms/Account/AccountConfigurationTableOranism";
 import SearchAccount from "../../../components/organisms/Account/SearchAccount";
@@ -39,7 +40,7 @@ const AccountCancelUser = () => {
   const handleClose = () => setOpen(false);
   const [activeSearchBox, setactiveSearchBox] = useState<boolean>(true);
   const [accountProduct, setAccountsProduct] = useState<RSProductTypeAndClientName>();
-
+  const [activateSpinner, setActivateSpinner] = useState(false);
   /*const getProductTypeAndClientName = async (accountNumber: string) => {
     try{
       //obtenemos este objeto ya que necesitamos el nombre del due;o de la cuenta
@@ -57,6 +58,7 @@ const AccountCancelUser = () => {
 
   const getAccount = async (accountNumber: string) => {
       //Tomo este porque necesito los valores de saldo de la cuenta
+      setActivateSpinner(true);
       const Account: RSAccount | undefined = (await AccountService.getAccountByCode(accountNumber)).data?.data;
       if (!Account) {
         console.log("No se han encontrado datos");
@@ -65,6 +67,7 @@ const AccountCancelUser = () => {
         // setselectAccount(Account);
         // setactiveSearchBox(false);
       }
+      setActivateSpinner(false);
   }
 
   const handleSearch = (accountNumer: string) => {
@@ -88,6 +91,7 @@ const AccountCancelUser = () => {
 
   return (
     <div>
+      {activateSpinner? <Spinner /> : null}
       {
         activeSearchBox && <div style={{
           position: 'absolute',

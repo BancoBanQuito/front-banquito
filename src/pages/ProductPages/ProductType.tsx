@@ -1,5 +1,6 @@
 import { Typography, Stack, Button } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Spinner } from "../../components/atoms/Spinner";
 import TableMolecule from "../../components/molecules/TableMolecule";
 import EnvManager from "../../config/EnvManager";
 import { CreateTypeProduct } from "./dialog/CreateTypeProduct";
@@ -18,9 +19,11 @@ export const ProductType = () => {
     const [products, setProducts] = useState<any>([]);
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
-
+    const [activateSpinner, setActivateSpinner] = useState(false);
     const getTypeProducts = async () => {
         try {
+            setActivateSpinner(true);
+
             const response = await fetch(`${EnvManager.PRODUCT_URL}/api/product-types/types`);
             const data = await response.json();
             const product = data.map((product: any) => {
@@ -36,8 +39,10 @@ export const ProductType = () => {
                 rows.push([product.name, product.type, product.temporalyInterest])
             })
             setProducts(rows);
+            setActivateSpinner(false);
 
         } catch (error) {
+            setActivateSpinner(false);
             console.log(error);
         }
     }
@@ -65,6 +70,7 @@ export const ProductType = () => {
 
     return (
         <Stack direction="row" spacing={2} >
+            {activateSpinner ? <Spinner /> : null}
             <Stack direction="column" spacing={2} sx={{ width: "100%", margin: '4rem' }} alignItems='center'>
                 <Typography variant="h4" align="center">Tipos de Productos</Typography>
 

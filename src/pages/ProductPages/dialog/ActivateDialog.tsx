@@ -1,5 +1,6 @@
 import { Dialog, Button, Stack, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
+import { Spinner } from "../../../components/atoms/Spinner";
 import EnvManager from "../../../config/EnvManager";
 
 interface Props {
@@ -13,7 +14,7 @@ export const ActivateDialog = ({ openDialog, name, state }: Props) => {
 
     const [open, setOpen] = useState(openDialog);
     const [newState, setNewState] = useState('');
-
+    const [activateSpinner, setActivateSpinner] = useState(false);
     const handleClose = () => {
         setOpen(false);
     }
@@ -24,12 +25,15 @@ export const ActivateDialog = ({ openDialog, name, state }: Props) => {
             if (state === 'INC') {
                 newState = 'ACT';
             }
+            setActivateSpinner(true);
             await fetch(`${EnvManager.PRODUCT_URL}/api/products/product?name=${name}&status=${newState}`, {
                 method: 'PUT',
             }
             );
+            setActivateSpinner(false);
             setOpen(false);
         } catch (error) {
+            setActivateSpinner(false);
             console.log(error);
         }
     }
@@ -50,6 +54,7 @@ export const ActivateDialog = ({ openDialog, name, state }: Props) => {
 
     return (
         <Dialog open={open} fullWidth maxWidth="sm" >
+            {activateSpinner ? <Spinner /> : null}
             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ p: 2 }}>
                 <Stack direction="column" spacing={2} sx={{ width: "100%" }} alignItems='center'>
                     <Typography variant="h5">{`Desea ${newState} el producto`}</Typography>

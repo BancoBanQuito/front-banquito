@@ -5,6 +5,7 @@ import EnvManager from "../../config/EnvManager";
 import { ActivateDialog } from "./dialog/ActivateDialog";
 import { CreateProduct } from "./dialog/CreateProduct";
 import axios from "axios";
+import { Spinner } from "../../components/atoms/Spinner";
 
 const table: any = {
     headers: [
@@ -25,9 +26,10 @@ export const Product = () => {
     const [status, setStatus] = useState("");
     const [openDialog, setOpenDialog] = useState(false);
     const handleOpenProduct = () => setOpenDialog(true);
-
+    const [activateSpinner, setActivateSpinner] = useState(false);
     const getProducts = async () => {
         try {
+            setActivateSpinner(true);
             const response = await axios.get(`${EnvManager.PRODUCT_URL}/api/products/products`);
             const data = response.data;
             const product = data.map((product: any) => {
@@ -54,8 +56,9 @@ export const Product = () => {
                 rows.push([product.name, product.status, product.type, product.service, product.enable])
             })
             setProducts(rows);
-
+            setActivateSpinner(false);
         } catch (error) {
+            setActivateSpinner(false);
             console.log(error);
         }
     }
@@ -95,6 +98,7 @@ export const Product = () => {
 
     return (
         <Stack direction="row" spacing={2} >
+            {activateSpinner ? <Spinner /> : null}
             <Stack direction="column" spacing={2} sx={{ width: "100%", margin: '4rem' }} alignItems='center'>
                 <Typography variant="h4" align="center">Productos</Typography>
 
