@@ -11,6 +11,7 @@ import { ConfirmationNumberOutlined } from "@mui/icons-material";
 import SearchProductDialog from "./SearchProductDialog";
 import SearchIcon from "@mui/icons-material/Search";
 import EnvManager from "../config/EnvManager";
+import { Spinner } from "../components/atoms/Spinner";
 
 // Styles
 export const Container = styled.div`
@@ -104,7 +105,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
 
   const [open, setOpen] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState("test0");
-
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const handleClose = (value: string) => {
     setOpen(false);
     setSelectedValue(value);
@@ -116,6 +117,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
 
   const getAssociatedServices = async () => {
     try {
+      setActivateSpinner(true);
       const response = await fetch(
         `${EnvManager.PRODUCT_URL}/api/associatedServices`,
         {
@@ -123,6 +125,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
         }
       );
       const data = await response.json();
+      setActivateSpinner(false);
       const services = data.map((service: any) => {
         delete service.params;
         delete service._id;
@@ -151,6 +154,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
       });
       setRowAssociatedServices(rowsService);
     } catch (error) {
+      setActivateSpinner(false)
       console.log(error);
     }
   };
@@ -217,6 +221,7 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
 
   const setServices = async () => {
     try {
+      setActivateSpinner(true);
       const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/product-link-service`,
         {
           method: "PUT",
@@ -227,13 +232,17 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
         }
       );
 
+      setActivateSpinner(false);
+
     } catch (error) {
+      setActivateSpinner(false);
       console.error(error);
     }
   };
 
   return (
     <Container>
+      {activateSpinner? <Spinner /> : null}
       <Content>
         <SearchProductDialog
           open={dialog}

@@ -17,6 +17,7 @@ import { ButtonStyle } from "../style/ButtonStyle";
 import Card from "@mui/material/Card";
 import EnvManager from '../config/EnvManager';
 import { useForm, FormProvider } from "react-hook-form";
+import { Spinner } from "../components/atoms/Spinner";
 
 // Styles
 export const Container = styled.div`
@@ -99,7 +100,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
     const [product, setProduct] = useState<any[]>([]);
     const [id, setId] = useState("");
     const [nameProduct, setNameProduct] = useState<nameProduct>();
-
+    const [activateSpinner, setActivateSpinner] = useState(false);
     const handleClose = () => {
         methods.reset({ name: "" }, { keepValues: false });
         setOpen(false);
@@ -107,6 +108,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
 
     const getAccount = async (id: String) => {
         try {
+            setActivateSpinner(true);
             const response = await fetch(`${EnvManager.ACCOUNT_URL}/api/account/code/${id}/type`, {
                 method: 'GET',
             });
@@ -117,12 +119,14 @@ const CreateRequestService = ({ openDialog }: Props) => {
                 typeProduct: data.productType,
                 product: data.product
             }
-            
+            setActivateSpinner(false);
+
             if (account.codeLocalAccount === undefined) {
                 return [];
             } setAccountData(account)
             return [account]
         } catch (error) {
+            setActivateSpinner(false);
             console.log("Error", error);
 
         }
@@ -130,6 +134,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
 
     const getnameProduct = async () => {
         try {
+            setActivateSpinner(true);
             const response = await fetch(`${EnvManager.PRODUCT_URL}/api/product-types/type?id=63cf1f424afc455eb703d48f`, {
                 method: 'GET',
             });
@@ -137,10 +142,12 @@ const CreateRequestService = ({ openDialog }: Props) => {
             const account = {
                 nameProductType: data.name,
             }
+            setActivateSpinner(false);
 
             setNameProduct(account);
             return [account]
         } catch (error) {
+            setActivateSpinner(false);
             console.log("Error", error);
 
         }
@@ -150,6 +157,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
 
     const getProduct = async () => {
         try {
+            setActivateSpinner(true);
             const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/id-product?id=63cf21444afc455eb703d492`, {
                 method: 'GET',
             });
@@ -157,9 +165,11 @@ const CreateRequestService = ({ openDialog }: Props) => {
             const account = data.associatedService.map(
                 (service: any) => service.name
             )
+            setActivateSpinner(false);
             setProduct(account);
 
         } catch (error) {
+            setActivateSpinner(false);
             console.log(error);
         }
     }
@@ -174,6 +184,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
                 fullName: accountdata?.name,
                 nameAssociatedService: data.requestService,
             }
+            setActivateSpinner(true);
 
             await fetch(`${EnvManager.PRODUCT_URL}/api/request-service`, {
                 method: 'POST',
@@ -183,10 +194,11 @@ const CreateRequestService = ({ openDialog }: Props) => {
 
                 body: JSON.stringify(requestService)
             })
-
+            setActivateSpinner(false);
 
             handleClose();
         } catch (error) {
+            setActivateSpinner(false);
             console.log("estas mal")
             console.log(error);
         }
@@ -208,6 +220,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
 
     return (
         <Container>
+            {activateSpinner? <Spinner /> : null}
             <Content>
                 <ReturnButton>
                     <ButtonIcon

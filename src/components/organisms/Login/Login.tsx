@@ -33,7 +33,6 @@ const Login = ({ setUser, setIsLogged, redirect }: Props) => {
                 urlGetClientWithEmail + `${userName}`
             );
             const data = await response.json();
-            console.log(data);
             setUser({ username: userName, password: password, identification: data.identification, typeIdentification: data.identificationType })
         } catch (error) {
             console.error(error)

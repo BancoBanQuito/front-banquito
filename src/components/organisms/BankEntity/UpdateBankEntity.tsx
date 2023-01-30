@@ -5,20 +5,24 @@ import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { SizeButton } from '../../atoms/SizeButton';
 import { Content } from './BankEntity';
+import { Spinner } from '../../atoms/Spinner';
 
 
 export const UpdateBankEntity = () => {
+  const [activateSpinner, setActivateSpinner] = React.useState(false);
   const [nameBank, setnameBank] = React.useState('');
   const [codeBank, setcodeBank] = React.useState('');
   const updateBank = () => {
     updateBankEntity(codeBank, nameBank);
   };
   const getBank = async () => {
+    setActivateSpinner(true);
     let listBank = await getBankEntity();
     console.log(listBank);
     setBank(listBank[0]);
     setnameBank(listBank[0].name);
     setcodeBank(listBank[0].internationalBankCode);
+    setActivateSpinner(false);
   };
   React.useEffect(() => {
     getBank();
@@ -27,6 +31,7 @@ export const UpdateBankEntity = () => {
 
   return (
     <Container>
+      {activateSpinner? <Spinner /> : null}
       <h1>INFORMACION DEL {nameBank}</h1>
       <Content>
         <TextField

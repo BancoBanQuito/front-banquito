@@ -10,6 +10,7 @@ import BranchBox from './BranchBox';
 import Button from '@mui/material/Button';
 import { IBranch } from './Types';
 import EnvManager from '../../../config/EnvManager';
+import { Spinner } from '../../atoms/Spinner';
 
 
 const UpdateBranch: React.FC = () => {
@@ -21,7 +22,7 @@ const UpdateBranch: React.FC = () => {
     const [closingHoursMondayToFriday, setClosingHoursMondayToFriday] = useState<Dayjs | null>(null);
     const [openingHoursSaturday, setOpeningHoursSaturday] = useState<Dayjs | null>(null);
     const [closingHoursSaturday, setClosingHoursSaturday] = useState<Dayjs | null>(null);
-
+    const [activateSpinner, setActivateSpinner] = useState(false);
     const [provincesData, setProvincesData] = useState<Province[]>([])
     const [selectedProvince, setSelectedProvince] = useState<string>('')
     const onChangeProvince = (value: string) => {
@@ -34,10 +35,13 @@ const UpdateBranch: React.FC = () => {
     useEffect(() => {
         const fetchProvinces = async () => {
             try {
+                setActivateSpinner(true)
                 const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/provinces`)
                 const data = await response.json()
                 setProvincesData(data)
+                setActivateSpinner(false)
             } catch (error) {
+                setActivateSpinner(false)
                 console.error(error)
             }
         }
@@ -57,11 +61,14 @@ const UpdateBranch: React.FC = () => {
         const fetchCantons = async () => {
             try {
                 if (selectedProvince) {
+                    setActivateSpinner(true)
                     const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/province/${selectedProvince}`)
                     const data = await response.json()
                     setCantonsData(data)
+                    setActivateSpinner(false)
                 }
             } catch (error) {
+                setActivateSpinner(false)
                 console.error(error)
             }
         }
@@ -81,11 +88,14 @@ const UpdateBranch: React.FC = () => {
         const fetchParishes = async () => {
             try {
                 if (selectedCanton) {
+                    setActivateSpinner(true)
                     const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/canton/${selectedCanton}`)
                     const data = await response.json()
                     setParishesData(data)
+                    setActivateSpinner(false)
                 }
             } catch (error) {
+                setActivateSpinner(false)
                 console.error(error)
             }
         }
@@ -100,7 +110,7 @@ const UpdateBranch: React.FC = () => {
             const stringClosingMondayToFriday = closingHoursMondayToFriday?.format('HH:mm')
             const stringOpeningHoursSaturday = openingHoursSaturday ? openingHoursSaturday.format('HH:mm') : ""
             const stringClosingTimeSaturday = closingHoursSaturday ? closingHoursSaturday.format('HH:mm') : ""
-
+            setActivateSpinner(true)
             const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch/name/${selectedBranch}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -122,10 +132,13 @@ const UpdateBranch: React.FC = () => {
                 })
             })
             if (!response.ok) {
+                setActivateSpinner(false)
                 throw new Error(response.statusText)
             }
+            setActivateSpinner(false)
             alert("Actualizada con éxito")
         } catch (error) {
+            setActivateSpinner(false)
             console.error(error)
         }
     }
@@ -143,10 +156,13 @@ const UpdateBranch: React.FC = () => {
     useEffect(() => {
         const fetchProvinces = async () => {
             try {
+                setActivateSpinner(true)
                 const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch`)
                 const data = await response.json()
                 setBranchesData(data)
+                setActivateSpinner(false)
             } catch (error) {
+                setActivateSpinner(false)
                 console.error(error)
             }
         }
@@ -156,10 +172,13 @@ const UpdateBranch: React.FC = () => {
     useEffect(() => {
         const fetchBranch = async () => {
             try {
+                setActivateSpinner(true)
                 const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch/name/${selectedBranch}`)
                 const data = await response.json()
                 setBranchData(data)
+                setActivateSpinner(false)
             } catch (error) {
+                setActivateSpinner(false)
                 console.error(error)
             }
         }
@@ -184,6 +203,7 @@ const UpdateBranch: React.FC = () => {
 
     return (
         <>
+        {activateSpinner? <Spinner /> : null}
             <Container sx={containertTitleStyles}>
                 <Typography variant="h4" align="center">
                     Actualizar Sucursal

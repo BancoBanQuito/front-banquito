@@ -46,6 +46,7 @@ import CreateClient from "./pages/ClientPages/Client/CreateClient";
 import { RSAccountStatementList } from "./services/account/dto/RSAccountStatementList";
 import { AccountService } from "./services/account/AccountService";
 import { RSAccount } from "./services/account/dto/RSAccount";
+import CreateSegment from "./pages/UserPages/Segment/CreateSegment";
 
 interface userProps {
   username: string;
@@ -183,6 +184,10 @@ const App = () => {
     {
       path: "crear-cliente",
       element: <CreateClient />,
+    },
+    {
+      path: "segmento",
+      element: <CreateSegment />,
     },
   ];
 

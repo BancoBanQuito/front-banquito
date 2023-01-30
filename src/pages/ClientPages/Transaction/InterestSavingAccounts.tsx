@@ -10,6 +10,7 @@ import { ColorPalette } from '../../../style/ColorPalette';
 import { InterestService } from '../../../services/transaction/InterestService';
 import { RSSavingsAccountInterest } from '../../../services/transaction/dto/RSSavingsAccountInterest';
 import moment from 'moment';
+import { Spinner } from '../../../components/atoms/Spinner';
 
 const headersMock = [
   <Typography>Fecha</Typography>,
@@ -23,10 +24,11 @@ const InterestSavingAccounts = () => {
   const [activeSearch, setactiveSearch] = useState<boolean>(true);
   const [dateFrom, setDateFrom] = useState<Dayjs | null>(null);
   const [dateTo, setDateTo] = useState<Dayjs | null>(null);
-
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const searchInterestSavingAccounts = async (codeLocalAccount: string, from: string, to: string) => {
 
     try {
+      setActivateSpinner(true);
       const data: RSSavingsAccountInterest[] | undefined = (await InterestService.getInterest(codeLocalAccount, from, to)).data.data;
       const regex = /Calculo interes/;
       if (data) {
@@ -37,7 +39,9 @@ const InterestSavingAccounts = () => {
         console.log("No hay datos disponibles");
 
       }
+      setActivateSpinner(false);
     } catch (error: any) {
+      setActivateSpinner(false);
       console.log(error);
     }
   }
@@ -60,6 +64,7 @@ const InterestSavingAccounts = () => {
 
   return (
     <>
+      {activateSpinner ? <Spinner /> : null}
       {
         activeSearch && <div style={{
           position: 'absolute',

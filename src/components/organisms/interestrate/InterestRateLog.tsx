@@ -12,6 +12,7 @@ import FormInterestRate from './FormInterestRate';
 import FormInterestRateLog from './FormInterestRateLog';
 import { Content, ReturnButton, SearchContainer, ContentButtonAddRight } from './InteresRate';
 import { Add, AddCircle, Check, Close, Info, KeyboardBackspace } from '@mui/icons-material';
+import { Spinner } from '../../atoms/Spinner';
 
 
 const InterestRateLog = () => {
@@ -35,7 +36,7 @@ const InterestRateLog = () => {
     const [isActiveAddValue, setIsActiveAddValue] = useState(false);
     const [isActiveAddInteresRate, setIsActiveAddInteresRate] = useState(false);
     const [isCreateData, setIsCreateData] = useState(false);
-
+    const [activateSpinner, setActivateSpinner] = useState(false);
     const returnButtonForms = () => {
         setIsActiveAddInteresRate(false);
         setIsActiveAddValue(false);
@@ -53,17 +54,21 @@ const InterestRateLog = () => {
 
 
     const getInteretRateList = async () => {
+        setActivateSpinner(true);
         let interestList = await InterestRateService.getInterestRates();
         console.log(interestList);
         let rows = row(interestList);
         setRows(rows);
+        setActivateSpinner(false);
         return rows;
     }
     const getInteretRateListByName = async () => {
+        setActivateSpinner(true);
         let interestList = await InterestRateService.getInterestRatesByName(name);
         console.log(interestList);
         let rows = row(interestList);
         setRows(rows);
+        setActivateSpinner(false);
         return rows;
     }
 
@@ -107,10 +112,11 @@ const InterestRateLog = () => {
             value: 0,
             calcBase: ''
         }
-
+        setActivateSpinner(true);
         let response = await InterestRateService.updateInterestRateStatus(data);
         console.log(response);
         getInteretRateList();
+        setActivateSpinner(false);
     }
 
     const row = (interestList: any) => {
@@ -128,7 +134,7 @@ const InterestRateLog = () => {
                 <Typography>
                     {interestRate.value ? interestRate.value :
                         <Tooltip title="Agregue un valor de tasa de interés">
-                            <Info  color='secondary' />
+                            <Info color='secondary' />
                         </Tooltip>}
                 </Typography>,
                 <Typography>
@@ -178,6 +184,7 @@ const InterestRateLog = () => {
 
     return (
         <Container>
+            {activateSpinner ? <Spinner /> : null}
             <Content>
                 <ReturnButton>
                     <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspace />} onClick={() => console.log('Buscar')} top={true} />
@@ -197,7 +204,7 @@ const InterestRateLog = () => {
                             placeholder="id"
                             variant="standard"
                             action={(event) => setName(event.target.value)}
-                            value=""
+                            value={name}
                         />
                     </SearchContainer>
                     <ContentButtonAddRight>

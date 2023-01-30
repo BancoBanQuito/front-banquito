@@ -9,10 +9,11 @@ import { Canton, Province } from '../Location/types';
 import BranchBox from './BranchBox';
 import Button from '@mui/material/Button';
 import EnvManager from '../../../config/EnvManager';
+import { Spinner } from '../../atoms/Spinner';
 
 
 const CreateBranch: React.FC = () => {
-
+    const [activateSpinner, setActivateSpinner] = useState(false);
     const [branchName, setBranchName] = useState<string>('');
     const [address, setAddress] = useState<string>('');
     const [phoneNumber, setPhoneNumber] = useState<string>('');
@@ -39,11 +40,14 @@ const CreateBranch: React.FC = () => {
     useEffect(() => {
         const fetchProvinces = async () => {
             try {
+                setActivateSpinner(true)
                 const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/provinces`)
                 const data = await response.json()
                 setProvincesData(data)
+                setActivateSpinner(false)
             } catch (error) {
                 console.error(error)
+                setActivateSpinner(false)
             }
         }
         fetchProvinces()
@@ -68,11 +72,14 @@ const CreateBranch: React.FC = () => {
         const fetchCantons = async () => {
             try {
                 if (selectedProvince) {
+                    setActivateSpinner(true)
                     const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/province/${selectedProvince}`)
                     const data = await response.json()
                     setCantonsData(data)
+                    setActivateSpinner(false)
                 }
             } catch (error) {
+                setActivateSpinner(false)
                 console.error(error)
             }
         }
@@ -92,11 +99,14 @@ const CreateBranch: React.FC = () => {
         const fetchParishes = async () => {
             try {
                 if (selectedCanton) {
+                    setActivateSpinner(true)
                     const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/canton/${selectedCanton}`)
                     const data = await response.json()
                     setParishesData(data)
+                    setActivateSpinner(false)
                 }
             } catch (error) {
+                setActivateSpinner(false)
                 console.error(error)
             }
         }
@@ -111,7 +121,7 @@ const CreateBranch: React.FC = () => {
             const stringClosingMondayToFriday = closingHoursMondayToFriday?.format('HH:mm')
             const stringOpeningHoursSaturday = openingHoursSaturday ? openingHoursSaturday.format('HH:mm') : ""
             const stringClosingTimeSaturday = closingHoursSaturday ? closingHoursSaturday.format('HH:mm') : ""
-
+            setActivateSpinner(true)
             const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -133,16 +143,21 @@ const CreateBranch: React.FC = () => {
                 })
             })
             if (!response.ok) {
+                setActivateSpinner(false)
                 throw new Error(response.statusText)
+
             }
+            setActivateSpinner(false)
             alert("Creada con éxito")
         } catch (error) {
+            setActivateSpinner(false)
             console.error(error)
         }
     }
 
     return (
         <>
+            {activateSpinner ? <Spinner /> : null}
             <Container sx={containertTitleStyles}>
                 <Typography variant="h4" align="center">
                     Crear Sucursal

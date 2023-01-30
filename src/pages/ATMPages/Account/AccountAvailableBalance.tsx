@@ -12,6 +12,7 @@ import { ColorPalette } from '../../../style/ColorPalette'
 import AtmLoginForm from '../../../components/organisms/AtmLoginForm'
 import { AtmLoginService } from '../../../services/login/AtmLoginService'
 import { RSAtmLogin } from '../../../services/login/dto/RSAtmLogin'
+import { Spinner } from '../../../components/atoms/Spinner'
 
 interface ATMLoginForm {
   codeLocalAccount: string,
@@ -34,6 +35,7 @@ const AccountAvailableBalance = () => {
     codeLocalAccount: "",
     password: ""
   });
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const [account, setaccount] = useState<RSAccount>({
     codeLocalAccount: '',
     codeInternationalAccount: '',
@@ -55,10 +57,14 @@ const AccountAvailableBalance = () => {
     setisLoading(true);
     try {
       setloadingMessage("Validando cuenta...")
+      setActivateSpinner(true);
       const account: RSAccount | undefined = (await AccountService.getAccountByCode(login.codeLocalAccount)).data.data;
+      setActivateSpinner(false);
       if (account) {
         setloadingMessage("Validando contraseña...")
+        setActivateSpinner(true);
         const user: RSAtmLogin | undefined = (await (AtmLoginService.getLoginCredentials(account.identification))).data;
+        setActivateSpinner(false);
         if (user) {
           if (user.user.password === password) {
             setaccount(account);
@@ -76,15 +82,18 @@ const AccountAvailableBalance = () => {
         setactiveErrorModal(true);
       }
     } catch (error: any) {
+      setActivateSpinner(false);
       seterrorMessage(error.message);
       setactiveErrorModal(true);
     } finally {
+      setActivateSpinner(false);
       setisLoading(false);
     }
   }
 
   return (
     <>
+      {activateSpinner ? <Spinner /> : null}
       {
         indexForm === 0 ?
           <div style={{
