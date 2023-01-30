@@ -5,7 +5,7 @@ import { SizeButton } from '../components/atoms/SizeButton';
 import { ButtonStyle } from '../style/ButtonStyle';
 import { ColorPalette } from '../style/ColorPalette';
 
-import BackgoundImage from '../assets/cover.mp4'
+import BackgoundImage from '../assets/background.gif'
 
 const Home = () => {
   const navigate = useNavigate();
@@ -15,24 +15,9 @@ const Home = () => {
       sx={{
         backgroundImage: `url(${BackgoundImage})`,
         backgroundPosition: 'center',
-        backgroundSize: 'cover'
+        backgroundSize: '100% 100%'
       }}
     >
-      <video
-        autoPlay
-        loop
-        muted
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: -1
-        }}
-      >
-        <source src={BackgoundImage} type='video/mp4' />
-      </video>
       <Box
         display='flex'
         marginTop={{
@@ -41,10 +26,8 @@ const Home = () => {
           xs: 10
         }}
         sx={{
-          position: 'relative',
-          zIndex: 1,
           width: '100%',
-          height: '90vh',
+          height: '98vh',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
