@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Container } from '@mui/material'
+import { Avatar, Backdrop, Box, Button, Container, Fade, Modal } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { SizeButton } from '../../components/atoms/SizeButton'
@@ -6,8 +6,8 @@ import { ButtonStyle } from '../../style/ButtonStyle'
 import { ColorPalette } from '../../style/ColorPalette'
 import { display } from '@mui/system'
 import ActionCard from '../../components/organisms/ActionCard'
-import { Assessment, CalendarMonth, Facebook, Instagram, Money, Person, Savings, Send, Twitter, YouTube } from '@mui/icons-material'
-import React from 'react'
+import { Assessment, CalendarMonth, Facebook, Instagram, Money, Person, Savings, Send, SettingsVoiceRounded, Twitter, YouTube } from '@mui/icons-material'
+import React, { useEffect, useState } from 'react'
 import BanQuitoIcon from '../../assets/BanQuito-Logo.svg';
 import { CCarousel, CCarouselCaption, CCarouselItem, CImage } from '@coreui/react'
 
@@ -40,10 +40,25 @@ const sectionStyle: any = {
 
 const HomeClient = ({ user, isLogged }: Props) => {
 
+  const [welcomeModal, setwelcomeModal] = useState<boolean>(false);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLogged) {
+      setwelcomeModal(true);
+      const interval = setInterval(() => {
+        setwelcomeModal(false);
+        clearInterval(interval);
+      }, 3000);
+    }
+    return () => { }
+  }, [])
+
 
   return (
     <>
+
       <div style={{ marginTop: '1rem' }}>
         <Box sx={{
           width: '100%',
@@ -146,6 +161,30 @@ const HomeClient = ({ user, isLogged }: Props) => {
           </Avatar>
         </Button>
       }
+      <Modal
+        open={welcomeModal}
+        onClose={() => { }}
+        closeAfterTransition>
+        <Fade in={welcomeModal}>
+          <Box sx={{
+            width: '100%',
+            height: '100vh',
+            backgroundColor: 'white',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center',
+          }}>
+            <Typography variant="h3" component="h1" sx={{ color: ColorPalette.SECONDARY }}>
+              Bienvenido
+            </Typography>
+            <Typography variant="h6" component="h6" sx={{ color: ColorPalette.BLACK }}>
+              {!!user && `${user?.username.split('@')[0]}`}
+            </Typography>
+          </Box>
+        </Fade>
+      </Modal>
     </>
   )
 }
