@@ -3,6 +3,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import DatePickerAtom from "../../../components/atoms/DatePicker";
+import EnvManager from "../../../config/EnvManager";
 
 interface Props {
     openDialog: boolean;
@@ -37,7 +38,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
 
     const getInterest = async () => {
         try {
-            const response = await fetch(`http://localhost:8087/api/interest-rate`, {
+            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/interest-rate`, {
                 method: 'GET',
             });
             const data = await response.json();
@@ -49,7 +50,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
 
     const getAssociatedServices = async () => {
         try {
-            const response = await fetch(`http://localhost:8087/api/associatedServices`, {
+            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/associatedServices`, {
                 method: 'GET',
             });
             const data = await response.json();
@@ -61,7 +62,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
 
     const getProductTypes = async () => {
         try {
-            const response = await fetch(`http://localhost:8087/api/product-types/types`, {
+            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/product-types/types`, {
                 method: 'GET',
             });
             const data = await response.json();
@@ -116,7 +117,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
             }
 
             console.log(typeProduct)
-            await fetch(`http://localhost:8087/api/products/product`, {
+            await fetch(`${EnvManager.PRODUCT_URL}/api/products/product`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

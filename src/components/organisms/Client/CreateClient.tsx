@@ -7,6 +7,7 @@ import { OptionUnstyled } from "@mui/base";
 import { style } from "../../../pages/CreateRequestService";
 import { parse, isValid } from "date-fns";
 import { defineConfig } from "vite";
+import EnvManager from "../../../config/EnvManager";
 
 const CreateClient: React.FC = () => {
   const [identificationType, setIdentificationType] = useState<string>("DNI");
@@ -173,7 +174,7 @@ const CreateClient: React.FC = () => {
       setGender("Otro");
     }
   };
-  
+
   const onChangePhoneType = (value: string) => {
     setPhoneType(value);
     if (value === "Casa") {
@@ -267,7 +268,7 @@ const CreateClient: React.FC = () => {
       })
     );
     try {
-      const response = await fetch("http://localhost:8083/api/client", {
+      const response = await fetch(`${EnvManager.CLIENT_URL}/api/client`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -464,7 +465,7 @@ const CreateClient: React.FC = () => {
   ];
 
 
- 
+
 
   const optionsGender = [
     { value: "Otro", label: "Otro" },
@@ -528,7 +529,7 @@ const CreateClient: React.FC = () => {
       </Container>
 
       <Container sx={containerTextFieldStyles}>
-      <FormLabel sx={formLabelStyles}>Email:</FormLabel>
+        <FormLabel sx={formLabelStyles}>Email:</FormLabel>
         <div style={{ marginRight: "10px" }}>
           <TextField
             placeholder="ejemplo@ejemplo.com"

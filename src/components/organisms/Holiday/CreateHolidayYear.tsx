@@ -3,6 +3,7 @@ import { Container, FormLabel, TextField, Typography } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 import Button from "@mui/material/Button";
+import EnvManager from "../../../config/EnvManager";
 
 const CreateHolidayYear: React.FC = () => {
   const [date, setDate] = useState<string | null>("");
@@ -13,7 +14,7 @@ const CreateHolidayYear: React.FC = () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/holiday/${date}`,
+        `${EnvManager.SETTINGS_URL}/api/holiday/${date}`,
         {
           method: "POST",
           headers: {
@@ -24,7 +25,7 @@ const CreateHolidayYear: React.FC = () => {
       );
       if (response.ok) {
         setIsLoading(false);
-        alert("Fines de semana creados para el año "+ date );
+        alert("Fines de semana creados para el año " + date);
       } else {
         setIsLoading(false);
         alert("Ya existen los fines de semana para el año " + date);

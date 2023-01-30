@@ -3,6 +3,7 @@ import { Container, FormLabel, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import BranchBox from "../Branch/BranchBox";
 import TableMolecule from "../../molecules/TableMolecule";
+import EnvManager from "../../../config/EnvManager";
 
 const CreateSegment: React.FC = () => {
   const [idSegment, setIdSegment] = useState<string>("");
@@ -28,14 +29,14 @@ const CreateSegment: React.FC = () => {
   const setStatus = async (value: string, idSegment: string, name: string) => {
     try {
       const response = await fetch(
-        `http://localhost:8083/api/segments/updates/${idSegment}`,
+        `${EnvManager.SEGMENT_URL}/api/segments/updates/${idSegment}`,
         {
-            method: "PUT",
-            headers: {
+          method: "PUT",
+          headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify({
+          },
+          body: JSON.stringify({
             name: name,
             status: value,
           }),
@@ -53,7 +54,7 @@ const CreateSegment: React.FC = () => {
 
   const fetchSegment = async () => {
     try {
-      const response = await fetch("http://localhost:8083/api/segments");
+      const response = await fetch(`${EnvManager.SEGMENT_URL}/api/segments`);
       const data = await response.json();
       const rows = data.map((segment: any) => {
         return [
@@ -82,12 +83,14 @@ const CreateSegment: React.FC = () => {
   const optionsStatus = [
     { value: "Activo", label: "Activo" },
     { value: "Inactivo", label: "Inactivo" },
+    { value: "Bloqueado", label: "Bloqueado" },
+    { value: "Eliminado", label: "Eliminado" },
   ];
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:8083/api/segments", {
+      const response = await fetch(`${EnvManager.SEGMENT_URL}/api/segments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

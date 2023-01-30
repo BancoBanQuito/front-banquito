@@ -13,6 +13,7 @@ import { Link, useNavigate, useNavigation } from 'react-router-dom';
 import BanQuitoIcon from '../../assets/BanQuito-Logo.svg';
 import { Button } from '@mui/material';
 import { ColorPalette } from '../../style/ColorPalette';
+import EnvManager from '../../config/EnvManager';
 
 interface TopnavProps {
   isLogged: boolean;
@@ -36,7 +37,7 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
 
 
   const getBankEntity = async () => {
-    const url = `https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/bank-entity`;
+    const url = `${EnvManager.SETTINGS_URL}/api/bank-entity`;
     const options = {
       method: "GET",
       headers: {
@@ -49,7 +50,6 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
       if (response.ok) {
         const data = await response.json();
         setBankEntity(data[0].name);
-        console.log(data[0].name);
         return data;
       } else {
         throw new Error(response.statusText);
@@ -80,6 +80,7 @@ const Topnav = ({ isLogged, setIsLogged, user }: TopnavProps) => {
 
             <Typography
               noWrap
+              variant='h1'
               sx={{
                 ml: 2,
                 display: 'block',
