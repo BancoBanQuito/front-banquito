@@ -107,7 +107,7 @@ const CreateRequestService = ({ openDialog }: Props) => {
 
     const getAccount = async (id: String) => {
         try {
-            const response = await fetch(`https://banquitoaccount-dalopez18-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/account/code/${id}/type`, {
+            const response = await fetch(`${EnvManager.ACCOUNT_URL}/api/account/code/${id}/type`, {
                 method: 'GET',
             });
             const { data } = await response.json();
