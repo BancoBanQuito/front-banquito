@@ -15,6 +15,7 @@ import { SizeButton } from '../../atoms/SizeButton';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import FormInterestRate from './FormInterestRate';
 import FormInterestRateLog from './FormInterestRateLog';
+import { Spinner } from '../../atoms/Spinner';
 // add circle icon
 
 // Styles
@@ -95,6 +96,7 @@ const InteresRate = () => {
 
     return (
         <Container>
+            <Spinner />
             <Content>
                 <ReturnButton>
                     <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspaceIcon />} onClick={() => console.log('Buscar')} top={true} />
