@@ -66,10 +66,6 @@ const optionsContainerStyles = () => ({
     borderRadius: "10px",
 });
 
-const buttonStyles = () => ({
-    flexDirection: 'column',
-});
-
 const optionStyles = () => ({
     backgroundColor: 'lightblue',
     width: '200px',
