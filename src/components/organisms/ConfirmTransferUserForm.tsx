@@ -1,7 +1,6 @@
 import { Typography, TextField } from '@mui/material'
 import { Box, SxProps, Theme } from '@mui/system'
 import { SizeButton } from '../atoms/SizeButton'
-import { RQTransaction } from '../../services/transaction/dto/RQTransaction';
 import { ButtonStyle } from '../../style/ButtonStyle';
 import { ColorPalette } from '../../style/ColorPalette';
 import { Cancel, Check } from '@mui/icons-material';

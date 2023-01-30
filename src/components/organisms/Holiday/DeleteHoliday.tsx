@@ -5,31 +5,31 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Dayjs } from "dayjs";
 import Button from "@mui/material/Button";
+import EnvManager from "../../../config/EnvManager";
 
 const DeleteHoliday: React.FC = () => {
-  
+
   const [date, setDate] = useState<Dayjs | null>(null);
   const [type, setType] = useState<string>("");
   const [code, setCode] = useState<BigInt>();
   const [name, setName] = useState<string>("");
-  
+
   const handleSubmit = async () => {
-    if (date ) {
+    if (date) {
       try {
         const dateFormatted = date?.format("YYYY-MM-DD");
-        const response = await fetch("https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/holiday/", {
+        const response = await fetch(`${EnvManager.SETTINGS_URL}/api/holiday/`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
           body: JSON.stringify({
-            
-            type:type,
+            type: type,
             code: code,
             name: name,
             date: dateFormatted,
-            
+
           }),
         });
         if (!response.ok) {
@@ -65,9 +65,6 @@ const DeleteHoliday: React.FC = () => {
           />
         </LocalizationProvider>
       </Container>
-      
-      
-
       <Container sx={containerTextFieldStyles}>
         <Button onClick={handleSubmit} sx={buttonStyles}>
           Eliminar

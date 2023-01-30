@@ -12,10 +12,9 @@ import { useNavigate } from "react-router-dom";
 import BranchBox from "../../../components/organisms/Branch/BranchBox";
 import { ISegment } from "./Type";
 import { LabelRounded } from "@mui/icons-material";
+import EnvManager from "../../../config/EnvManager";
 
-const urlCloud = "https://client-banquito-prod-abigailscl-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/client/";
-
-const segmentUrl = "https://segment-banquito-prod-abigailscl-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/segments";
+const urlCloud = `${EnvManager.CLIENT_URL}/api/client/`;
 
 const isAvailable = true;
 

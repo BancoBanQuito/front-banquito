@@ -2,6 +2,7 @@ import { Container, Typography, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import TableMolecule from '../../../components/molecules/TableMolecule';
 import { IBranch } from '../../../components/organisms/Branch/Types';
+import EnvManager from '../../../config/EnvManager';
 
 
 const Branch: React.FC = () => {
@@ -13,7 +14,7 @@ const Branch: React.FC = () => {
     );
 
     useEffect(() => {
-        fetch('https://settingsbanquito-app-kjduy-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/api/branch')
+        fetch(`${EnvManager.SETTINGS_URL}/api/branch`)
             .then((response) => {
                 if (!response.ok) {
                     throw Error(response.statusText);
