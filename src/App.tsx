@@ -37,16 +37,18 @@ import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import DepositBank from "./pages/UserPages/Transaction/DepositBank";
 import WithdrawBank from "./pages/UserPages/Transaction/WithdrawBank";
 import InterestSavingAccounts from "./pages/ClientPages/Transaction/InterestSavingAccounts";
-import { UpdateClient } from "./components/organisms/Client/UpdateClient";
-import { GeneralInformation } from "./components/organisms/Client/GeneralInformation";
+import { UpdateClient } from "./pages/ClientPages/Client/UpdateClient";
 import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBeetwenDates";
 import ATMHome from "./pages/ATMPages/ATMHome";
 import ATMReturnHome from "./pages/ATMPages/ATMReturnHome";
 import InterestInvestmentPolicies from "./pages/ClientPages/Transaction/InterestInvestmentPolicies";
+import CreateClient from "./pages/ClientPages/Client/CreateClient";
 
 interface userProps {
   username: string;
   password: string;
+  identification : string;
+  typeIdentification: string;
 }
 
 const App = () => {
@@ -155,6 +157,10 @@ const App = () => {
     {
       path: "actualizar-info-cliente",
       element: <UpdateClientDataForm />,
+    },
+    {
+      path: "crear-cliente",
+      element: <CreateClient />,
     },
   ];
 

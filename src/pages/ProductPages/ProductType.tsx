@@ -8,7 +8,7 @@ const table: any = {
     headers: [
         <Typography>Tipo de Producto</Typography>,
         <Typography>Tipo</Typography>,
-        <Typography>Temmporalidad de interes</Typography>,
+        <Typography>Temporalidad de interes</Typography>,
     ]
 }
 
@@ -43,15 +43,24 @@ export const ProductType = () => {
     }
 
 
+
     useEffect(() => {
         getTypeProducts();
     }, [])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getTypeProducts();
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         if (open) {
             handleOpen();
         }
         setOpen(false);
+        getTypeProducts();
     }, [open]);
 
     return (
