@@ -38,7 +38,6 @@ import DepositBank from "./pages/UserPages/Transaction/DepositBank";
 import WithdrawBank from "./pages/UserPages/Transaction/WithdrawBank";
 import InterestSavingAccounts from "./pages/ClientPages/Transaction/InterestSavingAccounts";
 import { UpdateClient } from "./pages/ClientPages/Client/UpdateClient";
-import { GeneralInformation } from "./pages/ClientPages/Client/GeneralInformation";
 import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBeetwenDates";
 import ATMHome from "./pages/ATMPages/ATMHome";
 import InterestInvestmentPolicies from "./pages/ClientPages/Transaction/InterestInvestmentPolicies";
