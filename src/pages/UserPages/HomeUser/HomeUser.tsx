@@ -44,7 +44,7 @@ const HomeUser = ({ user, isLogged }: Props) => {
     >
       <Box marginTop="60px">
         <Typography variant="h4" textAlign="center" p={4}>
-          Bienvenido Usuario {user?.username}
+          Bienvenido Usuario {user?.username.split("@")[0]}
         </Typography>
         <>
           <AccordionComponent
