@@ -10,6 +10,7 @@ import { RQCreateAccount } from '../../../services/account/dto/RQCreateAccount';
 import { ProductService } from '../../../services/product/productService';
 import { ColorPalette } from '../../../style/ColorPalette';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
+import { Spinner } from '../../../components/atoms/Spinner';
 
 
 const entityBankCode = '123';
@@ -22,7 +23,7 @@ const AccountCreateClient = () => {
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [accountData, setaccountData] = useState<RQCreateAccount>();
-
+    const [activateSpinner, setActivateSpinner] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,8 +33,10 @@ const AccountCreateClient = () => {
 
 
     const getProducts = async (id: string) => {
+        setActivateSpinner(true);
         const productsAsync = await ProductService.getProducts(id);
         setproducts(productsAsync);
+        setActivateSpinner(false);
     }
 
     const handleSubmit = (data: any) => {
@@ -41,7 +44,7 @@ const AccountCreateClient = () => {
             ...data,
             entityBankCode: entityBankCode,
             internationalBankCode: internationalBankCode,
-            codeBranch: codeBranch,         
+            codeBranch: codeBranch,
             codeProductType: "2",
         };
         setaccountData(account);
@@ -64,6 +67,7 @@ const AccountCreateClient = () => {
 
     return (
         <>
+            {activateSpinner ? <Spinner /> : null}
             <div style={{
                 display: 'flex',
                 justifyContent: 'center',

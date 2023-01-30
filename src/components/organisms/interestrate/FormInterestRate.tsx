@@ -10,6 +10,7 @@ import { SizeButton } from '../../atoms/SizeButton';
 import TextFieldAtom from '../../atoms/TextFieldAtom';
 import { ReturnButton } from './InteresRate';
 import { KeyboardBackspace } from '@mui/icons-material';
+import { Spinner } from '../../atoms/Spinner';
 
 export const ContainParent = styled.div`
 display: grid;
@@ -107,6 +108,7 @@ const FormInterestRate = ({
     const [open, setOpen] = React.useState(false);
     const [message, setMessage] = React.useState('');
     const [severity, setSeverity] = React.useState<any>('success');
+    const [activateSpinner, setActivateSpinner] = useState(false);
     const createInterestRate = async () => {
         if (isDisabled) {
             setMessage('Debe llenar todos los campos');
@@ -122,8 +124,10 @@ const FormInterestRate = ({
                 value: 0,
                 status: ""
             }
+            setActivateSpinner(true);
             let response = await InterestRateService.addInterestRate(data);
             if (response.status === 200) {
+                setActivateSpinner(false);
                 setMessage('Tasa de interes creada correctamente');
                 setSeverity('success');
                 setOpen(true);
@@ -134,6 +138,7 @@ const FormInterestRate = ({
                 setName('');
 
             } else {
+                setActivateSpinner(false);
                 setMessage('Error al crear la tasa de interes');
                 setSeverity('error');
                 setOpen(true);
@@ -152,6 +157,7 @@ const FormInterestRate = ({
 
     return (
         <ContainerForm>
+            {activateSpinner? <Spinner /> : null}
             <ContentForm>
                 <ReturnButton>
                     <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspace />} onClick={() => action()} top={true} />

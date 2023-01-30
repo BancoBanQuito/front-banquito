@@ -13,6 +13,7 @@ import BranchBox from "../../../components/organisms/Branch/BranchBox";
 import { ISegment } from "./Type";
 import { LabelRounded } from "@mui/icons-material";
 import EnvManager from "../../../config/EnvManager";
+import { Spinner } from "../../../components/atoms/Spinner";
 
 const urlCloud = `${EnvManager.CLIENT_URL}/api/client/`;
 const segmentUrl = `${EnvManager.SEGMENT_URL}/api/segments`;
@@ -35,7 +36,8 @@ const UpdateClientDataForm: React.FC = () => {
     return value.forEach(element => {
       segmentOpstions.push({
         value: element.name,
-        label: element.name});
+        label: element.name
+      });
     });
   };
   const onChangeTypePhone = (value: string) => {
@@ -112,7 +114,7 @@ const UpdateClientDataForm: React.FC = () => {
   const [codeSegment, setCodeSegment] = useState<string>("");
   const [nameSegment, setNameSegment] = useState<string>("");
   const [statusSegment, setStatusSegment] = useState<string>("");
-
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const [segments, setSegments] = useState([]);
 
   const navigate = useNavigate();
@@ -125,20 +127,24 @@ const UpdateClientDataForm: React.FC = () => {
   };
   const fetchSegment = async () => {
     try {
+      setActivateSpinner(true);
       const response = await fetch(
         segmentUrl
       );
       const data = await response.json();
       setSegments(data);
+      setActivateSpinner(false);
     } catch (error) {
+      setActivateSpinner(false);
       console.error(error)
     }
   };
-  
+
   getSegmentNames(segments);
 
   const fetchClientByIdAndTypeId = async () => {
     try {
+      setActivateSpinner(true);
       setTypeIdentification(localStorage.getItem("typeIdentification"));
       const response = await fetch(
         urlCloud + `${idCliente}/${typeIdentification}`
@@ -200,8 +206,10 @@ const UpdateClientDataForm: React.FC = () => {
       setCodeSegment(data.segment.code);
       setNameSegment(data.segment.name);
       setStatusSegment(data.segment.status);
+      setActivateSpinner(false);
 
     } catch (error) {
+      setActivateSpinner(false);
       console.error(error)
     }
   };
@@ -266,13 +274,16 @@ const UpdateClientDataForm: React.FC = () => {
             }
           }
         )
-    };
+      };
+      setActivateSpinner(true);
       const response = await fetch(
         urlCloud + `user/${idCliente}`,
         requestOptions
       );
       const data = await response.json();
+      setActivateSpinner(false);
     } catch (error) {
+      setActivateSpinner(false);
       console.error(error)
     }
   };
@@ -283,9 +294,10 @@ const UpdateClientDataForm: React.FC = () => {
   }, []);
   return (
     <>
+      {activateSpinner ? <Spinner /> : null}
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">
-        Actualizar la Información del Cliente
+          Actualizar la Información del Cliente
         </Typography>
       </Container>
       <Grid container>
@@ -360,7 +372,7 @@ const UpdateClientDataForm: React.FC = () => {
           <Container sx={containerTextFieldStyles}>
             <FormLabel sx={formLabelStyles}>Estado de empleo:</FormLabel>
             <TextField
-              value={workStatus }
+              value={workStatus}
               onChange={(event) => setWorkStatus(event.target.value)}
               variant="standard"
             />
@@ -456,7 +468,7 @@ const UpdateClientDataForm: React.FC = () => {
           <Container sx={containerTextFieldStyles}>
             <FormLabel sx={formLabelStyles}>Documento TIN:</FormLabel>
             <TextField
-              value={tinDocument }
+              value={tinDocument}
               onChange={(event) => setTinDocument(event.target.value)}
               variant="standard"
             />
@@ -520,7 +532,7 @@ const UpdateClientDataForm: React.FC = () => {
               Segmento
             </Typography>
           </Container>
-          
+
           <Container sx={containerTextFieldStyles}>
             <FormLabel sx={formLabelStyles}> </FormLabel>
             <div style={{ marginRight: "10px" }}>

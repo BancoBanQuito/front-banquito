@@ -11,10 +11,11 @@ import { RSAccount } from '../../../services/account/dto/RSAccount';
 import { TransactionService } from '../../../services/transaction/TransactionService';
 import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
 import { ColorPalette } from '../../../style/ColorPalette';
+import { Spinner } from '../../../components/atoms/Spinner';
 
 
 const TransferClient = () => {
-
+    const [activateSpinner, setActivateSpinner] = useState(false);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
@@ -36,8 +37,11 @@ const TransferClient = () => {
 
     const handleAccept = async () => {
         try {
+            setActivateSpinner(true);
             const accountSimple: RSAccount | undefined = (await AccountService.getAccountByCode(value.recipientAccountNumber)).data.data;
+
             if (!accountSimple) {
+                setActivateSpinner(false);
                 console.log("Ha ocurrido un error");
                 return;
             }
@@ -52,7 +56,9 @@ const TransferClient = () => {
             await TransactionService.postTransaction(aux);
             console.log(value);
             navigate('/cliente');
+            setActivateSpinner(false);
         } catch (error: any) {
+            setActivateSpinner(false);
             setactiveErrorModal(true);
             seterrorMessage(error.message);
         }
@@ -64,6 +70,7 @@ const TransferClient = () => {
 
     return (
         <>
+            {activateSpinner ? <Spinner /> : null}
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',

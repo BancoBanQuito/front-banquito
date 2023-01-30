@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Dialog, Stack, Typography, Divider, Button, TextField, Select, MenuItem } from "@mui/material";
 import { useForm, FormProvider } from "react-hook-form";
 import EnvManager from "../../../config/EnvManager";
+import { Spinner } from "../../../components/atoms/Spinner";
 
 interface Props {
     openDialog: boolean;
@@ -12,7 +13,7 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
     const [products, setProducts] = useState<any[]>([]);
     const methods = useForm();
     const { register, handleSubmit } = methods;
-
+    const [activateSpinner, setActivateSpinner] = useState(false);
     const handleClose = () => {
         methods.reset({ name: "", type: "", products: "" }, { keepValues: false });
         setOpen(false);
@@ -21,6 +22,7 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
     const getProduct = async (name: string) => {
         try {
             console.log(name)
+            setActivateSpinner(true);
             const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/name-product?name=${name}`, {
                 method: 'GET',
             });
@@ -30,30 +32,36 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
                 name: data.name,
                 status: data.status
             }
+            setActivateSpinner(false);
             console.log(productTyp)
             if (productTyp.id === undefined) {
                 return [];
             }
             return [productTyp]
         } catch (error) {
+            setActivateSpinner(false);
             console.log(error);
         }
     }
 
     const getProducts = async () => {
         try {
+            setActivateSpinner(true);
             const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/products`, {
                 method: 'GET',
             });
             const data = await response.json();
             setProducts(data);
+            setActivateSpinner(false);
         } catch (error) {
+            setActivateSpinner(false);
             console.log(error);
         }
     }
 
     const handleSubmitForm = async (data: any) => {
         try {
+            setActivateSpinner(true);
             const productTyp = await getProduct(data.products);
             const typeProduct = {
                 name: data.name,
@@ -72,7 +80,9 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
                 body: JSON.stringify(typeProduct)
             })
             handleClose();
+            setActivateSpinner(false);
         } catch (error) {
+            setActivateSpinner(false);
             console.log(error);
         }
     }
@@ -89,6 +99,7 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
 
     return (
         <Dialog open={open} onClose={handleClose} fullWidth maxWidth="lg">
+            {activateSpinner? <Spinner /> : null}
             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ p: 2, margin: 5 }}>
                 <Stack direction="column" spacing={2} sx={{ width: "100%" }}>
                     <Typography variant="h5">Crear Producto</Typography>

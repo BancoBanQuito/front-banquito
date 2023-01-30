@@ -14,6 +14,7 @@ import BanQuitoIcon from '../../assets/BanQuito-Logo.svg';
 import { Button } from '@mui/material';
 import { ColorPalette } from '../../style/ColorPalette';
 import EnvManager from '../../config/EnvManager';
+import { Spinner } from '../atoms/Spinner';
 
 interface TopnavProps {
   isLogged: boolean;
@@ -27,6 +28,7 @@ const Topnav = ({ isLogged, setIsLogged, user, to }: TopnavProps) => {
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [bankEntity, setBankEntity] = useState('');
+  const [activateSpinner, setActivateSpinner] = useState(false);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -47,15 +49,19 @@ const Topnav = ({ isLogged, setIsLogged, user, to }: TopnavProps) => {
     };
 
     try {
+      setActivateSpinner(true);
       const response = await fetch(url, options);
       if (response.ok) {
         const data = await response.json();
         setBankEntity(data[0].name);
+        setActivateSpinner(false);
         return data;
       } else {
+        setActivateSpinner(false);
         throw new Error(response.statusText);
       }
     } catch (error: any) {
+      setActivateSpinner(false);
       if (error.message === "Bad Request") {
         alert("Error: 400 Bad Request");
       } else if (error.message === "Internal Server Error") {
@@ -73,6 +79,7 @@ const Topnav = ({ isLogged, setIsLogged, user, to }: TopnavProps) => {
 
   return (
     <>
+      {activateSpinner? <Spinner /> : null}
       <AppBar position="fixed">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
