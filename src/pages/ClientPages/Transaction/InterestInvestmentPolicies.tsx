@@ -7,6 +7,7 @@ import SearchAccount from '../../../components/organisms/Account/SearchAccount';
 import { TransactionService } from '../../../services/transaction/TransactionService';
 import { RSTransaction } from '../../../services/transaction/dto/RSTransaction';
 import { ColorPalette } from '../../../style/ColorPalette';
+import { Spinner } from '../../../components/atoms/Spinner';
 
 const headersMock = [
   <Typography>Fecha</Typography>,
@@ -31,10 +32,11 @@ const InterestInvestmentPolicies = () => {
   const [activeSearch, setactiveSearch] = useState<boolean>(true);
   const [dateFrom, setDateFrom] = useState<Dayjs | null>(null);
   const [dateTo, setDateTo] = useState<Dayjs | null>(null);
-
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const searchInterestSavingAccounts = async (codeLocalAccount: string, from: string, to: string) => {
 
     try {
+      setActivateSpinner(true);
       const data: RSTransaction[] | undefined = (await TransactionService.getTransaction(codeLocalAccount, from, to)).data.data;
       if (data) {
         const result = data.filter((item: RSTransaction) => {
@@ -47,7 +49,9 @@ const InterestInvestmentPolicies = () => {
         console.log("No hay datos disponibles");
 
       }
+      setActivateSpinner(false);
     } catch (error: any) {
+      setActivateSpinner(false);
       console.log(error);
     }
   }
@@ -72,6 +76,7 @@ const InterestInvestmentPolicies = () => {
 
   return (
     <>
+      {activateSpinner ? <Spinner /> : null}
       {
         activeSearch && <div style={{
           position: 'absolute',
@@ -86,7 +91,7 @@ const InterestInvestmentPolicies = () => {
             <Card sx={{ minWidth: '650px', maxWidth: '750px' }}>
               <Typography variant="h6" sx={{ mb: 2 }} align='center'>Buscar interés generado por pólizas de inversión</Typography>
               <CardContent>
-                <Box sx={{ display: 'flex', p: "1px", flexDirection: "row", justifyContent: 'space-evenly'}} >
+                <Box sx={{ display: 'flex', p: "1px", flexDirection: "row", justifyContent: 'space-evenly' }} >
                   <DatePickerAtom label="Desde que fecha" value={dateFrom} onChange={(dateAuxFrom: Dayjs | null) => { setDateFrom(dateAuxFrom) }} />
                   <DatePickerAtom label="Hasta que fecha" value={dateTo} onChange={(dateAuxTo: Dayjs | null) => { setDateTo(dateAuxTo) }} />
                 </Box>

@@ -6,8 +6,10 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Dayjs } from "dayjs";
 import Button from "@mui/material/Button";
 import EnvManager from "../../../config/EnvManager";
+import { Spinner } from "../../atoms/Spinner";
 
 const CreateHoliday: React.FC = () => {
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const [name, setName] = useState<string>("");
   const [type, setType] = useState<string>("");
   const [code, setCode] = useState<string>("");
@@ -17,6 +19,7 @@ const CreateHoliday: React.FC = () => {
 
       try {
         const dateFormatted = date?.format("YYYY-MM-DD");
+        setActivateSpinner(true);
         const response = await fetch(`${EnvManager.SETTINGS_URL}/api/holiday/`, {
           method: "POST",
           headers: {
@@ -32,10 +35,13 @@ const CreateHoliday: React.FC = () => {
           }),
         });
         if (!response.ok) {
+          setActivateSpinner(false);
           throw new Error(response.statusText);
         }
+        setActivateSpinner(false);
         alert("Creada con éxito");
       } catch (error) {
+        setActivateSpinner(false);
         alert("Ya existe la fecha seleccionada");
       }
     } else {
@@ -45,6 +51,7 @@ const CreateHoliday: React.FC = () => {
 
   return (
     <>
+      {activateSpinner ? <Spinner /> : null}
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">
           Feriado

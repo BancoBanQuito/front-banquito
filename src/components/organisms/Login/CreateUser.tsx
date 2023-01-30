@@ -3,6 +3,8 @@ import { Container, FormLabel, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import EnvManager from '../../../config/EnvManager';
+import { set } from 'date-fns';
+import { Spinner } from '../../atoms/Spinner';
 
 
 interface Props {
@@ -17,12 +19,13 @@ const CreateUser = ({ redirect }: Props) => {
     const [email, setEmail] = useState<string>('');
     const [userName, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-
+    const [activateSpinner, setActivateSpinner] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault()
         try {
+            setActivateSpinner(true)
             const response = await fetch(`${EnvManager.CLIENT_URL}/api/client/signup`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
@@ -31,28 +34,32 @@ const CreateUser = ({ redirect }: Props) => {
                     "identification": identification,
                     "email": email,
                     "user": {
-                      "userName": userName,
-                      "password": password,
-                      "type": "client",
-                      "status": "INA",
-                      "creationDate": "2023-01-30T02:44:20.618Z",
-                      "lastLoginDate": "2023-01-30T02:44:20.618Z"
+                        "userName": userName,
+                        "password": password,
+                        "type": "client",
+                        "status": "INA",
+                        "creationDate": "2023-01-30T02:44:20.618Z",
+                        "lastLoginDate": "2023-01-30T02:44:20.618Z"
                     }
-                  })
+                })
             })
             if (!response.ok) {
+                setActivateSpinner(false)
                 throw new Error(response.statusText)
             }
+            setActivateSpinner(false)
             alert("Ingresa con éxito");
             navigate(redirect)
 
         } catch (error) {
+            setActivateSpinner(false)
             console.error(error)
         }
     }
 
     return (
         <>
+            {activateSpinner ? <Spinner /> : null}
             <Container sx={containertTitleStyles}>
                 <Typography variant="h4" align="center">
                     Crear Usuario

@@ -20,6 +20,7 @@ import { ButtonStyle } from "../../style/ButtonStyle";
 import { Checkbox } from "../../components/atoms/Checkbox";
 import { NumberField } from "../../components/atoms/NumberField";
 import EnvManager from "../../config/EnvManager";
+import { Spinner } from "../../components/atoms/Spinner";
 // Styles
 export const Container = styled.div`
   display: relative;
@@ -105,6 +106,7 @@ const CreateAssociatedService = (props: AssociatedServiceProps) => {
   const [isCheck, setIsCheck] = useState(false);
   const [cost, setcost] = useState(0);
   const handleChange = (value: boolean) => setIsCheck(value);
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const [service, setservice] = useState<FormAssociatedService>({
     name: "pepe1",
     allowPayment: "N",
@@ -124,6 +126,7 @@ const CreateAssociatedService = (props: AssociatedServiceProps) => {
         fee: cost,
         params: []
       };
+      setActivateSpinner(true);
       await fetch(`${EnvManager.PRODUCT_URL}/api/product/associatedService`, {
         method: "POST",
         headers: {
@@ -132,7 +135,9 @@ const CreateAssociatedService = (props: AssociatedServiceProps) => {
         body: JSON.stringify(associatedService)
       });
       props.onSubmit(associatedService);
+      setActivateSpinner(false);
     } catch (error) {
+      setActivateSpinner(false);
       console.error(error);
     }
 
@@ -140,6 +145,7 @@ const CreateAssociatedService = (props: AssociatedServiceProps) => {
 
   return (
     <Container>
+      {activateSpinner ? <Spinner /> : null}
       <Content>
         <ReturnButton>
           <ButtonIcon

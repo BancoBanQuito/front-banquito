@@ -6,6 +6,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Dayjs } from "dayjs";
 import Button from "@mui/material/Button";
 import EnvManager from "../../../config/EnvManager";
+import { Spinner } from "../../atoms/Spinner";
 
 const DeleteHoliday: React.FC = () => {
 
@@ -13,11 +14,13 @@ const DeleteHoliday: React.FC = () => {
   const [type, setType] = useState<string>("");
   const [code, setCode] = useState<BigInt>();
   const [name, setName] = useState<string>("");
+  const [activateSpinner, setActivateSpinner] = useState(false);
 
   const handleSubmit = async () => {
     if (date) {
       try {
         const dateFormatted = date?.format("YYYY-MM-DD");
+        setActivateSpinner(true);
         const response = await fetch(`${EnvManager.SETTINGS_URL}/api/holiday/`, {
           method: "DELETE",
           headers: {
@@ -33,10 +36,13 @@ const DeleteHoliday: React.FC = () => {
           }),
         });
         if (!response.ok) {
+          setActivateSpinner(false);
           throw new Error(response.statusText);
         }
+        setActivateSpinner(false);
         alert("Feriado Eliminado");
       } catch (error) {
+        setActivateSpinner(false);
         alert("No existe informacion de esa fecha");
       }
     } else {
@@ -46,6 +52,7 @@ const DeleteHoliday: React.FC = () => {
 
   return (
     <>
+      {activateSpinner ? <Spinner /> : null}
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">
           Eliminar Feriado

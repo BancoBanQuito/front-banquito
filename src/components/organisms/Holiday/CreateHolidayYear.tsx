@@ -4,15 +4,17 @@ import LoadingButton from "@mui/lab/LoadingButton";
 
 import Button from "@mui/material/Button";
 import EnvManager from "../../../config/EnvManager";
+import { Spinner } from "../../atoms/Spinner";
 
 const CreateHolidayYear: React.FC = () => {
   const [date, setDate] = useState<string | null>("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const handleSubmit = async () => {
     if (!date) return alert("Todos los campos son obligatorios");
     setIsLoading(true);
     try {
+      setActivateSpinner(true);
       const response = await fetch(
         `${EnvManager.SETTINGS_URL}/api/holiday/${date}`,
         {
@@ -25,19 +27,25 @@ const CreateHolidayYear: React.FC = () => {
       );
       if (response.ok) {
         setIsLoading(false);
+        setActivateSpinner(false);
         alert("Fines de semana creados para el año " + date);
       } else {
+
         setIsLoading(false);
+        setActivateSpinner(false);
         alert("Ya existen los fines de semana para el año " + date);
       }
     } catch (error) {
+
       setIsLoading(false);
+      setActivateSpinner(false);
       console.error(error);
     }
   };
 
   return (
     <>
+      {activateSpinner ? <Spinner /> : null}
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">
           Fines de Semana

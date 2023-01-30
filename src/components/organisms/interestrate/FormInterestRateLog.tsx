@@ -11,6 +11,7 @@ import { SizeButton } from '../../atoms/SizeButton';
 import { ContentForm, ContainerForm, ContainChild, ContainChild2, ContainChild3, ContainChild4 } from './FormInterestRate';
 import { ReturnButton } from './InteresRate';
 import { KeyboardBackspace } from '@mui/icons-material';
+import { Spinner } from '../../atoms/Spinner';
 
 const ContentFormLog = styled(ContentForm)`
     justify-content: flex-end;
@@ -45,10 +46,12 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
     const [isDisabled, setIsDisabled] = useState<boolean>(true);
     const [items, setItems] = useState<any>([]);
     const [itemsSelect, setItemsSelect] = useState<any>([]);
-
+    const [activateSpinner, setActivateSpinner] = useState(false);
     const getItems = async () => {
+        setActivateSpinner(true);
         let data = await InterestRateService.getInterestRateAll();
         setItems(data);
+        setActivateSpinner(false);
         let itemsDropdown = data.map((item: any) => {
             return {
                 name: item.name,
@@ -88,9 +91,11 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
                 calcBase: '',
                 status: ''
             }
+            setActivateSpinner(true);
             let response = await InterestRateService.addInterestRateValue(data);
             console.log(response);
             if (response.status == 200) {
+                setActivateSpinner(false);
                 setMessage('Registro exitoso');
                 setSeverity('success');
                 setOpen(true);
@@ -100,6 +105,7 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
                 setNameSelect('');
 
             } else {
+                setActivateSpinner(false);
                 setMessage('Error al registrar');
                 setSeverity('error');
                 setOpen(true);
@@ -109,6 +115,7 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
 
     return (
         <ContainerForm>
+            {activateSpinner ? <Spinner /> : null}
             <ContentForm>
                 <ReturnButton>
                     <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspace />} onClick={() => action()} top={true} />

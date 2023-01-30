@@ -18,6 +18,7 @@ import { ColorPalette } from "../style/ColorPalette";
 import { ButtonStyle } from "../style/ButtonStyle";
 import { useEffect, useState } from "react";
 import EnvManager from "../config/EnvManager";
+import { Spinner } from "../components/atoms/Spinner";
 
 
 // Container for the search
@@ -58,7 +59,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
   const [rowProduct, setRowProduct] = useState<any>([]);
   const [productsArray, setProductsArray] = useState<any>([]);
   const [productName, setProductName] = useState<string>("");
-
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const handleClose = () => {
     onClose();
   };
@@ -71,6 +72,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
 
   const getProductByName = async () => {
     try {
+      setActivateSpinner(true);
       const response = await fetch(
         `${EnvManager.PRODUCT_URL}/api/products/name-product?name=${productName}`,
         {
@@ -78,6 +80,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
         }
       );
       const data = await response.json();
+      setActivateSpinner(false);
       const product = {
         name: <Typography>{data.name}</Typography>,
         type: <Typography>{data.productType.name}</Typography>,
@@ -99,12 +102,14 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
       rowsProduct.push([product.name, product.type, product.link]);
       setRowProduct(rowsProduct);
     } catch (error) {
+      setActivateSpinner(false);
       console.log(error);
     }
   }
 
   const getProducts = async () => {
     try {
+      setActivateSpinner(true);
       const response = await fetch(
         `${EnvManager.PRODUCT_URL}/api/products/products`,
         {
@@ -112,6 +117,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
         }
       );
       const data = await response.json();
+      setActivateSpinner(false);
       const products = data.map((prod: any) => {
         return {
           name: <Typography>{prod.name}</Typography>,
@@ -137,6 +143,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
       });
       setRowProduct(rowsProduct);
     } catch (error) {
+      setActivateSpinner(false);
       console.log(error);
     }
   };
@@ -164,6 +171,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
 
   return (
     <Dialog onClose={handleClose} open={open} fullWidth={true}>
+      {activateSpinner? <Spinner /> : null}
       <DialogTitle>Seleccionar producto</DialogTitle>
       <FormContainer>
         <Span>Nombre: </Span>

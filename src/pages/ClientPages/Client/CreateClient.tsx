@@ -14,6 +14,7 @@ import EnvManager from "../../../config/EnvManager";
 import { useNavigate } from "react-router";
 import { ISegment } from "./Types";
 import ClientBox from "./ClientBox";
+import { Spinner } from "../../../components/atoms/Spinner";
 import { SizeButton } from "../../../components/atoms/SizeButton";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 
@@ -105,7 +106,7 @@ const CreateClient: React.FC = () => {
   const [lastLoginDate, setLastLoginDate] = useState<Date>();
   const [isStatusSelected, setIsStatusSelected] = useState<boolean>(true);
   const [segments, setSegments] = useState([]);
-
+  const [activateSpinner, setActivateSpinner] = useState(false);
   const navigate = useNavigate();
   const segmentUrl = `${EnvManager.SEGMENT_URL}/api/segments`;
 
@@ -212,6 +213,7 @@ const CreateClient: React.FC = () => {
 
   const handelSubmit = async () => {
     try {
+      setActivateSpinner(true);
       const response = await fetch(`${EnvManager.CLIENT_URL}/api/client`, {
         method: "POST",
         headers: {
@@ -278,10 +280,13 @@ const CreateClient: React.FC = () => {
         }),
       });
       if (!response.ok) {
+        setActivateSpinner(false);
         throw new Error(response.statusText);
       }
+      setActivateSpinner(false);
       alert("Se ha creado al cliente satisfactoriamente!");
     } catch (error) {
+      setActivateSpinner(false);
       console.log(error);
     }
   };
@@ -387,12 +392,15 @@ const CreateClient: React.FC = () => {
 
   const fetchSegment = async () => {
     try {
+      setActivateSpinner(true);
       const response = await fetch(
         segmentUrl
       );
       const data = await response.json();
+      setActivateSpinner(false);
       setSegments(data);
     } catch (error) {
+      setActivateSpinner(false);
       console.error(error)
     }
   };
@@ -404,6 +412,7 @@ const CreateClient: React.FC = () => {
 
   return (
     <>
+      {activateSpinner ? <Spinner /> : null}
       <Typography
         variant="h3"
         align="center"
