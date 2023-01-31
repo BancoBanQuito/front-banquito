@@ -43,6 +43,8 @@ import ATMHome from "./pages/ATMPages/ATMHome";
 import ATMReturnHome from "./pages/ATMPages/ATMReturnHome";
 import InterestInvestmentPolicies from "./pages/ClientPages/Transaction/InterestInvestmentPolicies";
 import CreateClient from "./pages/ClientPages/Client/CreateClient";
+import { ReportAccountAsocServ } from './components/organisms/asociatedServiceParam/ReportAccountAsocServ';
+import { AsociatedServicesReport } from './components/organisms/asociatedServiceParam/AsociatedServicesReport';
 
 interface userProps {
   username: string;
@@ -102,7 +104,7 @@ const App = () => {
     },
     {
       path: "cuenta/interes",
-      element: <InterestRateLog />,
+      element: <ReportAccountAsocServ />,
     },
     {
       path: "entidad",

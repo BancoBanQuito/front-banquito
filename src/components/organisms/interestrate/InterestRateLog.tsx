@@ -1,4 +1,4 @@
-import { Typography, Tooltip, Container } from '@mui/material';
+import { Typography, Tooltip } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import InterestRateService from '../../../services/product/interestrate/interestRate.service';
 import IInterestRate from '../../../services/product/models/interestRate.model';
@@ -10,7 +10,7 @@ import TextFieldAtom from '../../atoms/TextFieldAtom';
 import TableMolecule from '../../molecules/TableMolecule';
 import FormInterestRate from './FormInterestRate';
 import FormInterestRateLog from './FormInterestRateLog';
-import { Content, ReturnButton, SearchContainer, ContentButtonAddRight } from './InteresRate';
+import { Content, ReturnButton, SearchContainer, ContentButtonAddRight, Container } from './InteresRate';
 import { Add, AddCircle, Check, Close, Info, KeyboardBackspace } from '@mui/icons-material';
 import { Spinner } from '../../atoms/Spinner';
 

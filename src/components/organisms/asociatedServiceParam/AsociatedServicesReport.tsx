@@ -10,77 +10,90 @@ import EditIcon from '@mui/icons-material/Edit';
 import ButtonIcon from '../../atoms/ButtonIcon';
 import AddParam from './AddParam';
 import { ColorPalette } from '../../../style/ColorPalette';
-import AddValueParam from './AddValueParam';
+// view icon
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import ParamReport from './ParamReport';
 
 
 
 
-export const ReportAccountAsocServ = () => {
+
+export const AsociatedServicesReport = () => {
     const [activateSpinner, setActivateSpinner] = useState(false);
     const [report, setReport] = useState<any>([])
     const [rows, setRows] = useState<any>([])
     const [isAdd, setIsAdd] = useState(false)
     const [selectId, setSelectId] = useState('')
-    const [selectName, setSelectName] = useState('')
+    const [isView, setIsView] = useState(false)
+    const [name, setName] = useState('')
+
     useEffect(() => {
         getReport()
-
-
     }, [])
 
     const headersTable = [
         <Typography>Servicio Asociado</Typography>,
-        <Typography>Titular</Typography>,
-        <Typography>Status</Typography>,
-        <Typography>Numero de Cuenta</Typography>,
-        <Typography>Acciones</Typography>,]
+        <Typography>Valor</Typography>,
+        <Typography>Parámetro</Typography>,]
 
     const createRows = () => report.map((item: any) => {
-      
-
         return [
-            <Typography>{item.nameAssociatedService}</Typography>,
-            <Typography>{item.fullName}</Typography>,
-            <Typography>{item.status ? 'Activo' : 'Inactivo'}</Typography>,
-            <Typography>{item.accountNumber}</Typography>,
+            <Typography>{item.name}</Typography>,
+            <Typography>{item.fee}</Typography>,
             <Typography>
                 <ButtonIcon icon={<AddIcon />}
-                    onClick={() => createParam(item.nameAssociatedService,item.accountNumber)}
+                    onClick={() => createParam(item.id)}
+                    color={ColorPalette.TERNARY}
+                />
+                 <ButtonIcon icon={<VisibilityIcon />}
+                    onClick={() => {viewParam(item.id, item.name)}}
                     color={ColorPalette.TERNARY}
                 />
             </Typography>,
         ]
     })
 
-    const createParam = (name: string,account:string) => {
-        setSelectId(account)
-        setSelectName(name)
+    const viewParam = (id: string, name: string) => {
+
+        setSelectId(id)
+        setName(name)
+        setIsView(true)
+    }
+    const createParam = (id: string) => {
+        setSelectId(id)
         setIsAdd(true)
     }
 
     const getReport = async () => {
         try {
             setActivateSpinner(true);
-            let data = await RequestServiceService.getRequestServices();
+            
+            let data = await RequestServiceService.getAsociatedServices();
             setReport(data);
-            const rowList = createRows();
-
+            let rowList = createRows();
             setRows(rowList);
-
             setActivateSpinner(false);
         } catch (error) {
             console.log(error);
             setActivateSpinner(false);
         }
-
     }
 
 
+
     if (isAdd) {
-        return (<AddValueParam
-            name={selectName}
+        return (<AddParam
+            id={selectId}
             action={() => setIsAdd(false)}
-            account = {selectId}
+        />)
+    }
+
+    if (isView) {
+        return (<ParamReport
+            id={selectId}
+            action={() => setIsView(false)}
+            name={name}
+
         />)
     }
 
@@ -89,7 +102,7 @@ export const ReportAccountAsocServ = () => {
             {activateSpinner ? <Spinner /> : null}
 
             <Content>
-                <h1>Solicitudes de servicios asociados</h1>
+                <h1>Servicios asociados</h1>
 
                 <TableMolecule
                     headers={headersTable}

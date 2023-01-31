@@ -67,7 +67,7 @@ justify-content: space-evenly;
 export const ContentForm = styled.div`
     display: grid;
     justify-items: center;
-    margin-top: 2rem;
+    margin-top: 3rem;
 `;
 
 export const ContainerForm = styled.div`
