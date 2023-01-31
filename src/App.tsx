@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Location } from "./pages/UserPages/Locations/Location";
 import theme from "./style/Theme";
 import Error404 from "./pages/ErrorPages/Error404";
@@ -45,6 +45,10 @@ import InterestInvestmentPolicies from "./pages/ClientPages/Transaction/Interest
 import CreateClient from "./pages/ClientPages/Client/CreateClient";
 import { ReportAccountAsocServ } from './components/organisms/asociatedServiceParam/ReportAccountAsocServ';
 import { AsociatedServicesReport } from './components/organisms/asociatedServiceParam/AsociatedServicesReport';
+import { RSAccountStatementList } from "./services/account/dto/RSAccountStatementList";
+import { AccountService } from "./services/account/AccountService";
+import { RSAccount } from "./services/account/dto/RSAccount";
+import CreateSegment from "./pages/UserPages/Segment/CreateSegment";
 
 interface userProps {
   username: string;
@@ -56,6 +60,36 @@ interface userProps {
 const App = () => {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState<userProps | null>(null);
+  const [identification, setidentification] = useState<string>("");
+  const [identificationType, setidentificationType] = useState<string>("");
+  const [accounts, setaccounts] = useState<{ name: string, value: string }[]>([]);
+
+  useEffect(() => {
+    const data: string | null = localStorage.getItem("user");
+    if (data) {
+      const user = JSON.parse(data);
+      setUser(user);
+      setidentification(user.identification);
+      setidentificationType(user.typeIdentification);
+      setIsLogged(true);
+    }
+  }, [])
+
+  const handleLogin = async (data: userProps) => {
+    try {
+      setidentification(data.identification);
+      setidentificationType(data.typeIdentification);
+      const accounts: RSAccount[] | undefined = (await AccountService.getAccountsById(data.typeIdentification, data.identification)).data.data;
+      if (accounts) {
+        const accountData: { name: string, value: string }[] = accounts?.map(element => {
+          return { name: element.codeLocalAccount, value: element.codeLocalAccount };
+        });
+        setaccounts(accountData);
+      }
+      setUser(data);
+    } catch (error: any) {
+    }
+  }
 
   const userRoutes = [
     {
@@ -149,7 +183,7 @@ const App = () => {
       path: "login",
       element: (
         <Login
-          setUser={setUser}
+          setUser={handleLogin}
           setIsLogged={setIsLogged}
           redirect="/usuario"
         />
@@ -171,12 +205,19 @@ const App = () => {
       path: "crear-cliente",
       element: <CreateClient />,
     },
+    {
+      path: "segmento",
+      element: <CreateSegment />,
+    },
   ];
 
   const clientRoutes = [
     {
       path: "cuenta/crear",
-      element: <AccountCreateClient />,
+      element: <AccountCreateClient client={{
+        identification: identification,
+        identificationType: identificationType
+      }} />,
     },
     {
       path: "cliente/editar",
@@ -188,15 +229,15 @@ const App = () => {
     },
     {
       path: "cuenta/estado",
-      element: <AccountStatementBankUser client />,
+      element: <AccountStatementBankUser client account={accounts} />,
     },
     {
       path: "cuenta/transaccion",
-      element: <TransferUser client />,
+      element: <TransferUser client accounts={accounts} />,
     },
     {
       path: "cuenta/transaccion/dias",
-      element: <TransactionBeetwenDates client />,
+      element: <TransactionBeetwenDates client accounts={accounts} />,
     },
     {
       path: "signup",
@@ -214,7 +255,7 @@ const App = () => {
       path: "login",
       element: (
         <Login
-          setUser={setUser}
+          setUser={handleLogin}
           setIsLogged={setIsLogged}
           redirect="/cliente"
         />

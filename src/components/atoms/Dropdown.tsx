@@ -16,6 +16,7 @@ interface DropdownProps {
   onChange?: (value: string) => void;
   inputLabelColor?: string | "white";
   inputFocusedLabelColor?: string | "#4B4B4B";
+  value?: string;
 }
 
 const formControlStyles = (props: DropdownProps) => ({
@@ -66,7 +67,7 @@ export const Dropdown = (props: DropdownProps) => {
   return (
     <FormControl sx={formControlStyles(props)}>
       <InputLabel sx={inputLabelStyles(props)}>{label}</InputLabel>
-      <Select required={!!props.required} sx={selectStyles(props)} label={label} onChange={handleChange}>
+      <Select required={!!props.required} sx={selectStyles(props)} label={label} onChange={handleChange} value={props.value}>
         {items.map((item, index) => (
           <MenuItem key={index} value={item.value}>
             {item.name}

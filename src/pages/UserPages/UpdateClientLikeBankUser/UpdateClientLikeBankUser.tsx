@@ -42,19 +42,20 @@ const UpdateClientDataForm: React.FC = () => {
   };
   const onChangeTypePhone = (value: string) => {
     setTypePhone(value);
-    if (value !== "") {
-      setIsStatusSelected(false);
-    } else {
-      setIsStatusSelected(true);
+    if (value === "Movil") {
+      setTypePhone("MBL");
+    } else if (value === "Convencional") {
+      setTypePhone("CON");
     }
   };
   const onChangeSegment = (value: string) => {
     setNameSegment(value);
-    if (value !== "") {
-      setIsStatusSelected(false);
-    } else {
-      setIsStatusSelected(true);
-    }
+    segments.map(segment => {
+      if (segment['name'] === value) {
+        setCodeSegment(segment['idSegment']);
+        setStatusSegment(segment['status']);
+      }
+    })
   };
   const onChangeGender = (value: string) => {
     setGender(value);

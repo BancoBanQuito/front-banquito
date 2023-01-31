@@ -10,6 +10,7 @@ import accountCardJson from "./json/accountCardData.json";
 import clientCardJson from "./json/clientCardData.json";
 import generalCardJson from "./json/generalCardData.json";
 import productCardJson from "./json/productCardData.json";
+import segmentCardJson from "./json/segmentCartData.json";
 
 import {
   Box,
@@ -43,7 +44,7 @@ const HomeUser = ({ user, isLogged }: Props) => {
     >
       <Box marginTop="60px">
         <Typography variant="h4" textAlign="center" p={4}>
-          Bienvenido Usuario {user?.username}
+          Bienvenido Usuario {user?.username.split("@")[0]}
         </Typography>
         <>
           <AccordionComponent
@@ -68,6 +69,12 @@ const HomeUser = ({ user, isLogged }: Props) => {
             title="General"
             description="Use este panel para gestionar informacion general"
             jsonData={generalCardJson}
+            isLogged={isLogged}
+          />
+          <AccordionComponent
+            title="Segmento"
+            description="Use este panel para gestionar segmentos"
+            jsonData={segmentCardJson}
             isLogged={isLogged}
           />
         </>
@@ -103,7 +110,7 @@ const AccordionComponent = (props: AccordionComponentProps) => {
       <AccordionDetails sx={{ backgroundColor: ColorPalette.ACCENT }}>
         <Grid container spacing={2} width="100%" justifyContent="center">
           {jsonData.map((card: any) => (
-            <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Grid item xs={12} sm={6} md={4} lg={3} key={card.title}>
               <HomeUserCard
                 title={card.title}
                 description={card.description}
