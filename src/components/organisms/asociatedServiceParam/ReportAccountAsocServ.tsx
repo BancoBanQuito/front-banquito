@@ -63,6 +63,7 @@ export const ReportAccountAsocServ = () => {
             setActivateSpinner(true);
             let data = await RequestServiceService.getRequestServices();
             setReport(data);
+            
             const rowList = createRows();
 
             setRows(rowList);

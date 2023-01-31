@@ -54,7 +54,6 @@ export const AsociatedServicesReport = () => {
     })
 
     const viewParam = (id: string, name: string) => {
-
         setSelectId(id)
         setName(name)
         setIsView(true)
@@ -67,7 +66,7 @@ export const AsociatedServicesReport = () => {
     const getReport = async () => {
         try {
             setActivateSpinner(true);
-            
+
             let data = await RequestServiceService.getAsociatedServices();
             setReport(data);
             let rowList = createRows();

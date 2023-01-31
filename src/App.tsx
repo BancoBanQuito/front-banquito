@@ -49,7 +49,7 @@ import { AsociatedServicesReport } from './components/organisms/asociatedService
 interface userProps {
   username: string;
   password: string;
-  identification : string;
+  identification: string;
   typeIdentification: string;
 }
 
@@ -104,6 +104,13 @@ const App = () => {
     },
     {
       path: "cuenta/interes",
+      element: <InterestRateLog />,
+    }, {
+      path: "cuenta/servicio-asociado",
+      element: <AsociatedServicesReport />,
+    },
+    {
+      path: "cuenta/solicitud-servicio",
       element: <ReportAccountAsocServ />,
     },
     {
