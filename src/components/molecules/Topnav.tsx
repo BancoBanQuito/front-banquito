@@ -9,7 +9,7 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Link, redirect, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import BanQuitoIcon from '../../assets/BanQuito-Logo.svg';
 import { Button } from '@mui/material';
 import { ColorPalette } from '../../style/ColorPalette';
@@ -78,11 +78,11 @@ const Topnav = ({ to }: TopnavProps) => {
   };
 
   const handleLogout = () => {
+    logout();
     user.identification = '';
     user.identificationType = '';
     user.username = '';
     user.isLogged = false;
-    logout();
     window.location.reload();
   };
 

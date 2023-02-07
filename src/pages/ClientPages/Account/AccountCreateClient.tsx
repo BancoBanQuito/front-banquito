@@ -11,20 +11,17 @@ import { ProductService } from '../../../services/product/productService';
 import { ColorPalette } from '../../../style/ColorPalette';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import { Spinner } from '../../../components/atoms/Spinner';
+import { useUser } from '../../../context/UserContext';
 
 
 const entityBankCode = 'aef0fadf647c8d6f';
 const internationalBankCode = 'c88c1afde4c3a564';
 const codeBranch = '252';
 
-interface AccountCreateClientProps {
-    client?: {
-        identification?: string;
-        identificationType?: string;
-    }
-}
+const AccountCreateClient = () => {
 
-const AccountCreateClient = (props: AccountCreateClientProps) => {
+    const user = useUser();
+
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [products, setproducts] = useState<any[] | undefined>([]);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
@@ -102,8 +99,8 @@ const AccountCreateClient = (props: AccountCreateClientProps) => {
                         <AccountFormBank
                             onSubmit={handleSubmit}
                             products={products ? products : []}
-                            identification={props.client?.identification}
-                            identificationType={props.client?.identificationType} />
+                            identification={user.identification}
+                            identificationType={user.identificationType} />
                     </CardContent>
                     <div style={{ margin: '0.5rem', position: 'absolute', bottom: 0, right: 0 }}>
                         <Avatar src={BanQuitoLogo} variant="square" />

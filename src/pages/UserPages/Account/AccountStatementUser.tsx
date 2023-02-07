@@ -16,15 +16,20 @@ import { SizeButton } from '../../../components/atoms/SizeButton';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { AccountStatementService } from '../../../services/account/AccountStatementService';
 import { Dropdown } from '../../../components/atoms/Dropdown';
+import { useUser } from '../../../context/UserContext';
+import { AccountService } from '../../../services/account/AccountService';
+import { RSAccount } from '../../../services/account/dto/RSAccount';
+import InfoModalOrganism from '../../../components/organisms/InfoModalOrganism';
 
 interface AccountStatementBankUserProps {
     client?: boolean;
-    account?: { name: string, value: string }[]
 }
 
 const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
+    const [infoModal, setinfoModal] = useState<boolean>(false);
+    const [infoMessage, setinfoMessage] = useState<string>('');
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [activeSearchBox, setactiveSearchBox] = useState<boolean>(true);
     const [activeAccountStatement, setactiveAccountStatement] = useState<boolean>(false);
@@ -32,9 +37,43 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
     const [accountStatementList, setaccountStatementList] = useState<RSAccountStatementList[]>();
     const [selectedAccountStatement, setselectedAccountStatement] = useState<RSAccountStatement>();
     const [codeLocalAccount, setcodeLocalAccount] = useState<string>("");
+    const [accounts, setaccounts] = useState<{ name: string, value: string }[]>([]);
 
+    const user = useUser();
     const navigate = useNavigate();
     const printRef = useRef();
+
+    useEffect(() => {
+        if (!!props.client) {
+            retriveAllAccounts(user.identification || '', user.identificationType || '');
+        }
+        return () => { }
+    }, []);
+
+    const retriveAllAccounts = async (id: string, idType: string) => {
+        setisLoading(true);
+        try {
+            const rsAccounts: RSAccount[] | undefined = (await AccountService.getAccountsById(idType, id)).data.data;
+            if (!rsAccounts || rsAccounts.length <= 0) {
+                setinfoMessage("No se han encontrado cuentas asociadas");
+                setinfoModal(true);
+                return;
+            }
+            const dropAccounts = rsAccounts.map(account => {
+                return {
+                    name: account.codeLocalAccount,
+                    value: account.codeLocalAccount
+                }
+            });
+            setaccounts(dropAccounts);
+        } catch (error: any) {
+            seterrorMessage(error.message);
+            setactiveErrorModal(true);
+        } finally {
+            setisLoading(false);
+        }
+    }
+
 
     const handleBackEvent = () => {
         setactiveAccountStatementTable(true);
@@ -117,7 +156,7 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
                 position: 'relative',
                 top: 50
             }}>
-                {!!props.client && !!props.account ? <div style={{
+                {!!props.client ? <div style={{
                     position: 'absolute',
                     width: '100%',
                     height: '80vh',
@@ -130,7 +169,7 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
                     <Fade in={activeSearchBox}>
                         <Card sx={{ minWidth: '450px', maxWidth: '750px' }}>
                             <CardContent>
-                                {props.account.length <= 0 ? <Typography variant='h6'>Es necesario crear una cuenta</Typography> :
+                                {accounts.length <= 0 ? <Typography variant='h6'>Es necesario crear una cuenta</Typography> :
                                     <>
                                         <Box mb={2} sx={{ fontStyle: 'italic', color: ColorPalette.SECONDARY }}>
                                             <Typography variant='h4' component='h6'>
@@ -142,7 +181,7 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
                                         </Box>
                                         <Dropdown
                                             label={'Cuentas'}
-                                            items={props.account}
+                                            items={accounts}
                                             onChange={handleSearch}
                                             width={'100%'}
                                             height={'auto'} />
@@ -233,6 +272,11 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
                     </Fade>
                 </div>
             </Box>
+            <InfoModalOrganism
+                active={infoModal}
+                onDeactive={() => { }}
+                text={infoMessage}
+                onClick={() => { navigate('/cliente') }} />
             <LoadOrganism active={isLoading} />
             <ErrorModalOrganism
                 active={activeErrorModal}
