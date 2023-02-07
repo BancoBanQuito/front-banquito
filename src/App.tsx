@@ -40,293 +40,65 @@ import InterestSavingAccounts from "./pages/ClientPages/Transaction/InterestSavi
 import { UpdateClient } from "./pages/ClientPages/Client/UpdateClient";
 import TransactionBeetwenDates from "./pages/UserPages/Transaction/TransactionBeetwenDates";
 import ATMHome from "./pages/ATMPages/ATMHome";
-import ATMReturnHome from "./pages/ATMPages/ATMReturnHome";
 import InterestInvestmentPolicies from "./pages/ClientPages/Transaction/InterestInvestmentPolicies";
 import CreateClient from "./pages/ClientPages/Client/CreateClient";
-import { RSAccountStatementList } from "./services/account/dto/RSAccountStatementList";
-import { AccountService } from "./services/account/AccountService";
-import { RSAccount } from "./services/account/dto/RSAccount";
 import CreateSegment from "./pages/UserPages/Segment/CreateSegment";
+import { UserProvider } from "./context/UserContext";
+import { userRoutes } from "./routes/userRoutes";
+import { clientRoutes } from "./routes/clientRoutes";
+import { atmRoutes } from "./routes/atmRoutes";
 
-interface userProps {
-  username: string;
-  password: string;
-  identification: string;
-  typeIdentification: string;
-}
 
 const App = () => {
-  const [isLogged, setIsLogged] = useState(false);
-  const [user, setUser] = useState<userProps | null>(null);
-  const [identification, setidentification] = useState<string>("");
-  const [identificationType, setidentificationType] = useState<string>("");
-  const [accounts, setaccounts] = useState<{ name: string, value: string }[]>([]);
-
-  useEffect(() => {
-    const data: string | null = localStorage.getItem("user");
-    if (data) {
-      const user = JSON.parse(data);
-      setUser(user);
-      setidentification(user.identification);
-      setidentificationType(user.typeIdentification);
-      setIsLogged(true);
-    }
-  }, [])
-
-  const handleLogin = async (data: userProps) => {
-    try {
-      setidentification(data.identification);
-      setidentificationType(data.typeIdentification);
-      const accounts: RSAccount[] | undefined = (await AccountService.getAccountsById(data.typeIdentification, data.identification)).data.data;
-      if (accounts) {
-        const accountData: { name: string, value: string }[] = accounts?.map(element => {
-          return { name: element.codeLocalAccount, value: element.codeLocalAccount };
-        });
-        setaccounts(accountData);
-      }
-      setUser(data);
-    } catch (error: any) {
-    }
-  }
-
-  const userRoutes = [
-    {
-      path: "ubicaciones",
-      element: <Location />,
-    },
-    {
-      path: "cuenta/crear",
-      element: <AccountCreateUser />,
-    },
-    {
-      path: "cuenta/estado",
-      element: <AccountStatementBankUser />,
-    },
-    {
-      path: "cuenta/transaccion",
-      element: <TransferUser />,
-    },
-    {
-      path: "sucursales",
-      element: <BranchUser />,
-    },
-    {
-      path: "feriados",
-      element: <HolidayUser />,
-    },
-    {
-      path: "cuenta/firma",
-      element: <AccountCreateSignatureUser />,
-    },
-    {
-      path: "cuenta/cancelar",
-      element: <AccountCancelUser />,
-    },
-    {
-      path: "cuenta/deposito",
-      element: <DepositBank />,
-    },
-    {
-      path: "cuenta/retiro",
-      element: <WithdrawBank />,
-    },
-    {
-      path: "cuenta/transaccion/dias",
-      element: <TransactionBeetwenDates />,
-    },
-    {
-      path: "cuenta/interes",
-      element: <InterestRateLog />,
-    },
-    {
-      path: "entidad",
-      element: <BankEntity />,
-    },
-    {
-      path: "actualizar/entidad",
-      element: <UpdateBankEntity />,
-    },
-    {
-      path: "signup",
-      element: <CreateUser redirect="/usuario" />,
-    },
-    {
-      path: "producto",
-      element: <Product />,
-    },
-    {
-      path: "producto/tipo",
-      element: <ProductType />,
-    },
-    {
-      path: "producto/servicio",
-      element: <CreateRequestService openDialog={true} />,
-    },
-    {
-      path: "producto/vincular/servicio",
-      element: <ProductLinkAssociatedService onSubmit={() => { }} />,
-    },
-    {
-      path: "cuenta/posicion/consolidada",
-      element: <AccountConsolidatedPositionUser />,
-    },
-    {
-      path: "login",
-      element: (
-        <Login
-          setUser={handleLogin}
-          setIsLogged={setIsLogged}
-          redirect="/usuario"
-        />
-      ),
-    },
-    {
-      path: "info-cliente",
-      element: <SearchClientDataForm />,
-    },
-    {
-      path: "buscar-info-cliente",
-      element: <SearchCardClient />,
-    },
-    {
-      path: "actualizar-info-cliente",
-      element: <UpdateClientDataForm />,
-    },
-    {
-      path: "crear-cliente",
-      element: <CreateClient />,
-    },
-    {
-      path: "segmento",
-      element: <CreateSegment />,
-    },
-  ];
-
-  const clientRoutes = [
-    {
-      path: "cuenta/crear",
-      element: <AccountCreateClient client={{
-        identification: identification,
-        identificationType: identificationType
-      }} />,
-    },
-    {
-      path: "cliente/editar",
-      element: <UpdateClient />,
-    },
-    {
-      path: "sucursales",
-      element: <Branch />,
-    },
-    {
-      path: "cuenta/estado",
-      element: <AccountStatementBankUser client account={accounts} />,
-    },
-    {
-      path: "cuenta/transaccion",
-      element: <TransferUser client accounts={accounts} />,
-    },
-    {
-      path: "cuenta/transaccion/dias",
-      element: <TransactionBeetwenDates client accounts={accounts} />,
-    },
-    {
-      path: "signup",
-      element: <CreateUser redirect="/cliente" />,
-    },
-    {
-      path: "interes/cuenta/ahorros",
-      element: <InterestSavingAccounts />,
-    },
-    {
-      path: "interes/inversion",
-      element: <InterestInvestmentPolicies />,
-    },
-    {
-      path: "login",
-      element: (
-        <Login
-          setUser={handleLogin}
-          setIsLogged={setIsLogged}
-          redirect="/cliente"
-        />
-      ),
-    },
-  ];
-
-  const atmRoutes = [
-    {
-      path: "cuenta/saldo",
-      element: <AccountAvailableBalance />,
-    },
-    {
-      path: "cuenta/deposito",
-      element: <DepositAtm />,
-    },
-    {
-      path: "cuenta/retiro",
-      element: <WithdrawAtm />,
-    },
-  ];
 
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="" element={<Home />} />
-          <Route
-            path="/usuario"
-            element={
-              <Layout
-                isLogged={isLogged}
-                setIsLogged={setIsLogged}
-                user={{}}
-                to="usuario"
-              />
-            }
-          >
-            <Route index element={<HomeUser user={user} isLogged={isLogged} />} />
-            {userRoutes.map((route) => (
-              <Route
-                key={route.path}
-                path={`/usuario/${route.path}`}
-                element={route.element}
-              />
-            ))}
-          </Route>
-          <Route
-            path="/cliente"
-            element={
-              <Layout
-                isLogged={isLogged}
-                setIsLogged={setIsLogged}
-                user={{}}
-                to="cliente"
-              />
-            }
-          >
-            <Route index element={<HomeClient user={user} isLogged={isLogged} />} />
-            {clientRoutes.map((route) => (
-              <Route
-                key={route.path}
-                path={`/cliente/${route.path}`}
-                element={route.element}
-              />
-            ))}
-          </Route>
-          <Route path="/atm">
-            <Route index element={<ATMHome />} />
-            {atmRoutes.map((route) => (
-              <Route
-                key={route.path}
-                path={`/atm/${route.path}`}
-                element={route.element}
-              />
-            ))}
-          </Route>
-          <Route path="*" element={<Error404 />} />
-        </Routes>
-      </BrowserRouter>
+      <UserProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="" element={<Home />} />
+            <Route
+              path="/usuario"
+              element={
+                <Layout to="usuario" />
+              }>
+              <Route index element={<HomeUser />} />
+              {userRoutes.map((route) => (
+                <Route
+                  key={route.path}
+                  path={`/usuario/${route.path}`}
+                  element={route.element}
+                />
+              ))}
+            </Route>
+            <Route
+              path="/cliente"
+              element={
+                <Layout to="cliente" />
+              }>
+              <Route index element={<HomeClient />} />
+              {clientRoutes.map((route) => (
+                <Route
+                  key={route.path}
+                  path={`/cliente/${route.path}`}
+                  element={route.element}
+                />
+              ))}
+            </Route>
+            <Route path="/atm">
+              <Route index element={<ATMHome />} />
+              {atmRoutes.map((route) => (
+                <Route
+                  key={route.path}
+                  path={`/atm/${route.path}`}
+                  element={route.element}
+                />
+              ))}
+            </Route>
+            <Route path="*" element={<Error404 />} />
+          </Routes>
+        </BrowserRouter>
+      </UserProvider>
     </ThemeProvider>
   );
 };

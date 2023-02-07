@@ -3,8 +3,9 @@ import { Container, FormLabel, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import EnvManager from '../../../config/EnvManager';
-import LoadOrganism from '../LoadOrganism';
 import { Spinner } from '../../atoms/Spinner';
+import { useUser } from '../../../context/UserContext';
+import { login } from '../../../utils/LoginUtils';
 
 interface userProps {
   username: string,
@@ -12,53 +13,26 @@ interface userProps {
   identification: string,
   typeIdentification: string
 }
-interface Props {
-  setUser: (data: any) => void,
-  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
-  redirect: string
-}
 
-const Login = ({ setUser, setIsLogged, redirect }: Props) => {
+const Login = ({ redirect }: any) => {
 
+  const user = useUser();
   const navigate = useNavigate();
 
   const [userName, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   const [activateSpinner, setActivateSpinner] = useState(false);
-  const urlGetClientWithEmail = `${EnvManager.CLIENT_URL}/api/client/email/`;
-
-  const fetchClient = async () => {
-    try {
-      const response = await fetch(
-        urlGetClientWithEmail + `${userName}`
-      );
-      const data = await response.json();
-      const user = { username: userName, password: password, identification: data.identification, typeIdentification: data.identificationType }
-      setUser(user)
-      localStorage.setItem('user', JSON.stringify(user));
-    } catch (error) {
-      console.error(error)
-    }
-  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
+    setActivateSpinner(true);
     try {
-      setActivateSpinner(true);
-      const response = await fetch(`${EnvManager.CLIENT_URL}/api/client/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
-        body: JSON.stringify({
-          "userName": userName,
-          "password": password
-        })
-      })
-      if (!response.ok) {
-        throw new Error(response.statusText)
-      }
-      setIsLogged(true);
-      fetchClient();
+      const data = await login(userName, password);
+      user.identification = data.identification;
+      user.identificationType = data.identificationType;
+      user.username = data.email;
+      user.isLogged = true;
       navigate(redirect)
     } catch (error) {
       console.error(error)

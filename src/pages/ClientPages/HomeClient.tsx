@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react'
 import { Avatar, Backdrop, Box, Button, Container, Fade, Modal } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import { Navigate, useNavigate } from 'react-router-dom'
@@ -7,7 +8,6 @@ import { ColorPalette } from '../../style/ColorPalette'
 import { display } from '@mui/system'
 import ActionCard from '../../components/organisms/ActionCard'
 import { Assessment, CalendarMonth, Facebook, Instagram, Money, Person, Savings, Send, SettingsVoiceRounded, Twitter, YouTube } from '@mui/icons-material'
-import React, { useEffect, useState } from 'react'
 import BanQuitoIcon from '../../assets/BanQuito-Logo.svg';
 import { CCarousel, CCarouselCaption, CCarouselItem, CImage } from '@coreui/react'
 
@@ -16,17 +16,7 @@ import slideTwo from '../../assets/slide2.jpg';
 import slideThree from '../../assets/slide3.jpg';
 import slideFourth from '../../assets/slide4.jpg';
 import '@coreui/coreui/dist/css/coreui.min.css'
-import ButtonIcon from '../../components/atoms/ButtonIcon'
-
-interface userProps {
-  username: string,
-  password: string
-}
-
-interface Props {
-  user: userProps | null,
-  isLogged: boolean,
-}
+import { useUser } from '../../context/UserContext'
 
 const sectionStyle: any = {
   margin: '2rem 0',
@@ -38,14 +28,15 @@ const sectionStyle: any = {
   flexDirection: 'column'
 };
 
-const HomeClient = ({ user, isLogged }: Props) => {
+const HomeClient = () => {
 
+  const user = useUser();
   const [welcomeModal, setwelcomeModal] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isLogged) {
+    if (user.isLogged) {
       setwelcomeModal(true);
       const interval = setInterval(() => {
         setwelcomeModal(false);
@@ -110,11 +101,11 @@ const HomeClient = ({ user, isLogged }: Props) => {
               justifyContent: 'space-around',
               flexWrap: 'wrap'
             }}>
-              <ActionCard icon={<Person />} title={'Crear Cuenta'} description={'Creemos tu nueva cuenta bancaria'} link={isLogged ? '/cliente/cuenta/crear' : '/cliente/login'} linkText='Crear' />
-              <ActionCard icon={<Assessment />} title={'Estado de Cuenta'} description={'Veamos tu estado de cuenta'} link={isLogged ? '/cliente/cuenta/estado' : '/cliente/login'} linkText='Ver' />
-              <ActionCard icon={<Send />} title={'Transferencia'} description={'¿Quieres transferir? Hagamoslo'} link={isLogged ? '/cliente/cuenta/transaccion' : '/cliente/login'} linkText='Ver' />
-              <ActionCard icon={<CalendarMonth />} title={'Historial de Transacciones'} description={'¿Que has realizado?'} link={isLogged ? '/cliente/cuenta/transaccion/dias' : '/cliente/login'} linkText='Ver' />
-              <ActionCard icon={<Savings />} title={'Ahorros'} description={'El interes ganado con tu ahorros, en un solo lugar'} link={isLogged ? '/cliente/interes/cuenta/ahorros' : '/cliente/login'} linkText='Ver' />
+              <ActionCard icon={<Person />} title={'Crear Cuenta'} description={'Creemos tu nueva cuenta bancaria'} link={user.isLogged ? '/cliente/cuenta/crear' : '/cliente/login'} linkText='Crear' />
+              <ActionCard icon={<Assessment />} title={'Estado de Cuenta'} description={'Veamos tu estado de cuenta'} link={user.isLogged ? '/cliente/cuenta/estado' : '/cliente/login'} linkText='Ver' />
+              <ActionCard icon={<Send />} title={'Transferencia'} description={'¿Quieres transferir? Hagamoslo'} link={user.isLogged ? '/cliente/cuenta/transaccion' : '/cliente/login'} linkText='Ver' />
+              <ActionCard icon={<CalendarMonth />} title={'Historial de Transacciones'} description={'¿Que has realizado?'} link={user.isLogged ? '/cliente/cuenta/transaccion/dias' : '/cliente/login'} linkText='Ver' />
+              <ActionCard icon={<Savings />} title={'Ahorros'} description={'El interes ganado con tu ahorros, en un solo lugar'} link={user.isLogged ? '/cliente/interes/cuenta/ahorros' : '/cliente/login'} linkText='Ver' />
             </div>
           </section>
           <section style={sectionStyle}>
@@ -155,7 +146,7 @@ const HomeClient = ({ user, isLogged }: Props) => {
         </Box>
       </div>
       {
-        isLogged && <Button sx={{ position: 'fixed', bottom: 5, left: 5, borderRadius: '100px', width: '50px', height: '60px' }}>
+        user.isLogged && <Button sx={{ position: 'fixed', bottom: 5, left: 5, borderRadius: '100px', width: '50px', height: '60px' }}>
           <Avatar sx={{ backgroundColor: 'transparent', color: ColorPalette.PRIMARY }}>
             <Person />
           </Avatar>
@@ -180,7 +171,7 @@ const HomeClient = ({ user, isLogged }: Props) => {
               Bienvenido
             </Typography>
             <Typography variant="h6" component="h6" sx={{ color: ColorPalette.BLACK }}>
-              {!!user && `${user?.username.split('@')[0]}`}
+              {`${user.username?.split('@')[0]}`}
             </Typography>
           </Box>
         </Fade>
