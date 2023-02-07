@@ -83,7 +83,7 @@ const Topnav = ({ to }: TopnavProps) => {
     user.username = '';
     user.isLogged = false;
     logout();
-    window.location.reload(false);
+    window.location.reload();
   };
 
   useEffect(() => {
