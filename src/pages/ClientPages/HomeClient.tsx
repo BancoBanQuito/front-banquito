@@ -32,7 +32,6 @@ const HomeClient = () => {
 
   const user = useUser();
   const [welcomeModal, setwelcomeModal] = useState<boolean>(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
