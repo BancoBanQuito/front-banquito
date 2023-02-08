@@ -12,6 +12,9 @@ import ErrorModalOrganism from "../../../components/organisms/ErrorModalOrganism
 import LoadOrganism from "../../../components/organisms/LoadOrganism";
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from "../../../components/atoms/Dropdown";
+import { useUser } from "../../../context/UserContext";
+import { AccountService } from "../../../services/account/AccountService";
+import { RSAccount } from "../../../services/account/dto/RSAccount";
 
 const headersMock = [
   <Typography>Fecha</Typography>,
@@ -23,7 +26,6 @@ const headersMock = [
 
 interface TransactionBeetwenDatesProps {
   client?: boolean;
-  accounts?: { name: string, value: string }[]
 }
 
 const TransactionBeetwenDates = (props: TransactionBeetwenDatesProps) => {
@@ -32,12 +34,47 @@ const TransactionBeetwenDates = (props: TransactionBeetwenDatesProps) => {
   const [numAccount, setNumAccount] = useState<string>("");
   const [showTable, setShowTable] = useState<boolean>(false);
   const [tableData, setTableData] = useState<RSTransaction[]>();
+  const [accounts, setaccounts] = useState<{ name: string, value: string }[]>([]);
 
+  const [showInfoModal, setshowInfoModal] = useState<boolean>(false);
+  const [infoMessage, setinfoMessage] = useState<string>('');
   const [showerrorModal, setshowerrorModal] = useState<boolean>(false);
   const [errorMessage, seterrorMessage] = useState<string>("");
   const [isLoading, setisLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
+  const user = useUser();
+
+  useEffect(() => {
+    if (!!props.client) {
+      retriveAllAccounts(user.identification || '', user.identificationType || '');
+    }
+    return () => { }
+  }, []);
+
+  const retriveAllAccounts = async (id: string, idType: string) => {
+    setisLoading(true);
+    try {
+      const rsAccounts: RSAccount[] | undefined = (await AccountService.getAccountsById(idType, id)).data.data;
+      if (!rsAccounts || rsAccounts.length <= 0) {
+        setinfoMessage("No se han encontrado cuentas asociadas");
+        setshowInfoModal(true);
+        return;
+      }
+      const dropAccounts = rsAccounts.map(account => {
+        return {
+          name: account.codeLocalAccount,
+          value: account.codeLocalAccount
+        }
+      });
+      setaccounts(dropAccounts);
+    } catch (error: any) {
+      seterrorMessage(error.message);
+      setshowerrorModal(true);
+    } finally {
+      setisLoading(false);
+    }
+  }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -109,10 +146,10 @@ const TransactionBeetwenDates = (props: TransactionBeetwenDatesProps) => {
               verticalAlign: "middle",
               alignText: "center",
             }}>
-            {!!props.client && !!props.accounts &&
+            {!!props.client &&
               <Card sx={{ minWidth: '450px', maxWidth: '750px' }}>
                 <CardContent>
-                  {props.accounts.length <= 0 ? <Typography variant='h6'>Es necesario crear una cuenta</Typography> :
+                  {accounts.length <= 0 ? <Typography variant='h6'>Es necesario crear una cuenta</Typography> :
                     <>
                       <Box mb={2} sx={{ fontStyle: 'italic', color: ColorPalette.SECONDARY }}>
                         <Typography variant='h4' component='h6'>
@@ -124,7 +161,7 @@ const TransactionBeetwenDates = (props: TransactionBeetwenDatesProps) => {
                       </Box>
                       <Dropdown
                         label={'Cuentas'}
-                        items={props.accounts}
+                        items={accounts}
                         onChange={(event) => setNumAccount(event)}
                         width={'100%'}
                         height={'auto'} />

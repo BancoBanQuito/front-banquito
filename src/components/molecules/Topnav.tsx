@@ -15,21 +15,25 @@ import { Button } from '@mui/material';
 import { ColorPalette } from '../../style/ColorPalette';
 import EnvManager from '../../config/EnvManager';
 import { Spinner } from '../atoms/Spinner';
-import UserIcon from '../../assets/user.png'
+import UserIcon from '../../assets/user.png';
+import { useUser } from '../../context/UserContext';
+import { logout } from '../../utils/LoginUtils';
 
 interface TopnavProps {
-  isLogged: boolean;
-  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>,
-  user: {};
   to: string;
 }
 
-const Topnav = ({ isLogged, setIsLogged, user, to }: TopnavProps) => {
+const Topnav = ({ to }: TopnavProps) => {
 
   const navigate = useNavigate();
+  const user = useUser();
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [bankEntity, setBankEntity] = useState('');
   const [activateSpinner, setActivateSpinner] = useState(false);
+
+  useEffect(() => {
+    return () => { }
+  }, []);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -74,8 +78,12 @@ const Topnav = ({ isLogged, setIsLogged, user, to }: TopnavProps) => {
   };
 
   const handleLogout = () => {
-    setIsLogged(false);
-    localStorage.removeItem("user");
+    logout();
+    user.identification = '';
+    user.identificationType = '';
+    user.username = '';
+    user.isLogged = false;
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -114,7 +122,7 @@ const Topnav = ({ isLogged, setIsLogged, user, to }: TopnavProps) => {
             </Typography>
 
             {
-              isLogged ? <Box sx={{ flexGrow: 0 }}>
+              user.isLogged ? <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Configuraciones">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar alt="User image" src={UserIcon} />

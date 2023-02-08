@@ -19,18 +19,10 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@mui/material";
+import { useUser } from "../../../context/UserContext";
 
-interface userProps {
-  username: string;
-  password: string;
-}
-
-interface Props {
-  user: userProps | null;
-  isLogged: boolean;
-}
-
-const HomeUser = ({ user, isLogged }: Props) => {
+const HomeUser = () => {
+  const user = useUser();
   const navigate = useNavigate();
 
   return (
@@ -44,38 +36,38 @@ const HomeUser = ({ user, isLogged }: Props) => {
     >
       <Box marginTop="60px">
         <Typography variant="h4" textAlign="center" p={4}>
-          Bienvenido Usuario {user?.username.split("@")[0]}
+          Bienvenido Usuario {user.username?.split("@")[0]}
         </Typography>
         <>
           <AccordionComponent
             title="Cuentas"
             description="Use este panel para gestionar cuentas de clientes"
             jsonData={accountCardJson}
-            isLogged={isLogged}
+            isLogged={user.isLogged}
           />
           <AccordionComponent
             title="Clientes"
             description="Use este panel para gestionar clientes"
             jsonData={clientCardJson}
-            isLogged={isLogged}
+            isLogged={user.isLogged}
           />
           <AccordionComponent
             title="Productos"
             description="Use este panel para gestionar productos"
             jsonData={productCardJson}
-            isLogged={isLogged}
+            isLogged={user.isLogged}
           />
           <AccordionComponent
             title="General"
             description="Use este panel para gestionar informacion general"
             jsonData={generalCardJson}
-            isLogged={isLogged}
+            isLogged={user.isLogged}
           />
           <AccordionComponent
             title="Segmento"
             description="Use este panel para gestionar segmentos"
             jsonData={segmentCardJson}
-            isLogged={isLogged}
+            isLogged={user.isLogged}
           />
         </>
       </Box>

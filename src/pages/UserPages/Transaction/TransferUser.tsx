@@ -14,6 +14,7 @@ import { RSAccount } from '../../../services/account/dto/RSAccount';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import InfoModalOrganism from '../../../components/organisms/InfoModalOrganism';
 import { Dropdown } from '../../../components/atoms/Dropdown';
+import { useUser } from '../../../context/UserContext';
 
 interface ITransaction {
     codeInternationalAccount: string,
@@ -32,21 +33,20 @@ interface IRecipient {
     recipientType: string
 }
 
-const userLocalAccount = "a3998d173acbf0c893db";
-
 interface TransferUserProps {
     client?: boolean,
-    accounts?: { name: string, value: string }[]
 }
 
 const TransferUser = (props: TransferUserProps) => {
 
     const [showInfoModal, setshowInfoModal] = useState<boolean>(false);
+    const [infoMessage, setinfoMessage] = useState<string>('');
     const [isLoading, setisLoading] = useState(false);
     const [loadMessage, setloadMessage] = useState<string | undefined>();
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
+    const [accounts, setaccounts] = useState<{ name: string, value: string }[]>([]);
 
     const [transactionData, settransactionData] = useState<ITransaction>({
         codeInternationalAccount: "",
@@ -66,6 +66,38 @@ const TransferUser = (props: TransferUserProps) => {
     });
 
     const navigate = useNavigate();
+    const user = useUser();
+
+    useEffect(() => {
+        if (!!props.client) {
+            retriveAllAccounts(user.identification || '', user.identificationType || '');
+        }
+        return () => { }
+    }, []);
+
+    const retriveAllAccounts = async (id: string, idType: string) => {
+        setisLoading(true);
+        try {
+            const rsAccounts: RSAccount[] | undefined = (await AccountService.getAccountsById(idType, id)).data.data;
+            if (!rsAccounts || rsAccounts.length <= 0) {
+                setinfoMessage("No se han encontrado cuentas asociadas");
+                setshowInfoModal(true);
+                return;
+            }
+            const dropAccounts = rsAccounts.map(account => {
+                return {
+                    name: account.codeLocalAccount,
+                    value: account.codeLocalAccount
+                }
+            });
+            setaccounts(dropAccounts);
+        } catch (error: any) {
+            seterrorMessage(error.message);
+            setactiveErrorModal(true);
+        } finally {
+            setisLoading(false);
+        }
+    }
 
     const handleAccept = async () => {
         setisLoading(true);
@@ -81,6 +113,7 @@ const TransferUser = (props: TransferUserProps) => {
             console.log(getAccountOwner(accountOwner.codeInternationalAccount));
             await TransactionService.postTransaction(getAccountOwner(accountOwner.codeInternationalAccount));
             await TransactionService.postTransaction(getAccountRecipient(accountRecipient.codeInternationalAccount));
+            setinfoMessage('La transferencia ha sido completada');
             setshowInfoModal(true);
         } catch (error: any) {
             setactiveErrorModal(true);
@@ -144,7 +177,7 @@ const TransferUser = (props: TransferUserProps) => {
                     width: 500,
                 }}>
                     {indexForm === 0 ?
-                        !!props.client && !!props.accounts ? < div style={{
+                        !!props.client ? < div style={{
                             position: 'absolute',
                             width: '100%',
                             height: '80vh',
@@ -155,7 +188,7 @@ const TransferUser = (props: TransferUserProps) => {
                         }}>
                             <Card sx={{ minWidth: '450px', maxWidth: '750px' }}>
                                 <CardContent>
-                                    {props.accounts.length <= 0 ? <Typography variant='h6'>Es necesario crear una cuenta</Typography> :
+                                    {accounts.length <= 0 ? <Typography variant='h6'>Es necesario crear una cuenta</Typography> :
                                         <>
                                             <Box mb={2} sx={{ fontStyle: 'italic', color: ColorPalette.SECONDARY }}>
                                                 <Typography variant='h4' component='h6'>
@@ -167,7 +200,7 @@ const TransferUser = (props: TransferUserProps) => {
                                             </Box>
                                             <Dropdown
                                                 label={'Cuentas'}
-                                                items={props.accounts}
+                                                items={accounts}
                                                 onChange={(data: string) => {
                                                     setindexForm(1);
                                                     settransactionData({
@@ -242,8 +275,7 @@ const TransferUser = (props: TransferUserProps) => {
             </div >
             <InfoModalOrganism
                 active={showInfoModal}
-                text='La transferencia ha sido completada'
-                title='Transfercia Completa'
+                text={infoMessage}
                 onDeactive={() => { }}
                 buttonText='Ok'
                 onClick={() => navigate('/usuario')} />
