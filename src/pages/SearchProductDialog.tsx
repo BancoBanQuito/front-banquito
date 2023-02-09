@@ -171,7 +171,7 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
 
   return (
     <Dialog onClose={handleClose} open={open} fullWidth={true}>
-      {activateSpinner? <Spinner /> : null}
+      {activateSpinner ? <Spinner /> : null}
       <DialogTitle>Seleccionar producto</DialogTitle>
       <FormContainer>
         <Span>Nombre: </Span>
@@ -181,10 +181,9 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
           color="primary"
           type="text"
           placeholder="Nombre del producto"
-          variant="standard"
           value={productName}
-          action={(event) => setProductName(event.target.value)}
-        />
+          onChange={(event) => setProductName(event.target.value)}
+          name={"id"} />
         <SizeButton
           palette={{ backgroundColor: ColorPalette.PRIMARY }}
           icon={<SearchIcon />}

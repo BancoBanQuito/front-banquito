@@ -168,7 +168,7 @@ const FormInterestRate = ({
                         <span>Nombre:</span>
                     </ContainChild>
                     <ContainChild2>
-                        <TextFieldAtom id="id" value={name} label="Nombre tasa de interes" color="primary" type="text" placeholder="id" variant="standard" action={(event) => setName(event.target.value)} />
+                        <TextFieldAtom id="id" value={name} label="Nombre tasa de interes" color="primary" type="text" placeholder="id" onChange={(event) => setName(event.target.value)} name={'interest-rate'} />
                     </ContainChild2>
                     <ContainChild3>
                         <span>Tipo:</span>
@@ -183,7 +183,7 @@ const FormInterestRate = ({
                         <span>Base de Cálculo:</span>
                     </ContainChild5>
                     <ContainChild6>
-                        <TextFieldAtom id="id" value={calcBase} label="Base de Cálculo" color="primary" type="text" placeholder="id" variant="standard" action={(event) => setCalcBase(event.target.value)} />
+                        <TextFieldAtom id="id" value={calcBase} label="Base de Cálculo" color="primary" type="text" placeholder="id" onChange={(event) => setCalcBase(event.target.value)} name={'calc-base'} />
                     </ContainChild6>
                 </ContainParent>
                 <ContainerButtons>
