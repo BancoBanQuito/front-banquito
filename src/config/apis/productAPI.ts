@@ -44,8 +44,11 @@ export const GET_PRODUCTS_STATUS = () =>
 export const GET_PRODUCTS = () =>
     `${EnvManager.PRODUCT_URL}/api/products/products`;
 
-export const GET_PRODUCTS_NAME_PRODUCT = () =>
+export const GET_PRODUCT_NAME_PRODUCT = () =>
     `${EnvManager.PRODUCT_URL}/api/products/name-product`;
+
+export const GET_PRODUCT_ID = () =>
+    `${EnvManager.PRODUCT_URL}/api/products/id-product`;
 //#endregion
 
 //#region ASSOCIATED_SERVICE_PARAM
@@ -58,17 +61,17 @@ export const POST_ASSOCIATED_SERVICE_PARAM_ADD_PARAM = (id: string) =>
 export const POST_ASSOCIATED_SERVICE_PARAM_ADD_PARAM_ACCOUNT = (id: string) =>
     `${EnvManager.PRODUCT_URL}/api/associatedServiceParam/addparam-account/${id}`;
 
-export const GET_ASSOCIATED_SERVICE_PARAM = (code: string) =>
+export const GET_ASSOCIATED_SERVICE_PARAM_BY_CODE = (code: string) =>
     `${EnvManager.PRODUCT_URL}/api/associatedServiceParam/associatedServicesParam/${code}`;
 //#endregion
 
 //#region PRODUCT_TYPE
 export const GET_PRODUCT_TYPES = () =>
-    `${EnvManager.PRODUCT_URL}/api/product-types`;
+    `${EnvManager.PRODUCT_URL}/api/product-types/types`;
 
 export const POST_PRODUCT_TYPES = () =>
-    `${EnvManager.PRODUCT_URL}/api/product-types`;
+    `${EnvManager.PRODUCT_URL}/api/product-types/types`;
 
-export const POST_PRODUCT_TYPE = () =>
+export const GET_PRODUCT_TYPE = () =>
     `${EnvManager.PRODUCT_URL}/api/product-types/type`;
 //#endregion
