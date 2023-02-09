@@ -1,30 +1,32 @@
-import React from 'react';
-import { TextField } from '@mui/material';
+import React, { HTMLInputTypeAttribute } from 'react';
+import { SxProps, TextField } from '@mui/material';
+import { ColorType } from '../../types/colortype';
 
-interface Props{
-    className: string;
-    id: string;
-    label: string;
-    rows: number;
-    placeholder: string;
-    color: any;
-    type: string;
-    variant: any;
+interface Props {
+    name: string;
+    id?: string;
+    label?: string;
+    placeholder?: string;
+    color?: ColorType;
+    rows?: number;
 }
 
-const TextAreaAtom = (props: Props) =>{
+const TextAreaStyle: SxProps = {
+    margin: 1,
+}
+
+const TextAreaAtom = (props: Props) => {
     return (
         <TextField
-            className='TextAreaAtom'
+            sx={TextAreaStyle}
             id={props.id}
-            label={props.label}
             multiline
-            rows={props.rows}
+            label={props.label}
+            rows={props.rows || 1}
             placeholder={props.placeholder}
-            variant={props.variant}
-            type={props.type}
             color={props.color}
-            >
+            variant='outlined'
+        >
         </TextField>
     );
 }

@@ -1,7 +1,7 @@
 import { Typography, Fade, Card, CardContent, Box } from '@mui/material';
 import { Dayjs } from 'dayjs';
 import React, { useState } from 'react';
-import DatePickerAtom from '../../../components/atoms/DatePicker';
+import DatePickerAtom from '../../../components/atoms/DatePickerAtom';
 import TableMolecule from '../../../components/molecules/TableMolecule';
 import SearchAccount from '../../../components/organisms/Account/SearchAccount';
 import { TransactionService } from '../../../services/transaction/TransactionService';

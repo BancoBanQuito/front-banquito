@@ -1,25 +1,38 @@
 import { Stack, Switch, Typography, styled } from '@mui/material';
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
+import { ColorType } from '../../types/colortype';
 
 
 interface Props {
     name: string;
-    checked: boolean;
-    onChange: () => void;
     labelOn: string;
     labelOff: string;
-    color: any;
+    color?: ColorType;
+    checked?: boolean;
+    onChange?: (checked: boolean) => void;
 }
 
 const SwitchAtom = (props: Props) => {
+
+    const [checked, setchecked] = useState(!!props.checked);
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
+        setchecked(checked);
+        props.onChange && props.onChange(checked);
+    }
+
     return (
         <Stack direction="row" spacing={0} alignItems="center">
-            <Typography>{props.labelOff}</Typography>
+            {
+                checked && <Typography>{props.labelOff}</Typography>
+            }
             <Switch name={props.name}
-                onChange={props.onChange}
-                defaultChecked={props.checked}
+                onChange={handleChange}
+                defaultChecked={checked}
                 color={props.color} />
-            <Typography>{props.labelOn}</Typography>
+            {
+                !checked && <Typography>{props.labelOn}</Typography>
+            }
         </Stack>
     );
 }

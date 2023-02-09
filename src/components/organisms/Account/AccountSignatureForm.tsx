@@ -3,7 +3,7 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { SizeButton } from '../../atoms/SizeButton';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
-import DatePickerAtom from '../../atoms/DatePicker';
+import DatePickerAtom from '../../atoms/DatePickerAtom';
 import { Dropdown } from '../../atoms/Dropdown';
 import TextFieldAtom from '../../atoms/TextFieldAtom';
 import { Dayjs } from 'dayjs';

@@ -1,36 +1,41 @@
-import React from 'react';
-import { TextField } from '@mui/material';
+import React, { ChangeEvent, HTMLInputTypeAttribute } from 'react';
+import { SxProps, TextField } from '@mui/material';
+import { ColorType } from '../../types/colortype';
 
 interface Props {
-    id: string;
-    name?: string
-    label: string;
-    color: any;
-    type: string;
-    variant: any;
+    type: HTMLInputTypeAttribute;
+    name: string;
+    id?: string;
+    label?: string;
+    color: ColorType;
     placeholder?: string;
-    action?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    value?: string;
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+    value?: string | number;
     disable?: boolean;
     fullWidth?: boolean;
+}
+
+const TextFieldStyle: SxProps = {
+    borderRadius: 5,
+    margin: 1,
 }
 
 const TextFieldAtom = (props: Props) => {
     return (
         <TextField
-            id={props.id}
-            label={props.label}
+            sx={TextFieldStyle}
             type={props.type}
-            name={props.name || ""}
+            name={props.name}
+            id={props.id || ""}
+            label={props.label}
             placeholder={props.placeholder || ""}
-            variant={props.variant}
             color={props.color}
-            onChange={props.action}
+            onChange={props.onChange}
             value={props.value}
             disabled={!!props.disable}
             fullWidth={!!props.fullWidth}
-        >
-        </TextField>
+            variant='outlined'
+        />
 
     );
 }

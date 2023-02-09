@@ -4,10 +4,12 @@ import { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { ColorType } from "../../types/colortype";
 
 interface Props {
   label: string;
   value: Dayjs | null;
+  color?: ColorType;
   onChange: (newValue: Dayjs | null) => void;
   fullWidth?: boolean;
 }
@@ -24,7 +26,9 @@ const DatePickerAtom = (props: Props) => {
         label={props.label}
         value={props.value}
         onChange={handleChange}
-        renderInput={(params) => <TextField fullWidth={!!props.fullWidth} {...params} />}
+        renderInput={(params) => <TextField
+          color={props.color}
+          fullWidth={!!props.fullWidth} {...params} />}
       />
     </LocalizationProvider>
   );

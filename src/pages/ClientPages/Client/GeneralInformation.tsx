@@ -9,7 +9,7 @@ import { Canton, Province } from "../../../components/organisms/Location/types";
 import Button from "@mui/material/Button";
 import { Dropdown } from "../../../components/atoms/Dropdown";
 import { ColorPalette } from "../../../style/ColorPalette";
-import DatePickerAtom from "../../../components/atoms/DatePicker";
+import DatePickerAtom from "../../../components/atoms/DatePickerAtom";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
 
