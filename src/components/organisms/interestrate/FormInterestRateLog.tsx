@@ -1,17 +1,17 @@
-import { Snackbar, Alert } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import { Snackbar, Alert, TextField } from '@mui/material';
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import InterestRateService from '../../../services/product/interestrate/interestRate.service';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
 import ButtonIcon from '../../atoms/ButtonIcon';
 import { Dropdown } from '../../atoms/Dropdown';
-import { NumberField } from '../../atoms/NumberField';
 import { SizeButton } from '../../atoms/SizeButton';
 import { ContentForm, ContainerForm, ContainChild, ContainChild2, ContainChild3, ContainChild4 } from './FormInterestRate';
 import { ReturnButton } from './InteresRate';
 import { KeyboardBackspace } from '@mui/icons-material';
 import { Spinner } from '../../atoms/Spinner';
+import TextFieldAtom from '../../atoms/TextFieldAtom';
 
 const ContentFormLog = styled(ContentForm)`
     justify-content: flex-end;
@@ -136,11 +136,13 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
                         <span>Valor:</span>
                     </ContainChild3>
                     <ContainChild4>
-                        <NumberField
+                        <TextFieldAtom
+                            type='number'
+                            name="value-field"
+                            color='primary'
                             label="Valor"
                             value={value}
-                            action={(value: number) => setValue(value)}
-
+                            onChange={(event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value as unknown as number)}
                         />
                     </ContainChild4>
 

@@ -2,10 +2,10 @@ import React from 'react'
 // material-ui radio button
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material'
 import { blue } from '@mui/material/colors';
-import { ColorType } from '../../types/colortype';
+import { ColorType } from '../../types/ColorType';
 
 interface ComboBoxProps {
-    option: { value: string, label: string };
+    option: { value: any, label: string };
     // onChange?: (value: string) => void;
     size?: 'small' | 'medium';
     // direction?: 'row' | 'column';

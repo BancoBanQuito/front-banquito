@@ -1,13 +1,13 @@
 import React, { ChangeEvent, HTMLInputTypeAttribute } from 'react';
 import { SxProps, TextField } from '@mui/material';
-import { ColorType } from '../../types/colortype';
+import { ColorType } from '../../types/ColorType';
 
 interface Props {
     type: HTMLInputTypeAttribute;
     name: string;
     id?: string;
     label?: string;
-    color: ColorType;
+    color?: ColorType;
     placeholder?: string;
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
     value?: string | number;
