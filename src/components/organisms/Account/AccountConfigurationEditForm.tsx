@@ -49,13 +49,10 @@ const AccountConfigurationEditForm = () => {
                 <TextFieldAtom
                     id="outlined-basic"
                     label="Ingrese el numero de cedula"
-                    variant="standard"
                     color="primary"
                     type="text"
                     placeholder="Ingrese el numero de cedula"
-                    action={() => alert("")}
-                    value=""
-                />
+                    name={'ID'} />
             </div>
             <div style={{ margin: '0.25rem', width: '100%' }}>
                 <Dropdown

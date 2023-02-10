@@ -63,11 +63,10 @@ const AccountSignatureForm = (props: AccountSignatureFormProps) => {
                     id={''}
                     name="identification"
                     label="Ingrese la identificación"
-                    variant="standard"
                     color="primary"
                     type="text"
                     value={signature.identification}
-                    action={handleChange}
+                    onChange={handleChange}
                 />
             </div>
             <div style={{ width: '100%', margin: '0.5rem 0' }}>
@@ -86,11 +85,10 @@ const AccountSignatureForm = (props: AccountSignatureFormProps) => {
                     id={''}
                     label="Ingrese el rol"
                     name="role"
-                    variant="standard"
                     color="primary"
                     type="text"
                     value={signature.role}
-                    action={handleChange}
+                    onChange={handleChange}
                     placeholder="Ingreso número de cuenta"
                 />
             </div>

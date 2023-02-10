@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import LabelInputMolecule from "../molecules/InputLabelMolecule";
+import TextFieldAtom from "../atoms/TextFieldAtom";
 
 const FormClientData = () => {
   const [email, setEmail] = useState("");
@@ -16,68 +16,78 @@ const FormClientData = () => {
   return (
     <form>
       <div className="left-side">
-        <LabelInputMolecule
-          text="Correo:"
+        <TextFieldAtom
+          label="Correo"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          disabled={true}
-        />
-        <LabelInputMolecule
-          text="Fecha de Nacimiento:"
+          disable
+          type={"text"}
+          name={"email"} />
+        <TextFieldAtom
+          label="Fecha de Nacimiento"
           value={fechaNacimiento}
           onChange={(e) => setFechaNacimiento(e.target.value)}
-          disabled={true}
-        />
-        <LabelInputMolecule
-          text="Género:"
+          disable
+          type={"date"}
+          name={"date"} />
+        <TextFieldAtom
+          label="Género"
           value={genero}
           onChange={(e) => setGenero(e.target.value)}
-          disabled={true}
-        />
-        <LabelInputMolecule
-          text="Carrera:"
+          disable
+          type={"text"}
+          name={"gender"} />
+        <TextFieldAtom
+          label="Carrera"
           value={carrera}
           onChange={(e) => setCarrera(e.target.value)}
-          disabled={true}
-        />
-        <LabelInputMolecule
-          text="Lugar de Trabajo:"
+          disable
+          type={"text"}
+          name={"career"} />
+        <TextFieldAtom
+          label="Lugar de Trabajo"
           value={lugarTrabajo}
           onChange={(e) => setLugarTrabajo(e.target.value)}
-          disabled={true}
-        />
-        <LabelInputMolecule
-          text="Estado Civil:"
+          disable
+          type={"text"}
+          name={"work-place"} />
+        <TextFieldAtom
+          label="Estado Civil"
           value={estadoCivil}
           onChange={(e) => setEstadoCivil(e.target.value)}
-          disabled={true}
-        />
-        <LabelInputMolecule
-          text="Referencia:"
+          disable
+          type={"text"}
+          name={"civil-state"} />
+        <TextFieldAtom
+          label="Referencia"
           value={referencia}
           onChange={(e) => setReferencia(e.target.value)}
-          disabled={true}
-        />
+          disable
+          type={"text"}
+          name={"reference"} />
       </div>
       <div className="right-side">
-        <LabelInputMolecule
-          text="Teléfono:"
+        <TextFieldAtom
+          label="Teléfono"
           value={telefono}
           onChange={(e) => setTelefono(e.target.value)}
-          disabled={true}
-        />
-        <LabelInputMolecule
-          text="Dirección:"
+          disable
+          type={"text"}
+          name={"phone"} />
+        <TextFieldAtom
+          label="Dirección"
           value={direccion}
           onChange={(e) => setDireccion(e.target.value)}
-          disabled={true}
-        />
-        <LabelInputMolecule
-          text="Segmento:"
+          disable
+          type={"text"}
+          name={"address"} />
+        <TextFieldAtom
+          label="Segmento"
           value={segmento}
           onChange={(e) => setSegmento(e.target.value)}
-          disabled={true}
-        />
+          disable
+          type={"text"}
+          name={"segment"} />
       </div>
     </form>
   );

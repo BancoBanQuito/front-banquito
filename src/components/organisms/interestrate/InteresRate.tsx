@@ -104,10 +104,9 @@ const InteresRate = () => {
                             color="primary"
                             type="text"
                             placeholder="id"
-                            variant="standard"
-                            action={(event) => setInteresRate(event.target.value)}
+                            onChange={(event) => setInteresRate(event.target.value)}
                             value={interesRate}
-                        />
+                            name={'interest-rate'} />
                         <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
                             icon={<Search />}
                             onClick={() => console.log('Buscar')}

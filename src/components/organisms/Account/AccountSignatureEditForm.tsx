@@ -69,10 +69,9 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
                     id="outlined-basic"
                     name="identification"
                     label="Numero de identificacion"
-                    variant="standard"
                     color="primary"
                     type="text"
-                    action={handleChange}
+                    onChange={handleChange}
                     value={signature.identification}
                     placeholder="Ingrese el numero de cedula"
                 />
@@ -100,10 +99,9 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
                     id="outlined-basic"
                     name="role"
                     label="Rol"
-                    variant="standard"
                     color="primary"
                     type="text"
-                    action={handleChange}
+                    onChange={handleChange}
                     value={signature.role}
                     placeholder="Ingrese el numero de cedula"
                 />
