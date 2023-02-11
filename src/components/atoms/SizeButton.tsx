@@ -51,6 +51,7 @@ export const SizeButton = (props: Props) => {
           backgroundColor: props.palette.backgroundColor,
           color: props.palette.accent ? props.palette.accent : '#F1FAEE',
           borderRadius: "10px",
+          margin: '1rem',
           transition: "all .3s ease- out",
           width: configureWidth,
           height: props.size?.height ? props.size.height : 'auto',

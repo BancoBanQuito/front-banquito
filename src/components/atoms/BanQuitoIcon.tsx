@@ -1,10 +1,15 @@
-import * as React from "react";
-import { SvgIcon, SvgIconProps } from "@mui/material";
+import React, { ReactComponentElement } from 'react'
+import { Icon, IconProps, SvgIcon, SvgIconProps } from "@mui/material";
 import BanQuitoLogo from '../../assets/BanQuito-Logo.svg'
 
-const BanQuitoIcon: React.FC<SvgIconProps> = (props) => (
-    <SvgIcon {...props}>
-        <BanQuitoLogo />
-    </SvgIcon>);
+const BanQuitoIcon = (props: IconProps) => {
+    return (
+        <>
+            <Icon {...props}>
+                <img src={BanQuitoLogo} style={{ height: '100%', display: 'flex', padding:'0.1rem' }} />
+            </Icon>
+        </>
+    )
+}
 
 export default BanQuitoIcon;

@@ -12,6 +12,8 @@ import { userRoutes } from "./routes/userRoutes";
 import { clientRoutes } from "./routes/clientRoutes";
 import { atmRoutes } from "./routes/atmRoutes";
 import Organisms from "./Organisms";
+import AppClient from "./pages/AppClient";
+import SelectAccountClientType from "./pages/ClientPages/SelectAccountClientType";
 
 
 const App = () => {
@@ -37,12 +39,8 @@ const App = () => {
                 />
               ))}
             </Route>
-            <Route
-              path="/cliente"
-              element={
-                <Layout to="cliente" />
-              }>
-              <Route index element={<HomeClient />} />
+            <Route path="/cliente" element={<AppClient />}>
+              <Route index element={<SelectAccountClientType />} />
               {clientRoutes.map((route) => (
                 <Route
                   key={route.path}
@@ -51,6 +49,16 @@ const App = () => {
                 />
               ))}
             </Route>
+            {/* <Route path="/cliente" element={<Layout to="cliente" />}>
+              <Route index element={<HomeClient />} />
+              {clientRoutes.map((route) => (
+                <Route
+                  key={route.path}
+                  path={`/cliente/${route.path}`}
+                  element={route.element}
+                />
+              ))}
+            </Route> */}
             <Route path="/atm">
               <Route index element={<ATMHome />} />
               {atmRoutes.map((route) => (

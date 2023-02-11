@@ -6,9 +6,19 @@ import { ButtonStyle } from '../style/ButtonStyle';
 import { ColorPalette } from '../style/ColorPalette';
 
 import BackgoundImage from '../assets/background.gif'
+import { useUser } from '../context/UserContext';
+import { UserType } from '../utils/LoginUtils';
+import { SessionVariable, setSession } from '../utils/SessionUtils';
 
 const Home = () => {
+  const user = useUser();
   const navigate = useNavigate();
+
+  const handleClick = (url: string, role: UserType) => {
+    user.role = role;
+    setSession(SessionVariable.ROLE, role);
+    navigate(url);
+  }
 
   return (
     <Box
@@ -51,21 +61,21 @@ const Home = () => {
             text='Clientes'
             style={ButtonStyle.BIG}
             palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-            onClick={() => navigate("/cliente")}
+            onClick={() => handleClick('/cliente', 'client')}
             size={{ width: '200px', height: '75px' }}
           />
           <SizeButton
             text='Usuarios'
             style={ButtonStyle.BIG}
             palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-            onClick={() => navigate("/usuario")}
+            onClick={() => handleClick('/usuario', 'user')}
             size={{ width: '200px', height: '75px' }}
           />
           <SizeButton
             text='Cajero'
             style={ButtonStyle.BIG}
             palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-            onClick={() => navigate("/atm")}
+            onClick={() => handleClick('/atm', 'atm')}
             size={{ width: '200px', height: '75px' }}
           />
         </Box>

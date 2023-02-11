@@ -19,7 +19,14 @@ interface userProps {
   typeIdentification: string
 }
 
-const LoginForm = ({ redirect }: any) => {
+interface LoginFormProps {
+  redirect?: string;
+  onSubmit?: (user: { username: string, password: string }) => void;
+  commonSubmit?: boolean;
+  title?: string;
+}
+
+const LoginForm = (props: LoginFormProps) => {
 
   const user = useUser();
   const navigate = useNavigate();
@@ -30,7 +37,14 @@ const LoginForm = ({ redirect }: any) => {
   const [activateSpinner, setActivateSpinner] = useState(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
+    if (!!props.commonSubmit) {
+      props.onSubmit?.({
+        username: userName,
+        password: password
+      });
+      return;
+    }
     setActivateSpinner(true);
     try {
       const data = await login(userName, password);
@@ -38,7 +52,7 @@ const LoginForm = ({ redirect }: any) => {
       user.identificationType = data.identificationType;
       user.username = data.email;
       user.isLogged = true;
-      navigate(redirect)
+      navigate(props.redirect || '');
     } catch (error) {
       console.error(error)
     } finally {
@@ -57,11 +71,12 @@ const LoginForm = ({ redirect }: any) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          maxWidth: 500
+          width: '100%',
+          maxWidth: 300
         }}>
         <Container sx={containertTitleStyles}>
-          <Typography variant="h4" align="center">
-            Iniciar Sesion
+          <Typography variant="h6" align="center">
+            {props.title || 'Iniciar Sesion'}
           </Typography>
         </Container>
         <Container sx={containerStyles}>
@@ -85,6 +100,10 @@ const LoginForm = ({ redirect }: any) => {
           submit
           text={'Ingresar'}
           style={ButtonStyle.BIG}
+          size={{
+            height: 'auto',
+            width: '100%'
+          }}
           palette={{
             backgroundColor: ColorPalette.PRIMARY,
             accent: undefined
@@ -103,6 +122,5 @@ const containerStyles = () => ({
 
 const containertTitleStyles = () => ({
   textAlign: 'center',
-  marginTop: '70px',
-  marginBottom: '20px'
+  marginBottom: '5rem',
 });

@@ -1,11 +1,13 @@
 import { context } from 'esbuild';
 import React, { useContext, useState } from 'react'
+import { UserType } from '../utils/LoginUtils';
 
 interface User {
     isLogged: boolean,
     username?: string,
     identification?: string,
     identificationType?: string,
+    role?: UserType
 }
 
 const UserContext = React.createContext<User | undefined>(undefined);
