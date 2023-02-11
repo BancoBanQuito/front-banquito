@@ -13,7 +13,7 @@ import TransferUser from "../pages/UserPages/Transaction/TransferUser";
 
 export const clientRoutes = [
     {
-        path: "home",
+        path: "inicio",
         element: <HomeClient />,
     },
     {

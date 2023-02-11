@@ -22,7 +22,7 @@ const LoginClient = () => {
       user.identificationType = data.identificationType;
       user.username = data.email;
       user.isLogged = true;
-      navigate('/client/home');
+      navigate('/cliente/inicio');
     } catch (error) {
 
     } finally {
