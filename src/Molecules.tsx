@@ -3,6 +3,11 @@ import ATMButtonContainerMolecule from './components/molecules/ATMButtonContaine
 import ATMButtonAtom from './components/atoms/ATMButtonAtom'
 import { Code } from '@mui/icons-material'
 import { ColorPalette } from './style/ColorPalette'
+import ATMHome from './pages/ATMPages/ATMHome'
+import ATMReturnHome from './pages/ATMPages/ATMReturnHome'
+import AccountAvailableBalance from './pages/ATMPages/Account/AccountAvailableBalance'
+import DepositAtm from './pages/ATMPages/Transaction/DepositAtm'
+import WithdrawAtm from './pages/ATMPages/Transaction/WithdrawAtm'
 
 const Molecules = () => {
     return (
@@ -12,34 +17,7 @@ const Molecules = () => {
             justifyContent: 'center',
             alignContent: 'center'
         }}>
-            <ATMButtonContainerMolecule position='right'>
-                <ATMButtonAtom
-                    icon={<Code />}
-                    text={'Sample'}
-                    palette={{
-                        backgroundColor: ColorPalette.PRIMARY,
-                    }} />
-                <ATMButtonAtom
-                    icon={<Code />}
-                    text={'Sample'}
-                    palette={{
-                        backgroundColor: ColorPalette.PRIMARY,
-                    }} />
-            </ATMButtonContainerMolecule>
-            <ATMButtonContainerMolecule position='left'>
-                <ATMButtonAtom
-                    icon={<Code />}
-                    text={'Sample'}
-                    palette={{
-                        backgroundColor: ColorPalette.PRIMARY,
-                    }} />
-                <ATMButtonAtom
-                    icon={<Code />}
-                    text={'Sample'}
-                    palette={{
-                        backgroundColor: ColorPalette.PRIMARY,
-                    }} />
-            </ATMButtonContainerMolecule>
+            <WithdrawAtm />
         </div>
     )
 }
