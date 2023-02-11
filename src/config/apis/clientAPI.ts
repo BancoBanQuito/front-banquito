@@ -1,10 +1,10 @@
 import EnvManager from "../EnvManager";
 
-export const PUT_CLIENT = () =>
-    `${EnvManager.CLIENT_URL}/api/client`
-
-export const PUT_CLIENT_BY_USER = (identification: string) =>
+export const PUT_CLIENT_BY_ID = (identification: string) =>
     `${EnvManager.CLIENT_URL}/api/client/${identification}`
+
+export const PUT_CLIENT_BY_USER_ID = (identification: string) =>
+    `${EnvManager.CLIENT_URL}/api/client/user/${identification}`
 
 export const PUT_CLIENT_REFERENCE = () =>
     `${EnvManager.CLIENT_URL}/api/client/reference`
@@ -27,7 +27,7 @@ export const POST_CLIENT_SIGNUP = () =>
 export const POST_CLIENT_LOGIN = () =>
     `${EnvManager.CLIENT_URL}/api/client/login`;
 
-export const GET_CLIENT = (identification: string, identificationType: string) =>
+export const GET_CLIENT_BY_ID_AND_IDENTIFICATION_TYPE = (identification: string, identificationType: string) =>
     `${EnvManager.CLIENT_URL}/api/client/${identification}/${identificationType}`;
 
 export const GET_CLIENT_SIGNATURE = (identification: string, identificationType: string) =>
@@ -42,5 +42,5 @@ export const GET_CLIENTS_BY_LASTNAME = (lastname: string) =>
 export const GET_CLIENT_BY_ID = (identification: string) =>
     `${EnvManager.CLIENT_URL}/api/client/client/${identification}`;
 
-export const GET_CLIENT_BY_ATM = (identification: string) =>
+export const GET_CLIENT_ATM = (identification: string) =>
     `${EnvManager.CLIENT_URL}/api/client/atm/${identification}`;
