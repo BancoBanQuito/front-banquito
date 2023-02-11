@@ -1,5 +1,5 @@
 import { Paper, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BanQuitoIcon from '../../components/atoms/BanQuitoIcon'
 import BgAtom from '../../components/atoms/BgAtom'
 import LoginForm from '../../components/organisms/Login/LoginForm'
@@ -13,6 +13,14 @@ const LoginClient = () => {
   const [isLoading, setisLoading] = useState<boolean>(false);
   const user = useUser();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user.isLogged) {
+      navigate('/cliente/inicio');
+    }
+    return () => { }
+  }, []);
+
 
   const handleSubmit = async (submitUser: { username: string, password: string }) => {
     setisLoading(true);

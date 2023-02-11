@@ -96,6 +96,7 @@ const LoginForm = (props: LoginFormProps) => {
           type="password"
           onChange={(event) => setPassword(event.target.value)}
         />
+        <div style={{ margin: '1rem' }} />
         <SizeButton
           submit
           text={'Ingresar'}
@@ -105,8 +106,7 @@ const LoginForm = (props: LoginFormProps) => {
             width: '100%'
           }}
           palette={{
-            backgroundColor: ColorPalette.PRIMARY,
-            accent: undefined
+            backgroundColor: ColorPalette.PRIMARY
           }} />
       </Box>
     </>

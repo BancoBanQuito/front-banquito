@@ -1,16 +1,30 @@
 import { Computer } from '@mui/icons-material'
 import { Avatar, Card, CardContent, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SizeButton } from '../../components/atoms/SizeButton'
 import { ButtonStyle } from '../../style/ButtonStyle'
 import { ColorPalette } from '../../style/ColorPalette'
 import BgImage from '../../assets/wood.jpg'
 import { useNavigate } from 'react-router-dom'
 import BgAtom from '../../components/atoms/BgAtom'
+import { useUser } from '../../context/UserContext'
+import InfoModalOrganism from '../../components/organisms/InfoModalOrganism'
 
 const SelectAccountClientType = () => {
 
+  const [infoMessage, setinfoMessage] = useState<string>("");
+  const [titleInfoModal, settitleInfoModal] = useState<string>("");
+  const [openInfoModal, setopenInfoModal] = useState<boolean>(false);
+
   const navigate = useNavigate();
+  const user = useUser();
+
+  useEffect(() => {
+    if (user.isLogged) {
+      navigate('/cliente/inicio');
+    }
+    return () => { }
+  }, []);
 
   return (
     <>
@@ -46,6 +60,11 @@ const SelectAccountClientType = () => {
             <SizeButton
               text={'Banca Virtual Empresas'}
               style={ButtonStyle.MEDIUM}
+              onClick={() => {
+                setopenInfoModal(true);
+                setinfoMessage('Lamentamos los inconvenientes, esta area aun esta en construccion');
+                settitleInfoModal('Estamos Trabajando')
+              }}
               palette={{ backgroundColor: ColorPalette.PRIMARY }}
               size={{
                 width: 300,
@@ -54,6 +73,14 @@ const SelectAccountClientType = () => {
           </div>
         </CardContent>
       </Card>
+      <InfoModalOrganism
+        active={openInfoModal}
+        onDeactive={() => setopenInfoModal(false)}
+        text={infoMessage}
+        onClick={() => setopenInfoModal(false)}
+        title={titleInfoModal}
+        buttonText='Cerrar'
+      />
     </>
   )
 }
