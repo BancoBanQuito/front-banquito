@@ -26,6 +26,7 @@ const formControlStyles = (props: DropdownProps) => ({
 });
 
 const selectStyles = (props: DropdownProps): SxProps<Theme> => ({
+  margin: 1,
   color: props.selectedTextColor || "white",
   "& .MuiSelect-select": {
     backgroundColor: props.backgroundColor,

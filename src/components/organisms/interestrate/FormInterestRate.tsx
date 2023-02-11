@@ -1,89 +1,14 @@
-import { AlertProps, Snackbar } from '@mui/material';
+import { AlertProps, Box, Snackbar } from '@mui/material';
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components';
-import InterestRateService from '../../../services/product/interestrate/interestRate.service';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
-import ButtonIcon from '../../atoms/ButtonIcon';
 import { Dropdown } from '../../atoms/Dropdown';
 import { SizeButton } from '../../atoms/SizeButton';
 import TextFieldAtom from '../../atoms/TextFieldAtom';
-import { ReturnButton } from './InteresRate';
-import { KeyboardBackspace } from '@mui/icons-material';
 import { Spinner } from '../../atoms/Spinner';
-
-export const ContainParent = styled.div`
-display: grid;
-grid-template-columns: 0.6fr 1fr;
-grid-template-rows: repeat(3, 1fr);
-grid-column-gap: 10px;
-grid-row-gap: 2rem;
-padding: 1rem;
-justify-content: center;
-align-items: center;
-`;
 
 const interestTypes: { name: string, value: string }[] = [{ name: 'Activo', value: 'ACT' }, { name: 'Pasivo', value: 'PAS' }]
 
-// ContainChild
-export const ContainChild = styled.div`
-grid-area: 1 / 1 / 2 / 2;`;
-
-// ContainChild
-export const ContainChild2 = styled.div`
-grid-area: 1 / 2 / 2 / 3;
-padding-bottom: 1rem;
-`;
-
-// ContainChild
-export const ContainChild3 = styled.div`
-grid-area: 2 / 1 / 3 / 2;
-`;
-
-// ContainChild
-export const ContainChild4 = styled.div`
-grid-area: 2 / 2 / 3 / 3;
-padding-bottom: 1rem;
-`;
-
-// ContainChild
-export const ContainChild5 = styled.div`
-grid-area: 3 / 1 / 4 / 2;`;
-
-// ContainChild
-export const ContainChild6 = styled.div`
-grid-area: 3 / 2 / 4 / 3;
-padding-bottom: 1rem;`;
-
-// ContainerButtons
-export const ContainerButtons = styled.div`
-display: flex;
-flex-direction: row;
-align-items: space-between;
-padding: 20px;
-max-width: 500px;
-justify-content: space-evenly;
-`;
-export const ContentForm = styled.div`
-    display: grid;
-    justify-items: center;
-    margin-top: 2rem;
-`;
-
-export const ContainerForm = styled.div`
-    display: flex;
-    width: 100%;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    align-items: center;
-`;
-
-export const Span = styled.span`
-    margin-inline: 1rem;
-`;
 export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
     ref,
@@ -97,9 +22,7 @@ interface FormInterestRateProps {
     isCreate: boolean;
 }
 
-const FormInterestRate = ({
-    action, setValue, isCreate
-}: FormInterestRateProps) => {
+const FormInterestRate = ({ action, setValue, isCreate }: FormInterestRateProps) => {
 
     const [type, setType] = useState<string>('');
     const [calcBase, setCalcBase] = useState<string>('');
@@ -110,7 +33,7 @@ const FormInterestRate = ({
     const [severity, setSeverity] = React.useState<any>('success');
     const [activateSpinner, setActivateSpinner] = useState(false);
     const createInterestRate = async () => {
-        if (isDisabled) {
+        /* if (isDisabled) {
             setMessage('Debe llenar todos los campos');
             setSeverity('error');
             setOpen(true);
@@ -144,7 +67,7 @@ const FormInterestRate = ({
                 setOpen(true);
             }
 
-        }
+        } */
     }
     useEffect(() => {
         if (type !== '' && calcBase !== '' && name !== '') {
@@ -156,65 +79,98 @@ const FormInterestRate = ({
 
 
     return (
-        <ContainerForm>
-            {activateSpinner? <Spinner /> : null}
-            <ContentForm>
-                <ReturnButton>
-                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspace />} onClick={() => action()} top={true} />
-                </ReturnButton>
+        <>
+            {activateSpinner ? <Spinner /> : null}
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
                 <h1>Formulario de Tasa de Interes</h1>
-                <ContainParent>
-                    <ContainChild>
-                        <span>Nombre:</span>
-                    </ContainChild>
-                    <ContainChild2>
-                        <TextFieldAtom id="id" value={name} label="Nombre tasa de interes" color="primary" type="text" placeholder="id" onChange={(event) => setName(event.target.value)} name={'interest-rate'} />
-                    </ContainChild2>
-                    <ContainChild3>
-                        <span>Tipo:</span>
-                    </ContainChild3>
-                    <ContainChild4>
-                        <Dropdown label='Seleccionar' items={interestTypes} width={200} height={40}
-                            onChange={(value: string) => setType(value)}
-                            backgroundColor={ColorPalette.SECONDARY}
-                        />
-                    </ContainChild4>
-                    <ContainChild5>
-                        <span>Base de Cálculo:</span>
-                    </ContainChild5>
-                    <ContainChild6>
-                        <TextFieldAtom id="id" value={calcBase} label="Base de Cálculo" color="primary" type="text" placeholder="id" onChange={(event) => setCalcBase(event.target.value)} name={'calc-base'} />
-                    </ContainChild6>
-                </ContainParent>
-                <ContainerButtons>
-                    <Span>
-                        <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
-                            icon=''
-                            onClick={() => createInterestRate()}
+                <Box
+                    component='form'
+                    onSubmit={createInterestRate}
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                    <TextFieldAtom
+                        value={name}
+                        label="Nombre tasa de interes"
+                        color="primary"
+                        type="text"
+                        onChange={(event) => setName(event.target.value)}
+                        required
+                        fullWidth
+                        name={'interest-rate'} />
+                    <TextFieldAtom
+                        value={name}
+                        label="Nombre tasa de interes"
+                        color="primary"
+                        type="text"
+                        onChange={(event) => setName(event.target.value)}
+                        required
+                        fullWidth
+                        name={'interest-rate'} />
+                    <TextFieldAtom
+                        value={name}
+                        label="Nombre tasa de interes"
+                        color="primary"
+                        type="text"
+                        onChange={(event) => setName(event.target.value)}
+                        required
+                        fullWidth
+                        name={'interest-rate'} />
+                    <Dropdown
+                        label='Seleccionar'
+                        required
+                        items={interestTypes} width={'100%'} height={'auto'}
+                        onChange={(value: string) => setType(value)}
+                        backgroundColor={ColorPalette.SECONDARY}
+                    />
+                    <TextFieldAtom
+                        required
+                        fullWidth
+                        value={calcBase}
+                        label="Base de Cálculo"
+                        color="primary"
+                        type="text"
+                        onChange={(event) => setCalcBase(event.target.value)}
+                        name={'calc-base'} />
+
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-around'
+                        }}>
+                        <SizeButton
+                            palette={{ backgroundColor: ColorPalette.TERNARY }}
+                            submit
                             text='Crear'
                             style={ButtonStyle.BIG}
                         />
-                    </Span>
-                    <Span>
                         <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
-                            icon=''
                             onClick={() => action()}
                             text='Cancelar'
                             style={ButtonStyle.BIG}
                         />
-                    </Span>
-                </ContainerButtons>
-
-            </ContentForm>
-            <Snackbar open={open} autoHideDuration={5000}
+                    </Box>
+                </Box>
+            </Box>
+            <Snackbar
+                open={open}
+                autoHideDuration={5000}
                 onClose={() => setOpen(false)}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            >
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
                 <Alert severity={severity} sx={{ width: '100%' }}>
                     {message}
                 </Alert>
             </Snackbar>
-        </ContainerForm>
+        </>
     )
 }
 

@@ -5,6 +5,7 @@ import { ColorPalette } from "../../style/ColorPalette";
 import { SizeButton } from "../atoms/SizeButton";
 import { ChevronRight } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import TextFieldAtom from "../atoms/TextFieldAtom";
 
 
 interface AtmLoginFormProps {
@@ -68,10 +69,9 @@ const AtmLoginForm = (props: AtmLoginFormProps) => {
                     </Typography>
                 </Box>
                 <Box>
-                    {!!props.codeLocalAccount && <TextField
+                    {!!props.codeLocalAccount && <TextFieldAtom
                         id="codeLocalAccount"
                         name="codeLocalAccount"
-                        margin="normal"
                         type="text"
                         onChange={handleFormChange}
                         label='Numero de Cuenta'
@@ -79,10 +79,9 @@ const AtmLoginForm = (props: AtmLoginFormProps) => {
                         required
                     />}
                     {
-                        !!props.password && <TextField
+                        !!props.password && <TextFieldAtom
                             id="password"
                             name="password"
-                            margin="normal"
                             type="password"
                             onChange={handleFormChange}
                             label='Contraseña'

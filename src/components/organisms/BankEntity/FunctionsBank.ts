@@ -16,17 +16,17 @@ export const saveBankEntity = async (
   try {
     const response = await fetch(url, options);
     if (response.ok) {
-      alert("Entidad Bancaria creada con éxito");
+      // alert("Entidad Bancaria creada con éxito");
     } else {
       throw new Error(response.statusText);
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }
@@ -48,17 +48,17 @@ export const updateBankEntity = async (
   try {
     const response = await fetch(url, options);
     if (response.ok) {
-      alert("Entidad Bancaria actualizada con éxito");
+      // alert("Entidad Bancaria actualizada con éxito");
     } else {
       throw new Error(response.statusText);
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }
@@ -82,11 +82,11 @@ export const getBankEntity = async () => {
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }

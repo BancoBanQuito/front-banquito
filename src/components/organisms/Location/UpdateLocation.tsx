@@ -5,31 +5,24 @@ import { Dropdown } from "../../atoms/Dropdown";
 import { SizeButton } from "../../atoms/SizeButton";
 import { updateProvince, updateCanton, updateParish, getProvinces, getCantons, getParishes } from "./functions";
 import { Province, Canton, Parish } from "./types";
+import { ColorPalette } from "../../../style/ColorPalette";
+
+const mockedItems = [
+  {
+    name: "Provincia",
+    value: "Provincia",
+  },
+  {
+    name: "Cantón",
+    value: "Cantón",
+  },
+  {
+    name: "Parroquia",
+    value: "Parroquia",
+  },
+];
 
 export const UpdateLocation = () => {
-  const mockedItems = [
-    {
-      name: "Provincia",
-      value: "Provincia",
-    },
-    {
-      name: "Cantón",
-      value: "Cantón",
-    },
-    {
-      name: "Parroquia",
-      value: "Parroquia",
-    },
-  ];
-
-  const boxStyles = () => ({
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: "2rem",
-  });
-
   const [dropdownValue, setDropdownValue] = useState("");
   const [provinces, setProvinces] = useState<Province[]>([]);
   const [cantons, setCantons] = useState<Canton[]>([]);
@@ -55,16 +48,16 @@ export const UpdateLocation = () => {
         ? updateProvince(provinceName, newProvinceName)
         : alert("Seleccione una provincia e ingrese un nombre de provincia")
       : dropdownValue === "Cantón"
-      ? cantonName && newCantonName
-        ? updateCanton(cantonName, newCantonName)
-        : alert("Seleccione un cantón e ingrese un nombre de cantón")
-      : dropdownValue === "Parroquia"
-      ? parroquiaName && newZipCode && newParroquiaName
-        ? updateParish(parroquiaName, newParroquiaName, newZipCode)
-        : alert(
-            "Seleccione una parroquia, ingrese un nombre de parroquia y un código postal"
-          )
-      : alert("Seleccione una jerarquía");
+        ? cantonName && newCantonName
+          ? updateCanton(cantonName, newCantonName)
+          : alert("Seleccione un cantón e ingrese un nombre de cantón")
+        : dropdownValue === "Parroquia"
+          ? parroquiaName && newZipCode && newParroquiaName
+            ? updateParish(parroquiaName, newParroquiaName, newZipCode)
+            : alert(
+              "Seleccione una parroquia, ingrese un nombre de parroquia y un código postal"
+            )
+          : alert("Seleccione una jerarquía");
   };
 
   useEffect(() => {
@@ -74,15 +67,22 @@ export const UpdateLocation = () => {
   }, [dropdownValue]);
 
   return (
-    <Box sx={boxStyles}>
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      maxWidth: 600
+    }}>
       <Typography variant="h4">Actualizar Ubicación</Typography>
       <Dropdown
         label="Jerarquía"
         items={mockedItems}
-        backgroundColor="#1D3557"
+        backgroundColor={ColorPalette.TERNARY}
         selectedTextColor="white"
-        width={200}
-        height={50}
+        width={'100%'}
+        height={'auto'}
         onChange={handleOnChange}
         inputLabelColor="white"
       />
@@ -116,7 +116,7 @@ export const UpdateLocation = () => {
       <SizeButton
         text="Actualizar"
         style={ButtonStyle.BIG}
-        palette={{ backgroundColor: "#1D3557", accent: "#F1FAEE" }}
+        palette={{ backgroundColor: ColorPalette.PRIMARY, accent: "#F1FAEE" }}
         onClick={handleClick}
       />
     </Box>
@@ -163,18 +163,18 @@ const DropDownValueComponent = (props: DropDownValueComponentProps) => {
           name: isProvince(item)
             ? item.provinceName
             : isCanton(item)
-            ? item.cantonName
-            : (isParish(item) && item.parishName) || "",
+              ? item.cantonName
+              : (isParish(item) && item.parishName) || "",
           value: isProvince(item)
             ? item.provinceName
             : isCanton(item)
-            ? item.cantonName
-            : (isParish(item) && item.parishName) || "",
+              ? item.cantonName
+              : (isParish(item) && item.parishName) || "",
         }))}
         backgroundColor="#1D3557"
         selectedTextColor="white"
         width={250}
-        height={50}
+        height={'auto'}
         onChange={(value) => setHierarchyName(value)}
         inputLabelColor="white"
       />

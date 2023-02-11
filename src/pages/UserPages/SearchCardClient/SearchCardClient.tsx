@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Container, FormLabel, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
-import BranchBox from "../../../components/organisms/Branch/BranchBox";
 import { useNavigate } from "react-router-dom";
+import { Dropdown } from "../../../components/atoms/Dropdown";
 
 const SearchCardClient: React.FC = () => {
   const [identification, setIdentification] = useState("");
@@ -10,9 +10,9 @@ const SearchCardClient: React.FC = () => {
   const [isStatusSelected, setIsStatusSelected] = useState<boolean>(true);
 
   const identificationOptions = [
-    { value: "DNI", label: "Cedula" },
-    { value: "RUC", label: "RUC" },
-    { value: "PAS", label: "Pasaporte" },
+    { value: "DNI", name: "Cedula" },
+    { value: "RUC", name: "RUC" },
+    { value: "PAS", name: "Pasaporte" },
   ];
 
   const navigate = useNavigate();
@@ -68,12 +68,13 @@ const SearchCardClient: React.FC = () => {
       {/* Dropbox*/}
       <Container sx={containerTextFieldStyles}>
         <div style={{ marginRight: "10px" }}>
-          <BranchBox
+          <Dropdown
             label="Tipo Identificación: "
             value={typeIdentification}
-            options={identificationOptions}
+            items={identificationOptions}
             onChange={onChangeStatus}
-          />
+            width={"100%"}
+            height={"auto"} />
         </div>
       </Container>
       {/* Boton*/}

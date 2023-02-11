@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Container, FormLabel, TextField, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
-import BranchBox from "../../../components/organisms/Branch/BranchBox";
 import TableMolecule from "../../../components/molecules/TableMolecule";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
+import { Dropdown } from "../../../components/atoms/Dropdown";
 
 const CreateSegment: React.FC = () => {
   const [idSegment, setIdSegment] = useState<string>("");
@@ -67,13 +67,15 @@ const CreateSegment: React.FC = () => {
         return [
           <Typography>{segment.name}</Typography>,
           <Typography>
-            <BranchBox
+            <Dropdown
               label=""
               value={segment.status}
-              options={optionsStatus}
+              items={optionsStatus}
               onChange={(value: string) =>
                 setStatus(value, segment.idSegment, segment.name)
               }
+              width={"100%"}
+              height={"auto"}
             />
           </Typography>,
         ];
@@ -90,10 +92,10 @@ const CreateSegment: React.FC = () => {
   }, []);
 
   const optionsStatus = [
-    { value: "Activo", label: "Activo" },
-    { value: "Inactivo", label: "Inactivo" },
-    { value: "Bloqueado", label: "Bloqueado" },
-    { value: "Eliminado", label: "Eliminado" },
+    { value: "Activo", name: "Activo" },
+    { value: "Inactivo", name: "Inactivo" },
+    { value: "Bloqueado", name: "Bloqueado" },
+    { value: "Eliminado", name: "Eliminado" },
   ];
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -143,12 +145,13 @@ const CreateSegment: React.FC = () => {
       </Container>
       <Container sx={containerTextFieldStyles}>
         <div style={{ marginRight: "10px" }}>
-          <BranchBox
+          <Dropdown
             label="Selecciona el estado:"
             value={statustSegment}
-            options={optionsStatus}
+            items={optionsStatus}
             onChange={onChangeStatus}
-          />
+            width={"100%"}
+            height={"auto"} />
         </div>
       </Container>
       <Container sx={containerTextFieldStyles}>

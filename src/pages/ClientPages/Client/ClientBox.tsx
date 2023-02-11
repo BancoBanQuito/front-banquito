@@ -3,7 +3,7 @@ import { FormLabel, Select, MenuItem } from '@mui/material'
 interface ComboBoxProps {
     label: string;
     value: string;
-    options: { value: string; label: string }[];
+    options: { value: string; name: string }[];
     onChange: (value: string) => void;
 }
 
@@ -18,7 +18,7 @@ const SegmentBox = ({ value, label, options, onChange }: ComboBoxProps) => {
             >
                 {options.map((option) => (
                     <MenuItem key={option.value} value={option.value} sx={menuItemStyles}>
-                        {option.label}
+                        {option.name}
                     </MenuItem>
                 ))}
             </Select>

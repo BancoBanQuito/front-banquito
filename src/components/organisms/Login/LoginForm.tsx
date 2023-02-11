@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Container, FormLabel, TextField, Typography } from '@mui/material';
+import React, { useState, useEffect, FormEvent } from 'react'
+import { Box, Container, FormLabel, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import EnvManager from '../../../config/EnvManager';
@@ -7,6 +7,10 @@ import LoadOrganism from '../LoadOrganism';
 import { Spinner } from '../../atoms/Spinner';
 import { useUser } from '../../../context/UserContext';
 import { login } from '../../../utils/LoginUtils';
+import TextFieldAtom from '../../atoms/TextFieldAtom';
+import { SizeButton } from '../../atoms/SizeButton';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
 
 interface userProps {
   username: string,
@@ -15,7 +19,7 @@ interface userProps {
   typeIdentification: string
 }
 
-const Login = ({ redirect }: any) => {
+const LoginForm = ({ redirect }: any) => {
 
   const user = useUser();
   const navigate = useNavigate();
@@ -25,7 +29,7 @@ const Login = ({ redirect }: any) => {
 
   const [activateSpinner, setActivateSpinner] = useState(false);
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setActivateSpinner(true);
     try {
@@ -45,38 +49,52 @@ const Login = ({ redirect }: any) => {
   return (
     <>
       {activateSpinner ? <Spinner /> : null}
-      <Container sx={containertTitleStyles}>
-        <Typography variant="h4" align="center">
-          Iniciar Sesion
-        </Typography>
-      </Container>
-      <Container sx={containerStyles}>
-      </Container >
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Email:</FormLabel>
-        <TextField
+      <Box
+        component='form'
+        onSubmit={handleSubmit}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          maxWidth: 500
+        }}>
+        <Container sx={containertTitleStyles}>
+          <Typography variant="h4" align="center">
+            Iniciar Sesion
+          </Typography>
+        </Container>
+        <Container sx={containerStyles}>
+        </Container >
+        <TextFieldAtom
+          fullWidth
+          label='Usuario'
+          required
           value={userName}
-          onChange={(event) => setUsername(event.target.value)}
-          variant="standard"
-        />
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Contraseña:</FormLabel>
-        <TextField
+          type="text"
+          onChange={(event) => setUsername(event.target.value)} />
+        <TextFieldAtom
+          fullWidth
+          label='Contraseña'
+          required
           value={password}
           type="password"
           onChange={(event) => setPassword(event.target.value)}
-          variant="standard"
         />
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <Button onClick={handleSubmit} sx={buttonStyles}>Ingresar</Button>
-      </Container>
+        <SizeButton
+          submit
+          text={'Ingresar'}
+          style={ButtonStyle.BIG}
+          palette={{
+            backgroundColor: ColorPalette.PRIMARY,
+            accent: undefined
+          }} />
+      </Box>
     </>
   )
 }
 
-export default Login;
+export default LoginForm;
 
 const containerStyles = () => ({
   display: 'flex',
@@ -87,30 +105,4 @@ const containertTitleStyles = () => ({
   textAlign: 'center',
   marginTop: '70px',
   marginBottom: '20px'
-});
-
-const containerTextFieldStyles = () => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  textAlign: 'center',
-  marginTop: '50px',
-});
-
-const containerFormLabelStyles = () => ({
-  marginTop: '50px',
-  marginLeft: '280px'
-});
-
-const formLabelStyles = () => ({
-  marginRight: '10px',
-});
-
-const buttonStyles = () => ({
-  background: '#1D3557',
-  color: 'white',
-  ':hover': {
-    background: '#1D3557',
-    color: 'white'
-  }
 });

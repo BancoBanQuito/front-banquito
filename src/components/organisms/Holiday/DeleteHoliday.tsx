@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, FormLabel, TextField, Typography } from "@mui/material";
+import { Box, Container, FormLabel, TextField, Typography } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -7,6 +7,10 @@ import { Dayjs } from "dayjs";
 import Button from "@mui/material/Button";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../atoms/Spinner";
+import DatePickerAtom from "../../atoms/DatePickerAtom";
+import { SizeButton } from "../../atoms/SizeButton";
+import { ButtonStyle } from "../../../style/ButtonStyle";
+import { ColorPalette } from "../../../style/ColorPalette";
 
 const DeleteHoliday: React.FC = () => {
 
@@ -53,30 +57,34 @@ const DeleteHoliday: React.FC = () => {
   return (
     <>
       {activateSpinner ? <Spinner /> : null}
-      <Container sx={containertTitleStyles}>
-        <Typography variant="h4" align="center">
-          Eliminar Feriado
-        </Typography>
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Fecha:</FormLabel>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            value={date}
-            onChange={(time) => {
-              setDate(time);
-            }}
-            renderInput={(params) => (
-              <TextField {...params} sx={formLabelStyles} />
-            )}
-          />
-        </LocalizationProvider>
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <Button onClick={handleSubmit} sx={buttonStyles}>
-          Eliminar
-        </Button>
-      </Container>
+      <Box
+        component='form'
+        onSubmit={handleSubmit}
+        sx={{
+          width: '100%',
+          maxWidth: 500,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+        <Container sx={containertTitleStyles}>
+          <Typography variant="h4" align="center">
+            Eliminar Feriado
+          </Typography>
+        </Container>
+        <DatePickerAtom
+          label={"Fecha"}
+          value={date}
+          fullWidth
+          onChange={(time) => { setDate(time); }} />
+        <SizeButton
+          text={"Eliminar"}
+          style={ButtonStyle.BIG}
+          palette={{
+            backgroundColor: ColorPalette.PRIMARY
+          }} />
+      </Box>
     </>
   );
 };
