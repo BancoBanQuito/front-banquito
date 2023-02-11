@@ -24,11 +24,11 @@ const Molecules = () => {
         }}>
             <Button onClick={() => setopen(true)}>Click me</Button>
             <SnackBarMolecule
-            severity='warning'
+            severity='success'
                 open={open}
                 onClose={() => setopen(false)}
                 message={'Sample'}
-                title='Info' />
+                title='Peligro' />
         </div>
     )
 }

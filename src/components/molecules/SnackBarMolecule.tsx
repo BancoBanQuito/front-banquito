@@ -38,7 +38,7 @@ const SnackBarMolecule = (props: SnackBarMoleculeProps) => {
                     flexDirection: 'row',
                     justifyContent: 'space-between'
                 }}>
-                    {props.title && <><Typography variant='body1' sx={{ fontWeight: 'bold' }}>{props.title}</Typography><div style={{ width: '5px' }} ></div></>}
+                    {!!props.title && <><Typography variant='body1' sx={{ fontWeight: 'bold', textTransform: 'capitalize' }}>{props.title}</Typography><div style={{ width: '5px' }} ></div></>}
                     <Typography variant='body1'>{props.message}</Typography>
                 </div>
             </Alert>
