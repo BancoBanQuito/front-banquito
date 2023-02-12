@@ -81,7 +81,6 @@ const LoginClient = () => {
           </div>
           <LoginForm
             onSubmit={handleSubmit}
-            commonSubmit
             title='Ingrese a su Banca Virtual' />
           <hr style={{ width: '20rem' }} />
           <SizeButton

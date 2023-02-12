@@ -24,8 +24,8 @@ const AppUser = () => {
     useEffect(() => {
         const role = getSession(SessionVariable.ROLE);
         if (user.role !== 'user' && role !== 'user') {
-            navigate('../');
-        } else {
+            navigate('/');
+        } else if (user.isLogged && isLogged()) {
             navigate('inicio');
         }
         return () => { }
@@ -39,10 +39,16 @@ const AppUser = () => {
                 margin: 0,
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center'
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+                overflowX: 'hidden',
+                overflowY: 'auto',
+                position: 'absolute',
+                top: 0,
             }}>
-            <Topnav to='banca/inicio' />
+            {
+                user.isLogged && <Topnav to='banca/inicio' />
+            }
             <Outlet />
         </Box>
     )
