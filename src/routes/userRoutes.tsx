@@ -15,6 +15,7 @@ import AccountCreateUser from "../pages/UserPages/Account/AccountCreateUser";
 import AccountStatementBankUser from "../pages/UserPages/Account/AccountStatementUser";
 import BranchUser from "../pages/UserPages/Branches/BranchUser";
 import HolidayUser from "../pages/UserPages/Holidays/HolidayUser";
+import HomeUser from "../pages/UserPages/HomeUser/HomeUser";
 import { Location } from "../pages/UserPages/Locations/Location";
 import SearchCardClient from "../pages/UserPages/SearchCardClient/SearchCardClient";
 import SearchClientDataForm from "../pages/UserPages/SearchClientData/SearchClientDataForm";
@@ -26,6 +27,10 @@ import WithdrawBank from "../pages/UserPages/Transaction/WithdrawBank";
 import UpdateClientDataForm from "../pages/UserPages/UpdateClientLikeBankUser/UpdateClientLikeBankUser";
 
 export const userRoutes = [
+    {
+        path: "inicio",
+        element: <HomeUser />,
+    },
     {
         path: "ubicaciones",
         element: <Location />,

@@ -13,8 +13,9 @@ import { clientRoutes } from "./routes/clientRoutes";
 import { atmRoutes } from "./routes/atmRoutes";
 import SelectAccountClientType from "./pages/ClientPages/SelectAccountClientType";
 import AppClient from "./pages/AppClient";
-import Molecules from "./Molecules";
 import Organisms from "./Organisms";
+import Molecules from "./Molecules";
+import AppUser from "./pages/AppUser";
 
 
 const App = () => {
@@ -27,16 +28,11 @@ const App = () => {
             <Route path="" element={<Home />} />
             <Route path="/molecules" element={<Molecules />} />
             <Route path="/organisms" element={<Organisms />} />
-            <Route
-              path="/usuario"
-              element={
-                <Layout to="usuario" />
-              }>
-              <Route index element={<HomeUser />} />
+            <Route path="/banca" element={<AppUser />}>
               {userRoutes.map((route) => (
                 <Route
                   key={route.path}
-                  path={`/usuario/${route.path}`}
+                  path={`/banca/${route.path}`}
                   element={route.element}
                 />
               ))}
@@ -51,6 +47,16 @@ const App = () => {
                 />
               ))}
             </Route>
+            {/* <Route path="/cliente" element={<Layout to="cliente" />}>
+              <Route index element={<HomeClient />} />
+              {clientRoutes.map((route) => (
+                <Route
+                  key={route.path}
+                  path={`/cliente/${route.path}`}
+                  element={route.element}
+                />
+              ))}
+            </Route> */}
             <Route path="/atm">
               <Route index element={<ATMHome />} />
               {atmRoutes.map((route) => (
