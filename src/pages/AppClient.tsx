@@ -24,6 +24,8 @@ const AppClient = () => {
         const role = getSession(SessionVariable.ROLE);
         if (user.role !== 'client' && role !== 'client') {
             navigate('../');
+        } else if(!user.isLogged) {
+            navigate('/cliente/login')
         }
         return () => { }
     }, [])

@@ -7,10 +7,17 @@ import LoadOrganism from '../../components/organisms/LoadOrganism'
 import { login } from '../../utils/LoginUtils'
 import { useUser } from '../../context/UserContext'
 import { useNavigate } from 'react-router-dom'
+import { SizeButton } from '../../components/atoms/SizeButton'
+import { ButtonStyle } from '../../style/ButtonStyle'
+import { ColorPalette } from '../../style/ColorPalette'
+import InfoModalOrganism from '../../components/organisms/InfoModalOrganism'
 
 const LoginClient = () => {
 
   const [isLoading, setisLoading] = useState<boolean>(false);
+  const [openInfoModal, setopenInfoModal] = useState<boolean>(false);
+  const [infoMessage, setinfoMessage] = useState<string>("");
+  const [titleInfoModal, settitleInfoModal] = useState<string>("")
   const user = useUser();
   const navigate = useNavigate();
 
@@ -50,7 +57,8 @@ const LoginClient = () => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            position: 'relative'
+            position: 'relative',
+            flexDirection: 'column'
           }}>
           <div style={{
             position: 'absolute',
@@ -67,8 +75,33 @@ const LoginClient = () => {
             onSubmit={handleSubmit}
             commonSubmit
             title='Ingrese a su Banca Virtual' />
+          <hr style={{ width: '20rem' }} />
+          <SizeButton
+            text={'Crear Usuario'}
+            size={{
+              height: 'auto',
+              width: '300px',
+            }}
+            style={ButtonStyle.BIG}
+            onClick={() => {
+              setopenInfoModal(true);
+              setinfoMessage('Lamentamos los inconvenientes, esta area aun esta en construccion');
+              settitleInfoModal('Estamos Trabajando')
+            }}
+            palette={{
+              backgroundColor: ColorPalette.PRIMARY
+            }} />
+
         </Paper>
       </div>
+      <InfoModalOrganism
+        active={openInfoModal}
+        onDeactive={() => setopenInfoModal(false)}
+        text={infoMessage}
+        onClick={() => setopenInfoModal(false)}
+        title={titleInfoModal}
+        buttonText='Cerrar'
+      />
       <LoadOrganism
         active={isLoading} />
     </>
