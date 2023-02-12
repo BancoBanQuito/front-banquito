@@ -57,17 +57,17 @@ const AccountCancelUser = () => {
   }*/
 
   const getAccount = async (accountNumber: string) => {
-      //Tomo este porque necesito los valores de saldo de la cuenta
-      setActivateSpinner(true);
-      const Account: RSAccount | undefined = (await AccountService.getAccountByCode(accountNumber)).data?.data;
-      if (!Account) {
-        console.log("No se han encontrado datos");
-        return;
-      }else{
-        // setselectAccount(Account);
-        // setactiveSearchBox(false);
-      }
-      setActivateSpinner(false);
+    //Tomo este porque necesito los valores de saldo de la cuenta
+    setActivateSpinner(true);
+    const Account: RSAccount | undefined = (await AccountService.getAccountByCode(accountNumber)).data?.data;
+    if (!Account) {
+      console.log("No se han encontrado datos");
+      return;
+    } else {
+      // setselectAccount(Account);
+      // setactiveSearchBox(false);
+    }
+    setActivateSpinner(false);
   }
 
   const handleSearch = (accountNumer: string) => {
@@ -91,7 +91,7 @@ const AccountCancelUser = () => {
 
   return (
     <div>
-      {activateSpinner? <Spinner /> : null}
+      {activateSpinner ? <Spinner /> : null}
       {
         activeSearchBox && <div style={{
           position: 'absolute',
@@ -117,46 +117,46 @@ const AccountCancelUser = () => {
       }
       {
         !activeSearchBox && <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: 'column',
-          justifyContent: "center",
-          alignItems: "center",
-          verticalAlign: "middle",
-          alignText: "center",
-        }}>
-        <div style={{ margin: "2rem" }}>
-          <Typography variant="h4">Configuración de Cuenta</Typography>
-        </div>
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: 'column',
+            justifyContent: "center",
+            alignItems: "center",
+            verticalAlign: "middle",
+            alignText: "center",
+          }}>
+          <div style={{ margin: "2rem" }}>
+            <Typography variant="h4">Configuración de Cuenta</Typography>
+          </div>
 
-        {/* <CancelAccountTableOranism
+          {/* <CancelAccountTableOranism
           account={dataTable}
           onClick={() => setAccount()} />
  */}
-        <div>
-          <Modal open={open} onClose={handleClose}>
-            <Box sx={{
-              position: 'absolute' as 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: 400,
-              bgcolor: 'background.paper',
-              boxShadow: 24,
-              padding: 2,
-              borderRadius: '10px'
-            }}>
-              {/* <div style={{ width: '100%', textAlign: 'center' }}>
+          <div>
+            <Modal open={open} onClose={handleClose}>
+              <Box sx={{
+                position: 'absolute' as 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 400,
+                bgcolor: 'background.paper',
+                boxShadow: 24,
+                padding: 2,
+                borderRadius: '10px'
+              }}>
+                {/* <div style={{ width: '100%', textAlign: 'center' }}>
                 <Typography variant="h6">Modificar firma</Typography>
                 <AccountSignatureEditForm
                   signature={selectSignature}
                   onSubmit={handleSubmit} />
               </div> */}
-            </Box>
-          </Modal>
-        </div>
-      </Box>
+              </Box>
+            </Modal>
+          </div>
+        </Box>
       }
       <Box
         sx={{
@@ -191,7 +191,7 @@ const AccountCancelUser = () => {
             }}>
               <div style={{ width: '100%', textAlign: 'center' }}>
                 <Typography variant="h6">Cancelación/Suspensión de cuenta</Typography>
-                <AccountConfigurationEditForm />
+                <AccountConfigurationEditForm identification={""} status={""} />
               </div>
             </Box>
           </Modal>
