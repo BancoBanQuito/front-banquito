@@ -15,6 +15,7 @@ import AppClient from "./pages/AppClient";
 import SelectAccountClientType from "./pages/ClientPages/SelectAccountClientType";
 import Organisms from "./Organisms";
 import Molecules from "./Molecules";
+import AppUser from "./pages/AppUser";
 
 
 const App = () => {
@@ -27,16 +28,11 @@ const App = () => {
             <Route path="" element={<Home />} />
             <Route path="/molecules" element={<Molecules />} />
             <Route path="/organisms" element={<Organisms />} />
-            <Route
-              path="/usuario"
-              element={
-                <Layout to="usuario" />
-              }>
-              <Route index element={<HomeUser />} />
+            <Route path="/banca" element={<AppUser />}>
               {userRoutes.map((route) => (
                 <Route
                   key={route.path}
-                  path={`/usuario/${route.path}`}
+                  path={`/banca/${route.path}`}
                   element={route.element}
                 />
               ))}

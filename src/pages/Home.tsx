@@ -68,7 +68,7 @@ const Home = () => {
             text='Usuarios'
             style={ButtonStyle.BIG}
             palette={{ backgroundColor: ColorPalette.PRIMARY, accent: ColorPalette.ACCENT }}
-            onClick={() => handleClick('/usuario', 'user')}
+            onClick={() => handleClick('/banca', 'user')}
             size={{ width: '200px', height: '75px' }}
           />
           <SizeButton
