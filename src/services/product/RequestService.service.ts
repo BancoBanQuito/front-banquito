@@ -1,5 +1,6 @@
 import axios from "axios";
 import { GET_REQUEST_SERVICE, GET_REQUEST_SERVICE_BY_CODE, POST_REQUEST_SERVICE, PUT_REQUEST_SERVICE } from "../../config/apis/productAPI";
+import { RequestServiceRQ } from "./dto/RequestServiceRQ";
 
 export class RequestService {
     public static async putRequestService(codeRequest: string, status: string) {
