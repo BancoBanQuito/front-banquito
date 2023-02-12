@@ -11,9 +11,10 @@ import { UserProvider } from "./context/UserContext";
 import { userRoutes } from "./routes/userRoutes";
 import { clientRoutes } from "./routes/clientRoutes";
 import { atmRoutes } from "./routes/atmRoutes";
-import Organisms from "./Organisms";
-import AppClient from "./pages/AppClient";
 import SelectAccountClientType from "./pages/ClientPages/SelectAccountClientType";
+import AppClient from "./pages/AppClient";
+import Molecules from "./Molecules";
+import Organisms from "./Organisms";
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="" element={<Home />} />
+            <Route path="/molecules" element={<Molecules />} />
             <Route path="/organisms" element={<Organisms />} />
             <Route
               path="/usuario"

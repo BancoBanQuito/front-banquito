@@ -5,6 +5,8 @@ import { ColorPalette } from "../../../style/ColorPalette";
 import { SizeButton } from "../../atoms/SizeButton";
 import { ChevronRight } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import ATMButtonContainerMolecule from "../../molecules/ATMButtonContainerMolecule";
+import ATMButtonAtom from "../../atoms/ATMButtonAtom";
 import TextFieldAtom from "../../atoms/TextFieldAtom";
 
 
@@ -117,27 +119,15 @@ const TransferDataForm = (props: TransferFormProps) => {
                     }
                 </Box>
                 {!!props.atm ?
-                    <div style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        right: -30,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignContent: 'center'
-                    }}>
-                        <div style={{ margin: '1rem 0' }}>
-                            <SizeButton
-                                submit
-                                text={'Siguiente'}
-                                icon={<ChevronRight />}
-                                style={ButtonStyle.BIG}
-                                size={buttonATMSize}
-                                palette={{
-                                    backgroundColor: ColorPalette.PRIMARY,
-                                }} />
-                        </div>
-                    </div>
+                    <ATMButtonContainerMolecule position="right">
+                        <ATMButtonAtom
+                            submit
+                            icon={<ChevronRight />}
+                            text={"Siguiente"}
+                            palette={{
+                                backgroundColor: ColorPalette.PRIMARY
+                            }} />
+                    </ATMButtonContainerMolecule>
                     : <Box>
                         <SizeButton
                             palette={{

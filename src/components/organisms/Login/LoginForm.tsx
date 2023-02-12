@@ -122,5 +122,10 @@ const containerStyles = () => ({
 
 const containertTitleStyles = () => ({
   textAlign: 'center',
+<<<<<<< HEAD
   marginBottom: '5rem',
+=======
+  marginTop: '70px',
+  marginBottom: '20px'
+>>>>>>> main
 });

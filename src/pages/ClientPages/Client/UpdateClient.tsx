@@ -37,13 +37,13 @@ export const UpdateClient: React.FC = () => {
   };
 
   const optionsStatus = [
-    { value: "M", label: "Masculino" },
-    { value: "F", label: "Femenino" },
+    { value: "M", name: "Masculino" },
+    { value: "F", name: "Femenino" },
   ];
 
   const optionTypePhone = [
-    { value: "MBL", label: "Móvil" },
-    { value: "CON", label: "Convencional" },
+    { value: "MBL", name: "Móvil" },
+    { value: "CON", name: "Convencional" },
   ];
 
   useEffect(() => {
