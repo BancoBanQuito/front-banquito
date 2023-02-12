@@ -13,6 +13,8 @@ import AtmLoginForm from '../../../components/organisms/AtmLoginForm'
 import { AtmLoginService } from '../../../services/login/AtmLoginService'
 import { RSAtmLogin } from '../../../services/login/dto/RSAtmLogin'
 import { Spinner } from '../../../components/atoms/Spinner'
+import ATMButtonAtom from '../../../components/atoms/ATMButtonAtom'
+import ATMButtonContainerMolecule from '../../../components/molecules/ATMButtonContainerMolecule'
 
 interface ATMLoginForm {
   codeLocalAccount: string,
@@ -94,137 +96,119 @@ const AccountAvailableBalance = () => {
   return (
     <>
       {activateSpinner ? <Spinner /> : null}
-      {
-        indexForm === 0 ?
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: '6rem'
-          }}>
-            <Box sx={{
-              width: 500,
-            }}>
-              <AtmLoginForm
-                atm
-                codeLocalAccount
-                onSubmit={(data: any) => {
-                  setindexForm(1);
-                  setlogin({
-                    ...login,
-                    codeLocalAccount: data.codeLocalAccount
-                  });
-                }} />
-            </Box>
-          </div>
-          : indexForm === 1 ?
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          overflowX: 'hidden',
+          overflowY: 'auto'
+        }}>
+        {
+          indexForm === 0 ?
             <div style={{
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
-              marginTop: '6rem'
+              marginTop: '6rem',
             }}>
               <Box sx={{
                 width: 500,
               }}>
-
                 <AtmLoginForm
                   atm
-                  password
-                  title="Contraseña"
+                  codeLocalAccount
                   onSubmit={(data: any) => {
+                    setindexForm(1);
                     setlogin({
                       ...login,
-                      password: data.password
+                      codeLocalAccount: data.codeLocalAccount
                     });
-                    handleLogin(data.password);
                   }} />
               </Box>
             </div>
-            : <div
-              style={{
-                position: 'relative',
-                width: '100%',
-                height: '97vh',
-                overflowY: 'hidden',
-                overflowX: 'hidden'
-              }}>
-              <Box
-                component="div"
-                sx={{
-                  position: 'absolute',
-                  top: '50%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignContent: 'center',
-                  textAlign: 'center',
-                  width: '100%'
-                }}>
-                <Typography
-                  sx={{
-                    fontSize: '1.5rem'
-                  }}>Tu saldo disponible es</Typography>
-                <Typography
-                  sx={{
-                    fontWeight: 'bold',
-                    fontSize: '3rem'
-                  }}
-                >$ {(Math.round(account.availableBalance * 100) / 100).toFixed(2)}</Typography>
-              </Box>
+            : indexForm === 1 ?
               <div style={{
-                position: 'absolute',
-                bottom: 0,
-                right: -30,
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                alignContent: 'center'
+                alignItems: 'center',
+                marginTop: '6rem'
               }}>
-                <div style={{ margin: '1rem 0' }}>
-                  <SizeButton
-                    text={'Imprimir'}
+                <Box sx={{
+                  width: 500,
+                }}>
+                  <AtmLoginForm
+                    atm
+                    password
+                    title="Contraseña"
+                    onSubmit={(data: any) => {
+                      setlogin({
+                        ...login,
+                        password: data.password
+                      });
+                      handleLogin(data.password);
+                    }} />
+                </Box>
+              </div>
+              :
+              <div
+                style={{
+                  position: 'relative',
+                  width: '90vw',
+                  height: '97vh'
+                }}>
+                <Box
+                  component="div"
+                  sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                    textAlign: 'center',
+                    width: '100%'
+                  }}>
+                  <Typography
+                    sx={{
+                      fontSize: '1.5rem'
+                    }}>Tu saldo disponible es</Typography>
+                  <Typography
+                    sx={{
+                      fontWeight: 'bold',
+                      fontSize: '3rem'
+                    }}
+                  >$ {(Math.round(account.availableBalance * 100) / 100).toFixed(2)}</Typography>
+                </Box>
+                <ATMButtonContainerMolecule position='right'>
+                  <ATMButtonAtom
                     icon={<PrintRounded />}
-                    style={ButtonStyle.BIG}
-                    size={buttonSize}
+                    text={'Imprimir'}
                     onClick={handleClose}
                     palette={{
-                      backgroundColor: ColorPalette.PRIMARY,
+                      backgroundColor: ColorPalette.PRIMARY
                     }} />
-                </div>
-                <div style={{ margin: '1rem 0' }}>
-                  <SizeButton
-                    text={'Salir'}
+                  <ATMButtonAtom
                     icon={<Close />}
-                    style={ButtonStyle.BIG}
-                    size={buttonSize}
+                    text={'Salir'}
                     onClick={handleClose}
                     palette={{
-                      backgroundColor: ColorPalette.PRIMARY,
+                      backgroundColor: ColorPalette.PRIMARY
                     }} />
-                </div>
-              </div>
-              <div style={{
-                position: 'absolute',
-                bottom: 0,
-                left: -30
-              }}>
-                <div style={{ margin: '1rem 0' }}>
-                  <SizeButton
-                    text={'Volver'}
+                </ATMButtonContainerMolecule>
+                <ATMButtonContainerMolecule position='left'>
+                  <ATMButtonAtom
                     icon={<ChevronLeft />}
-                    style={ButtonStyle.BIG}
-                    size={buttonSize}
+                    text={'Volver'}
                     onClick={handleClose}
                     palette={{
-                      backgroundColor: ColorPalette.PRIMARY,
+                      backgroundColor: ColorPalette.PRIMARY
                     }} />
-                </div>
+                </ATMButtonContainerMolecule>
               </div>
-            </div>
-      }
+        }
+      </div>
       <LoadOrganism
         active={isLoading}
         text={loadingMessage} />

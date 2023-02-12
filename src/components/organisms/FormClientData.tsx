@@ -30,8 +30,8 @@ const FormClientData = () => {
           value={fechaNacimiento}
           onChange={(e) => setFechaNacimiento(e.target.value)}
           disable
-          type={"date"}
-          name={"text"} />
+          type={"text"}
+          name={"date"} />
         <TextFieldAtom
           fullWidth
           label="Género"

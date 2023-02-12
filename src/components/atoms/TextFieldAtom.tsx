@@ -21,7 +21,6 @@ interface Props {
 const TextFieldStyle: SxProps = {
     borderRadius: 5,
     margin: 1,
-    padding: 0,
 }
 
 const TextFieldAtom = (props: Props) => {

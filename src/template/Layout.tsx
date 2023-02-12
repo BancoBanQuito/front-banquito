@@ -26,8 +26,14 @@ const Layout = (props: TopnavProps) => {
 
   return (
     <>
-      <Topnav to={props.to} />
-      <Outlet />
+      <div
+        style={{
+          overflowX: 'hidden',
+          overflowY: 'auto'
+        }}>
+        <Topnav to={props.to} />
+        <Outlet />
+      </div>
     </>
   );
 };
