@@ -6,7 +6,7 @@ const BanQuitoIcon = (props: IconProps) => {
     return (
         <>
             <Icon {...props}>
-                <img src={BanQuitoLogo} style={{ height: '100%', display: 'flex', padding:'0.1rem' }} />
+                <img src={BanQuitoLogo} style={{ height: '100%', display: 'flex' }} />
             </Icon>
         </>
     )

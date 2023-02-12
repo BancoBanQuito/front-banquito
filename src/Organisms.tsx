@@ -7,6 +7,7 @@ import TransferDataForm from './components/organisms/Transaction/TransferDataFor
 import TransferUserForm from './components/organisms/Transaction/TransferUserForm'
 import AtmLoginForm from './components/organisms/AtmLoginForm'
 import FormClientData from './components/organisms/FormClientData'
+import Topnav from './components/molecules/Topnav'
 
 
 const Organisms = () => {
@@ -16,7 +17,7 @@ const Organisms = () => {
                 display: 'flex',
                 flexDirection: 'column'
             }}>
-            <FormClientData />
+            <Topnav to='' />
         </div>
     )
 }

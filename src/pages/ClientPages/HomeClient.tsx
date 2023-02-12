@@ -35,13 +35,13 @@ const HomeClient = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user.isLogged) {
+    /* if (user.isLogged) {
       setwelcomeModal(true);
       const interval = setInterval(() => {
         setwelcomeModal(false);
         clearInterval(interval);
       }, 3000);
-    }
+    } */
     return () => { }
   }, [])
 
