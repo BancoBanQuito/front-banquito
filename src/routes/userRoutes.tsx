@@ -1,7 +1,7 @@
 import { BankEntity } from "../components/organisms/BankEntity/BankEntity";
 import { UpdateBankEntity } from "../components/organisms/BankEntity/UpdateBankEntity";
 import CreateUser from "../components/organisms/Login/CreateUser";
-import Login from "../components/organisms/Login/Login";
+import Login from "../components/organisms/Login/LoginForm";
 import InterestRateLog from "../components/organisms/interestrate/InterestRateLog";
 import CreateClient from "../pages/ClientPages/Client/CreateClient";
 import CreateRequestService from "../pages/CreateRequestService";

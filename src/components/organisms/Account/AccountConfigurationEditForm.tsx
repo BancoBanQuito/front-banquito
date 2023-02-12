@@ -28,7 +28,12 @@ const rolItem = [
     }
 ]
 
-const AccountConfigurationEditForm = () => {
+interface AccountConfigurationEditFormProps {
+    identification: string;
+    status: string;
+}
+
+const AccountConfigurationEditForm = (props: AccountConfigurationEditFormProps) => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -43,19 +48,18 @@ const AccountConfigurationEditForm = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                maxWidth: 500
             }}>
             <div style={{ margin: '0.25rem', width: '100%' }}>
                 <TextFieldAtom
-                    id="outlined-basic"
                     label="Ingrese el numero de cedula"
-                    variant="standard"
                     color="primary"
                     type="text"
-                    placeholder="Ingrese el numero de cedula"
-                    action={() => alert("")}
-                    value=""
-                />
+                    value={props.identification}
+                    disable
+                    fullWidth
+                    required />
             </div>
             <div style={{ margin: '0.25rem', width: '100%' }}>
                 <Dropdown
@@ -63,7 +67,9 @@ const AccountConfigurationEditForm = () => {
                     height='auto'
                     width='100%'
                     label='Estado'
+                    defaultValue={props.status}
                     items={statusItems}
+                    required
                 />
             </div>
             <SizeButton

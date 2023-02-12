@@ -1,40 +1,21 @@
-import { Snackbar, Alert } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import { Snackbar, Alert, TextField, Box } from '@mui/material';
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import InterestRateService from '../../../services/product/interestrate/interestRate.service';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
 import ButtonIcon from '../../atoms/ButtonIcon';
 import { Dropdown } from '../../atoms/Dropdown';
-import { NumberField } from '../../atoms/NumberField';
 import { SizeButton } from '../../atoms/SizeButton';
-import { ContentForm, ContainerForm, ContainChild, ContainChild2, ContainChild3, ContainChild4 } from './FormInterestRate';
-import { ReturnButton } from './InteresRate';
 import { KeyboardBackspace } from '@mui/icons-material';
 import { Spinner } from '../../atoms/Spinner';
+import TextFieldAtom from '../../atoms/TextFieldAtom';
 
-const ContentFormLog = styled(ContentForm)`
-    justify-content: flex-end;
-`;
 interface FormInterestRateLogProps {
     action: () => void;
     setVal: (value: boolean) => void;
     isCreate: boolean;
 }
-
-export const ParentContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    grid-column-gap: 10px;
-    grid-row-gap: 2rem;
-    padding: 1rem;
-    justify-content: center;
-    align-items: center;
-    `;
-
-
-
 
 const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogProps) => {
 
@@ -48,7 +29,7 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
     const [itemsSelect, setItemsSelect] = useState<any>([]);
     const [activateSpinner, setActivateSpinner] = useState(false);
     const getItems = async () => {
-        setActivateSpinner(true);
+        /* setActivateSpinner(true);
         let data = await InterestRateService.getInterestRateAll();
         setItems(data);
         setActivateSpinner(false);
@@ -59,7 +40,7 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
             }
         }
         )
-        setItemsSelect(itemsDropdown);
+        setItemsSelect(itemsDropdown); */
     }
 
 
@@ -77,7 +58,7 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
     }, [value, nameSelect])
 
     const createInterestRateLog = async () => {
-        if (isDisabled) {
+        /* if (isDisabled) {
             setMessage('Debe llenar todos los campos');
             setSeverity('error');
             setOpen(true);
@@ -110,66 +91,82 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
                 setSeverity('error');
                 setOpen(true);
             }
-        }
+        } */
     }
 
     return (
-        <ContainerForm>
+        <>
             {activateSpinner ? <Spinner /> : null}
-            <ContentForm>
-                <ReturnButton>
-                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspace />} onClick={() => action()} top={true} />
-                </ReturnButton>
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
                 <h1>Formulario de Registro Tasa de Interes</h1>
-                <ParentContainer>
-                    <ContainChild>
-                        <span>Seleccionar Nombre:</span>
-                    </ContainChild>
-                    <ContainChild2>
-                        <Dropdown label='Seleccionar' items={itemsSelect} width={200} height={40}
-                            onChange={(value: string) => setNameSelect(value)}
-                            selectedTextColor={ColorPalette.TERNARY}
-                        />
-
-                    </ContainChild2>
-                    <ContainChild3>
-                        <span>Valor:</span>
-                    </ContainChild3>
-                    <ContainChild4>
-                        <NumberField
-                            label="Valor"
-                            value={value}
-                            action={(value: number) => setValue(value)}
-
-                        />
-                    </ContainChild4>
-
-                    <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
-                        icon=''
-                        onClick={() => createInterestRateLog()}
-                        text='Crear'
-                        style={ButtonStyle.BIG}
+                <Box
+                    component='form'
+                    onSubmit={createInterestRateLog}
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                    <Dropdown
+                        label='Seleccionar'
+                        items={itemsSelect}
+                        width={'100%'}
+                        height={'auto'}
+                        required
+                        onChange={(value: string) => setNameSelect(value)}
+                        selectedTextColor={ColorPalette.TERNARY}
+                    />
+                    <TextFieldAtom
+                        type='number'
+                        name="value-field"
+                        color='primary'
+                        label="Valor"
+                        value={value}
+                        required
+                        fullWidth
+                        onChange={(event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value as unknown as number)}
                     />
 
-                    <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
-                        icon=''
-                        onClick={() => action()}
-                        text='Cancelar'
-                        style={ButtonStyle.BIG}
-                    />
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-around'
+                        }}>
+                        <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
+                            submit
+                            text='Crear'
+                            style={ButtonStyle.BIG}
+                        />
 
-                </ParentContainer>
+                        <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
+                            onClick={() => action()}
+                            text='Cancelar'
+                            style={ButtonStyle.BIG}
+                        />
+                    </Box>
 
-            </ContentForm>
-            <Snackbar open={open} autoHideDuration={5000}
+
+                </Box>
+
+            </Box>
+
+            <Snackbar
+                open={open}
+                autoHideDuration={5000}
                 onClose={() => setOpen(false)}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            >
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
                 <Alert severity={severity} sx={{ width: '100%' }}>
                     {message}
                 </Alert>
             </Snackbar>
-        </ContainerForm>
+        </>
     )
 }
 

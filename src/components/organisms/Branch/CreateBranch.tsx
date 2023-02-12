@@ -6,10 +6,11 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { Dayjs } from 'dayjs';
 
 import { Canton, Province } from '../Location/types';
-import BranchBox from './BranchBox';
 import Button from '@mui/material/Button';
 import EnvManager from '../../../config/EnvManager';
 import { Spinner } from '../../atoms/Spinner';
+import TextFieldAtom from '../../atoms/TextFieldAtom';
+import { Dropdown } from '../../atoms/Dropdown';
 
 
 const CreateBranch: React.FC = () => {
@@ -35,7 +36,7 @@ const CreateBranch: React.FC = () => {
     }
     const optionsProvince = provincesData.map(({ provinceName }) => ({
         value: provinceName,
-        label: provinceName
+        name: provinceName
     }))
     useEffect(() => {
         const fetchProvinces = async () => {
@@ -66,7 +67,7 @@ const CreateBranch: React.FC = () => {
     }
     const optionsCanton = cantonsData ? cantonsData.cantons.map(({ cantonName }) => ({
         value: cantonName,
-        label: cantonName
+        name: cantonName
     })) : []
     useEffect(() => {
         const fetchCantons = async () => {
@@ -93,7 +94,7 @@ const CreateBranch: React.FC = () => {
     }
     const optionsParish = parishesData ? parishesData.parishes.map(({ parishName }) => ({
         value: parishName,
-        label: parishName
+        name: parishName
     })) : []
     useEffect(() => {
         const fetchParishes = async () => {
@@ -165,53 +166,56 @@ const CreateBranch: React.FC = () => {
             </Container>
             <Container sx={containerStyles}>
                 <div style={{ marginRight: '10px' }}>
-                    <BranchBox
+                    <Dropdown
                         label="Selecciona la provincia:"
                         value={selectedProvince}
-                        options={optionsProvince}
+                        items={optionsProvince}
                         onChange={onChangeProvince}
-                    />
+                        width={'100%'}
+                        height={'auto'} />
                 </div>
                 <div style={{ display: isProvinceSelected ? 'none' : 'block', marginRight: '10px' }}>
-                    <BranchBox
+                    <Dropdown
                         label="Selecciona el cantón:"
                         value={selectedCanton}
-                        options={optionsCanton}
+                        items={optionsCanton}
                         onChange={onChangeCanton}
-                    />
+                        width={'100%'}
+                        height={'auto'} />
                 </div>
                 <div style={{ display: isCantonSelected ? 'none' : 'block' }}>
-                    <BranchBox
+                    <Dropdown
                         label="Selecciona la parroquia:"
                         value={selectedParish}
-                        options={optionsParish}
+                        items={optionsParish}
                         onChange={onChangeParish}
-                    />
+                        width={'100%'}
+                        height={'auto'} />
                 </div>
             </Container >
             <Container sx={containerTextFieldStyles}>
                 <FormLabel sx={formLabelStyles}>Nombre:</FormLabel>
-                <TextField
+                <TextFieldAtom
                     value={branchName}
                     onChange={(event) => setBranchName(event.target.value)}
-                    variant="standard"
-                />
+                    type='text'
+                    required />
             </Container>
             <Container sx={containerTextFieldStyles}>
                 <FormLabel sx={formLabelStyles}>Dirección:</FormLabel>
-                <TextField
+                <TextFieldAtom
                     value={address}
                     onChange={(event) => setAddress(event.target.value)}
-                    variant="standard"
-                />
+                    type='text'
+                    required />
             </Container>
             <Container sx={containerTextFieldStyles}>
                 <FormLabel sx={formLabelStyles}>Teléfono:</FormLabel>
-                <TextField
+                <TextFieldAtom
                     value={phoneNumber}
                     onChange={(event) => setPhoneNumber(event.target.value)}
-                    variant="standard"
-                />
+                    type='text'
+                    required />
             </Container>
             <Container sx={containerFormLabelStyles}>
                 <FormLabel sx={formLabelStyles}>Horario de atención:</FormLabel>

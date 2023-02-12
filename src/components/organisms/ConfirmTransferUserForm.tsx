@@ -5,6 +5,9 @@ import { ButtonStyle } from '../../style/ButtonStyle';
 import { ColorPalette } from '../../style/ColorPalette';
 import { Cancel, Check } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import ATMButtonAtom from '../atoms/ATMButtonAtom';
+import ATMButtonContainerMolecule from '../molecules/ATMButtonContainerMolecule';
+import TextFieldAtom from '../atoms/TextFieldAtom';
 
 interface ConfirmFormProps {
     showField?: boolean;
@@ -59,61 +62,46 @@ const ConfirmTransferUserForm = (props: ConfirmFormProps) => {
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
-                    <TextField
-                        sx={{ margin: '1rem' }}
+                    <TextFieldAtom
                         label='Monto'
                         value={props.data.value}
-                        disabled
-                        fullWidth />
-                    {!!props.showField && <TextField
-                        sx={{ margin: '1rem' }}
+                        disable
+                        fullWidth
+                        type={'text'} />
+                    {!!props.showField && <TextFieldAtom
                         label='Numero de Cuenta (Emisor)'
                         value={props.data.codeLocalAccount}
                         fullWidth
-                        disabled />}
-                    {!!props.showAccountReceptor && <TextField
-                        sx={{ margin: '1rem' }}
+                        disable
+                        type={'text'} />}
+                    {!!props.showAccountReceptor && <TextFieldAtom
                         label='Numero de Cuenta (Receptor)'
                         value={props.data.recipientAccountNumber}
                         fullWidth
-                        disabled />}
+                        disable
+                        type={'text'} />}
                 </Box>
                 {
                     !!props.atm ?
-                        <div style={{
-                            position: 'absolute',
-                            bottom: 0,
-                            right: -30,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            alignContent: 'center'
-                        }}>
-                            <div style={{ margin: '1rem 0' }}>
-                                <SizeButton
-                                    submit
-                                    text={'Rechazar'}
-                                    icon={<Cancel />}
-                                    style={ButtonStyle.BIG}
-                                    size={buttonATMSize}
-                                    onClick={() => { props.onDecline?.(null) }}
-                                    palette={{
-                                        backgroundColor: ColorPalette.PRIMARY,
-                                    }} />
-                            </div>
-                            <div style={{ margin: '1rem 0' }}>
-                                <SizeButton
-                                    submit
-                                    text={'Aceptar'}
-                                    icon={<Check />}
-                                    style={ButtonStyle.BIG}
-                                    size={buttonATMSize}
-                                    onClick={() => { props.onAccept?.(null) }}
-                                    palette={{
-                                        backgroundColor: ColorPalette.SECONDARY,
-                                    }} />
-                            </div>
-                        </div>
+                        <ATMButtonContainerMolecule position="right">
+                            <ATMButtonAtom
+                                submit
+                                text={'Rechazar'}
+                                icon={<Cancel />}
+                                onClick={() => { props.onDecline?.(null) }}
+                                palette={{
+                                    backgroundColor: ColorPalette.PRIMARY
+                                }} />
+                            <ATMButtonAtom
+                                submit
+                                text={'Aceptar'}
+                                icon={<Check />}
+                                onClick={() => { props.onAccept?.(null) }}
+                                palette={{
+                                    backgroundColor: ColorPalette.SECONDARY
+                                }} />
+                        </ATMButtonContainerMolecule>
+
                         : <Box sx={{
                             width: '100%',
                             display: 'flex',

@@ -10,6 +10,7 @@ interface DropdownProps {
   items: { name: string; value: any }[];
   width: number | string;
   height: number | string;
+  defaultValue?: string;
   required?: boolean;
   backgroundColor?: string | "white";
   selectedTextColor?: string | "white";
@@ -25,6 +26,7 @@ const formControlStyles = (props: DropdownProps) => ({
 });
 
 const selectStyles = (props: DropdownProps): SxProps<Theme> => ({
+  margin: 1,
   color: props.selectedTextColor || "white",
   "& .MuiSelect-select": {
     backgroundColor: props.backgroundColor,
@@ -67,7 +69,13 @@ export const Dropdown = (props: DropdownProps) => {
   return (
     <FormControl sx={formControlStyles(props)}>
       <InputLabel sx={inputLabelStyles(props)}>{label}</InputLabel>
-      <Select required={!!props.required} sx={selectStyles(props)} label={label} onChange={handleChange} value={props.value}>
+      <Select
+        required={!!props.required}
+        sx={selectStyles(props)}
+        label={label}
+        defaultValue={props.defaultValue}
+        onChange={handleChange}
+        value={props.value}>
         {items.map((item, index) => (
           <MenuItem key={index} value={item.value}>
             {item.name}

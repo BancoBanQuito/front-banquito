@@ -9,11 +9,11 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import BranchBox from "../../../components/organisms/Branch/BranchBox";
 import { ISegment } from "./Type";
 import { LabelRounded } from "@mui/icons-material";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
+import { Dropdown } from "../../../components/atoms/Dropdown";
 
 const urlCloud = `${EnvManager.CLIENT_URL}/api/client/`;
 const segmentUrl = `${EnvManager.SEGMENT_URL}/api/segments`;
@@ -28,15 +28,15 @@ const UpdateClientDataForm: React.FC = () => {
     localStorage.getItem("typeIdentification")
   );
   const optionTypePhone = [
-    { value: "MBL", label: "Móvil" },
-    { value: "CON", label: "Convencional" },
+    { value: "MBL", name: "Móvil" },
+    { value: "CON", name: "Convencional" },
   ];
-  const segmentOpstions: { value: string; label: string; }[] = [];
+  const segmentOpstions: { value: string; name: string; }[] = [];
   const getSegmentNames = (value: Array<ISegment>) => {
     return value.forEach(element => {
       segmentOpstions.push({
         value: element.name,
-        label: element.name
+        name: element.name
       });
     });
   };
@@ -66,8 +66,8 @@ const UpdateClientDataForm: React.FC = () => {
     }
   };
   const optionsGender = [
-    { value: "M", label: "Masculino" },
-    { value: "F", label: "Femenino" },
+    { value: "M", name: "Masculino" },
+    { value: "F", name: "Femenino" },
   ];
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
@@ -338,12 +338,13 @@ const UpdateClientDataForm: React.FC = () => {
           </Container>
           <Container sx={containerTextFieldStyles}>
             <div style={{ marginRight: "10px" }}>
-              <BranchBox
+              <Dropdown
                 label="Género:"
                 value={gender}
-                options={optionsGender}
+                items={optionsGender}
                 onChange={onChangeGender}
-              />
+                width={"100%"}
+                height={"auto"} />
             </div>
           </Container>
           <Container sx={containerTextFieldStyles}>
@@ -496,12 +497,13 @@ const UpdateClientDataForm: React.FC = () => {
           </Container>
           <Container sx={containerTextFieldStyles}>
             <div style={{ marginRight: "10px" }}>
-              <BranchBox
+              <Dropdown
                 label="Tipo Teléfono:"
                 value={phoneType}
-                options={optionTypePhone}
+                items={optionTypePhone}
                 onChange={onChangeTypePhone}
-              />
+                width={"100%"}
+                height={"auto"} />
             </div>
           </Container>
 
@@ -537,10 +539,12 @@ const UpdateClientDataForm: React.FC = () => {
           <Container sx={containerTextFieldStyles}>
             <FormLabel sx={formLabelStyles}> </FormLabel>
             <div style={{ marginRight: "10px" }}>
-              <BranchBox
+              <Dropdown
                 label="Segmento:"
                 value={nameSegment}
-                options={segmentOpstions}
+                items={segmentOpstions}
+                width={"100%"}
+                height={"auto"}
                 onChange={onChangeSegment}
               />
             </div>

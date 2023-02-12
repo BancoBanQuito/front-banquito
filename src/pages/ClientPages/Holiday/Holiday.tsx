@@ -1,9 +1,10 @@
 import React from "react";
-import { Container, TextField, Typography } from "@mui/material";
+import { Box, Container, TextField, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import TableMolecule from "../../../components/molecules/TableMolecule";
 import { IHoliday } from "../../../components/organisms/Holiday/Types";
 import EnvManager from "../../../config/EnvManager";
+import TextFieldAtom from "../../../components/atoms/TextFieldAtom";
 
 const Holiday: React.FC = () => {
   const [holidays, setHolidays] = useState<IHoliday[]>([]);
@@ -35,45 +36,33 @@ const Holiday: React.FC = () => {
   ]);
 
   return (
-    <Container style={containerStyle}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: "100%"
+      }}>
       <Container style={{ textAlign: "center" }}>
         <Typography variant="h4" align="center">
           Feriados
         </Typography>
       </Container>
-      <Container sx={{ display: "flex", justifyContent: "flex-start" }}>
-        <TextField
-          label="Buscar por fecha, nombre o codigo"
-          value={searchText}
-          onChange={(event) =>
-            setSearchText(event.target.value.toUpperCase())
-          }
-          sx={{ width: "350px" }}
-        />
-      </Container>
+      <TextFieldAtom
+        label="Buscar por fecha, nombre o codigo"
+        value={searchText}
+        onChange={(event) => setSearchText(event.target.value.toUpperCase())}
+        fullWidth
+        type={"text"} />
       <Container style={containerTableStyle}>
         <TableMolecule headers={headers} rows={rows} />
       </Container>
-    </Container>
+    </Box>
   );
 };
 
 export default Holiday;
 
-const containerStyle = {
-  display: "flex",
-  "flex-direction": "column",
-  "align-items": "flex-start",
-  marginTop: "100px",
-};
 
 const containerTableStyle = {
   marginTop: "10px",
 };
-
-const searchBarStyle = {
-  display: "flex",
-  "flex-direction": "column",
-  "align-items": "flex-start",
-};
-
