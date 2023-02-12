@@ -11,6 +11,8 @@ import { UserProvider } from "./context/UserContext";
 import { userRoutes } from "./routes/userRoutes";
 import { clientRoutes } from "./routes/clientRoutes";
 import { atmRoutes } from "./routes/atmRoutes";
+import SelectAccountClientType from "./pages/ClientPages/SelectAccountClientType";
+import AppClient from "./pages/AppClient";
 import Molecules from "./Molecules";
 import Organisms from "./Organisms";
 
@@ -39,12 +41,8 @@ const App = () => {
                 />
               ))}
             </Route>
-            <Route
-              path="/cliente"
-              element={
-                <Layout to="cliente" />
-              }>
-              <Route index element={<HomeClient />} />
+            <Route path="/cliente" element={<AppClient />}>
+              <Route index element={<SelectAccountClientType />} />
               {clientRoutes.map((route) => (
                 <Route
                   key={route.path}

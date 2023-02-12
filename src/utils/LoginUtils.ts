@@ -4,6 +4,8 @@ import { SessionVariable, getSession, removeSession, setSession } from "./Sessio
 
 const LOGGED = 'logged';
 
+type UserType = 'client' | 'user' | 'atm';
+
 const login = async (email: string, password: string) => {
     try {
         await ClientService.logClient(email, password);
@@ -32,3 +34,4 @@ const isLogged = (): boolean => {
 }
 
 export { login, logout, isLogged };
+export type { UserType };

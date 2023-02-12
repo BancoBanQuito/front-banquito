@@ -2,7 +2,8 @@ enum SessionVariable {
     USERNAME = 'username',
     LOGGED = 'isLogged',
     IDENTIFICATION = 'identification',
-    IDENTIFICATION_TYPE = 'identificationType'
+    IDENTIFICATION_TYPE = 'identificationType',
+    ROLE = 'role'
 }
 
 

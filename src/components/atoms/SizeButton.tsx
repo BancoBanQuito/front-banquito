@@ -47,6 +47,7 @@ export const SizeButton = (props: Props) => {
         variant='contained'
         type={(!!props.submit ? 'submit' : 'button')}
         disableElevation
+        size='small'
         sx={{
           backgroundColor: props.palette.backgroundColor,
           color: props.palette.accent ? props.palette.accent : '#F1FAEE',

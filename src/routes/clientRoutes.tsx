@@ -3,6 +3,8 @@ import Login from "../components/organisms/Login/LoginForm";
 import AccountCreateClient from "../pages/ClientPages/Account/AccountCreateClient";
 import Branch from "../pages/ClientPages/Branches/Branch";
 import { UpdateClient } from "../pages/ClientPages/Client/UpdateClient";
+import HomeClient from "../pages/ClientPages/HomeClient";
+import LoginClient from "../pages/ClientPages/LoginClient";
 import InterestInvestmentPolicies from "../pages/ClientPages/Transaction/InterestInvestmentPolicies";
 import InterestSavingAccounts from "../pages/ClientPages/Transaction/InterestSavingAccounts";
 import AccountStatementBankUser from "../pages/UserPages/Account/AccountStatementUser";
@@ -10,6 +12,10 @@ import TransactionBeetwenDates from "../pages/UserPages/Transaction/TransactionB
 import TransferUser from "../pages/UserPages/Transaction/TransferUser";
 
 export const clientRoutes = [
+    {
+        path: "inicio",
+        element: <HomeClient />,
+    },
     {
         path: "cuenta/crear",
         element: <AccountCreateClient />,
@@ -49,7 +55,7 @@ export const clientRoutes = [
     {
         path: "login",
         element: (
-            <Login redirect="/cliente" />
+            <LoginClient />
         ),
     },
 ];

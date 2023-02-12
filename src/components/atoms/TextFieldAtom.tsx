@@ -41,6 +41,7 @@ const TextFieldAtom = (props: Props) => {
             error={props.error}
             helperText={props.helperText}
             variant='outlined'
+            size='small'
         />
 
     );

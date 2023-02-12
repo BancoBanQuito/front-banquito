@@ -10,7 +10,6 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link, useNavigate } from 'react-router-dom';
-import BanQuitoIcon from '../../assets/BanQuito-Logo.svg';
 import { Button } from '@mui/material';
 import { ColorPalette } from '../../style/ColorPalette';
 import EnvManager from '../../config/EnvManager';
@@ -18,6 +17,8 @@ import { Spinner } from '../atoms/Spinner';
 import UserIcon from '../../assets/user.png';
 import { useUser } from '../../context/UserContext';
 import { logout } from '../../utils/LoginUtils';
+import BanQuitoIcon from '../atoms/BanQuitoIcon';
+import { AccountCircle } from '@mui/icons-material';
 
 interface TopnavProps {
   to: string;
@@ -27,7 +28,7 @@ const Topnav = ({ to }: TopnavProps) => {
 
   const navigate = useNavigate();
   const user = useUser();
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [bankEntity, setBankEntity] = useState('');
   const [activateSpinner, setActivateSpinner] = useState(false);
 
@@ -36,14 +37,14 @@ const Topnav = ({ to }: TopnavProps) => {
   }, []);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
+    setAnchorEl(event.currentTarget);
   };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+    setAnchorEl(null);
   };
 
-  const getBankEntity = async () => {
+  /* const getBankEntity = async () => {
     const url = `${EnvManager.SETTINGS_URL}/api/bank-entity`;
     const options = {
       method: "GET",
@@ -75,7 +76,7 @@ const Topnav = ({ to }: TopnavProps) => {
         alert("Error desconocido, intente más tarde");
       }
     }
-  };
+  }; */
 
   const handleLogout = () => {
     logout();
@@ -86,77 +87,46 @@ const Topnav = ({ to }: TopnavProps) => {
     window.location.reload();
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     getBankEntity();
   }, []
-  );
+  ); */
 
   return (
     <>
       {activateSpinner ? <Spinner /> : null}
-      <AppBar position="fixed">
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <Avatar src={BanQuitoIcon} sx={{ 'borderRadius': 0 }} />
-
-            <Typography
-              noWrap
-              variant='h1'
-              sx={{
-                ml: 2,
-                display: 'block',
-                flexGrow: 1,
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size='large'
+            edge='start'
+            color='inherit'
+            sx={{ mr: 0 }}>
+            <BanQuitoIcon />
+          </IconButton>
+          <Typography variant='h6' component="div" sx={{ flexGrow: 1 }}>BanQuito</Typography>
+          {user.isLogged && <div>
+            <IconButton
+              size='large'
+              edge='start'
+              color='inherit'
+              onClick={handleOpenUserMenu}
+              sx={{ mr: 0 }}>
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              open={!!anchorEl}
+              onClose={handleCloseUserMenu}
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right'
               }}
-            >
-              <Link to="/">
-                <Typography
-                  variant="h5"
-                  noWrap
-                  sx={{
-                    fontWeight: 700,
-                    color: '#FFFFFF',
-                    textDecoration: 'none',
-                  }}
-                >{bankEntity}</Typography>
-              </Link>
-            </Typography>
-
-            {
-              user.isLogged ? <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Configuraciones">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="User image" src={UserIcon} />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: '45px' }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  <MenuItem onClick={() => handleLogout()}>
-                    <Typography textAlign="center">Cerrar sesión</Typography>
-                  </MenuItem>
-                </Menu>
-              </Box>
-                :
-                <Box sx={{ flexGrow: 0 }}>
-                  <Button sx={{ color: ColorPalette.ACCENT }} onClick={() => navigate(`/${to}/signup`)}>Crear Usuario</Button>
-                  <Button sx={{ color: ColorPalette.ACCENT }} onClick={() => navigate(`/${to}/login`)}>Iniciar Sesion</Button>
-                </Box>
-            }
-          </Toolbar>
-        </Container>
+              keepMounted>
+              <MenuItem onClick={() => handleLogout()}>Cerrar sesión</MenuItem>
+            </Menu>
+          </div>}
+        </Toolbar>
       </AppBar>
     </>
   );
