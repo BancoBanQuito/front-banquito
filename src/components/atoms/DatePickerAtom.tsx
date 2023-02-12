@@ -4,7 +4,7 @@ import { Dayjs } from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { ColorType } from "../../types/colortype";
+import { ColorType } from "../../types/ColorType";
 
 interface Props {
   label: string;

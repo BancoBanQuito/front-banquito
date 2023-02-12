@@ -1,6 +1,6 @@
 import React, { HTMLInputTypeAttribute } from 'react';
 import { SxProps, TextField } from '@mui/material';
-import { ColorType } from '../../types/colortype';
+import { ColorType } from '../../types/ColorType';
 
 interface Props {
     name: string;

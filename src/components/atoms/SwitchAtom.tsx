@@ -1,6 +1,6 @@
 import { Stack, Switch, Typography, styled } from '@mui/material';
 import React, { ChangeEvent, useState } from 'react';
-import { ColorType } from '../../types/colortype';
+import { ColorType } from '../../types/ColorType';
 
 
 interface Props {
