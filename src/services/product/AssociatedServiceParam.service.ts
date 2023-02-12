@@ -1,6 +1,6 @@
 import axios from "axios";
 import { GET_ASSOCIATED_SERVICE_PARAM_BY_CODE, POST_ASSOCIATED_SERVICE_PARAM_ADD_PARAM, POST_ASSOCIATED_SERVICE_PARAM_ADD_PARAM_ACCOUNT, PUT_ASSOCIATED_SERVICE_PARAM } from "../../config/apis/productAPI";
-import { AssociatedService } from "./associatedService.service";
+import { AssociatedServiceParamRSRQ } from "./dto/AssociatedServiceParamRSRQ";
 
 export class AssociatedServiceParam {
 
@@ -30,7 +30,7 @@ export class AssociatedServiceParam {
 
     public static async getAssociatedServiceParamByCode(code: string) {
         try {
-            return (await axios.get<AssociatedService>(GET_ASSOCIATED_SERVICE_PARAM_BY_CODE(code))).data;
+            return (await axios.get<AssociatedServiceParamRSRQ>(GET_ASSOCIATED_SERVICE_PARAM_BY_CODE(code))).data;
         } catch (error: any) {
             throw error;
         }

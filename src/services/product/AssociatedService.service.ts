@@ -1,6 +1,6 @@
 import axios from "axios";
 import { AdditionalProps } from "./dto/AdditionalProps";
-import { GET_ASSOCIATED_SERVICES, GET_ASSOCIATED_SERVICE_BY_SERVICE_NAME, GET_ASSOCIATED_SERVICE_PARAM, POST_ASSOCIATED_SERVICE, PUT_ASSOCIATED_SERVICE } from "../../config/apis/productAPI";
+import { GET_ASSOCIATED_SERVICES, GET_ASSOCIATED_SERVICE_BY_SERVICE_NAME, POST_ASSOCIATED_SERVICE, PUT_ASSOCIATED_SERVICE } from "../../config/apis/productAPI";
 import { AssociatedServiceParamRSRQ } from "./dto/AssociatedServiceParamRSRQ";
 
 export class AssociatedService {
