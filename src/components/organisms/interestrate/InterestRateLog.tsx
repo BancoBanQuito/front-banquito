@@ -204,7 +204,7 @@ const InterestRateLog = () => {
                             placeholder="id"
                             onChange={(event) => setName(event.target.value)}
                             value={name}
-                        />
+                            name={'interest-rate'} />
                     </SearchContainer>
                     <ContentButtonAddRight>
                         <ButtonIcon color={ColorPalette.TERNARY} icon={<AddCircle />} onClick={() => addValue()} top={true} />

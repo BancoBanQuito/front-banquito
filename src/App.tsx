@@ -11,6 +11,7 @@ import { UserProvider } from "./context/UserContext";
 import { userRoutes } from "./routes/userRoutes";
 import { clientRoutes } from "./routes/clientRoutes";
 import { atmRoutes } from "./routes/atmRoutes";
+import Molecules from "./Molecules";
 import Organisms from "./Organisms";
 
 
@@ -22,6 +23,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="" element={<Home />} />
+            <Route path="/molecules" element={<Molecules />} />
             <Route path="/organisms" element={<Organisms />} />
             <Route
               path="/usuario"
