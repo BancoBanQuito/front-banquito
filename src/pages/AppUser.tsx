@@ -20,6 +20,7 @@ const AppUser = () => {
         }
         return () => { }
     }, []);
+    
 
     useEffect(() => {
         const role = getSession(SessionVariable.ROLE);
