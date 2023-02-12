@@ -21,7 +21,6 @@ const AppUser = () => {
         return () => { }
     }, []);
     
-
     useEffect(() => {
         const role = getSession(SessionVariable.ROLE);
         if (user.role !== 'user' && role !== 'user') {
