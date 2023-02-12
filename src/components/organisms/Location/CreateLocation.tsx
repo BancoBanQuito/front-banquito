@@ -4,6 +4,8 @@ import { ButtonStyle } from "../../../style/ButtonStyle";
 import { Dropdown } from "../../atoms/Dropdown";
 import { SizeButton } from "../../atoms/SizeButton";
 import { createProvince, createCanton, createParish } from "./functions";
+import TextFieldAtom from "../../atoms/TextFieldAtom";
+import { ColorPalette } from "../../../style/ColorPalette";
 
 export const CreateLocation = () => {
   const boxStyles = () => ({
@@ -12,6 +14,8 @@ export const CreateLocation = () => {
     justifyContent: "center",
     alignItems: "center",
     gap: "2rem",
+    width: '100%',
+    maxWidth: 500
   });
 
   const mockedItems = [
@@ -39,18 +43,16 @@ export const CreateLocation = () => {
     dropdownValue === "Provincia"
       ? provinceName
         ? createProvince(provinceName)
-        : alert("Ingrese un nombre de provincia")
+        : console.log("first")/* alert("Ingrese un nombre de provincia") */
       : dropdownValue === "Cantón"
-      ? provinceName && cantonName
-        ? createCanton(provinceName, cantonName)
-        : alert("Ingrese un nombre de provincia y cantón")
-      : dropdownValue === "Parroquia"
-      ? provinceName && cantonName && parishName && zipCode
-        ? createParish(provinceName, cantonName, parishName, zipCode)
-        : alert(
-            "Ingrese un nombre de provincia, cantón, parroquia y código postal"
-          )
-      : alert("Seleccione una jerarquía");
+        ? provinceName && cantonName
+          ? createCanton(provinceName, cantonName)
+          : console.log("first")/* alert("Ingrese un nombre de provincia y cantón") */
+        : dropdownValue === "Parroquia"
+          ? provinceName && cantonName && parishName && zipCode
+            ? createParish(provinceName, cantonName, parishName, zipCode)
+            : console.log("first")/* alert("Ingrese un nombre de provincia, cantón, parroquia y código postal") */
+          : console.log("first")/* alert("Seleccione una jerarquía"); */
   };
 
   const handleOnChange = (value: string) => {
@@ -69,78 +71,71 @@ export const CreateLocation = () => {
         items={mockedItems}
         backgroundColor="#1D3557"
         selectedTextColor="white"
-        width={200}
-        height={50}
+        width={'100%'}
+        height={'auto'}
         onChange={handleOnChange}
         inputLabelColor="white"
       />
 
       {dropdownValue === "Provincia" ? (
-        <TextField
-          id="outlined-basic"
+        <TextFieldAtom
+          fullWidth
           label="Nombre de provincia"
           color="primary"
           type="text"
-          variant="outlined"
           value={provinceName}
           onChange={(e) => setProvinceName(e.target.value)}
         />
       ) : dropdownValue === "Cantón" ? (
         <>
-          <TextField
-            id="outlined-basic"
+          <TextFieldAtom
+            fullWidth
             label="Nombre de provincia"
             color="primary"
             type="text"
-            variant="outlined"
             value={provinceName}
             onChange={(e) => setProvinceName(e.target.value)}
           />
-          <TextField
-            id="outlined-basic"
+          <TextFieldAtom
+            fullWidth
             label="Nombre de cantón"
             color="primary"
             type="text"
-            variant="outlined"
             value={cantonName}
             onChange={(e) => setCantonName(e.target.value)}
           />
         </>
       ) : dropdownValue === "Parroquia" ? (
         <>
-          <TextField
-            id="outlined-basic"
+          <TextFieldAtom
+            fullWidth
             label="Nombre de provincia"
             color="primary"
             type="text"
-            variant="outlined"
             value={provinceName}
             onChange={(e) => setProvinceName(e.target.value)}
           />
-          <TextField
-            id="outlined-basic"
+          <TextFieldAtom
+            fullWidth
             label="Nombre de cantón"
             color="primary"
             type="text"
-            variant="outlined"
             value={cantonName}
             onChange={(e) => setCantonName(e.target.value)}
           />
-          <TextField
-            id="outlined-basic"
+          <TextFieldAtom
+            fullWidth
             label="Nombre de parroquia"
             color="primary"
             type="text"
-            variant="outlined"
             value={parishName}
             onChange={(e) => setParishName(e.target.value)}
           />
-          <TextField
-            id="outlined-basic"
+          <TextFieldAtom
+            fullWidth
             label="Codigo Postal"
             color="primary"
             type="text"
-            variant="outlined"
             value={zipCode}
             onChange={(e) => setZipCode(e.target.value)}
           />
@@ -150,7 +145,7 @@ export const CreateLocation = () => {
       <SizeButton
         text="Crear"
         style={ButtonStyle.BIG}
-        palette={{ backgroundColor: "#1D3557", accent: "#F1FAEE" }}
+        palette={{ backgroundColor: ColorPalette.PRIMARY }}
         onClick={handleClick}
       />
     </Box>

@@ -4,7 +4,7 @@ import { ColorType } from '../../types/ColorType';
 
 interface Props {
     type: HTMLInputTypeAttribute;
-    name: string;
+    name?: string;
     id?: string;
     label?: string;
     color?: ColorType;
@@ -13,6 +13,9 @@ interface Props {
     value?: string | number;
     disable?: boolean;
     fullWidth?: boolean;
+    required?: boolean;
+    error?: boolean;
+    helperText?: string;
 }
 
 const TextFieldStyle: SxProps = {
@@ -34,6 +37,9 @@ const TextFieldAtom = (props: Props) => {
             value={props.value}
             disabled={!!props.disable}
             fullWidth={!!props.fullWidth}
+            required={props.required}
+            error={props.error}
+            helperText={props.helperText}
             variant='outlined'
         />
 

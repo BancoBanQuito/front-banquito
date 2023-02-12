@@ -1,14 +1,5 @@
 import React, { useState, useEffect, ChangeEvent, FocusEvent } from "react";
-import {
-  Box,
-  Container,
-  FormLabel,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
-import Button from "@mui/material/Button";
-import BranchBox from "../../../components/organisms/Branch/BranchBox";
+import { Box, FormLabel, TextField, Typography } from "@mui/material";
 import { parse, isValid } from "date-fns";
 import EnvManager from "../../../config/EnvManager";
 import { useNavigate } from "react-router";
@@ -18,6 +9,7 @@ import { Spinner } from "../../../components/atoms/Spinner";
 import { SizeButton } from "../../../components/atoms/SizeButton";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import { Canton, Province } from "../../../components/organisms/Location/types";
+import { Dropdown } from "../../../components/atoms/Dropdown";
 
 const CreateClient: React.FC = () => {
   const [isNatural, setIsNatural] = useState<boolean>(true);
@@ -331,57 +323,57 @@ const CreateClient: React.FC = () => {
   };
 
   const optionsIdentificationType = [
-    { value: "DNI", label: "DNI" },
-    { value: "PAS", label: "Pasaporte" },
-    { value: "RUC", label: "RUC" },
+    { value: "DNI", name: "DNI" },
+    { value: "PAS", name: "Pasaporte" },
+    { value: "RUC", name: "RUC" },
   ];
 
   const optionsClientType = [
-    { value: "NAT", label: "Natural" },
-    { value: "JUR", label: "Juridico" },
+    { value: "NAT", name: "Natural" },
+    { value: "JUR", name: "Juridico" },
   ];
 
   const optionsPhoneType = [
-    { value: "MBL", label: "Movil" },
-    { value: "CON", label: "Convencional" },
+    { value: "MBL", name: "Movil" },
+    { value: "CON", name: "Convencional" },
   ];
 
   const optionsStatus = [
-    { value: "Activo", label: "Activo" },
-    { value: "Inactivo", label: "Inactivo" },
-    { value: "Suspendido", label: "Suspendido" },
-    { value: "Bloqueado", label: "Bloqueado" },
+    { value: "Activo", name: "Activo" },
+    { value: "Inactivo", name: "Inactivo" },
+    { value: "Suspendido", name: "Suspendido" },
+    { value: "Bloqueado", name: "Bloqueado" },
   ];
 
   const optionsWorkStatus = [
-    { value: "Empleado", label: "Empleado" },
-    { value: "Independiente", label: "Independiente" },
-    { value: "Desempleado", label: "Desempleado" },
-    { value: "Jubilado", label: "Jubilado" },
-    { value: "Estudiante", label: "Estudiante" },
-    { value: "Otro", label: "Otro" },
+    { value: "Empleado", name: "Empleado" },
+    { value: "Independiente", name: "Independiente" },
+    { value: "Desempleado", name: "Desempleado" },
+    { value: "Jubilado", name: "Jubilado" },
+    { value: "Estudiante", name: "Estudiante" },
+    { value: "Otro", name: "Otro" },
   ];
 
   const optionsCivilStatus = [
-    { value: "Soltero", label: "Soltero" },
-    { value: "Casado", label: "Casado" },
-    { value: "Divorciado", label: "Divorciado" },
-    { value: "Viudo", label: "Viudo" },
-    { value: "Union Libre", label: "Union Libre" },
+    { value: "Soltero", name: "Soltero" },
+    { value: "Casado", name: "Casado" },
+    { value: "Divorciado", name: "Divorciado" },
+    { value: "Viudo", name: "Viudo" },
+    { value: "Union Libre", name: "Union Libre" },
   ];
 
   const optionsGender = [
-    { value: "Otro", label: "Otro" },
-    { value: "Masculino", label: "Masculino" },
-    { value: "Femenino", label: "Femenino" },
+    { value: "Otro", name: "Otro" },
+    { value: "Masculino", name: "Masculino" },
+    { value: "Femenino", name: "Femenino" },
   ];
 
-  const segmentOpstions: { value: string; label: string; }[] = [];
+  const segmentOpstions: { value: string; name: string; }[] = [];
   const getSegmentNames = (value: Array<ISegment>) => {
     return value.forEach(element => {
       segmentOpstions.push({
         value: element.name,
-        label: element.name
+        name: element.name
       });
     });
   };
@@ -419,7 +411,7 @@ const CreateClient: React.FC = () => {
   }
   const optionsProvince = provincesData.map(({ provinceName }) => ({
     value: provinceName,
-    label: provinceName
+    name: provinceName
   }))
   useEffect(() => {
     const fetchProvinces = async () => {
@@ -450,7 +442,7 @@ const CreateClient: React.FC = () => {
   }
   const optionsCanton = cantonsData ? cantonsData.cantons.map(({ cantonName }) => ({
     value: cantonName,
-    label: cantonName
+    name: cantonName
   })) : []
   useEffect(() => {
     const fetchCantons = async () => {
@@ -477,7 +469,7 @@ const CreateClient: React.FC = () => {
   }
   const optionsParish = parishesData ? parishesData.parishes.map(({ parishName }) => ({
     value: parishName,
-    label: parishName
+    name: parishName
   })) : []
   useEffect(() => {
     const fetchParishes = async () => {
@@ -527,20 +519,22 @@ const CreateClient: React.FC = () => {
         >
           <Typography variant="h5" align="center">Cliente</Typography>
           <Box sx={inputLayout}>
-            <BranchBox
+            <Dropdown
               label="Tipo de cliente*"
               value={clientType}
-              options={optionsClientType}
+              items={optionsClientType}
               onChange={onChangeClientType}
-            />
+              width={"100%"}
+              height={"auto"} />
           </Box>
           <Box sx={inputLayout} >
-            <BranchBox
+            <Dropdown
               label="Tipo de identificación*"
               value={identificationType}
-              options={optionsIdentificationType}
+              items={optionsIdentificationType}
               onChange={onChangeIdentificationType}
-            />
+              width={"100%"}
+              height={"auto"} />
           </Box>
           <Box sx={inputLayout}>
             <FormLabel>Identificación*</FormLabel>
@@ -603,12 +597,13 @@ const CreateClient: React.FC = () => {
           {
             isNatural
             && <Box sx={inputLayout}>
-              <BranchBox
+              <Dropdown
                 label="Género*"
                 value={gender}
-                options={optionsGender}
+                items={optionsGender}
                 onChange={onChangeGender}
-              />
+                width={"100%"}
+                height={"auto"} />
             </Box>
           }
           <Box sx={inputLayout}>
@@ -651,12 +646,13 @@ const CreateClient: React.FC = () => {
             isNatural
               ? <>
                 <Box sx={inputLayout}>
-                  <BranchBox
+                  <Dropdown
                     label="Estado laboral*"
                     value={workStatus}
-                    options={optionsWorkStatus}
+                    items={optionsWorkStatus}
                     onChange={onChangeWorkStatus}
-                  />
+                    width={"100%"}
+                    height={"auto"} />
                 </Box>
                 <Box sx={inputLayout}>
                   <FormLabel>Nombre de compañia</FormLabel>
@@ -692,12 +688,13 @@ const CreateClient: React.FC = () => {
                   />
                 </Box>
                 <Box sx={inputLayout}>
-                  <BranchBox
+                  <Dropdown
                     label="Estado civil*"
                     value={maritalStatus}
-                    options={optionsCivilStatus}
+                    items={optionsCivilStatus}
                     onChange={onChangeMaritalStatus}
-                  />
+                    width={"100%"}
+                    height={"auto"} />
                 </Box>
               </>
               : <>
@@ -789,12 +786,13 @@ const CreateClient: React.FC = () => {
         >
           <Typography variant="h5" align="center">Telefono</Typography>
           <Box sx={inputLayout}>
-            <BranchBox
+            <Dropdown
               label="Tipo de teléfono*"
               value={phoneType}
-              options={optionsPhoneType}
+              items={optionsPhoneType}
               onChange={onChangePhoneType}
-            />
+              width={"100%"}
+              height={"auto"} />
           </Box>
           <Box sx={inputLayout}>
             <FormLabel>Número de teléfono*</FormLabel>
@@ -811,30 +809,36 @@ const CreateClient: React.FC = () => {
           </Box>
           <Typography variant="h5" align="center" mt={5}>Dirección</Typography>
           <Box sx={inputLayout}>
-            <BranchBox
+            <Dropdown
               label="Provincia*"
               value={selectedProvince}
-              options={optionsProvince}
+              items={optionsProvince}
               onChange={onChangeProvince}
+              width={"100%"}
+              height={"auto"}
             />
           </Box >
           <div style={{ display: isProvinceSelected ? 'none' : 'block' }}>
             <Box sx={inputLayout}>
-              <BranchBox
+              <Dropdown
                 label="Cantón*"
                 value={selectedCanton}
-                options={optionsCanton}
+                items={optionsCanton}
                 onChange={onChangeCanton}
+                width={"100%"}
+                height={"auto"}
               />
             </Box >
           </div>
           <div style={{ display: isCantonSelected ? 'none' : 'block' }}>
             <Box sx={inputLayout}>
-              <BranchBox
+              <Dropdown
                 label="Parroquia*"
                 value={selectedParish}
-                options={optionsParish}
+                items={optionsParish}
                 onChange={onChangeParish}
+                width={"100%"}
+                height={"auto"}
               />
             </Box >
           </div>

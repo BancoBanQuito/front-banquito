@@ -6,18 +6,19 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { Dayjs } from 'dayjs';
 
 import { Canton, Province } from '../Location/types';
-import BranchBox from './BranchBox';
 import Button from '@mui/material/Button';
 import { IBranch } from './Types';
 import EnvManager from '../../../config/EnvManager';
 import { Spinner } from '../../atoms/Spinner';
+import TextFieldAtom from '../../atoms/TextFieldAtom';
+import { Dropdown } from '../../atoms/Dropdown';
 
 
 const UpdateBranch: React.FC = () => {
 
     const [branchName, setBranchName] = useState<string>('');
     const [address, setAddress] = useState<string>('');
-    const [phoneNumber, setPhoneNumber] = useState<string | Number>('');
+    const [phoneNumber, setPhoneNumber] = useState<string | number>('');
     const [openingHoursMondayToFriday, setOpeningHoursMondayToFriday] = useState<Dayjs | null>(null);
     const [closingHoursMondayToFriday, setClosingHoursMondayToFriday] = useState<Dayjs | null>(null);
     const [openingHoursSaturday, setOpeningHoursSaturday] = useState<Dayjs | null>(null);
@@ -30,7 +31,7 @@ const UpdateBranch: React.FC = () => {
     }
     const optionsProvince = provincesData.map(({ provinceName }) => ({
         value: provinceName,
-        label: provinceName
+        name: provinceName
     }))
     useEffect(() => {
         const fetchProvinces = async () => {
@@ -55,7 +56,7 @@ const UpdateBranch: React.FC = () => {
     }
     const optionsCanton = cantonsData ? cantonsData.cantons.map(({ cantonName }) => ({
         value: cantonName,
-        label: cantonName
+        name: cantonName
     })) : []
     useEffect(() => {
         const fetchCantons = async () => {
@@ -82,7 +83,7 @@ const UpdateBranch: React.FC = () => {
     }
     const optionsParish = parishesData ? parishesData.parishes.map(({ parishName }) => ({
         value: parishName,
-        label: parishName
+        name: parishName
     })) : []
     useEffect(() => {
         const fetchParishes = async () => {
@@ -148,7 +149,7 @@ const UpdateBranch: React.FC = () => {
     const [selectedBranch, setSelectedBranch] = useState<string>('')
     const optionsBranch = branchesData.map(({ name }) => ({
         value: name,
-        label: name
+        name: name
     }))
     const onChangeBranch = (value: string) => {
         setSelectedBranch(value)
@@ -203,63 +204,70 @@ const UpdateBranch: React.FC = () => {
 
     return (
         <>
-        {activateSpinner? <Spinner /> : null}
+            {activateSpinner ? <Spinner /> : null}
             <Container sx={containertTitleStyles}>
                 <Typography variant="h4" align="center">
                     Actualizar Sucursal
                 </Typography>
             </Container>
             <Container sx={containerSelectStyles}>
-                <BranchBox
+                <Dropdown
                     label="Selecciona la sucursal a actualizar:"
                     value={selectedBranch}
-                    options={optionsBranch}
+                    items={optionsBranch}
                     onChange={onChangeBranch}
-                />
+                    width={'100%'}
+                    height={'auto'} />
             </Container>
             {
                 selectedBranch != ""
                     ? <>
                         <Container sx={containerStyles}>
                             <div style={{ marginRight: '10px' }}>
-                                <BranchBox
+                                <Dropdown
                                     label="Selecciona la provincia:"
                                     value={selectedProvince}
-                                    options={optionsProvince}
-                                    onChange={onChangeProvince} />
+                                    items={optionsProvince}
+                                    onChange={onChangeProvince}
+                                    width={'100%'}
+                                    height={'auto'} />
                             </div>
                             <div style={{ marginRight: '10px' }}>
-                                <BranchBox
+                                <Dropdown
                                     label="Selecciona el cantón:"
                                     value={selectedCanton}
-                                    options={optionsCanton}
-                                    onChange={onChangeCanton} />
+                                    items={optionsCanton}
+                                    onChange={onChangeCanton}
+                                    width={'100%'}
+                                    height={'auto'} />
                             </div>
                             <div>
-                                <BranchBox
+                                <Dropdown
                                     label="Selecciona la parroquia:"
                                     value={selectedParish}
-                                    options={optionsParish}
-                                    onChange={onChangeParish} />
+                                    items={optionsParish}
+                                    onChange={onChangeParish}
+                                    width={'100%'}
+                                    height={'auto'} />
                             </div>
                         </Container><Container sx={containerTextFieldStyles}>
                             <FormLabel sx={formLabelStyles}>Nombre:</FormLabel>
-                            <TextField
+                            <TextFieldAtom
                                 value={branchName}
                                 onChange={(event) => setBranchName(event.target.value)}
-                                variant="standard" />
+                                type='text' />
                         </Container><Container sx={containerTextFieldStyles}>
                             <FormLabel sx={formLabelStyles}>Dirección:</FormLabel>
-                            <TextField
+                            <TextFieldAtom
                                 value={address}
                                 onChange={(event) => setAddress(event.target.value)}
-                                variant="standard" />
+                                type='text' />
                         </Container><Container sx={containerTextFieldStyles}>
                             <FormLabel sx={formLabelStyles}>Teléfono:</FormLabel>
-                            <TextField
+                            <TextFieldAtom
                                 value={phoneNumber}
                                 onChange={(event) => setPhoneNumber(event.target.value)}
-                                variant="standard" />
+                                type='text' />
                         </Container><Container sx={containerFormLabelStyles}>
                             <FormLabel sx={formLabelStyles}>Horario de atención:</FormLabel>
                         </Container><Container sx={containerTextFieldStyles}>

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { Container, FormLabel, TextField, Typography } from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Container, Typography } from "@mui/material";
 import { Dayjs } from "dayjs";
 import Button from "@mui/material/Button";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../atoms/Spinner";
+import TextFieldAtom from "../../atoms/TextFieldAtom";
+import DatePickerAtom from "../../atoms/DatePickerAtom";
+import { Box } from "@mui/system";
+import { SizeButton } from "../../atoms/SizeButton";
+import { ButtonStyle } from "../../../style/ButtonStyle";
+import { ColorPalette } from "../../../style/ColorPalette";
 
 const UpdateHoliday: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -50,57 +53,56 @@ const UpdateHoliday: React.FC = () => {
   return (
     <>
       {activateSpinner ? <Spinner /> : null}
-      <Container sx={containertTitleStyles}>
-        <Typography variant="h4" align="center">
-          Actualizar Informacion
-        </Typography>
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Fecha:</FormLabel>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            value={date}
-            onChange={(time) => {
-              setDate(time);
-            }}
-            renderInput={(params) => (
-              <TextField {...params} sx={formLabelStyles} />
-            )}
-          />
-        </LocalizationProvider>
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Nombre:</FormLabel>
-        <TextField
+      <Box
+        component='form'
+        onSubmit={handleSubmit}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          maxWidth: 500
+        }}>
+        <Container sx={containertTitleStyles}>
+          <Typography variant="h4" align="center">
+            Actualizar Informacion
+          </Typography>
+        </Container>
+        <DatePickerAtom
+          label="Fecha"
+          value={date}
+          fullWidth
+          onChange={(time) => setDate(time)} />
+        <TextFieldAtom
+          required
+          fullWidth
+          label="Nombre"
           value={name}
           onChange={(event) => setName(event.target.value)}
-          variant="standard"
-        />
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Tipo:</FormLabel>
-
-        <TextField
+          type='text' />
+        <TextFieldAtom
+          required
+          fullWidth
+          label="Tipo"
           value={type}
           onChange={(event) => setType(event.target.value)}
-          variant="standard"
-        />
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Codigo:</FormLabel>
-        <TextField
+          type='text' />
+        <TextFieldAtom
+          required
+          fullWidth
+          label="Codigo"
           value={code}
           onChange={(event) => setCode(event.target.value)}
-          variant="standard"
-        />
-      </Container>
-      <Container sx={containerFormLabelStyles}></Container>
+          type='text' />
 
-      <Container sx={containerTextFieldStyles}>
-        <Button onClick={handleSubmit} sx={buttonStyles}>
-          Actualizar
-        </Button>
-      </Container>
+        <SizeButton
+          submit
+          text={"Actualizar"}
+          style={ButtonStyle.BIG} palette={{
+            backgroundColor: ColorPalette.PRIMARY,
+          }} />
+      </Box>
     </>
   );
 };

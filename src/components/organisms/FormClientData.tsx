@@ -17,6 +17,7 @@ const FormClientData = () => {
     <form>
       <div className="left-side">
         <TextFieldAtom
+          fullWidth
           label="Correo"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -24,13 +25,15 @@ const FormClientData = () => {
           type={"text"}
           name={"email"} />
         <TextFieldAtom
+          fullWidth
           label="Fecha de Nacimiento"
           value={fechaNacimiento}
           onChange={(e) => setFechaNacimiento(e.target.value)}
           disable
-          type={"date"}
+          type={"text"}
           name={"date"} />
         <TextFieldAtom
+          fullWidth
           label="Género"
           value={genero}
           onChange={(e) => setGenero(e.target.value)}
@@ -38,6 +41,7 @@ const FormClientData = () => {
           type={"text"}
           name={"gender"} />
         <TextFieldAtom
+          fullWidth
           label="Carrera"
           value={carrera}
           onChange={(e) => setCarrera(e.target.value)}
@@ -45,6 +49,7 @@ const FormClientData = () => {
           type={"text"}
           name={"career"} />
         <TextFieldAtom
+          fullWidth
           label="Lugar de Trabajo"
           value={lugarTrabajo}
           onChange={(e) => setLugarTrabajo(e.target.value)}
@@ -52,6 +57,7 @@ const FormClientData = () => {
           type={"text"}
           name={"work-place"} />
         <TextFieldAtom
+          fullWidth
           label="Estado Civil"
           value={estadoCivil}
           onChange={(e) => setEstadoCivil(e.target.value)}
@@ -59,6 +65,7 @@ const FormClientData = () => {
           type={"text"}
           name={"civil-state"} />
         <TextFieldAtom
+          fullWidth
           label="Referencia"
           value={referencia}
           onChange={(e) => setReferencia(e.target.value)}
@@ -68,6 +75,7 @@ const FormClientData = () => {
       </div>
       <div className="right-side">
         <TextFieldAtom
+          fullWidth
           label="Teléfono"
           value={telefono}
           onChange={(e) => setTelefono(e.target.value)}
@@ -75,6 +83,7 @@ const FormClientData = () => {
           type={"text"}
           name={"phone"} />
         <TextFieldAtom
+          fullWidth
           label="Dirección"
           value={direccion}
           onChange={(e) => setDireccion(e.target.value)}
@@ -82,6 +91,7 @@ const FormClientData = () => {
           type={"text"}
           name={"address"} />
         <TextFieldAtom
+          fullWidth
           label="Segmento"
           value={segmento}
           onChange={(e) => setSegmento(e.target.value)}

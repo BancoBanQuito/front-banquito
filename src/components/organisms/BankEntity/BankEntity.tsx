@@ -5,6 +5,7 @@ import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { SizeButton } from '../../atoms/SizeButton';
 import { saveBankEntity } from './FunctionsBank';
+import TextFieldAtom from '../../atoms/TextFieldAtom';
 
 export const Container = styled.div`
   display: flex;
@@ -23,45 +24,42 @@ export const Content = styled.div`
 export const BankEntity = () => {
   const [nameBank, setnameBank] = React.useState('');
   const [codeBank, setcodeBank] = React.useState('');
-  const saveBank = () => { 
-    if (codeBank === '' || nameBank === '') {
-      alert('Debe llenar todos los campos');
-      return;
-    }
-    saveBankEntity (codeBank, nameBank);
+
+  const saveBank = () => {
+    saveBankEntity(codeBank, nameBank);
   };
   return (
     <Container>
       <h1>Bienvenido</h1>
       <Content>
-      <TextField
-        id="internacionalBankCode"
-        label=""
-        color="primary"
-        type="text"
-        placeholder="Código Internacional de la Entidad Bancaria"
-        variant="standard"
-        onChange={(e) => { setcodeBank(e.target.value); } }
-        fullWidth
-      />
-      <TextField
-        id="name"
-        label=""
-        color="primary"
-        type="text"
-        placeholder="Nombre de la Entidad Bancaria"
-        variant="standard"
-        onChange={(e) => { setnameBank(e.target.value); } }
-        fullWidth
+        <TextFieldAtom
+          id="internacionalBankCode"
+          label=""
+          color="primary"
+          type="text"
+          placeholder="Código Internacional de la Entidad Bancaria"
+          onChange={(e) => { setcodeBank(e.target.value); }}
+          fullWidth
+          required
+        />
+        <TextFieldAtom
+          id="name"
+          label=""
+          color="primary"
+          type="text"
+          placeholder="Nombre de la Entidad Bancaria"
+          required
+          onChange={(e) => { setnameBank(e.target.value); }}
+          fullWidth
 
-      />
+        />
       </Content>
-    <br></br>
-    <SizeButton palette={{ backgroundColor: ColorPalette.BLACK }}
+      <SizeButton
+        palette={{ backgroundColor: ColorPalette.PRIMARY }}
         onClick={() => saveBank()}
         text='Crear'
         style={ButtonStyle.BIG}
-    />
+      />
     </Container>
   );
 };

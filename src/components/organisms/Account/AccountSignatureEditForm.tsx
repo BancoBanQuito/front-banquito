@@ -62,11 +62,11 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                maxWidth: 500
             }}>
             <div style={{ margin: '0.25rem', width: '100%' }}>
                 <TextFieldAtom
-                    id="outlined-basic"
                     name="identification"
                     label="Numero de identificacion"
                     color="primary"
@@ -74,11 +74,14 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
                     onChange={handleChange}
                     value={signature.identification}
                     placeholder="Ingrese el numero de cedula"
+                    required
+                    fullWidth
                 />
             </div>
             <div style={{ margin: '0.25rem', width: '100%' }}>
                 <Dropdown
                     backgroundColor={ColorPalette.TERNARY}
+                    defaultValue={props.signature.status}
                     height='auto'
                     width='100%'
                     label='Estado'
@@ -96,7 +99,6 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
                     onChange={(value) => setsignature({ ...signature, role: value })}
                 /> */}
                 <TextFieldAtom
-                    id="outlined-basic"
                     name="role"
                     label="Rol"
                     color="primary"
@@ -104,6 +106,8 @@ const AccountSignatureEditForm = (props: AccountSignatureEditFormProps) => {
                     onChange={handleChange}
                     value={signature.role}
                     placeholder="Ingrese el numero de cedula"
+                    fullWidth
+                    required
                 />
             </div>
             <SizeButton

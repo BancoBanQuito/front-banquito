@@ -7,6 +7,7 @@ import { CIUtils } from "../../../utils/CIUtils";
 import { Dropdown } from "../../atoms/Dropdown";
 import { SizeButton } from "../../atoms/SizeButton";
 import IdentificationTypes from '../../../services/.json/IdentificationType.json'
+import TextFieldAtom from "../../atoms/TextFieldAtom";
 
 
 const mainBoxStyle = (): SxProps<Theme> => {
@@ -151,6 +152,7 @@ const AccountFormBank = (props: AccountFormProps) => {
                     }}>
                         <Dropdown
                             required
+                            defaultValue={props.identificationType}
                             width={"100%"}
                             height={"auto"}
                             label={textHelpers.typeIdentification}
@@ -160,18 +162,17 @@ const AccountFormBank = (props: AccountFormProps) => {
                                 setaccount({ ...account, identificationType: value })}
                         />
                     </div>
-                    <TextField
+                    <TextFieldAtom
                         id="identification"
                         name="identification"
-                        margin="normal"
                         fullWidth
                         type="text"
                         onChange={handleFormChange}
                         label={textHelpers.identificationPlaceholder}
                         error={showIdentificationError}
-                        helperText={showIdentificationError && errorMessage}
+                        helperText={showIdentificationError ? errorMessage : ""}
                         value={account.identification}
-                        disabled={!!props.identification}
+                        disable={!!props.identification}
                         required
                     />
                     <FormControlLabel

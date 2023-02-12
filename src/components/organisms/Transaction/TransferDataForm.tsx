@@ -7,6 +7,7 @@ import { ChevronRight } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import ATMButtonContainerMolecule from "../../molecules/ATMButtonContainerMolecule";
 import ATMButtonAtom from "../../atoms/ATMButtonAtom";
+import TextFieldAtom from "../../atoms/TextFieldAtom";
 
 
 interface FormTransferInterface {
@@ -85,10 +86,9 @@ const TransferDataForm = (props: TransferFormProps) => {
                     </Typography>
                 </Box>
                 <Box>
-                    {!!props.showAccountCode && <TextField
+                    {!!props.showAccountCode && <TextFieldAtom
                         id="accountNumber"
                         name="accountNumber"
-                        margin="normal"
                         type="text"
                         onChange={handleFormChange}
                         label='Numero de Cuenta'
@@ -96,10 +96,9 @@ const TransferDataForm = (props: TransferFormProps) => {
                         required
                     />}
                     {
-                        !!props.showConcept && <TextField
+                        !!props.showConcept && <TextFieldAtom
                             id="concept"
                             name="concept"
-                            margin="normal"
                             type="text"
                             onChange={handleFormChange}
                             label='Concepto'
@@ -108,10 +107,9 @@ const TransferDataForm = (props: TransferFormProps) => {
                         />
                     }
                     {
-                        !!props.showDescription && <TextField
+                        !!props.showDescription && <TextFieldAtom
                             id="description"
                             name="description"
-                            margin="normal"
                             type="text"
                             onChange={handleFormChange}
                             label='Descripción'

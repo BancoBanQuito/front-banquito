@@ -27,6 +27,7 @@ const DatePickerAtom = (props: Props) => {
         value={props.value}
         onChange={handleChange}
         renderInput={(params) => <TextField
+          sx={{ margin: 1 }}
           color={props.color}
           fullWidth={!!props.fullWidth} {...params} />}
       />

@@ -56,70 +56,61 @@ const AccountSignatureForm = (props: AccountSignatureFormProps) => {
     return (
         <Box
             component="form"
-            onSubmit={handleSubmit}>
-            <div style={{ width: '100%', margin: '0.5rem 0' }}>
-                <TextFieldAtom
-                    fullWidth
-                    id={''}
-                    name="identification"
-                    label="Ingrese la identificación"
-                    color="primary"
-                    type="text"
-                    value={signature.identification}
-                    onChange={handleChange}
-                />
-            </div>
-            <div style={{ width: '100%', margin: '0.5rem 0' }}>
-                <Dropdown
-                    label="Tipo de identificación"
-                    items={IdentificationType}
-                    width='100%'
-                    height={'auto'}
-                    backgroundColor={ColorPalette.SECONDARY}
-                    onChange={(value) => setsignature({ ...signature, identificationType: value })}
-                />
-            </div>
-            <div style={{ width: '100%', margin: '0.5rem 0' }}>
-                <TextFieldAtom
-                    fullWidth
-                    id={''}
-                    label="Ingrese el rol"
-                    name="role"
-                    color="primary"
-                    type="text"
-                    value={signature.role}
-                    onChange={handleChange}
-                    placeholder="Ingreso número de cuenta"
-                />
-            </div>
-            <div style={{ width: '100%', margin: '0.5rem 0' }}>
-                <DatePickerAtom
-                    fullWidth
-                    label="Fecha de activación"
-                    value={date}
-                    onChange={setdate}
-                />
-            </div>
-
-            <Box sx={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alingItems: "center",
-                verticalAlign: "middle",
-                alignText: "center",
+            onSubmit={handleSubmit}
+            sx={{
+                width: '100%',
+                maxWidth: 500,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'
             }}>
-                <div style={{ margin: "2rem" }}>
-                    <SizeButton
-                        submit
-                        text={"Agregar"}
-                        style={ButtonStyle.BIG}
-                        palette={{
-                            backgroundColor: ColorPalette.PRIMARY,
-                        }}
-                    />
-                </div>
-            </Box>
+            <TextFieldAtom
+                name="identification"
+                label="Ingrese la identificación"
+                color="primary"
+                type="text"
+                value={signature.identification}
+                onChange={handleChange}
+                fullWidth
+                required
+
+            />
+            <Dropdown
+                label="Tipo de identificación"
+                items={IdentificationType}
+                width='100%'
+                height={'auto'}
+                backgroundColor={ColorPalette.SECONDARY}
+                onChange={(value) => setsignature({ ...signature, identificationType: value })}
+                required
+            />
+            <TextFieldAtom
+                label="Ingrese el rol"
+                name="role"
+                color="primary"
+                type="text"
+                value={signature.role}
+                onChange={handleChange}
+                placeholder="Ingreso número de cuenta"
+                fullWidth
+                required
+            />
+            <DatePickerAtom
+                fullWidth
+                label="Fecha de activación"
+                value={date}
+                onChange={setdate}
+            />
+
+            <SizeButton
+                submit
+                text={"Agregar"}
+                style={ButtonStyle.BIG}
+                palette={{
+                    backgroundColor: ColorPalette.PRIMARY,
+                }}
+            />
         </Box>
     )
 }

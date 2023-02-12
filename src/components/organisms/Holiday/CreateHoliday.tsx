@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, FormLabel, TextField, Typography } from "@mui/material";
+import { Box, Container, FormLabel, TextField, Typography } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -7,6 +7,11 @@ import { Dayjs } from "dayjs";
 import Button from "@mui/material/Button";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../atoms/Spinner";
+import TextFieldAtom from "../../atoms/TextFieldAtom";
+import DatePickerAtom from "../../atoms/DatePickerAtom";
+import { SizeButton } from "../../atoms/SizeButton";
+import { ButtonStyle } from "../../../style/ButtonStyle";
+import { ColorPalette } from "../../../style/ColorPalette";
 
 const CreateHoliday: React.FC = () => {
   const [activateSpinner, setActivateSpinner] = useState(false);
@@ -39,69 +44,67 @@ const CreateHoliday: React.FC = () => {
           throw new Error(response.statusText);
         }
         setActivateSpinner(false);
-        alert("Creada con éxito");
+        // alert("Creada con éxito");
       } catch (error) {
         setActivateSpinner(false);
-        alert("Ya existe la fecha seleccionada");
+        // alert("Ya existe la fecha seleccionada");
       }
     } else {
-      alert("Todos los campos son obligatorios");
+      // alert("Todos los campos son obligatorios");
     }
   };
 
   return (
     <>
       {activateSpinner ? <Spinner /> : null}
-      <Container sx={containertTitleStyles}>
-        <Typography variant="h4" align="center">
-          Feriado
-        </Typography>
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Fecha:</FormLabel>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            value={date}
-            onChange={(time) => {
-              setDate(time);
-            }}
-            renderInput={(params) => (
-              <TextField {...params} sx={formLabelStyles} />
-            )}
-          />
-        </LocalizationProvider>
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Nombre:</FormLabel>
-        <TextField
+      <Box
+        component='form'
+        onSubmit={handleSubmit}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          maxWidth: 500
+        }}>
+        <Container sx={containertTitleStyles}>
+          <Typography variant="h4" align="center">
+            Feriado
+          </Typography>
+        </Container>
+        <DatePickerAtom
+          fullWidth
+          label={"Fecha"} value={date}
+          onChange={(time) => {
+            setDate(time);
+          }} />
+        <TextFieldAtom
+          label="Nombre"
           value={name}
           onChange={(event) => setName(event.target.value)}
-          variant="standard"
-        />
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Tipo:</FormLabel>
-        <TextField
+          type='text'
+          fullWidth />
+        <TextFieldAtom
+          label="Tipo"
           value={type}
           onChange={(event) => setType(event.target.value)}
-          variant="standard"
-        />
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Codigo:</FormLabel>
-        <TextField
+          type='text'
+          fullWidth />
+        <TextFieldAtom
+          label="Codigo"
           value={code}
           onChange={(event) => setCode(event.target.value)}
-          variant="standard"
-        />
-      </Container>
-      <Container sx={containerFormLabelStyles}></Container>
+          type='text'
+          fullWidth />
 
-      <Container sx={containerTextFieldStyles}>
-        <Button onClick={handleSubmit} sx={buttonStyles}>
-          Crear
-        </Button>
-      </Container>
+        <SizeButton
+          submit
+          text={"Crear"}
+          style={ButtonStyle.BIG} palette={{
+            backgroundColor: ColorPalette.PRIMARY
+          }} />
+      </Box>
     </>
   );
 };
