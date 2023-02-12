@@ -35,13 +35,13 @@ const HomeClient = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user.isLogged) {
+    /* if (user.isLogged) {
       setwelcomeModal(true);
       const interval = setInterval(() => {
         setwelcomeModal(false);
         clearInterval(interval);
       }, 3000);
-    }
+    } */
     return () => { }
   }, [])
 
@@ -52,9 +52,7 @@ const HomeClient = () => {
       <div style={{ marginTop: '1rem' }}>
         <Box sx={{
           width: '100%',
-          height: '97vh',
-          overflowX: 'hidden',
-          overflowY: 'auto'
+          height: '100vh'
         }}>
           <section style={{ height: ' 50vh' }}>
             <CCarousel style={{ height: '75vh' }} indicators controls transition="crossfade">
