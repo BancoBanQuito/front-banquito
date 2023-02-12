@@ -39,11 +39,15 @@ const AppClient = () => {
                 margin: 0,
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center'
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+                overflowX: 'hidden',
+                overflowY: 'auto',
+                position: 'absolute',
+                top: 0,
             }}>
             {
-                user.isLogged && <Topnav to='/client/home' />
+                (user.isLogged) && <Topnav to='/client/home' />
             }
             <Outlet />
         </Box>

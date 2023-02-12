@@ -119,7 +119,7 @@ const Topnav = ({ to }: TopnavProps) => {
               onClose={handleCloseUserMenu}
               anchorEl={anchorEl}
               anchorOrigin={{
-                vertical: 'top',
+                vertical: 'bottom',
                 horizontal: 'right'
               }}
               keepMounted>

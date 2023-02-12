@@ -51,16 +51,6 @@ const App = () => {
                 />
               ))}
             </Route>
-            {/* <Route path="/cliente" element={<Layout to="cliente" />}>
-              <Route index element={<HomeClient />} />
-              {clientRoutes.map((route) => (
-                <Route
-                  key={route.path}
-                  path={`/cliente/${route.path}`}
-                  element={route.element}
-                />
-              ))}
-            </Route> */}
             <Route path="/atm">
               <Route index element={<ATMHome />} />
               {atmRoutes.map((route) => (
