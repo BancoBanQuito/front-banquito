@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Container, FormLabel, TextField, Typography } from '@mui/material';
+import { Box, Container, FormLabel, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import EnvManager from '../../../config/EnvManager';
 import { set } from 'date-fns';
 import { Spinner } from '../../atoms/Spinner';
+import TextFieldAtom from '../../atoms/TextFieldAtom';
+import { Dropdown } from '../../atoms/Dropdown';
+import IdentificationTypes from '../../../services/.json/IdentificationType.json'
+import { SizeButton } from '../../atoms/SizeButton';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
 
 
 interface Props {
@@ -60,95 +66,69 @@ const CreateUser = ({ redirect }: Props) => {
     return (
         <>
             {activateSpinner ? <Spinner /> : null}
-            <Container sx={containertTitleStyles}>
-                <Typography variant="h4" align="center">
-                    Crear Usuario
-                </Typography>
-            </Container>
-            <Container sx={containerStyles}>
-            </Container >
-            <Container sx={containerTextFieldStyles}>
-                <FormLabel sx={formLabelStyles}>Número de identificación:</FormLabel>
-                <TextField
+            <Box
+                component="form"
+                onSubmit={handleSubmit}
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    maxWidth: 500
+                }}>
+                <Container sx={containertTitleStyles}>
+                    <Typography variant="h4" align="center">
+                        Crear Usuario
+                    </Typography>
+                </Container>
+                <TextFieldAtom
+                    label='Identificacion'
+                    fullWidth
+                    required
                     value={identification}
                     onChange={(event) => setIdentification(event.target.value)}
-                    variant="standard"
-                />
-            </Container>
-            <Container sx={containerTextFieldStyles}>
-                <FormLabel sx={formLabelStyles}>Tipo de identificación:</FormLabel>
-                <TextField
-                    value={identificationType}
-                    onChange={(event) => setIdentificationType(event.target.value)}
-                    variant="standard"
-                />
-            </Container>
-            <Container sx={containerTextFieldStyles}>
-                <FormLabel sx={formLabelStyles}>Email:</FormLabel>
-                <TextField
+                    type='text' />
+                <Dropdown
+                    label={'Tipo de Identificacion'}
+                    backgroundColor={ColorPalette.SECONDARY}
+                    items={IdentificationTypes}
+                    width={'100%'}
+                    height={'auto'} />
+                <TextFieldAtom
+                    label='Correo Electronico'
+                    fullWidth
+                    required
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
-                    variant="standard"
-                />
-            </Container>
-            <Container sx={containerTextFieldStyles}>
-                <FormLabel sx={formLabelStyles}>Email de usuario:</FormLabel>
-                <TextField
+                    type='email' />
+                <TextFieldAtom
+                    label='Usuario'
+                    fullWidth
+                    required
                     value={userName}
                     onChange={(event) => setUsername(event.target.value)}
-                    variant="standard"
-                />
-            </Container>
-            <Container sx={containerTextFieldStyles}>
-                <FormLabel sx={formLabelStyles}>Contraseña:</FormLabel>
-                <TextField
+                    type='text' />
+                <TextFieldAtom
+                    label='Contraseña'
+                    fullWidth
+                    required
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
-                    variant="standard"
-                />
-            </Container>
-            <Container sx={containerTextFieldStyles}>
-                <Button onClick={handleSubmit} sx={buttonStyles}>Crear usuario</Button>
-            </Container>
+                    type='password' />
+                <SizeButton
+                    text={'Crear'}
+                    style={ButtonStyle.BIG} palette={{
+                        backgroundColor: ColorPalette.PRIMARY,
+                    }} />
+            </Box>
         </>
     )
 }
 
 export default CreateUser;
 
-const containerStyles = () => ({
-    display: 'flex',
-    justifyContent: 'flex-start',
-});
-
 const containertTitleStyles = () => ({
     textAlign: 'center',
     marginTop: '70px',
     marginBottom: '20px'
-});
-
-const containerTextFieldStyles = () => ({
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    marginTop: '50px',
-});
-
-const containerFormLabelStyles = () => ({
-    marginTop: '50px',
-    marginLeft: '280px'
-});
-
-const formLabelStyles = () => ({
-    marginRight: '10px',
-});
-
-const buttonStyles = () => ({
-    background: '#1D3557',
-    color: 'white',
-    ':hover': {
-        background: '#1D3557',
-        color: 'white'
-    }
 });

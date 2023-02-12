@@ -1,32 +1,56 @@
 import React, { useState } from "react";
 import { Box, Container } from "@mui/material";
 import CreateHoliday from "../../../components/organisms/Holiday/CreateHoliday";
-import { HolidayTabs } from "../../../components/organisms/Holiday/HolidayTabs";
 import Holiday from "../../ClientPages/Holiday/Holiday";
 import CreateHolidayD from "../../../components/organisms/Holiday/CreateHoliday";
 import CreateHolidayY from "../../../components/organisms/Holiday/CreateHolidayYear";
 import DeleteHoliday from "../../../components/organisms/Holiday/DeleteHoliday";
 import UpdateHoliday from "../../../components/organisms/Holiday/UpdateHoliday";
-import Branch from "../../ClientPages/Branches/Branch";
-import CreateBranch from "../../../components/organisms/Branch/CreateBranch";
+import TabsMolecule from "../../../components/molecules/TabsMolecule";
 
 const HolidayUser: React.FC = () => {
   const [tabValue, setTabValue] = useState("Ver");
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
-    setTabValue(newValue);
+  const handleChange = (value: any) => {
+    setTabValue(value);
   };
 
   return (
-    <Box sx={boxStyles}>
-      <HolidayTabs tabValue={tabValue} handleChange={handleChange} />
-      <Box sx={{ width: "80%" }}>
-        <Container sx={childStyles}>
-          {tabValue === "Ver" && <Holiday />}
-        </Container>
+    <Box>
+      <div style={{
+        marginRight: '1rem',
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "20%"
+      }}>
+        <TabsMolecule
+          items={[
+            { label: "Ver", value: "Ver" },
+            { label: "Fines de Semana", value: "CrearA" },
+            { label: "Feriados", value: "CrearD" },
+            { label: "Actualizar Informacion", value: "Actualizar" },
+            { label: "Eliminar", value: "Eliminar" },
+          ]}
+          onChange={handleChange} />
+      </div>
+      <Box sx={{
+        width: "80%",
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: "absolute",
+        overflowX: 'hidden',
+        overflowY: 'auto',
+        padding: '2rem',
+        top: 0,
+        right: 0,
+      }}>
+        {tabValue === "Ver" && <Holiday />}
         {tabValue === "CrearA" && <CreateHolidayY />}
         {tabValue === "CrearD" && <CreateHolidayD />}
-        {tabValue === "Actualizr" && <UpdateHoliday/>}
+        {tabValue === "Actualizar" && <UpdateHoliday />}
         {tabValue === "Eliminar" && <DeleteHoliday />}
       </Box>
     </Box>
@@ -34,18 +58,3 @@ const HolidayUser: React.FC = () => {
 };
 
 export default HolidayUser;
-
-const boxStyles = () => ({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-between",
-  alignItems: "flex-start",
-  marginTop: "200px",
-});
-
-const childStyles = () => ({
-  position: "relative",
-  width: "100%",
-  height: "100%",
-  marginTop: "-190px",
-});

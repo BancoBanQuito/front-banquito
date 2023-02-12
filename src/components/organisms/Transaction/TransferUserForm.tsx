@@ -4,32 +4,7 @@ import { useState, FormEvent, ChangeEvent } from "react";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import { ColorPalette } from "../../../style/ColorPalette";
 import { SizeButton } from "../../atoms/SizeButton";
-
-
-const mainBoxStyle = (): SxProps<Theme> => {
-    return {
-        marginTop: 8,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    };
-}
-
-const subtitleBoxStyle = (): SxProps<Theme> => {
-    return {
-        marginTop: 3,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-    };
-}
-
-const fieldBoxStyle = (): SxProps<Theme> => {
-    return {
-        m: 1,
-        p: 2,
-    };
-}
+import TextFieldAtom from "../../atoms/TextFieldAtom";
 
 const elementText = {
     title: 'Cliente',
@@ -46,7 +21,7 @@ interface FormTransferUserInterface {
     recipeAccount: number
 }
 
-interface TransferFormProps{
+interface TransferFormProps {
     onSubmit: (data: any) => void,
 }
 
@@ -71,7 +46,12 @@ const TransferUserForm = (props: TransferFormProps) => {
 
     return (
         <>
-            <Box sx={mainBoxStyle()}>
+            <Box sx={{
+                width: '100%',
+                maxWidth: 500,
+                display: 'flex',
+                flexDirection: 'column',
+            }}>
                 <Typography
                     component="h1"
                     variant="h4"
@@ -85,13 +65,12 @@ const TransferUserForm = (props: TransferFormProps) => {
                 <Box
                     component="form"
                     onSubmit={submitHandler}
-                    sx={
-                        fieldBoxStyle()
-                    }>
-                    <TextField
+                    sx={{
+
+                    }}>
+                    <TextFieldAtom
                         id="monto"
                         name="monto"
-                        margin="normal"
                         fullWidth
                         type="text"
                         onChange={handleFormChange}
@@ -99,33 +78,27 @@ const TransferUserForm = (props: TransferFormProps) => {
                         required
                     />
                 </Box>
-                
+
                 <Box
                     component="form"
                     onSubmit={submitHandler}
-                    sx={
-                        fieldBoxStyle()
-                    }>
-                        <Typography
-                    sx={
-                        subtitleBoxStyle()
-                    }>
-                    {elementText.subtitle}
-                </Typography>
-                    <TextField
+                    sx={{}}>
+                    <Typography
+                        sx={{}}>
+                        {elementText.subtitle}
+                    </Typography>
+                    <TextFieldAtom
                         id="cuenta"
                         name="cuenta"
-                        margin="normal"
                         fullWidth
                         type="text"
                         onChange={handleFormChange}
                         label={elementText.numAccount}
                         required
                     />
-                    <TextField
+                    <TextFieldAtom
                         id="correo"
                         name="correo"
-                        margin="normal"
                         fullWidth
                         type="text"
                         onChange={handleFormChange}
@@ -133,7 +106,7 @@ const TransferUserForm = (props: TransferFormProps) => {
                     />
                 </Box>
                 <Box
-                    sx={fieldBoxStyle()}>
+                    sx={{}}>
                     <SizeButton
                         palette={{
                             backgroundColor: ColorPalette.PRIMARY
@@ -144,8 +117,8 @@ const TransferUserForm = (props: TransferFormProps) => {
                         }}
                         style={ButtonStyle.BIG}
                         submit
-                        text={elementText.buttonText} 
-                        />
+                        text={elementText.buttonText}
+                    />
                 </Box>
             </Box>
         </>

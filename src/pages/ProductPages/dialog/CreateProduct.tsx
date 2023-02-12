@@ -2,7 +2,7 @@ import { Dialog, Stack, Typography, Divider, TextField, Select, MenuItem, Button
 import dayjs, { Dayjs } from "dayjs";
 import { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import DatePickerAtom from "../../../components/atoms/DatePicker";
+import DatePickerAtom from "../../../components/atoms/DatePickerAtom";
 import Swal from 'sweetalert2'
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";

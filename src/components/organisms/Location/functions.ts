@@ -13,17 +13,17 @@ export const createProvince = async (provinceName: string) => {
   try {
     const response = await fetch(url, options);
     if (response.ok) {
-      alert("Provincia creada con éxito");
+      // alert("Provincia creada con éxito");
     } else {
       throw new Error(response.statusText);
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }
@@ -45,17 +45,17 @@ export const createCanton = async (
   try {
     const response = await fetch(url, options);
     if (response.ok) {
-      alert("Cantón creado con éxito");
+      // alert("Cantón creado con éxito");
     } else {
       throw new Error(response.statusText);
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }
@@ -79,17 +79,17 @@ export const createParish = async (
   try {
     const response = await fetch(url, options);
     if (response.ok) {
-      alert("Parroquia creada con éxito");
+      // alert("Parroquia creada con éxito");
     } else {
       throw new Error(response.statusText);
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }
@@ -114,11 +114,11 @@ export const getProvinces = async () => {
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }
@@ -143,11 +143,11 @@ export const getCantons = async () => {
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }
@@ -172,11 +172,11 @@ export const getParishes = async () => {
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }
@@ -198,17 +198,17 @@ export const updateProvince = async (
   try {
     const response = await fetch(url, options);
     if (response.ok) {
-      alert("Provincia actualizada con éxito");
+      // alert("Provincia actualizada con éxito");
     } else {
       throw new Error(response.statusText);
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }
@@ -230,17 +230,17 @@ export const updateCanton = async (
   try {
     const response = await fetch(url, options);
     if (response.ok) {
-      alert("Cantón actualizado con éxito");
+      // alert("Cantón actualizado con éxito");
     } else {
       throw new Error(response.statusText);
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }
@@ -263,17 +263,17 @@ export const updateParish = async (
   try {
     const response = await fetch(url, options);
     if (response.ok) {
-      alert("Parroquia actualizada con éxito");
+      // alert("Parroquia actualizada con éxito");
     } else {
       throw new Error(response.statusText);
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }
@@ -291,17 +291,17 @@ export const deleteProvince = async (provinceName: string) => {
   try {
     const response = await fetch(url, options);
     if (response.ok) {
-      alert("Provincia eliminada con éxito");
+      // alert("Provincia eliminada con éxito");
     } else {
       throw new Error(response.statusText);
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }
@@ -319,17 +319,17 @@ export const deleteCanton = async (cantonName: string) => {
   try {
     const response = await fetch(url, options);
     if (response.ok) {
-      alert("Cantón eliminado con éxito");
+      // alert("Cantón eliminado con éxito");
     } else {
       throw new Error(response.statusText);
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }
@@ -347,17 +347,17 @@ export const deleteParish = async (parishName: string) => {
   try {
     const response = await fetch(url, options);
     if (response.ok) {
-      alert("Parroquia eliminada con éxito");
+      // alert("Parroquia eliminada con éxito");
     } else {
       throw new Error(response.statusText);
     }
   } catch (error: any) {
     if (error.message === "Bad Request") {
-      alert("Error: 400 Bad Request");
+      // alert("Error: 400 Bad Request");
     } else if (error.message === "Internal Server Error") {
-      alert("Error en el servidor, intente más tarde");
+      // alert("Error en el servidor, intente más tarde");
     } else {
-      alert("Error desconocido, intente más tarde");
+      // alert("Error desconocido, intente más tarde");
       console.log(error);
     }
   }

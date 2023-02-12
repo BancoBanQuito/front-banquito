@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import BranchBox from './BranchBox';
-import { Button, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 
 import { IBranch } from './Types';
 import EnvManager from '../../../config/EnvManager';
 import { Spinner } from '../../atoms/Spinner';
+import { Dropdown } from '../../atoms/Dropdown';
+import { SizeButton } from '../../atoms/SizeButton';
+import { ButtonStyle } from '../../../style/ButtonStyle';
+import { ColorPalette } from '../../../style/ColorPalette';
 
 const DeleteBranch: React.FC = () => {
     const [activateSpinner, setActivateSpinner] = useState(false);
     const [branchesData, setBranchesData] = useState<IBranch[]>([])
     const [selectedBranch, setSelectedBranch] = useState<string>('')
     const optionsBranch = branchesData.map(({ name }) => ({
-        value: name,
-        label: name
+        name: name,
+        value: name
     }))
     const onChangeBranch = (value: string) => {
         setSelectedBranch(value)
@@ -67,20 +70,36 @@ const DeleteBranch: React.FC = () => {
     return (
         <>
             {activateSpinner ? <Spinner /> : null}
-            <Container sx={containerTitleStyles}>
-                <Typography variant="h4" align="center">
-                    Eliminar Sucursal
-                </Typography>
-            </Container>
-            <BranchBox
-                label="Selecciona la sucursal a eliminar:"
-                value={selectedBranch}
-                options={optionsBranch}
-                onChange={onChangeBranch}
-            />
-            <Container sx={containerTextFieldStyles}>
-                <Button onClick={handleSubmit} sx={buttonStyles}>Eliminar sucursal</Button>
-            </Container>
+            <Box
+                component='form'
+                onSubmit={handleSubmit}
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: '100%',
+                    maxWidth: 500
+                }}>
+                <Container sx={containerTitleStyles}>
+                    <Typography variant="h4" align="center">
+                        Eliminar Sucursal
+                    </Typography>
+                </Container>
+                <Dropdown
+                    label="Selecciona la sucursal a eliminar:"
+                    value={selectedBranch}
+                    items={optionsBranch}
+                    onChange={onChangeBranch}
+                    width={'100%'}
+                    height={'auto'} />
+                <SizeButton
+                    submit
+                    text={'Eliminar'}
+                    style={ButtonStyle.BIG} palette={{
+                        backgroundColor: ColorPalette.PRIMARY
+                    }} />
+            </Box>
         </>
     )
 }
@@ -91,21 +110,4 @@ const containerTitleStyles = () => ({
     textAlign: 'center',
     marginTop: '70px',
     marginBottom: '20px'
-});
-
-const containerTextFieldStyles = () => ({
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    marginTop: '50px',
-});
-
-const buttonStyles = () => ({
-    background: '#1D3557',
-    color: 'white',
-    ':hover': {
-        background: '#1D3557',
-        color: 'white'
-    }
 });

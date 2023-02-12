@@ -5,6 +5,7 @@ import { ColorPalette } from '../../../style/ColorPalette';
 import { Dropdown } from '../../atoms/Dropdown';
 import { SizeButton } from '../../atoms/SizeButton';
 import IdentificationTypes from '../../../services/.json/IdentificationType.json'
+import TextFieldAtom from '../../atoms/TextFieldAtom';
 
 const mainBoxStyle = (): SxProps<Theme> => {
     return {
@@ -134,10 +135,9 @@ const TransferBankForm = (props: TransferFormProps) => {
                         sx={
                             fieldBoxStyle()
                         }>
-                        <TextField
+                        <TextFieldAtom
                             id="tipoIdentificacion"
                             name="tipoIdentificacion"
-                            margin="normal"
                             fullWidth
                             type="text"
                             onChange={handleFormChange}
@@ -168,10 +168,9 @@ const TransferBankForm = (props: TransferFormProps) => {
                         sx={
                             fieldBoxStyle()
                         }>
-                        <TextField
+                        <TextFieldAtom
                             id="monto"
                             name="monto"
-                            margin="normal"
                             fullWidth
                             type="text"
                             onChange={handleFormChange}
@@ -183,10 +182,9 @@ const TransferBankForm = (props: TransferFormProps) => {
                         sx={
                             fieldBoxStyle()
                         }>
-                        <TextField
+                        <TextFieldAtom
                             id="identificacion"
                             name="identificacion"
-                            margin="normal"
                             fullWidth
                             type="text"
                             onChange={handleFormChange}

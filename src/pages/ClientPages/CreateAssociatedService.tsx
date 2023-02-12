@@ -18,7 +18,6 @@ import { SizeButton } from "../../components/atoms/SizeButton";
 import { ButtonStyle } from "../../style/ButtonStyle";
 //data
 import { Checkbox } from "../../components/atoms/Checkbox";
-import { NumberField } from "../../components/atoms/NumberField";
 import EnvManager from "../../config/EnvManager";
 import { Spinner } from "../../components/atoms/Spinner";
 // Styles
@@ -209,13 +208,14 @@ const CreateAssociatedService = (props: AssociatedServiceProps) => {
                 </FormContainer>
                 <FormContainer>
                   <Span>Costo: </Span>
-                  <NumberField
+                  <TextFieldAtom
                     value={cost}
-                    action={function (value: any): void {
+                    onChange={function (value: any): void {
                       setcost(value);
                     }} label="Metodo de pago"
                     color="primary"
-                    variant="standard" />
+                    type={"number"}
+                    name={"paymentMethod"} />
                 </FormContainer>
                 <ContentButtonAddRight>
                   <SizeButton

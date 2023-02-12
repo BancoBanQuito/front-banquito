@@ -5,6 +5,7 @@ import { ButtonStyle } from '../../../style/ButtonStyle'
 import { ColorPalette } from '../../../style/ColorPalette'
 import { SizeButton } from '../../atoms/SizeButton'
 import { ChevronRight } from '@mui/icons-material'
+import TextFieldAtom from '../../atoms/TextFieldAtom'
 
 interface FormTransferUserInterface {
     amount: number
@@ -64,10 +65,9 @@ const TransferAmountForm = (props: TransferAmountFormProps) => {
                         alignItems: 'center',
                         margin: '1rem'
                     }}>
-                    <TextField
+                    <TextFieldAtom
                         id="amount"
                         name="amount"
-                        margin="normal"
                         type="number"
                         onChange={handleFormChange}
                         label='Monto'

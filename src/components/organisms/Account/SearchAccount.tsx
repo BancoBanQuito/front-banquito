@@ -4,6 +4,7 @@ import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { SizeButton } from '../../atoms/SizeButton';
 import { Search } from '@mui/icons-material';
+import TextFieldAtom from '../../atoms/TextFieldAtom';
 
 interface SearchAccountProps {
     title: string,
@@ -29,7 +30,10 @@ const SearchAccount = (props: SearchAccountProps) => {
     }
 
     return (
-        <Box>
+        <Box sx={{
+            width: '100%',
+            maxWidth: 500
+        }}>
             <Box mb={2} sx={{ fontStyle: 'italic', color: props.color ? props.color : '#000' }}>
                 <Typography variant='h4' component='h6'>
                     {props.title}
@@ -51,16 +55,13 @@ const SearchAccount = (props: SearchAccountProps) => {
                 onSubmit={handleSubmit}>
 
                 <div style={{ margin: '5px', width: '100%' }}>
-                    <TextField
+                    <TextFieldAtom
+                        fullWidth
                         name='accountNumber'
                         label={props.label || 'Ingrese el numero de cuenta'}
                         onChange={onlyNumbers}
                         value={accountNumber}
-                        sx={{
-                            width: '100%',
-                            height: 'auto'
-                        }}
-                    />
+                        type={'text'} />
                 </div>
 
                 <div style={{ margin: '5px', width: '100%' }}>

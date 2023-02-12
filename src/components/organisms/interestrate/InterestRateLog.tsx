@@ -202,8 +202,7 @@ const InterestRateLog = () => {
                             color="primary"
                             type="text"
                             placeholder="id"
-                            variant="standard"
-                            action={(event) => setName(event.target.value)}
+                            onChange={(event) => setName(event.target.value)}
                             value={name}
                         />
                     </SearchContainer>

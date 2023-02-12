@@ -5,6 +5,7 @@ import { ButtonStyle } from '../../style/ButtonStyle';
 import { ColorPalette } from '../../style/ColorPalette';
 import { Cancel, Check } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import TextFieldAtom from '../atoms/TextFieldAtom';
 
 interface ConfirmFormProps {
     showField?: boolean;
@@ -59,24 +60,24 @@ const ConfirmTransferUserForm = (props: ConfirmFormProps) => {
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
-                    <TextField
-                        sx={{ margin: '1rem' }}
+                    <TextFieldAtom
                         label='Monto'
                         value={props.data.value}
-                        disabled
-                        fullWidth />
-                    {!!props.showField && <TextField
-                        sx={{ margin: '1rem' }}
+                        disable
+                        fullWidth
+                        type={'text'} />
+                    {!!props.showField && <TextFieldAtom
                         label='Numero de Cuenta (Emisor)'
                         value={props.data.codeLocalAccount}
                         fullWidth
-                        disabled />}
-                    {!!props.showAccountReceptor && <TextField
-                        sx={{ margin: '1rem' }}
+                        disable
+                        type={'text'} />}
+                    {!!props.showAccountReceptor && <TextFieldAtom
                         label='Numero de Cuenta (Receptor)'
                         value={props.data.recipientAccountNumber}
                         fullWidth
-                        disabled />}
+                        disable
+                        type={'text'} />}
                 </Box>
                 {
                     !!props.atm ?
