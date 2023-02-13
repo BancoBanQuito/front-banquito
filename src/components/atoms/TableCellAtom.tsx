@@ -18,6 +18,7 @@ const TableCellAtom = ({ type, children, color }: TableCellProps) => {
     <TableCell
       align='center'
       sx={TableCellStyle(type, color ? color : '#1D3557')}
+      size='small'
     >{children}</TableCell>
   )
 }

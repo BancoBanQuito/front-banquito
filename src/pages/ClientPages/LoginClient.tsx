@@ -26,14 +26,6 @@ const LoginClient = () => {
   const user = useUser();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user.isLogged) {
-      navigate('/cliente/inicio');
-    }
-    return () => { }
-  }, []);
-
-
   const handleSubmit = async (submitUser: { username: string, password: string }) => {
     setisLoading(true);
     try {
