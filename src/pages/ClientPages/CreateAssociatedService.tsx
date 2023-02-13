@@ -20,6 +20,7 @@ import { ButtonStyle } from "../../style/ButtonStyle";
 import { Checkbox } from "../../components/atoms/Checkbox";
 import EnvManager from "../../config/EnvManager";
 import { Spinner } from "../../components/atoms/Spinner";
+import axios from "axios";
 // Styles
 export const Container = styled.div`
   display: relative;
@@ -126,12 +127,12 @@ const CreateAssociatedService = (props: AssociatedServiceProps) => {
         params: []
       };
       setActivateSpinner(true);
-      await fetch(`${EnvManager.PRODUCT_URL}/api/product/associatedService`, {
+      await axios(`${EnvManager.PRODUCT_URL}/api/product/associatedService`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(associatedService)
+        data: JSON.stringify(associatedService)
       });
       props.onSubmit(associatedService);
       setActivateSpinner(false);

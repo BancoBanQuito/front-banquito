@@ -4,6 +4,7 @@ import { Spinner } from "../../components/atoms/Spinner";
 import TableMolecule from "../../components/molecules/TableMolecule";
 import EnvManager from "../../config/EnvManager";
 import { CreateTypeProduct } from "./dialog/CreateTypeProduct";
+import axios from "axios";
 
 const table: any = {
     headers: [
@@ -24,8 +25,8 @@ export const ProductType = () => {
         try {
             setActivateSpinner(true);
 
-            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/product-types/types`);
-            const data = await response.json();
+            const response = await axios(`${EnvManager.PRODUCT_URL}/api/product-types/types`);
+            const data = await response.data;
             const product = data.map((product: any) => {
                 return {
                     name: <Typography>{product.name}</Typography>,

@@ -3,6 +3,7 @@ import { Box, Container, FormLabel, Grid, TextField, Typography } from "@mui/mat
 import Button from "@mui/material/Button";
 import BranchBox from "./ClientBox";
 import EnvManager from "../../../config/EnvManager";
+import axios from "axios";
 
 export const UpdateClient: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -47,8 +48,8 @@ export const UpdateClient: React.FC = () => {
   ];
 
   useEffect(() => {
-    fetch(`${EnvManager.CLIENT_URL}/api/client/email/dpaz@espe.edu.ec`)
-      .then((response) => response.json())
+    axios(`${EnvManager.CLIENT_URL}/api/client/email/dpaz@espe.edu.ec`)
+      .then((response) => response.data)
       .then((data) => {
         setEmail(data.email);
         setGender(data.gender);

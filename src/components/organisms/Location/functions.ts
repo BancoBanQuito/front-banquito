@@ -1,3 +1,4 @@
+import axios from "axios";
 import EnvManager from "../../../config/EnvManager";
 
 export const createProvince = async (provinceName: string) => {
@@ -11,8 +12,8 @@ export const createProvince = async (provinceName: string) => {
     body: JSON.stringify({ provinceName }),
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
+    const response = await axios(url, options);
+    if (response.status === 200) {
       // alert("Provincia creada con éxito");
     } else {
       throw new Error(response.statusText);
@@ -43,8 +44,8 @@ export const createCanton = async (
     body: JSON.stringify({ provinceName, cantonName }),
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
+    const response = await axios(url, options);
+    if (response.status === 200) {
       // alert("Cantón creado con éxito");
     } else {
       throw new Error(response.statusText);
@@ -77,8 +78,8 @@ export const createParish = async (
     body: JSON.stringify({ provinceName, cantonName, parishName, zipCode }),
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
+    const response = await axios(url, options);
+    if (response.status === 200) {
       // alert("Parroquia creada con éxito");
     } else {
       throw new Error(response.statusText);
@@ -105,9 +106,9 @@ export const getProvinces = async () => {
     },
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
-      const data = await response.json();
+    const response = await axios(url, options);
+    if (response.status === 200) {
+      const data = await response.data;
       return data;
     } else {
       throw new Error(response.statusText);
@@ -134,9 +135,9 @@ export const getCantons = async () => {
     },
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
-      const data = await response.json();
+    const response = await axios(url, options);
+    if (response.status === 200) {
+      const data = await response.data;
       return data;
     } else {
       throw new Error(response.statusText);
@@ -163,9 +164,9 @@ export const getParishes = async () => {
     },
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
-      const data = await response.json();
+    const response = await axios(url, options);
+    if (response.status === 200) {
+      const data = await response.data;
       return data;
     } else {
       throw new Error(response.statusText);
@@ -196,8 +197,8 @@ export const updateProvince = async (
     body: JSON.stringify({ provinceName: newProvinceName }),
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
+    const response = await axios(url, options);
+    if (response.status === 200) {
       // alert("Provincia actualizada con éxito");
     } else {
       throw new Error(response.statusText);
@@ -228,8 +229,8 @@ export const updateCanton = async (
     body: JSON.stringify({ cantonName: newCantonName }),
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
+    const response = await axios(url, options);
+    if (response.status === 200) {
       // alert("Cantón actualizado con éxito");
     } else {
       throw new Error(response.statusText);
@@ -261,8 +262,8 @@ export const updateParish = async (
     body: JSON.stringify({ parishName: newParishName, zipCode: newZipCode }),
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
+    const response = await axios(url, options);
+    if (response.status === 200) {
       // alert("Parroquia actualizada con éxito");
     } else {
       throw new Error(response.statusText);
@@ -289,8 +290,8 @@ export const deleteProvince = async (provinceName: string) => {
     },
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
+    const response = await axios(url, options);
+    if (response.status === 200) {
       // alert("Provincia eliminada con éxito");
     } else {
       throw new Error(response.statusText);
@@ -317,8 +318,8 @@ export const deleteCanton = async (cantonName: string) => {
     },
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
+    const response = await axios(url, options);
+    if (response.status === 200) {
       // alert("Cantón eliminado con éxito");
     } else {
       throw new Error(response.statusText);
@@ -345,8 +346,8 @@ export const deleteParish = async (parishName: string) => {
     },
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
+    const response = await axios(url, options);
+    if (response.status === 200) {
       // alert("Parroquia eliminada con éxito");
     } else {
       throw new Error(response.statusText);

@@ -9,14 +9,15 @@ import TextFieldAtom from "../../atoms/TextFieldAtom";
 import { SizeButton } from "../../atoms/SizeButton";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import { ColorPalette } from "../../../style/ColorPalette";
+import axios from "axios";
 
 const CreateHolidayYear: React.FC = () => {
   const [date, setDate] = useState<string | undefined>("");
   const [isLoading, setIsLoading] = useState(false);
   const [activateSpinner, setActivateSpinner] = useState(false);
   const handleSubmit = async () => {
-    // if (!date) return alert("Todos los campos son obligatorios");
-    /* setIsLoading(true);
+    /*if (!date) return alert("Todos los campos son obligatorios");
+    setIsLoading(true);
     try {
       setActivateSpinner(true);
       const response = await fetch(
@@ -45,6 +46,36 @@ const CreateHolidayYear: React.FC = () => {
       setActivateSpinner(false);
       console.error(error);
     } */
+    if (!date) return alert("Todos los campos son obligatorios");
+    setIsLoading(true);
+    try {
+      setActivateSpinner(true);
+      const response = await axios(
+        `${EnvManager.SETTINGS_URL}/api/holiday/${date}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+      if (response.status === 200) {
+        setIsLoading(false);
+        setActivateSpinner(false);
+        alert("Fines de semana creados para el año " + date);
+      } else {
+
+        setIsLoading(false);
+        setActivateSpinner(false);
+        alert("Ya existen los fines de semana para el año " + date);
+      }
+    } catch (error) {
+
+      setIsLoading(false);
+      setActivateSpinner(false);
+      console.error(error);
+    }
   };
 
   return (
