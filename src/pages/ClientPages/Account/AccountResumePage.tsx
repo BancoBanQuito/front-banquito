@@ -13,6 +13,9 @@ import { AlertColor } from '@mui/lab';
 import { AccountStatementService } from '../../../services/account/AccountStatementService';
 import { Dropdown } from '../../../components/atoms/Dropdown';
 import ModalOrganism from '../../../components/organisms/ModalOrganism';
+import { TransactionService } from '../../../services/transaction/TransactionService';
+import { RSTransaction } from '../../../services/transaction/dto/RSTransaction';
+import { useUser } from '../../../context/UserContext';
 
 interface AccountResumePageProps {
     accounts: RSAccount[];
@@ -29,6 +32,7 @@ const accountToDropdown = (accounts: RSAccount[]) => {
 
 const AccountResumePage = (props: AccountResumePageProps) => {
 
+
     const [accountSelected, setaccountSelected] = useState<RSAccount | undefined>();
     const [accountStaments, setaccountStaments] = useState<RSAccountStatementList[]>([]);
 
@@ -42,9 +46,26 @@ const AccountResumePage = (props: AccountResumePageProps) => {
 
     const [openAccountStatementModal, setopenAccountStatementModal] = useState<boolean>(false);
 
+    const user = useUser();
+
     const handleAccountSelection = (account: RSAccount) => {
         setaccountSelected(account);
         retriveAccountStatementList(account.codeLocalAccount);
+    }
+
+    const retriveAccountMovements = async (id: string) => {
+        setisLoading(true);
+        try {
+            const data: RSTransaction[] = (await TransactionService.getTransaction(id, "", "")).data.data || [];
+            // setaccountStaments(data);
+        } catch (error) {
+            setmessageSnack("Ha ocurrido un error");
+            settitleSnack("Error");
+            setcolorSnack('error');
+            setopenSnack(true);
+        } finally {
+            setisLoading(false);
+        }
     }
 
     const retriveAccountStatementList = async (id: string) => {
@@ -101,7 +122,7 @@ const AccountResumePage = (props: AccountResumePageProps) => {
                         <Grid container spacing={5}>
                             {
                                 props.accounts.map(account => {
-                                    return <Grid item sm={6}><AccountCard account={account} onClick={handleAccountSelection} /></Grid>
+                                    return <Grid item sm={6}><AccountCard username={user.username?.split("@")[0] || ''} account={account} onClick={handleAccountSelection} /></Grid>
                                 })
                             }
                         </Grid>

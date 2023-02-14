@@ -13,8 +13,8 @@ const AccountStatementItemMolecule = (props: AccountStatementItemMoleculeProps) 
         <>
             <Grid container spacing={5}>
                 <Grid item sm={9} onClick={() => props.onClick?.(props.accountStatementList.code)}>
-                    <Typography variant='h6' fontSize='1rem'>Sample</Typography>
-                    <Typography variant='body1' fontSize='1rem'>Sample</Typography>
+                    <Typography variant='h6' fontSize='1rem' color='secondary'>{`${props.accountStatementList.currentCutOffDate}`}</Typography>
+                    <Typography variant='body1' fontSize='1rem'>${props.accountStatementList.balance}</Typography>
                 </Grid>
                 <Grid item sm={3}>
                     <div style={{ height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

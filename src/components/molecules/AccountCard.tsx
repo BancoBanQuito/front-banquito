@@ -5,6 +5,7 @@ import { ColorPalette } from '../../style/ColorPalette';
 
 interface AccountCardProps {
     account: RSAccount;
+    username: string;
     onClick?: (account: RSAccount) => void;
 }
 
@@ -20,8 +21,14 @@ const AccountCard = (props: AccountCardProps) => {
             onClick={() => props.onClick?.(props.account)}>
             <CardContent sx={{ width: '100%' }} >
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', color: ColorPalette.SECONDARY }}>
-                    <Typography variant='h6'>Sample</Typography>
-                    <Typography fontSize='1rem' variant='body1'>{props.account.codeLocalAccount}</Typography>
+                    <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }} >
+                        <Typography variant='h6'>{props.username}</Typography>
+                        <Typography variant='body1' fontSize={'0.75rem'}>{props.account.status}</Typography>
+                    </div>
+                    <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }} >
+                        <Typography fontSize='1rem' variant='body1' alignSelf={'flex-end'}>{props.account.codeLocalAccount}</Typography>
+                        <Typography variant='body1' fontSize={'0.75rem'} alignSelf={'flex-end'}>{props.account.product}</Typography>
+                    </div>
                 </div>
                 <hr />
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between' }}>
