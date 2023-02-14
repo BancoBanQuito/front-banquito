@@ -4,6 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Theme } from "@emotion/react";
+import { ColorPalette } from "../../style/ColorPalette";
 
 interface DropdownProps {
   label: string;
@@ -14,7 +15,7 @@ interface DropdownProps {
   required?: boolean;
   backgroundColor?: string | "white";
   selectedTextColor?: string | "white";
-  onChange?: (value: string) => void;
+  onChange?: (value: any) => void;
   inputLabelColor?: string | "white";
   inputFocusedLabelColor?: string | "#4B4B4B";
   value?: string;
@@ -27,30 +28,25 @@ const formControlStyles = (props: DropdownProps) => ({
 
 const selectStyles = (props: DropdownProps): SxProps<Theme> => ({
   margin: 1,
-  color: props.selectedTextColor || "white",
+  color: props.backgroundColor === 'white' ? ColorPalette.SECONDARY : props.selectedTextColor || "white",
   "& .MuiSelect-select": {
     backgroundColor: props.backgroundColor,
     borderRadius: "10px",
   },
   "& .MuiSelect-icon": {
-    color: "white",
+    color: props.backgroundColor === 'white' ? ColorPalette.SECONDARY : props.selectedTextColor || "white",
     fontSize: "4rem",
   },
   "& .MuiOutlinedInput-notchedOutline": {
-    borderColor: props.backgroundColor,
     borderRadius: "10px",
   },
-  "&:hover .MuiOutlinedInput-notchedOutline": {
-    borderColor: "white",
-  },
   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-    borderColor: props.backgroundColor,
     borderRadius: "10px",
   },
 });
 
 const inputLabelStyles = (props: DropdownProps) => ({
-  color: props.inputLabelColor || "white",
+  color: props.backgroundColor === 'white' ? ColorPalette.SECONDARY : props.inputLabelColor || "white",
   fontSize: "1rem",
 
   "&.Mui-focused": {

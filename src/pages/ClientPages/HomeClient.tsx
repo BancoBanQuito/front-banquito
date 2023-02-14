@@ -25,6 +25,7 @@ import { AccountService } from '../../services/account/AccountService'
 import LoadOrganism from '../../components/organisms/LoadOrganism'
 import AccountResumePage from './Account/AccountResumePage'
 import OnConstructionMolecule from '../../components/molecules/OnConstructionMolecule'
+import TransactionPage from '../UserPages/Transaction/TransactionPage'
 
 const tabData: { label: string, value: any }[] = [
   {
@@ -88,6 +89,9 @@ const HomeClient = () => {
     }
   }
 
+  const handleCompleteTransaction = () => {
+    setcurrentIndex(0);
+  }
 
   return (
     <>
@@ -98,8 +102,10 @@ const HomeClient = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'flex-start',
-          alignItems: 'center'
-        }}>
+          alignItems: 'center',
+          overflowY: 'auto'
+        }}
+        bgcolor='#f5f6f7'>
         <TabsMolecule
           items={tabData}
           orientation='horizontal'
@@ -107,11 +113,11 @@ const HomeClient = () => {
           onChange={(value) => setcurrentIndex(value)} />
         <Box
           sx={{
-            padding: '5rem 1rem',
+            padding: '3.5rem 1rem',
             width: '100%'
           }}>
           {currentIndex === 0 && <AccountResumePage accounts={userAccounts} />}
-          {currentIndex === 1 && <OnConstructionMolecule />}
+          {currentIndex === 1 && <TransactionPage onComplete={handleCompleteTransaction} accounts={userAccounts} />}
           {currentIndex === 2 && <OnConstructionMolecule />}
           {currentIndex === 3 && <OnConstructionMolecule />}
         </Box>
