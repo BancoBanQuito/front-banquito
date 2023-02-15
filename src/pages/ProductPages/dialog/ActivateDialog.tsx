@@ -2,6 +2,7 @@ import { Dialog, Button, Stack, Typography } from "@mui/material"
 import { useEffect, useState } from "react";
 import { Spinner } from "../../../components/atoms/Spinner";
 import EnvManager from "../../../config/EnvManager";
+import axios from "axios";
 
 interface Props {
     openDialog: boolean;
@@ -26,7 +27,7 @@ export const ActivateDialog = ({ openDialog, name, state }: Props) => {
                 newState = 'ACT';
             }
             setActivateSpinner(true);
-            await fetch(`${EnvManager.PRODUCT_URL}/api/products/product?name=${name}&status=${newState}`, {
+            await axios(`${EnvManager.PRODUCT_URL}/api/products/product?name=${name}&status=${newState}`, {
                 method: 'PUT',
             }
             );

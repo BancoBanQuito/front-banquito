@@ -16,6 +16,8 @@ import AppClient from "./pages/AppClient";
 import Organisms from "./Organisms";
 import Molecules from "./Molecules";
 import AppUser from "./pages/AppUser";
+import LoginUser from "./pages/UserPages/LoginUser";
+import AppATM from "./pages/AppATM";
 
 
 const App = () => {
@@ -29,6 +31,7 @@ const App = () => {
             <Route path="/molecules" element={<Molecules />} />
             <Route path="/organisms" element={<Organisms />} />
             <Route path="/banca" element={<AppUser />}>
+              <Route index path="/banca" element={<LoginUser />} />
               {userRoutes.map((route) => (
                 <Route
                   key={route.path}
@@ -47,17 +50,7 @@ const App = () => {
                 />
               ))}
             </Route>
-            {/* <Route path="/cliente" element={<Layout to="cliente" />}>
-              <Route index element={<HomeClient />} />
-              {clientRoutes.map((route) => (
-                <Route
-                  key={route.path}
-                  path={`/cliente/${route.path}`}
-                  element={route.element}
-                />
-              ))}
-            </Route> */}
-            <Route path="/atm">
+            <Route path="/atm" element={<AppATM />}>
               <Route index element={<ATMHome />} />
               {atmRoutes.map((route) => (
                 <Route

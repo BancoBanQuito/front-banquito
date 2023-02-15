@@ -10,6 +10,7 @@ import { SizeButton } from "../../../components/atoms/SizeButton";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import { Canton, Province } from "../../../components/organisms/Location/types";
 import { Dropdown } from "../../../components/atoms/Dropdown";
+import axios from "axios";
 
 const CreateClient: React.FC = () => {
   const [isNatural, setIsNatural] = useState<boolean>(true);
@@ -202,13 +203,13 @@ const CreateClient: React.FC = () => {
   const handelSubmit = async () => {
     try {
       setActivateSpinner(true);
-      const response = await fetch(`${EnvManager.CLIENT_URL}/api/client`, {
+      const response = await axios(`${EnvManager.CLIENT_URL}/api/client`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
-        body: JSON.stringify({
+        data: JSON.stringify({
           identificationType,
           identification,
           lastname,
@@ -267,7 +268,7 @@ const CreateClient: React.FC = () => {
           }
         }),
       });
-      if (!response.ok) {
+      if (response.status !== 200) {
         setActivateSpinner(false);
         throw new Error(response.statusText);
       }
@@ -381,10 +382,10 @@ const CreateClient: React.FC = () => {
   const fetchSegment = async () => {
     try {
       setActivateSpinner(true);
-      const response = await fetch(
+      const response = await axios(
         segmentUrl
       );
-      const data = await response.json();
+      const data = await response.data;
       setActivateSpinner(false);
       setSegments(data);
     } catch (error) {
@@ -417,8 +418,8 @@ const CreateClient: React.FC = () => {
     const fetchProvinces = async () => {
       try {
         setActivateSpinner(true)
-        const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/provinces`)
-        const data = await response.json()
+        const response = await axios(`${EnvManager.SETTINGS_URL}/api/location/provinces`)
+        const data = await response.data
         setProvincesData(data)
         setActivateSpinner(false)
       } catch (error) {
@@ -449,8 +450,8 @@ const CreateClient: React.FC = () => {
       try {
         if (selectedProvince) {
           setActivateSpinner(true)
-          const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/province/${selectedProvince}`)
-          const data = await response.json()
+          const response = await axios(`${EnvManager.SETTINGS_URL}/api/location/province/${selectedProvince}`)
+          const data = await response.data
           setCantonsData(data)
           setActivateSpinner(false)
         }
@@ -476,8 +477,8 @@ const CreateClient: React.FC = () => {
       try {
         if (selectedCanton) {
           setActivateSpinner(true)
-          const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/canton/${selectedCanton}`)
-          const data = await response.json()
+          const response = await axios(`${EnvManager.SETTINGS_URL}/api/location/canton/${selectedCanton}`)
+          const data = await response.data
           setParishesData(data)
           setActivateSpinner(false)
         }

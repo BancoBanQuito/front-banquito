@@ -6,6 +6,7 @@ import DatePickerAtom from "../../../components/atoms/DatePickerAtom";
 import Swal from 'sweetalert2'
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
+import axios from "axios";
 
 interface Props {
     openDialog: boolean;
@@ -42,10 +43,10 @@ export const CreateProduct = ({ openDialog }: Props) => {
     const getInterest = async () => {
         try {
             setActivateSpinner(true);
-            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/interest-rate`, {
+            const response = await axios(`${EnvManager.PRODUCT_URL}/api/interest-rate`, {
                 method: 'GET',
             });
-            const data = await response.json();
+            const data = await response.data;
             setInterest(data);
             setActivateSpinner(false);
         } catch (error) {
@@ -57,10 +58,10 @@ export const CreateProduct = ({ openDialog }: Props) => {
     const getAssociatedServices = async () => {
         try {
             setActivateSpinner
-            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/associatedServices`, {
+            const response = await axios(`${EnvManager.PRODUCT_URL}/api/associatedServices`, {
                 method: 'GET',
             });
-            const data = await response.json();
+            const data = await response.data;
             setAssociatedServices(data);
             setActivateSpinner(false);
         } catch (error) {
@@ -72,10 +73,10 @@ export const CreateProduct = ({ openDialog }: Props) => {
     const getProductTypes = async () => {
         try {
             setActivateSpinner(true);
-            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/product-types/types`, {
+            const response = await axios(`${EnvManager.PRODUCT_URL}/api/product-types/types`, {
                 method: 'GET',
             });
-            const data = await response.json();
+            const data = await response.data;
             setProducts(data);
             setActivateSpinner(false);
         } catch (error) {
@@ -130,16 +131,16 @@ export const CreateProduct = ({ openDialog }: Props) => {
 
             console.log(typeProduct)
             setActivateSpinner(true);
-            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/product`, {
+            const response = await axios(`${EnvManager.PRODUCT_URL}/api/products/product`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(typeProduct)
+                data: JSON.stringify(typeProduct)
             })
             handleClose();
             setActivateSpinner(false);
-            if (!response.ok) {
+            if (response.status !== 200) {
                 Swal.fire({
                     title: 'Error al crear el producto',
                     icon: 'error',

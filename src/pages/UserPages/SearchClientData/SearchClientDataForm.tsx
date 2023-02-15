@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
+import axios from "axios";
 
 const urlCloud = `${EnvManager.CLIENT_URL}/api/client/`;
 
@@ -48,10 +49,10 @@ const SearchClientDataForm: React.FC = () => {
     try {
       setActivateSpinner(true);
       setTypeIdentification(localStorage.getItem("typeIdentification"));
-      const response = await fetch(
+      const response = await axios(
         urlCloud + `${idCliente}/${typeIdentification}`
       );
-      const data = await response.json();
+      const data = await response.data;
       setEmail(data.email);
       setFullname(data.fullName);
       setBirthDate(formatDate(new Date(data.birthDate)));

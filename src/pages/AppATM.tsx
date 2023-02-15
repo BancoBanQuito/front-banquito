@@ -22,8 +22,9 @@ const AppATM = () => {
 
     useEffect(() => {
         const role = getSession(SessionVariable.ROLE);
+        console.log(user.role !== 'atm' && role !== 'atm');
         if (user.role !== 'atm' && role !== 'atm') {
-            navigate('../');
+            navigate('/');
         }
         return () => { }
     }, [])
