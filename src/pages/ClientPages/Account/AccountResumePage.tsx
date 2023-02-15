@@ -84,34 +84,8 @@ const AccountResumePage = (props: AccountResumePageProps) => {
         }
     }
 
-    const generateAccountStatement = async (codeLocalAccount: string) => {
-        setisLoading(true);
-        try {
-            await AccountStatementService.getStatementCurrent(codeLocalAccount);
-            setopenAccountStatementModal(true);
-        } catch (error) {
-            setmessageSnack("Ha ocurrido un error");
-            settitleSnack("Error");
-            setcolorSnack('error');
-            setopenSnack(true);
-        } finally {
-            setisLoading(false);
-        }
-    }
-
-    const handleAccountStatementSelection = async (codeAccountStatement: string) => {
-        setisLoading(true);
-        try {
-            // await AccountStatementService.getStatementHistoric(codeAccountStatement);
-            setopenAccountStatementModal(true);
-        } catch (error) {
-            setmessageSnack("Ha ocurrido un error");
-            settitleSnack("Error");
-            setcolorSnack('error');
-            setopenSnack(true);
-        } finally {
-            setisLoading(false);
-        }
+    const openInNewTab = (id: string) => {
+        window.open(`/cliente/cuenta/estado/${id}`, '_blank');
     }
 
     return (
@@ -140,8 +114,8 @@ const AccountResumePage = (props: AccountResumePageProps) => {
                                 onChange={handleAccountSelection}
                                 height={'auto'} />
                             <AccountStatmentOrganism
-                                onSelect={handleAccountStatementSelection}
-                                onClick={() => generateAccountStatement(accountSelected.codeLocalAccount)}
+                                onSelect={(id) => openInNewTab(id)}
+                                onClick={() => openInNewTab(`1-${accountSelected.codeLocalAccount}`)}
                                 accountStatements={accountStaments} />
                         </>
                     }
