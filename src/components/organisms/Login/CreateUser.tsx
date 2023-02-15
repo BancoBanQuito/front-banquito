@@ -11,6 +11,7 @@ import IdentificationTypes from '../../../services/.json/IdentificationType.json
 import { SizeButton } from '../../atoms/SizeButton';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
+import axios from 'axios';
 
 
 interface Props {
@@ -32,10 +33,10 @@ const CreateUser = ({ redirect }: Props) => {
         event.preventDefault()
         try {
             setActivateSpinner(true)
-            const response = await fetch(`${EnvManager.CLIENT_URL}/api/client/signup`, {
+            const response = await axios(`${EnvManager.CLIENT_URL}/api/client/signup`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
-                body: JSON.stringify({
+                data: JSON.stringify({
                     "identificationType": identificationType,
                     "identification": identification,
                     "email": email,
@@ -49,7 +50,7 @@ const CreateUser = ({ redirect }: Props) => {
                     }
                 })
             })
-            if (!response.ok) {
+            if (response.status !== 200) {
                 setActivateSpinner(false)
                 throw new Error(response.statusText)
             }

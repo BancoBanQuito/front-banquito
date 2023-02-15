@@ -3,6 +3,7 @@ import { Dialog, Stack, Typography, Divider, Button, TextField, Select, MenuItem
 import { useForm, FormProvider } from "react-hook-form";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
+import axios from "axios";
 
 interface Props {
     openDialog: boolean;
@@ -23,10 +24,10 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
         try {
             console.log(name)
             setActivateSpinner(true);
-            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/name-product?name=${name}`, {
+            const response = await axios(`${EnvManager.PRODUCT_URL}/api/products/name-product?name=${name}`, {
                 method: 'GET',
             });
-            const data = await response.json();
+            const data = await response.data;
             const productTyp = {
                 id: data.id,
                 name: data.name,
@@ -47,10 +48,10 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
     const getProducts = async () => {
         try {
             setActivateSpinner(true);
-            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/products`, {
+            const response = await axios(`${EnvManager.PRODUCT_URL}/api/products/products`, {
                 method: 'GET',
             });
-            const data = await response.json();
+            const data = await response.data;
             setProducts(data);
             setActivateSpinner(false);
         } catch (error) {
@@ -72,12 +73,12 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
                 products: productTyp
 
             }
-            await fetch(`${EnvManager.PRODUCT_URL}/api/product-types/types`, {
+            await axios(`${EnvManager.PRODUCT_URL}/api/product-types/types`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(typeProduct)
+                data: JSON.stringify(typeProduct)
             })
             handleClose();
             setActivateSpinner(false);

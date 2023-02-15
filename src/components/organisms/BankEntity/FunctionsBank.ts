@@ -1,3 +1,4 @@
+import axios from "axios";
 import EnvManager from "../../../config/EnvManager";
 
 export const saveBankEntity = async (
@@ -14,8 +15,8 @@ export const saveBankEntity = async (
     body: JSON.stringify({ internacionBankCode, name }),
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
+    const response = await axios(url, options);
+    if (response.status === 200) {
       // alert("Entidad Bancaria creada con éxito");
     } else {
       throw new Error(response.statusText);
@@ -46,8 +47,8 @@ export const updateBankEntity = async (
     body: JSON.stringify({ internacionBankCode, name }),
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
+    const response = await axios(url, options);
+    if (response.status === 200) {
       // alert("Entidad Bancaria actualizada con éxito");
     } else {
       throw new Error(response.statusText);
@@ -73,9 +74,9 @@ export const getBankEntity = async () => {
     },
   };
   try {
-    const response = await fetch(url, options);
-    if (response.ok) {
-      const data = await response.json();
+    const response = await axios(url, options);
+    if (response.status === 200) {
+      const data = await response.data;
       return data;
     } else {
       throw new Error(response.statusText);

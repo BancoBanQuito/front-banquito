@@ -10,6 +10,7 @@ import { Box } from "@mui/system";
 import { SizeButton } from "../../atoms/SizeButton";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import { ColorPalette } from "../../../style/ColorPalette";
+import axios from "axios";
 
 const UpdateHoliday: React.FC = () => {
   const [name, setName] = useState<string>("");
@@ -22,20 +23,20 @@ const UpdateHoliday: React.FC = () => {
       try {
         setActivateSpinner(true);
         const dateFormatted = date?.format("YYYY-MM-DD");
-        const response = await fetch(`${EnvManager.SETTINGS_URL}/api/holiday`, {
+        const response = await axios(`${EnvManager.SETTINGS_URL}/api/holiday`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-          body: JSON.stringify({
+          data: JSON.stringify({
             name: name,
             type: type,
             date: dateFormatted,
             code: code,
           }),
         });
-        if (!response.ok) {
+        if (response.status !== 200) {
           setActivateSpinner(false);
           throw new Error(response.statusText);
         }

@@ -5,6 +5,7 @@ import TableMolecule from "../../../components/molecules/TableMolecule";
 import { IHoliday } from "../../../components/organisms/Holiday/Types";
 import EnvManager from "../../../config/EnvManager";
 import TextFieldAtom from "../../../components/atoms/TextFieldAtom";
+import axios from "axios";
 
 const Holiday: React.FC = () => {
   const [holidays, setHolidays] = useState<IHoliday[]>([]);
@@ -15,12 +16,12 @@ const Holiday: React.FC = () => {
     );
 
   useEffect(() => {
-    fetch(`${EnvManager.SETTINGS_URL}/api/holiday`)
+    axios(`${EnvManager.SETTINGS_URL}/api/holiday`)
       .then((response) => {
-        if (!response.ok) {
+        if (response.status !== 200) {
           throw Error(response.statusText);
         }
-        return response.json();
+        return response.data;
       })
       .then((data) => setHolidays(data))
       .catch((error) => console.log(error));

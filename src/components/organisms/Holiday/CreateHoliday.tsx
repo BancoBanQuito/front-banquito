@@ -12,6 +12,7 @@ import DatePickerAtom from "../../atoms/DatePickerAtom";
 import { SizeButton } from "../../atoms/SizeButton";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import { ColorPalette } from "../../../style/ColorPalette";
+import axios from "axios";
 
 const CreateHoliday: React.FC = () => {
   const [activateSpinner, setActivateSpinner] = useState(false);
@@ -25,13 +26,13 @@ const CreateHoliday: React.FC = () => {
       try {
         const dateFormatted = date?.format("YYYY-MM-DD");
         setActivateSpinner(true);
-        const response = await fetch(`${EnvManager.SETTINGS_URL}/api/holiday/`, {
+        const response = await axios(`${EnvManager.SETTINGS_URL}/api/holiday/`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-          body: JSON.stringify({
+          data: JSON.stringify({
             name: name,
             type: type,
 
@@ -39,7 +40,7 @@ const CreateHoliday: React.FC = () => {
             code: code,
           }),
         });
-        if (!response.ok) {
+        if (response.status !== 200) {
           setActivateSpinner(false);
           throw new Error(response.statusText);
         }
