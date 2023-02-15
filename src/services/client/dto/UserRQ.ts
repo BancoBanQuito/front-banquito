@@ -7,7 +7,7 @@ export interface UserRQ {
         password: string,
         type: string,
         status: string,
-        creationDate: Date,
-        lastLoginDate: Date
+        creationDate: string,
+        lastLoginDate: string
     }
 }

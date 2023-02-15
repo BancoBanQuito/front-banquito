@@ -83,11 +83,7 @@ const LoginClient = () => {
               width: '300px',
             }}
             style={ButtonStyle.BIG}
-            onClick={() => {
-              setopenInfoModal(true);
-              setinfoMessage('Lamentamos los inconvenientes, esta area aun esta en construccion');
-              settitleInfoModal('Estamos Trabajando')
-            }}
+            onClick={() => navigate("/cliente/crear/usuario")}
             palette={{
               backgroundColor: ColorPalette.PRIMARY
             }} />

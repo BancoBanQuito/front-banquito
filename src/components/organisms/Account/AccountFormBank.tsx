@@ -63,7 +63,6 @@ const AccountFormBank = (props: AccountFormProps) => {
 
     const [showIdentificationError, setshowIdentificationError] = useState<boolean>(false)
     const [errorMessage, seterrorMessage] = useState("La identificacion no es correcta");
-    const [usePassport, setusePassport] = useState<boolean>(false)
 
     const [account, setaccount] = useState<FormAccountInterface>({
         identification: props.identification || "",
@@ -83,7 +82,7 @@ const AccountFormBank = (props: AccountFormProps) => {
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (usePassport) {
+        if (account.identificationType === "PAS") {
             props.onSubmit(account);
             return;
         }
@@ -175,11 +174,6 @@ const AccountFormBank = (props: AccountFormProps) => {
                         disable={!!props.identification}
                         required
                     />
-                    <FormControlLabel
-                        control={<Checkbox
-                            value={usePassport}
-                            onChange={(event) => setusePassport(event.target.checked)} />}
-                        label="Pasaporte" />
                     <SizeButton
                         palette={{
                             backgroundColor: ColorPalette.PRIMARY
