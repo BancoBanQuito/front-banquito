@@ -18,6 +18,7 @@ import Card from "@mui/material/Card";
 import EnvManager from '../config/EnvManager';
 import { useForm, FormProvider } from "react-hook-form";
 import { Spinner } from "../components/atoms/Spinner";
+import axios from "axios";
 
 // Styles
 export const Container = styled.div`
@@ -109,10 +110,10 @@ const CreateRequestService = ({ openDialog }: Props) => {
     const getAccount = async (id: String) => {
         try {
             setActivateSpinner(true);
-            const response = await fetch(`${EnvManager.ACCOUNT_URL}/api/account/code/${id}/type`, {
+            const response = await axios(`${EnvManager.ACCOUNT_URL}/api/account/code/${id}/type`, {
                 method: 'GET',
             });
-            const { data } = await response.json();
+            const { data } = await response.data;
             const account = {
                 codeLocalAccount: data.codeLocalAccount,
                 name: data.name,
@@ -135,10 +136,10 @@ const CreateRequestService = ({ openDialog }: Props) => {
     const getnameProduct = async () => {
         try {
             setActivateSpinner(true);
-            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/product-types/type?id=63cf1f424afc455eb703d48f`, {
+            const response = await axios(`${EnvManager.PRODUCT_URL}/api/product-types/type?id=63cf1f424afc455eb703d48f`, {
                 method: 'GET',
             });
-            const data = await response.json();
+            const data = await response.data;
             const account = {
                 nameProductType: data.name,
             }
@@ -158,10 +159,10 @@ const CreateRequestService = ({ openDialog }: Props) => {
     const getProduct = async () => {
         try {
             setActivateSpinner(true);
-            const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/id-product?id=63cf21444afc455eb703d492`, {
+            const response = await axios(`${EnvManager.PRODUCT_URL}/api/products/id-product?id=63cf21444afc455eb703d492`, {
                 method: 'GET',
             });
-            const data = await response.json();
+            const data = await response.data;
             const account = data.associatedService.map(
                 (service: any) => service.name
             )
@@ -186,13 +187,13 @@ const CreateRequestService = ({ openDialog }: Props) => {
             }
             setActivateSpinner(true);
 
-            await fetch(`${EnvManager.PRODUCT_URL}/api/request-service`, {
+            await axios(`${EnvManager.PRODUCT_URL}/api/request-service`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
 
-                body: JSON.stringify(requestService)
+                data: JSON.stringify(requestService)
             })
             setActivateSpinner(false);
 

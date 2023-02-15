@@ -8,6 +8,7 @@ import { Dropdown } from '../../atoms/Dropdown';
 import { SizeButton } from '../../atoms/SizeButton';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
+import axios from 'axios';
 
 const DeleteBranch: React.FC = () => {
     const [activateSpinner, setActivateSpinner] = useState(false);
@@ -24,8 +25,8 @@ const DeleteBranch: React.FC = () => {
         const fetchProvinces = async () => {
             try {
                 setActivateSpinner(true)
-                const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch`)
-                const data = await response.json()
+                const response = await axios(`${EnvManager.SETTINGS_URL}/api/branch`)
+                const data = await response.data
                 setBranchesData(data)
                 setActivateSpinner(false)
             } catch (error) {
@@ -40,8 +41,8 @@ const DeleteBranch: React.FC = () => {
         const fetchProvinces = async () => {
             try {
                 setActivateSpinner(true)
-                const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch/name/${selectedBranch}`)
-                const data = await response.json()
+                const response = await axios(`${EnvManager.SETTINGS_URL}/api/branch/name/${selectedBranch}`)
+                const data = await response.data
                 setActivateSpinner(false)
             } catch (error) {
                 setActivateSpinner(false)
@@ -55,7 +56,7 @@ const DeleteBranch: React.FC = () => {
         event.preventDefault()
         try {
             setActivateSpinner(true)
-            const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch/name/${selectedBranch}`, {
+            const response = await axios(`${EnvManager.SETTINGS_URL}/api/branch/name/${selectedBranch}`, {
                 method: "DELETE",
             });
             alert("Eliminada con éxito")

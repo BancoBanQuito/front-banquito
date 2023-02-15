@@ -14,6 +14,7 @@ import { LabelRounded } from "@mui/icons-material";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
 import { Dropdown } from "../../../components/atoms/Dropdown";
+import axios from "axios";
 
 const urlCloud = `${EnvManager.CLIENT_URL}/api/client/`;
 const segmentUrl = `${EnvManager.SEGMENT_URL}/api/segments`;
@@ -129,10 +130,10 @@ const UpdateClientDataForm: React.FC = () => {
   const fetchSegment = async () => {
     try {
       setActivateSpinner(true);
-      const response = await fetch(
+      const response = await axios(
         segmentUrl
       );
-      const data = await response.json();
+      const data = await response.data;
       setSegments(data);
       setActivateSpinner(false);
     } catch (error) {
@@ -147,11 +148,11 @@ const UpdateClientDataForm: React.FC = () => {
     try {
       setActivateSpinner(true);
       setTypeIdentification(localStorage.getItem("typeIdentification"));
-      const response = await fetch(
+      const response = await axios(
         urlCloud + `${idCliente}/${typeIdentification}`
       );
-      const data = await response.json();
-      setIdCliente(data.identification);
+      const data = await response.data;
+      setIdCliente(data.identification);{}
       setTypeIdentification(data.typeIdentification);
       setEmail(data.email);
       setGender(data.gender);
@@ -277,11 +278,11 @@ const UpdateClientDataForm: React.FC = () => {
         )
       };
       setActivateSpinner(true);
-      const response = await fetch(
+      const response = await axios(
         urlCloud + `user/${idCliente}`,
         requestOptions
       );
-      const data = await response.json();
+      const data = await response.data;
       setActivateSpinner(false);
     } catch (error) {
       setActivateSpinner(false);

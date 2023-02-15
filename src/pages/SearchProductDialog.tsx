@@ -19,6 +19,7 @@ import { ButtonStyle } from "../style/ButtonStyle";
 import { useEffect, useState } from "react";
 import EnvManager from "../config/EnvManager";
 import { Spinner } from "../components/atoms/Spinner";
+import axios from "axios";
 
 
 // Container for the search
@@ -73,13 +74,13 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
   const getProductByName = async () => {
     try {
       setActivateSpinner(true);
-      const response = await fetch(
+      const response = await axios(
         `${EnvManager.PRODUCT_URL}/api/products/name-product?name=${productName}`,
         {
           method: "GET",
         }
       );
-      const data = await response.json();
+      const data = await response.data;
       setActivateSpinner(false);
       const product = {
         name: <Typography>{data.name}</Typography>,
@@ -110,13 +111,13 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
   const getProducts = async () => {
     try {
       setActivateSpinner(true);
-      const response = await fetch(
+      const response = await axios(
         `${EnvManager.PRODUCT_URL}/api/products/products`,
         {
           method: "GET",
         }
       );
-      const data = await response.json();
+      const data = await response.data;
       setActivateSpinner(false);
       const products = data.map((prod: any) => {
         return {

@@ -12,6 +12,7 @@ import EnvManager from '../../../config/EnvManager';
 import { Spinner } from '../../atoms/Spinner';
 import TextFieldAtom from '../../atoms/TextFieldAtom';
 import { Dropdown } from '../../atoms/Dropdown';
+import axios from 'axios';
 
 
 const UpdateBranch: React.FC = () => {
@@ -37,8 +38,8 @@ const UpdateBranch: React.FC = () => {
         const fetchProvinces = async () => {
             try {
                 setActivateSpinner(true)
-                const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/provinces`)
-                const data = await response.json()
+                const response = await axios(`${EnvManager.SETTINGS_URL}/api/location/provinces`)
+                const data = await response.data
                 setProvincesData(data)
                 setActivateSpinner(false)
             } catch (error) {
@@ -63,8 +64,8 @@ const UpdateBranch: React.FC = () => {
             try {
                 if (selectedProvince) {
                     setActivateSpinner(true)
-                    const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/province/${selectedProvince}`)
-                    const data = await response.json()
+                    const response = await axios(`${EnvManager.SETTINGS_URL}/api/location/province/${selectedProvince}`)
+                    const data = await response.data
                     setCantonsData(data)
                     setActivateSpinner(false)
                 }
@@ -90,8 +91,8 @@ const UpdateBranch: React.FC = () => {
             try {
                 if (selectedCanton) {
                     setActivateSpinner(true)
-                    const response = await fetch(`${EnvManager.SETTINGS_URL}/api/location/canton/${selectedCanton}`)
-                    const data = await response.json()
+                    const response = await axios(`${EnvManager.SETTINGS_URL}/api/location/canton/${selectedCanton}`)
+                    const data = await response.data
                     setParishesData(data)
                     setActivateSpinner(false)
                 }
@@ -112,10 +113,10 @@ const UpdateBranch: React.FC = () => {
             const stringOpeningHoursSaturday = openingHoursSaturday ? openingHoursSaturday.format('HH:mm') : ""
             const stringClosingTimeSaturday = closingHoursSaturday ? closingHoursSaturday.format('HH:mm') : ""
             setActivateSpinner(true)
-            const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch/name/${selectedBranch}`, {
+            const response = await axios(`${EnvManager.SETTINGS_URL}/api/branch/name/${selectedBranch}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
-                body: JSON.stringify({
+                data: JSON.stringify({
                     name: branchName,
                     phoneNumber: phoneNumber,
                     address: address,
@@ -132,7 +133,7 @@ const UpdateBranch: React.FC = () => {
                     }
                 })
             })
-            if (!response.ok) {
+            if (response.status !== 200) {
                 setActivateSpinner(false)
                 throw new Error(response.statusText)
             }
@@ -158,8 +159,8 @@ const UpdateBranch: React.FC = () => {
         const fetchProvinces = async () => {
             try {
                 setActivateSpinner(true)
-                const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch`)
-                const data = await response.json()
+                const response = await axios(`${EnvManager.SETTINGS_URL}/api/branch`)
+                const data = await response.data
                 setBranchesData(data)
                 setActivateSpinner(false)
             } catch (error) {
@@ -174,8 +175,8 @@ const UpdateBranch: React.FC = () => {
         const fetchBranch = async () => {
             try {
                 setActivateSpinner(true)
-                const response = await fetch(`${EnvManager.SETTINGS_URL}/api/branch/name/${selectedBranch}`)
-                const data = await response.json()
+                const response = await axios(`${EnvManager.SETTINGS_URL}/api/branch/name/${selectedBranch}`)
+                const data = await response.data
                 setBranchData(data)
                 setActivateSpinner(false)
             } catch (error) {
