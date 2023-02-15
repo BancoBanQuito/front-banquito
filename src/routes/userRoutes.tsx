@@ -112,10 +112,6 @@ export const userRoutes = [
         element: <AccountConsolidatedPositionUser />,
     },
     {
-        path: "login",
-        element: <Login redirect="/usuario" />,
-    },
-    {
         path: "info-cliente",
         element: <SearchClientDataForm />,
     },
