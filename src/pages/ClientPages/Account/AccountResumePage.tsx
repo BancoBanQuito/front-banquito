@@ -16,6 +16,7 @@ import ModalOrganism from '../../../components/organisms/ModalOrganism';
 import { TransactionService } from '../../../services/transaction/TransactionService';
 import { RSTransaction } from '../../../services/transaction/dto/RSTransaction';
 import { useUser } from '../../../context/UserContext';
+import ClockMolecule from '../../../components/molecules/ClockMolecule';
 
 interface AccountResumePageProps {
     accounts: RSAccount[];
@@ -159,7 +160,7 @@ const AccountResumePage = (props: AccountResumePageProps) => {
                         }}
                             variant='outlined'>
                             <CardContent>
-                                <OnConstructionMolecule />
+                                <ClockMolecule />
                             </CardContent>
                         </Card>
                         <Card sx={{
