@@ -1,6 +1,7 @@
 import { context } from 'esbuild';
-import React, { useContext, useState } from 'react'
-import { UserType } from '../utils/LoginUtils';
+import React, { useContext, useEffect, useState } from 'react'
+import { UserType, isLogged } from '../utils/LoginUtils';
+import { getSession, SessionVariable } from '../utils/SessionUtils';
 
 interface User {
     isLogged: boolean,
@@ -13,10 +14,23 @@ interface User {
 const UserContext = React.createContext<User | undefined>(undefined);
 
 const UserProvider = ({ children }: any) => {
-
-    const value: User = ({
+    const [value, setvalue] = useState<User>({
         isLogged: false
-    })
+    });
+
+    useEffect(() => {
+        if (isLogged()) {
+            const data: User = {
+                identification: getSession(SessionVariable.IDENTIFICATION) != null ? getSession(SessionVariable.IDENTIFICATION) as string | undefined : undefined,
+                identificationType: getSession(SessionVariable.IDENTIFICATION_TYPE) != null ? getSession(SessionVariable.IDENTIFICATION_TYPE) as string | undefined : undefined,
+                username: !!getSession(SessionVariable.USERNAME) != null ? getSession(SessionVariable.USERNAME) as string | undefined : undefined,
+                isLogged: true
+            }
+            setvalue(data);
+        }
+        return () => { }
+    }, [])
+
 
     return (
         <UserContext.Provider value={value}>

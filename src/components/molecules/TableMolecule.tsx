@@ -7,13 +7,12 @@ interface TableProps {
   color?: string
 }
 
-const TableStyle = {
-  borderRadius: '10px'
-}
-
 const TableMolecule = ({ headers, rows, color }: TableProps) => {
   return (
-    <TableContainer sx={TableStyle}>
+    <TableContainer sx={{
+      borderRadius: '10px',
+      width: '100%'
+    }}>
       <Table >
         <TableHead>
           <TableRow>

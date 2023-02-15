@@ -88,7 +88,7 @@ const ProgressButtonMolecule = (props: ProgressButtonMoleculeProps) => {
                 </div>
             }
             {
-                !!!props.indicatorHidden && [...Array(5).keys()].map(value => {
+                !!!props.indicatorHidden && [...Array(props.itemsCount).keys()].map(value => {
                     return spanChild(
                         props.color,
                         manageOpacity(value),

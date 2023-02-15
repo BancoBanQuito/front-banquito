@@ -19,13 +19,6 @@ const SelectAccountClientType = () => {
   const navigate = useNavigate();
   const user = useUser();
 
-  useEffect(() => {
-    if (user.isLogged) {
-      navigate('/cliente/inicio');
-    }
-    return () => { }
-  }, []);
-
   return (
     <>
       <BgAtom />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Avatar, Backdrop, Box, Button, Container, Fade, Modal } from '@mui/material'
+import { AlertColor, Avatar, Backdrop, Box, Button, Container, Fade, Modal } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { SizeButton } from '../../components/atoms/SizeButton'
@@ -17,39 +17,122 @@ import slideThree from '../../assets/slide3.jpg';
 import slideFourth from '../../assets/slide4.jpg';
 import '@coreui/coreui/dist/css/coreui.min.css'
 import { useUser } from '../../context/UserContext'
+import SnackBarMolecule from '../../components/molecules/SnackBarMolecule'
+import TabsMolecule from '../../components/molecules/TabsMolecule';
+import AccountsTableOrganism from '../../components/organisms/Account/AccountsTableOrganism'
+import { RSAccount } from '../../services/account/dto/RSAccount'
+import { AccountService } from '../../services/account/AccountService'
+import LoadOrganism from '../../components/organisms/LoadOrganism'
+import AccountResumePage from './Account/AccountResumePage'
+import OnConstructionMolecule from '../../components/molecules/OnConstructionMolecule'
+import TransactionPage from '../UserPages/Transaction/TransactionPage'
 
-const sectionStyle: any = {
-  margin: '2rem 0',
-  padding: '1rem 0',
-  height: 'auto',
-  width: '100%',
-  display: 'flex',
-  justifyContent: 'space-between',
-  flexDirection: 'column'
-};
+const tabData: { label: string, value: any }[] = [
+  {
+    label: 'Resumen',
+    value: 0
+  }, {
+    label: 'Transferencia',
+    value: 1
+  }, {
+    label: 'Consultas',
+    value: 2
+  }, {
+    label: 'Solicitudes',
+    value: 3
+  }
+]
 
 const HomeClient = () => {
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+  const [messageSnack, setmessageSnack] = useState<string>("");
+  const [titleSnack, settitleSnack] = useState<string>("");
+  const [colorSnack, setcolorSnack] = useState<AlertColor>('info');
+  const [currentIndex, setcurrentIndex] = useState<number>(0);
+
+  const [isLoading, setisLoading] = useState(false);
+  const [messageLoading, setmessageLoading] = useState<string | undefined>();
+
+  const [userAccounts, setuserAccounts] = useState<RSAccount[]>([]);
 
   const user = useUser();
-  const [welcomeModal, setwelcomeModal] = useState<boolean>(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    /* if (user.isLogged) {
-      setwelcomeModal(true);
-      const interval = setInterval(() => {
-        setwelcomeModal(false);
-        clearInterval(interval);
-      }, 3000);
-    } */
+    if (user.isLogged && user.username) {
+      settitleSnack('Bienvenido');
+      setmessageSnack(user.username?.split('@')[0]);
+      setcolorSnack('info');
+      setopenSnack(true);
+    }
     return () => { }
-  }, [])
+  }, []);
 
+  useEffect(() => {
+    if (user.identification && user.identificationType) {
+      retriveAllAccounts(user.identificationType, user.identification);
+    }
+    return () => { }
+  }, [user.identification, user.identificationType]);
+
+  const retriveAllAccounts = async (identificationType: string, identification: string) => {
+    setisLoading(true);
+    try {
+      const data: RSAccount[] = (await AccountService.getAccountsById(identificationType, identification)).data.data || [];
+      setuserAccounts(data);
+    } catch (error: any) {
+      settitleSnack('Error');
+      setmessageSnack('Se ha producido un error');
+      setcolorSnack('error');
+      setopenSnack(true);
+    } finally {
+      setisLoading(false);
+    }
+  }
+
+  const handleCompleteTransaction = () => {
+    setcurrentIndex(0);
+  }
 
   return (
     <>
-
-      <div style={{ marginTop: '1rem' }}>
+      <Box
+        sx={{
+          width: "100%",
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          overflowY: 'auto'
+        }}
+        bgcolor='#f5f6f7'>
+        <TabsMolecule
+          items={tabData}
+          orientation='horizontal'
+          defaultValue={currentIndex}
+          onChange={(value) => setcurrentIndex(value)} />
+        <Box
+          sx={{
+            padding: '3.5rem 1rem',
+            width: '100%'
+          }}>
+          {currentIndex === 0 && <AccountResumePage accounts={userAccounts} />}
+          {currentIndex === 1 && <TransactionPage onComplete={handleCompleteTransaction} accounts={userAccounts} />}
+          {currentIndex === 2 && <OnConstructionMolecule />}
+          {currentIndex === 3 && <OnConstructionMolecule />}
+        </Box>
+      </Box>
+      <SnackBarMolecule
+        open={openSnack}
+        message={messageSnack}
+        title={titleSnack}
+        severity={colorSnack}
+        autoHideDuration={3000}
+        onClose={() => setopenSnack(false)} />
+      <LoadOrganism
+        active={isLoading}
+        text={messageLoading} />
+      {/* <div style={{ marginTop: '1rem' }}>
         <Box sx={{
           width: '100%',
           height: '100vh'
@@ -172,7 +255,7 @@ const HomeClient = () => {
             </Typography>
           </Box>
         </Fade>
-      </Modal>
+      </Modal> */}
     </>
   )
 }

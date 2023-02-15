@@ -3,7 +3,7 @@ import { Tab, Tabs } from "@mui/material";
 
 interface TabsMoleculeProps {
     items: { label: string, value: any }[];
-    defaultValue?: string;
+    defaultValue?: any;
     orientation?: "vertical" | "horizontal";
     onChange?: (value: any) => void;
     textColor?: "primary" | "secondary",
@@ -30,7 +30,7 @@ const TabsMolecule = (props: TabsMoleculeProps) => {
             orientation={props.orientation || 'vertical'}
             sx={{
                 width: "100%",
-                maxWidth: '20rem',
+                maxWidth: props.orientation === 'vertical' ? '20rem' : 'none',
             }}>
             {
                 props.items.map((tab, index) => {
