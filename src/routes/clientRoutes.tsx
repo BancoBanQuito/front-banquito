@@ -1,6 +1,7 @@
 import CreateUser from "../components/organisms/Login/CreateUser";
 import Login from "../components/organisms/Login/LoginForm";
 import AccountCreateClient from "../pages/ClientPages/Account/AccountCreateClient";
+import AccountStatementPage from "../pages/ClientPages/Account/AccountStatementPage";
 import Branch from "../pages/ClientPages/Branches/Branch";
 import { UpdateClient } from "../pages/ClientPages/Client/UpdateClient";
 import HomeClient from "../pages/ClientPages/HomeClient";
@@ -17,6 +18,16 @@ export const clientRoutes = [
         element: <HomeClient />,
     },
     {
+        path: "cuenta/estado/:id",
+        element: <AccountStatementPage />,
+    },
+    {
+        path: "login",
+        element: (
+            <LoginClient />
+        ),
+    },
+    {
         path: "cuenta/crear",
         element: <AccountCreateClient />,
     },
@@ -27,10 +38,6 @@ export const clientRoutes = [
     {
         path: "sucursales",
         element: <Branch />,
-    },
-    {
-        path: "cuenta/estado",
-        element: <AccountStatementBankUser client />,
     },
     {
         path: "cuenta/transaccion",
@@ -51,11 +58,5 @@ export const clientRoutes = [
     {
         path: "interes/inversion",
         element: <InterestInvestmentPolicies />,
-    },
-    {
-        path: "login",
-        element: (
-            <LoginClient />
-        ),
-    },
+    }
 ];

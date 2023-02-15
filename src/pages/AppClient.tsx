@@ -20,7 +20,6 @@ const AppClient = () => {
             navigate('../');
         } else {
             !isLogged() && navigate('/cliente/login');
-            isLogged() && navigate('/cliente/inicio');
         }
         setopenLoad(false);
         return () => { }
