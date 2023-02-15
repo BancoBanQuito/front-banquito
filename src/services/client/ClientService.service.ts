@@ -71,6 +71,7 @@ export class ClientService {
     }
 
     public static async postClientSignUp(body: UserRQ) {
+        console.log(body);
         try {
             return (await axios.post<string>(POST_CLIENT_SIGNUP(), body)).data;
         } catch (error: any) {

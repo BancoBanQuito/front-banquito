@@ -9,6 +9,7 @@ import IdentificationTypes from '../../../services/.json/IdentificationType.json
 
 interface CreateUserFormProps {
     title?: string;
+    username?: string;
     onSubmit?: (user: IUser) => void;
 }
 
@@ -27,7 +28,7 @@ const CreateUserForm = (props: CreateUserFormProps) => {
         identification: "",
         identificationType: "",
         password: "",
-        username: ""
+        username: props.username?.split('@')[0] || ""
     });
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -59,38 +60,12 @@ const CreateUserForm = (props: CreateUserFormProps) => {
             </div>
             <div style={{ width: '100%', padding: '1rem' }}>
                 <TextFieldAtom
-                    label='Identificacion'
-                    fullWidth
-                    required
-                    value={user.identification}
-                    onChange={handleChange}
-                    name="identification"
-                    type='text' />
-                <Dropdown
-                    label={'Tipo de Identificacion'}
-                    backgroundColor='white'
-                    items={IdentificationTypes}
-                    width={'100%'}
-                    height={'auto'}
-                    required
-                    onChange={(value) => setuser({
-                        ...user,
-                        identificationType: value
-                    })} />
-                <TextFieldAtom
-                    label='Correo Electronico'
-                    fullWidth
-                    required
-                    value={user.email}
-                    onChange={handleChange}
-                    name="email"
-                    type='email' />
-                <TextFieldAtom
                     label='Usuario'
                     fullWidth
                     required
                     value={user.username}
                     onChange={handleChange}
+                    disable={!!props.username}
                     name='username'
                     type='text' />
                 <TextFieldAtom

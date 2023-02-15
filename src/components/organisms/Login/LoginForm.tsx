@@ -83,10 +83,10 @@ const LoginForm = (props: LoginFormProps) => {
         </Container >
         <TextFieldAtom
           fullWidth
-          label='Usuario'
+          label='Correo electronico'
           required
           value={userName}
-          type="text"
+          type="email"
           onChange={(event) => setUsername(event.target.value)} />
         <TextFieldAtom
           fullWidth

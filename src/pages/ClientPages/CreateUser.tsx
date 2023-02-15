@@ -14,6 +14,9 @@ import { AccountService } from '../../services/account/AccountService'
 import { useNavigate } from 'react-router-dom'
 import { CIUtils } from '../../utils/CIUtils'
 import moment from 'moment'
+import BanQuitoIcon from '../../components/atoms/BanQuitoIcon'
+import CreateClientForm from '../../components/organisms/Login/CreateClientForm'
+import { NewClientRQ } from '../../services/client/dto/NewClientRQ'
 
 const entityBankCode = 'aef0fadf647c8d6f';
 const internationalBankCode = 'c88c1afde4c3a564';
@@ -35,6 +38,7 @@ const CreateUser = () => {
 
     const [identification, setidentification] = useState<string | undefined>();
     const [identificationType, setidentificationType] = useState<string | undefined>();
+    const [email, setemail] = useState<string | undefined>();
 
     const navigate = useNavigate();
 
@@ -51,21 +55,36 @@ const CreateUser = () => {
         setisLoading(false);
     }
 
-    const handleUserSubmit = async (user: UserRQ) => {
-        if(!CIUtils.checkIdentification(user.identification)) {
+    const handleClientSubmit = async (client: NewClientRQ) => {
+        if (!CIUtils.checkIdentification(client.identification)) {
             setmessageSnack("Cedula incorrecta");
             settitleSnack("Error");
             setcolorSnack('error');
             setopenSnack(true);
             return;
         }
-        console.log(user);
+        setisLoading(true);
+        try {
+            await ClientService.postClient(client);
+            setidentification(client.identification);
+            setidentificationType(client.identificationType);
+            setemail(client.email);
+            setCurrentIndex(1);
+        } catch (error: any) {
+            setmessageSnack(error.message);
+            settitleSnack("Error");
+            setcolorSnack('error');
+            setopenSnack(true);
+        } finally {
+            setisLoading(false);
+        }
+    }
+
+    const handleUserSubmit = async (user: UserRQ) => {
         setisLoading(true);
         try {
             await ClientService.postClientSignUp(user);
-            setidentification(user.identification);
-            setidentificationType(user.identificationType);
-            setCurrentIndex(1);
+            setCurrentIndex(2);
         } catch (error: any) {
             setmessageSnack(error.message);
             settitleSnack("Error");
@@ -114,11 +133,18 @@ const CreateUser = () => {
                 <div
                     style={{
                         position: 'absolute',
-                        top: 0
+                        top: '2rem'
+                    }}>
+                    <BanQuitoIcon />
+                </div>
+                <div
+                    style={{
+                        position: 'absolute',
+                        bottom: 0
                     }}>
                     <ProgressButtonMolecule
                         color={ColorPalette.PRIMARY}
-                        itemsCount={2}
+                        itemsCount={3}
                         spotSize={15}
                         current={currentIndex} />
                 </div>
@@ -129,30 +155,32 @@ const CreateUser = () => {
                 }}
                     variant='outlined'>
                     <CardContent>
-                        {currentIndex === 0 && <CreateUserForm
+                        {currentIndex === 0 && <CreateClientForm
+                            title='Hagamos que seas cliente'
+                            onSubmit={handleClientSubmit} />}
+                        {currentIndex === 1 && <CreateUserForm
+                            username={email?.split("@")[0]}
                             title='Creemos tu nueva cuenta'
                             onSubmit={(value) => {
                                 handleUserSubmit({
-                                    email: value.email,
-                                    identification: value.identification,
-                                    identificationType: value.identificationType,
+                                    email: email || '',
+                                    identification: identification || '',
+                                    identificationType: identificationType || '',
                                     user: {
                                         userName: value.username,
                                         password: value.password,
                                         type: "client",
                                         status: "INA",
-                                        //2023-01-30T02:44:20.618Z
                                         creationDate: moment(new Date()).format("YYYY-MM-DDThh:mm:ss"),
                                         lastLoginDate: moment(new Date()).format("YYYY-MM-DDThh:mm:ss")
                                     }
                                 })
                             }} />}
-                        {
-                            currentIndex === 1 && <AccountFormBank
-                                onSubmit={handleAccountSubmit}
-                                products={products ? products : []}
-                                identification={identification}
-                                identificationType={identificationType} />
+                        {currentIndex === 2 && <AccountFormBank
+                            onSubmit={handleAccountSubmit}
+                            products={products ? products : []}
+                            identification={identification}
+                            identificationType={identificationType} />
                         }
                     </CardContent>
                 </Card>

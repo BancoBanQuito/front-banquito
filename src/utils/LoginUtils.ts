@@ -9,7 +9,7 @@ type UserType = 'client' | 'user' | 'atm';
 const login = async (email: string, password: string) => {
     try {
         await ClientService.logClient(email, password);
-
+        console.log("Flag");
         const response = (await ClientService.getClientByEmail(email)).data;
         setSession(SessionVariable.USERNAME, response.email);
         setSession(SessionVariable.IDENTIFICATION, response.identification);

@@ -30,6 +30,7 @@ const LoginClient = () => {
     setisLoading(true);
     try {
       const data = await login(submitUser.username, submitUser.password);
+      console.log(data);
       user.identification = data.identification;
       user.identificationType = data.identificationType;
       user.username = data.email;
