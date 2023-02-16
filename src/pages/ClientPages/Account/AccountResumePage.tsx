@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RSAccount } from '../../../services/account/dto/RSAccount';
 import { Grid, Typography } from '@mui/material';
 import OnConstructionMolecule from '../../../components/molecules/OnConstructionMolecule';
@@ -16,6 +16,8 @@ import { RSTransaction } from '../../../services/transaction/dto/RSTransaction';
 import { useUser } from '../../../context/UserContext';
 import TabsMolecule from '../../../components/molecules/TabsMolecule';
 import { AccountAssociatedService } from '../../../services/account/AccountAssociatedService';
+import AccountMovementOranism from '../../../components/organisms/Account/AccountMovementOranism';
+import moment from 'moment';
 
 interface AccountResumePageProps {
     accounts: RSAccount[];
@@ -61,7 +63,16 @@ const AccountResumePage = (props: AccountResumePageProps) => {
 
     const [currentIndex, setcurrentIndex] = useState<number>(0);
 
+    const [fromDate, setfromDate] = useState<string>(moment((new Date()).setMonth((new Date()).getMonth() - 1)).format('YYYY-MM-DDThh:mm:ss'));
+    const [toDate, settoDate] = useState<string>(moment(Date.now()).format('YYYY-MM-DDThh:mm:ss'));
+
     const user = useUser();
+
+    useEffect(() => {
+        codeLocalAccountSelected && retriveAccountMovements(codeLocalAccountSelected);
+        return () => { }
+    }, [])
+
 
     const handleAccountSelection = (codeLocalAccount: string) => {
         setaccountSelected(codeLocalAccount);
@@ -71,8 +82,8 @@ const AccountResumePage = (props: AccountResumePageProps) => {
     const retriveAccountMovements = async (id: string) => {
         setisLoading(true);
         try {
-            const data: RSTransaction[] = (await TransactionService.getTransaction(id, "", "")).data.data || [];
-            // setaccountStaments(data);
+            const data: RSTransaction[] = (await TransactionService.getTransaction(id, fromDate, toDate)).data.data || [];
+            console.log(data);
         } catch (error) {
             setmessageSnack("Ha ocurrido un error");
             settitleSnack("Error");
@@ -150,7 +161,17 @@ const AccountResumePage = (props: AccountResumePageProps) => {
                             orientation='horizontal'
                             defaultValue={currentIndex}
                             onChange={(value) => setcurrentIndex(value)} />
-                        {currentIndex === 0 && <OnConstructionMolecule />}
+                        {currentIndex === 0 && <AccountMovementOranism
+                            fromDate={(new Date()).setMonth((new Date()).getMonth() - 1)}
+                            toDate={Date.now()}
+                            onFromDateChange={(value) => {
+                                setfromDate(value);
+                                retriveAccountMovements(codeLocalAccountSelected);
+                            }}
+                            onToDateChange={(value) => {
+                                settoDate(value);
+                                retriveAccountMovements(codeLocalAccountSelected);
+                            }} />}
                         {currentIndex === 1 && <AccountStatementOrganism
                             onSelect={(id) => openInNewTab(id)}
                             onClick={() => openInNewTab(`1-${codeLocalAccountSelected}`)}

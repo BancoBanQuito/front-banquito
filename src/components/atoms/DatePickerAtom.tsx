@@ -8,7 +8,7 @@ import { ColorType } from "../../types/ColorType";
 
 interface Props {
   label: string;
-  value: Dayjs | null;
+  value: number | Dayjs | null;
   color?: ColorType;
   onChange: (newValue: Dayjs | null) => void;
   fullWidth?: boolean;
