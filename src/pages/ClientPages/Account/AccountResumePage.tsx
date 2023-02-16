@@ -27,7 +27,7 @@ const accountToDropdown = (accounts: RSAccount[]) => {
     return accounts.map(account => {
         return {
             name: account.codeLocalAccount,
-            value: account,
+            value: account.codeLocalAccount,
         }
     })
 }
@@ -39,13 +39,16 @@ const tabData: { label: string, value: any }[] = [
     }, {
         label: 'Estado de cuenta',
         value: 1
+    }, {
+        label: 'Servicios',
+        value: 1
     }
 ];
 
 const AccountResumePage = (props: AccountResumePageProps) => {
 
 
-    const [accountSelected, setaccountSelected] = useState<RSAccount | undefined>();
+    const [codeLocalAccountSelected, setaccountSelected] = useState<string | undefined>();
     const [accountStaments, setaccountStaments] = useState<RSAccountStatementList[]>([]);
 
     const [isLoading, setisLoading] = useState<boolean>(false);
@@ -62,9 +65,9 @@ const AccountResumePage = (props: AccountResumePageProps) => {
 
     const user = useUser();
 
-    const handleAccountSelection = (account: RSAccount) => {
-        setaccountSelected(account);
-        retriveAccountStatementList(account.codeLocalAccount);
+    const handleAccountSelection = (codeLocalAccount: string) => {
+        setaccountSelected(codeLocalAccount);
+        retriveAccountStatementList(codeLocalAccount);
     }
 
     const retriveAccountMovements = async (id: string) => {
@@ -105,22 +108,27 @@ const AccountResumePage = (props: AccountResumePageProps) => {
         <>
             <>
                 <Typography variant='h5' fontWeight='bold' textTransform='uppercase' color='secondary' marginBottom={5}>Cuentas</Typography>
-                {!accountSelected && <div style={{ marginLeft: '1rem', marginRight: '1rem' }}>
+                {!codeLocalAccountSelected && <div style={{ marginLeft: '1rem', marginRight: '1rem' }}>
                     <Grid container spacing={5}>
                         {
                             props.accounts.map(account => {
-                                return <Grid item sm={6}><AccountCard username={user.username?.split("@")[0] || ''} account={account} onClick={handleAccountSelection} /></Grid>
+                                return <Grid item sm={6}>
+                                    <AccountCard
+                                        username={user.username?.split("@")[0] || ''}
+                                        account={account}
+                                        onClick={(account) => handleAccountSelection(account.codeLocalAccount)} />
+                                </Grid>
                             })
                         }
                     </Grid>
                 </div>}
                 {
-                    !!accountSelected &&
+                    !!codeLocalAccountSelected &&
                     <>
                         <Dropdown
                             backgroundColor='white'
                             label={''}
-                            defaultValue={accountSelected.codeLocalAccount}
+                            defaultValue={codeLocalAccountSelected}
                             items={accountToDropdown(props.accounts)}
                             width={'100%'}
                             onChange={handleAccountSelection}
@@ -133,7 +141,7 @@ const AccountResumePage = (props: AccountResumePageProps) => {
                         {currentIndex === 0 && <OnConstructionMolecule />}
                         {currentIndex === 1 && <AccountStatmentOrganism
                             onSelect={(id) => openInNewTab(id)}
-                            onClick={() => openInNewTab(`1-${accountSelected.codeLocalAccount}`)}
+                            onClick={() => openInNewTab(`1-${codeLocalAccountSelected}`)}
                             accountStatements={accountStaments} />}
                     </>
                 }

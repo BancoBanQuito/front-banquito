@@ -122,7 +122,7 @@ const HomeClient = () => {
               }}>
               {currentIndex === 0 && <AccountResumePage accounts={userAccounts} />}
               {currentIndex === 1 && <TransactionPage onComplete={handleCompleteTransaction} accounts={userAccounts} />}
-              {currentIndex === 2 && <AccountServicesPage />}
+              {currentIndex === 2 && <AccountServicesPage accounts={userAccounts} />}
               {currentIndex === 3 && <OnConstructionMolecule />}
             </Box>
           </Grid>

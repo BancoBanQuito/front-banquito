@@ -6,8 +6,14 @@ import LoadOrganism from '../../../components/organisms/LoadOrganism'
 import { AssociatedService } from '../../../services/product/AssociatedService.service'
 import ServiceCardOrganism from '../../../components/organisms/ServiceCardOrganism'
 import { AssociatedServiceRSRQ } from '../../../services/product/dto/AssociatedServiceRSRQ'
+import AssociateServiceForm from '../../../components/organisms/AssociateServiceForm'
+import { RSAccount } from '../../../services/account/dto/RSAccount'
 
-const AccountServicesPage = () => {
+interface AccountServicesPage {
+    accounts: RSAccount[]
+}
+
+const AccountServicesPage = (props: AccountServicesPage) => {
 
     const [openSnack, setopenSnack] = useState<boolean>(false);
     const [messageSnack, setmessageSnack] = useState<string>("");
@@ -71,7 +77,11 @@ const AccountServicesPage = () => {
                                 service={service} />
                         })
                     }
-                </Box> : <OnConstructionMolecule />}
+                </Box> : <AssociateServiceForm
+                    defaultService={selectedService}
+                    services={services}
+                    accounts={props.accounts}
+                    onCancel={() => setselectedService(undefined)} />}
             </Box>
             <LoadOrganism
                 active={isLoading}
