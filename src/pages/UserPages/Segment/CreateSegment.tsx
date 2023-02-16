@@ -5,6 +5,7 @@ import TableMolecule from "../../../components/molecules/TableMolecule";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
 import { Dropdown } from "../../../components/atoms/Dropdown";
+import axios from "axios";
 
 const CreateSegment: React.FC = () => {
   const [idSegment, setIdSegment] = useState<string>("");
@@ -31,7 +32,7 @@ const CreateSegment: React.FC = () => {
   const setStatus = async (value: string, idSegment: string, name: string) => {
     try {
       setActivateSpinner(true);
-      const response = await fetch(
+      const response = await axios(
         `${EnvManager.SEGMENT_URL}/api/segments/updates/${idSegment}`,
         {
           method: "PUT",
@@ -39,13 +40,13 @@ const CreateSegment: React.FC = () => {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
           },
-          body: JSON.stringify({
+          data: JSON.stringify({
             name: name,
             status: value,
           }),
         }
       );
-      if (!response.ok) {
+      if (response.status !== 200) {
         setActivateSpinner(false);
         throw new Error(response.statusText);
       }
@@ -61,8 +62,8 @@ const CreateSegment: React.FC = () => {
   const fetchSegment = async () => {
     try {
       setActivateSpinner(true);
-      const response = await fetch(`${EnvManager.SEGMENT_URL}/api/segments`);
-      const data = await response.json();
+      const response = await axios(`${EnvManager.SEGMENT_URL}/api/segments`);
+      const data = await response.data;
       const rows = data.map((segment: any) => {
         return [
           <Typography>{segment.name}</Typography>,
@@ -102,19 +103,20 @@ const CreateSegment: React.FC = () => {
     event.preventDefault();
     try {
       setActivateSpinner(true);
-      const response = await fetch(`${EnvManager.SEGMENT_URL}/api/segments`, {
+      const response = await axios(`${EnvManager.SEGMENT_URL}/api/segments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
-        body: JSON.stringify({
-          idSegment: idSegment,
-          name: nameSegment,
-          status: statustSegment,
-        }),
+        data
+          : JSON.stringify({
+            idSegment: idSegment,
+            name: nameSegment,
+            status: statustSegment,
+          }),
       });
-      if (!response.ok) {
+      if (response.status !== 200) {
         setActivateSpinner(false);
         throw new Error(response.statusText);
       }

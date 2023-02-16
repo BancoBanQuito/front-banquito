@@ -12,6 +12,7 @@ import SearchProductDialog from "./SearchProductDialog";
 import SearchIcon from "@mui/icons-material/Search";
 import EnvManager from "../config/EnvManager";
 import { Spinner } from "../components/atoms/Spinner";
+import axios from "axios";
 
 // Styles
 export const Container = styled.div`
@@ -118,13 +119,13 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
   const getAssociatedServices = async () => {
     try {
       setActivateSpinner(true);
-      const response = await fetch(
+      const response = await axios(
         `${EnvManager.PRODUCT_URL}/api/associatedServices`,
         {
           method: "GET",
         }
       );
-      const data = await response.json();
+      const data = await response.data;
       setActivateSpinner(false);
       const services = data.map((service: any) => {
         delete service.params;
@@ -222,13 +223,13 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
   const setServices = async () => {
     try {
       setActivateSpinner(true);
-      const response = await fetch(`${EnvManager.PRODUCT_URL}/api/products/product-link-service`,
+      const response = await axios(`${EnvManager.PRODUCT_URL}/api/products/product-link-service`,
         {
           method: "PUT",
           headers: {
             'Content-Type': 'application/json'
           },
-          body: '{"products":' + JSON.stringify(products) + ',"associatedServices":' + JSON.stringify(associatedServices) + '}'
+          data: '{"products":' + JSON.stringify(products) + ',"associatedServices":' + JSON.stringify(associatedServices) + '}'
         }
       );
 

@@ -12,6 +12,7 @@ import { ColorPalette } from "../../../style/ColorPalette";
 import DatePickerAtom from "../../../components/atoms/DatePickerAtom";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
+import axios from "axios";
 
 export const GeneralInformation = () => {
   const [identification, setIdentification] = useState<string>("");
@@ -144,13 +145,13 @@ export const GeneralInformation = () => {
     event.preventDefault();
     try {
       setActivateSpinner(true);
-      const response = await fetch(`${EnvManager.CLIENT_URL}/api/client`, {
+      const response = await axios(`${EnvManager.CLIENT_URL}/api/client`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
-        body: JSON.stringify({
+        data: JSON.stringify({
           identificationType: identificationType,
           identification: identification,
           lastname: lastname,
@@ -214,7 +215,7 @@ export const GeneralInformation = () => {
           ],
         }),
       });
-      if (!response.ok) {
+      if (response.status !== 200) {
         setActivateSpinner(false);
         throw new Error(response.statusText);
       }

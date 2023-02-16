@@ -12,57 +12,26 @@ import { SizeButton } from '../../atoms/SizeButton';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
 
-interface userProps {
-  username: string,
-  password: string,
-  identification: string,
-  typeIdentification: string
-}
-
 interface LoginFormProps {
-  redirect?: string;
   onSubmit?: (user: { username: string, password: string }) => void;
-  commonSubmit?: boolean;
   title?: string;
 }
 
 const LoginForm = (props: LoginFormProps) => {
 
-  const user = useUser();
-  const navigate = useNavigate();
-
   const [userName, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const [activateSpinner, setActivateSpinner] = useState(false);
-
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!!props.commonSubmit) {
-      props.onSubmit?.({
-        username: userName,
-        password: password
-      });
-      return;
-    }
-    setActivateSpinner(true);
-    try {
-      const data = await login(userName, password);
-      user.identification = data.identification;
-      user.identificationType = data.identificationType;
-      user.username = data.email;
-      user.isLogged = true;
-      navigate(props.redirect || '');
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setActivateSpinner(false);
-    }
+    props.onSubmit?.({
+      username: userName,
+      password: password
+    });
   }
 
   return (
     <>
-      {activateSpinner ? <Spinner /> : null}
       <Box
         component='form'
         onSubmit={handleSubmit}

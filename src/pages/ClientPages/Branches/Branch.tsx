@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import TableMolecule from '../../../components/molecules/TableMolecule';
 import { IBranch } from '../../../components/organisms/Branch/Types';
 import EnvManager from '../../../config/EnvManager';
+import axios from 'axios';
 
 
 const Branch: React.FC = () => {
@@ -14,12 +15,12 @@ const Branch: React.FC = () => {
     );
 
     useEffect(() => {
-        fetch(`${EnvManager.SETTINGS_URL}/api/branch`)
+        axios(`${EnvManager.SETTINGS_URL}/api/branch`)
             .then((response) => {
-                if (!response.ok) {
+                if (response.status !== 200) {
                     throw Error(response.statusText);
                 }
-                return response.json();
+                return response.data;
             })
             .then((data) => setBranches(data))
             .catch((error) => console.log(error));
