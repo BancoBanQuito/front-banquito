@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { AlertColor, Avatar, Backdrop, Box, Button, Container, Fade, Modal } from '@mui/material'
+import { AlertColor, Avatar, Backdrop, Box, Button, Card, CardContent, Container, Fade, Grid, Modal } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { SizeButton } from '../../components/atoms/SizeButton'
@@ -26,6 +26,8 @@ import LoadOrganism from '../../components/organisms/LoadOrganism'
 import AccountResumePage from './Account/AccountResumePage'
 import OnConstructionMolecule from '../../components/molecules/OnConstructionMolecule'
 import TransactionPage from '../UserPages/Transaction/TransactionPage'
+import AccountServicesPage from './Account/AccountServicesPage'
+import ClockMolecule from '../../components/molecules/ClockMolecule'
 
 const tabData: { label: string, value: any }[] = [
   {
@@ -35,7 +37,7 @@ const tabData: { label: string, value: any }[] = [
     label: 'Transferencia',
     value: 1
   }, {
-    label: 'Consultas',
+    label: 'Servicios',
     value: 2
   }, {
     label: 'Solicitudes',
@@ -111,16 +113,57 @@ const HomeClient = () => {
           orientation='horizontal'
           defaultValue={currentIndex}
           onChange={(value) => setcurrentIndex(value)} />
-        <Box
-          sx={{
-            padding: '3.5rem 1rem',
-            width: '100%'
-          }}>
-          {currentIndex === 0 && <AccountResumePage accounts={userAccounts} />}
-          {currentIndex === 1 && <TransactionPage onComplete={handleCompleteTransaction} accounts={userAccounts} />}
-          {currentIndex === 2 && <OnConstructionMolecule />}
-          {currentIndex === 3 && <OnConstructionMolecule />}
-        </Box>
+        <Grid container spacing={5}>
+          <Grid item xs={9}>
+            <Box
+              sx={{
+                padding: '3.5rem 1rem',
+                width: '100%'
+              }}>
+              {currentIndex === 0 && <AccountResumePage accounts={userAccounts} />}
+              {currentIndex === 1 && <TransactionPage onComplete={handleCompleteTransaction} accounts={userAccounts} />}
+              {currentIndex === 2 && <AccountServicesPage />}
+              {currentIndex === 3 && <OnConstructionMolecule />}
+            </Box>
+          </Grid>
+          <Grid item xs={3}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column'
+              }}>
+              <Card sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginBottom: '1rem'
+              }}
+                variant='outlined'>
+                <CardContent>
+                  <ClockMolecule />
+                </CardContent>
+              </Card>
+              <Card sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginBottom: '1rem'
+              }}
+                variant='outlined'>
+                <div style={{ margin: '1rem' }}>
+                  <Twitter color='secondary' />
+                </div>
+                <div style={{ margin: '1rem' }}>
+                  <Instagram color='secondary' />
+                </div>
+                <div style={{ margin: '1rem' }}>
+                  <Facebook color='secondary' />
+                </div>
+              </Card>
+            </Box>
+          </Grid>
+        </Grid>
+
       </Box>
       <SnackBarMolecule
         open={openSnack}

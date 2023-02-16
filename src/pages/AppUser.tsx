@@ -20,7 +20,7 @@ const AppUser = () => {
         }
         return () => { }
     }, []);
-    
+
     useEffect(() => {
         const role = getSession(SessionVariable.ROLE);
         if (user.role !== 'user' && role !== 'user') {
@@ -34,6 +34,7 @@ const AppUser = () => {
     return (
         <Box
             sx={{
+                width: '100%',
                 height: '100vh',
                 padding: 0,
                 margin: 0,

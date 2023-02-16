@@ -50,7 +50,11 @@ const LoginClient = () => {
     <>
       <BgAtom />
       <div
-        style={{ width: '100%', height: '100%', margin: '0.1rem' }}>
+        style={{
+          width: '100%',
+          height: '100%',
+          margin: '0.1rem'
+        }}>
         <Paper
           sx={{
             width: '45rem',

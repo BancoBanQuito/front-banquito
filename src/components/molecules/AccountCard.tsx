@@ -22,7 +22,8 @@ const AccountCard = (props: AccountCardProps) => {
             <CardContent sx={{ width: '100%' }} >
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', color: ColorPalette.SECONDARY }}>
                     <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }} >
-                        <Typography variant='h6'>{props.username}</Typography>
+                        {/* <Typography variant='h6'>{props.username}</Typography> */}
+                        <Typography variant='h6'> </Typography>
                         <Typography variant='body1' fontSize={'0.75rem'}>{props.account.status}</Typography>
                     </div>
                     <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }} >

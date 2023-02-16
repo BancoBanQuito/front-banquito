@@ -2,6 +2,7 @@ import axios from "axios";
 import { AdditionalProps } from "./dto/AdditionalProps";
 import { GET_ASSOCIATED_SERVICES, GET_ASSOCIATED_SERVICE_BY_SERVICE_NAME, POST_ASSOCIATED_SERVICE, PUT_ASSOCIATED_SERVICE } from "../../config/apis/productAPI";
 import { AssociatedServiceParamRSRQ } from "./dto/AssociatedServiceParamRSRQ";
+import { AssociatedServiceRSRQ } from "./dto/AssociatedServiceRSRQ";
 
 export class AssociatedService {
 
@@ -31,7 +32,7 @@ export class AssociatedService {
 
     public static async getAssociatedServices() {
         try {
-            return (await axios.get<AssociatedService[]>(GET_ASSOCIATED_SERVICES())).data;
+            return (await axios.get<AssociatedServiceRSRQ[]>(GET_ASSOCIATED_SERVICES())).data;
         } catch (error: any) {
             throw error;
         }
