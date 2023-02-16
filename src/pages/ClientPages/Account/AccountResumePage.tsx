@@ -103,79 +103,41 @@ const AccountResumePage = (props: AccountResumePageProps) => {
 
     return (
         <>
-            <Grid container spacing={5}>
-                <Grid item xs={9}>
-                    <Typography variant='h5' fontWeight='bold' textTransform='uppercase' color='secondary' marginBottom={5}>Cuentas</Typography>
-                    {!accountSelected && <div style={{ marginLeft: '1rem', marginRight: '1rem' }}>
-                        <Grid container spacing={5}>
-                            {
-                                props.accounts.map(account => {
-                                    return <Grid item sm={6}><AccountCard username={user.username?.split("@")[0] || ''} account={account} onClick={handleAccountSelection} /></Grid>
-                                })
-                            }
-                        </Grid>
-                    </div>}
-                    {
-                        !!accountSelected &&
-                        <>
-                            <Dropdown
-                                backgroundColor='white'
-                                label={''}
-                                defaultValue={accountSelected.codeLocalAccount}
-                                items={accountToDropdown(props.accounts)}
-                                width={'100%'}
-                                onChange={handleAccountSelection}
-                                height={'auto'} />
-                            <TabsMolecule
-                                items={tabData}
-                                orientation='horizontal'
-                                defaultValue={currentIndex}
-                                onChange={(value) => setcurrentIndex(value)} />
-                            {currentIndex === 0 && <OnConstructionMolecule />}
-                            {currentIndex === 1 && <AccountStatmentOrganism
-                                onSelect={(id) => openInNewTab(id)}
-                                onClick={() => openInNewTab(`1-${accountSelected.codeLocalAccount}`)}
-                                accountStatements={accountStaments} />}
-                        </>
-                    }
-                </Grid>
-                <Grid item xs={3}>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column'
-                        }}>
-                        <Card sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginBottom: '1rem'
-                        }}
-                            variant='outlined'>
-                            <CardContent>
-                                <ClockMolecule />
-                            </CardContent>
-                        </Card>
-                        <Card sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginBottom: '1rem'
-                        }}
-                            variant='outlined'>
-                            <div style={{ margin: '1rem' }}>
-                                <Twitter color='secondary' />
-                            </div>
-                            <div style={{ margin: '1rem' }}>
-                                <Instagram color='secondary' />
-                            </div>
-                            <div style={{ margin: '1rem' }}>
-                                <Facebook color='secondary' />
-                            </div>
-                        </Card>
-                    </Box>
-                </Grid>
-            </Grid>
+            <>
+                <Typography variant='h5' fontWeight='bold' textTransform='uppercase' color='secondary' marginBottom={5}>Cuentas</Typography>
+                {!accountSelected && <div style={{ marginLeft: '1rem', marginRight: '1rem' }}>
+                    <Grid container spacing={5}>
+                        {
+                            props.accounts.map(account => {
+                                return <Grid item sm={6}><AccountCard username={user.username?.split("@")[0] || ''} account={account} onClick={handleAccountSelection} /></Grid>
+                            })
+                        }
+                    </Grid>
+                </div>}
+                {
+                    !!accountSelected &&
+                    <>
+                        <Dropdown
+                            backgroundColor='white'
+                            label={''}
+                            defaultValue={accountSelected.codeLocalAccount}
+                            items={accountToDropdown(props.accounts)}
+                            width={'100%'}
+                            onChange={handleAccountSelection}
+                            height={'auto'} />
+                        <TabsMolecule
+                            items={tabData}
+                            orientation='horizontal'
+                            defaultValue={currentIndex}
+                            onChange={(value) => setcurrentIndex(value)} />
+                        {currentIndex === 0 && <OnConstructionMolecule />}
+                        {currentIndex === 1 && <AccountStatmentOrganism
+                            onSelect={(id) => openInNewTab(id)}
+                            onClick={() => openInNewTab(`1-${accountSelected.codeLocalAccount}`)}
+                            accountStatements={accountStaments} />}
+                    </>
+                }
+            </>
             <ModalOrganism
                 open={openAccountStatementModal}
                 onClose={() => setopenAccountStatementModal(false)}>
