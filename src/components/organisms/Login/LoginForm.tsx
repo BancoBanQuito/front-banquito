@@ -31,52 +31,54 @@ const LoginForm = (props: LoginFormProps) => {
   }
 
   return (
-    <Box
-      component='form'
-      onSubmit={handleSubmit}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        maxWidth: 300
-      }}>
-      <Container sx={containertTitleStyles}>
-        <Typography variant="h6" align="center">
-          {props.title || 'Iniciar Sesion'}
-        </Typography>
-      </Container>
-      <Container sx={containerStyles}>
-      </Container >
-      <TextFieldAtom
-        fullWidth
-        label='Usuario'
-        required
-        value={userName}
-        type="text"
-        onChange={(event) => setUsername(event.target.value)} />
-      <TextFieldAtom
-        fullWidth
-        label='Contraseña'
-        required
-        value={password}
-        type="password"
-        onChange={(event) => setPassword(event.target.value)}
-      />
-      <div style={{ margin: '1rem' }} />
-      <SizeButton
-        submit
-        text={'Ingresar'}
-        style={ButtonStyle.BIG}
-        size={{
-          height: 'auto',
-          width: '100%'
-        }}
-        palette={{
-          backgroundColor: ColorPalette.PRIMARY
-        }} />
-    </Box>
+    <>
+      <Box
+        component='form'
+        onSubmit={handleSubmit}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          maxWidth: 300
+        }}>
+        <Container sx={containertTitleStyles}>
+          <Typography variant="h6" align="center">
+            {props.title || 'Iniciar Sesion'}
+          </Typography>
+        </Container>
+        <Container sx={containerStyles}>
+        </Container >
+        <TextFieldAtom
+          fullWidth
+          label='Correo electronico'
+          required
+          value={userName}
+          type="email"
+          onChange={(event) => setUsername(event.target.value)} />
+        <TextFieldAtom
+          fullWidth
+          label='Contraseña'
+          required
+          value={password}
+          type="password"
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <div style={{ margin: '1rem' }} />
+        <SizeButton
+          submit
+          text={'Ingresar'}
+          style={ButtonStyle.BIG}
+          size={{
+            height: 'auto',
+            width: '100%'
+          }}
+          palette={{
+            backgroundColor: ColorPalette.PRIMARY
+          }} />
+      </Box>
+    </>
   )
 }
 

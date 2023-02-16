@@ -31,7 +31,7 @@ const AccountStatementOrganism = (props: AccountStatementOrganismProps) => {
                         backgroundColor: ColorPalette.PRIMARY
                     }} />
             </div>
-            <hr />
+            <hr style={{ width: "100%" }} />
             {
                 props.accountStatements.length <= 0 ?
                     <>

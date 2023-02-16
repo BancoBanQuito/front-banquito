@@ -4,18 +4,18 @@ export interface NewClientRQ {
     lastname: string,
     firstname: string,
     email: string,
-    birthDate: Date,
+    birthDate: string,
     gender: string,
     career: string,
     companyName: string,
     companyType: string,
-    createDateCompany: Date,
+    createDateCompany: string,
     appLegalRepresent: string,
     articlesAssociatedDoc: string,
     basicServicesDocument: string,
     fingerPrint: string,
     incomeTaxDocument: string,
-    lastStatusDate: Date,
+    lastStatusDate: string,
     maritalStatus: string,
     monthlyAvgIncome: string,
     nationality: string,
@@ -41,8 +41,8 @@ export interface NewClientRQ {
     },
     relationship: {
         name: string,
-        startDate: Date,
-        endDate: Date
+        startDate: string,
+        endDate: string
     },
     segment: {
         code: string,

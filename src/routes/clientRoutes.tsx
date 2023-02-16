@@ -1,9 +1,9 @@
-import CreateUser from "../components/organisms/Login/CreateUser";
 import Login from "../components/organisms/Login/LoginForm";
 import AccountCreateClient from "../pages/ClientPages/Account/AccountCreateClient";
 import AccountStatementPage from "../pages/ClientPages/Account/AccountStatementPage";
 import Branch from "../pages/ClientPages/Branches/Branch";
 import { UpdateClient } from "../pages/ClientPages/Client/UpdateClient";
+import CreateUser from "../pages/ClientPages/CreateUser";
 import HomeClient from "../pages/ClientPages/HomeClient";
 import LoginClient from "../pages/ClientPages/LoginClient";
 import InterestInvestmentPolicies from "../pages/ClientPages/Transaction/InterestInvestmentPolicies";
@@ -23,9 +23,11 @@ export const clientRoutes = [
     },
     {
         path: "login",
-        element: (
-            <LoginClient />
-        ),
+        element: <LoginClient />,
+    },
+    {
+        path: "crear/usuario",
+        element: <CreateUser />,
     },
     {
         path: "cuenta/crear",
@@ -46,10 +48,6 @@ export const clientRoutes = [
     {
         path: "cuenta/transaccion/dias",
         element: <TransactionBeetwenDates client />,
-    },
-    {
-        path: "signup",
-        element: <CreateUser redirect="/cliente" />,
     },
     {
         path: "interes/cuenta/ahorros",

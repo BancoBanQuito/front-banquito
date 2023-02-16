@@ -30,6 +30,7 @@ const LoginClient = () => {
     setisLoading(true);
     try {
       const data = await login(submitUser.username, submitUser.password);
+      console.log(data);
       user.identification = data.identification;
       user.identificationType = data.identificationType;
       user.username = data.email;
@@ -82,11 +83,7 @@ const LoginClient = () => {
               width: '300px',
             }}
             style={ButtonStyle.BIG}
-            onClick={() => {
-              setopenInfoModal(true);
-              setinfoMessage('Lamentamos los inconvenientes, esta area aun esta en construccion');
-              settitleInfoModal('Estamos Trabajando')
-            }}
+            onClick={() => navigate("/cliente/crear/usuario")}
             palette={{
               backgroundColor: ColorPalette.PRIMARY
             }} />

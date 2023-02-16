@@ -17,6 +17,7 @@ import { TransactionService } from '../../../services/transaction/TransactionSer
 import { RSTransaction } from '../../../services/transaction/dto/RSTransaction';
 import { useUser } from '../../../context/UserContext';
 import ClockMolecule from '../../../components/molecules/ClockMolecule';
+import TabsMolecule from '../../../components/molecules/TabsMolecule';
 
 interface AccountResumePageProps {
     accounts: RSAccount[];
@@ -30,6 +31,16 @@ const accountToDropdown = (accounts: RSAccount[]) => {
         }
     })
 }
+
+const tabData: { label: string, value: any }[] = [
+    {
+        label: 'Movimiento',
+        value: 0
+    }, {
+        label: 'Estado de cuenta',
+        value: 1
+    }
+];
 
 const AccountResumePage = (props: AccountResumePageProps) => {
 
@@ -46,6 +57,8 @@ const AccountResumePage = (props: AccountResumePageProps) => {
     const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
 
     const [openAccountStatementModal, setopenAccountStatementModal] = useState<boolean>(false);
+
+    const [currentIndex, setcurrentIndex] = useState<number>(0);
 
     const user = useUser();
 
@@ -113,10 +126,16 @@ const AccountResumePage = (props: AccountResumePageProps) => {
                                 width={'100%'}
                                 onChange={handleAccountSelection}
                                 height={'auto'} />
-                            <AccountStatmentOrganism
+                            <TabsMolecule
+                                items={tabData}
+                                orientation='horizontal'
+                                defaultValue={currentIndex}
+                                onChange={(value) => setcurrentIndex(value)} />
+                            {currentIndex === 0 && <OnConstructionMolecule />}
+                            {currentIndex === 1 && <AccountStatmentOrganism
                                 onSelect={(id) => openInNewTab(id)}
                                 onClick={() => openInNewTab(`1-${accountSelected.codeLocalAccount}`)}
-                                accountStatements={accountStaments} />
+                                accountStatements={accountStaments} />}
                         </>
                     }
                 </Grid>
