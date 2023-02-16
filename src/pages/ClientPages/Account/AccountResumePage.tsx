@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import { RSAccount } from '../../../services/account/dto/RSAccount';
-import AccountsTableOrganism from '../../../components/organisms/Account/AccountsTableOrganism';
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
-import { Facebook, Instagram, Twitter } from '@mui/icons-material';
+import { Grid, Typography } from '@mui/material';
 import OnConstructionMolecule from '../../../components/molecules/OnConstructionMolecule';
 import AccountCard from '../../../components/molecules/AccountCard';
-import AccountStatmentOrganism from '../../../components/organisms/Account/AccountStatementOrganism';
+import AccountStatementOrganism from '../../../components/organisms/Account/AccountStatementOrganism';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
 import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList';
@@ -16,8 +14,8 @@ import ModalOrganism from '../../../components/organisms/ModalOrganism';
 import { TransactionService } from '../../../services/transaction/TransactionService';
 import { RSTransaction } from '../../../services/transaction/dto/RSTransaction';
 import { useUser } from '../../../context/UserContext';
-import ClockMolecule from '../../../components/molecules/ClockMolecule';
 import TabsMolecule from '../../../components/molecules/TabsMolecule';
+import { AccountAssociatedService } from '../../../services/account/AccountAssociatedService';
 
 interface AccountResumePageProps {
     accounts: RSAccount[];
@@ -41,7 +39,7 @@ const tabData: { label: string, value: any }[] = [
         value: 1
     }, {
         label: 'Servicios',
-        value: 1
+        value: 2
     }
 ];
 
@@ -74,6 +72,20 @@ const AccountResumePage = (props: AccountResumePageProps) => {
         setisLoading(true);
         try {
             const data: RSTransaction[] = (await TransactionService.getTransaction(id, "", "")).data.data || [];
+            // setaccountStaments(data);
+        } catch (error) {
+            setmessageSnack("Ha ocurrido un error");
+            settitleSnack("Error");
+            setcolorSnack('error');
+            setopenSnack(true);
+        } finally {
+            setisLoading(false);
+        }
+    }
+
+    const retriveAccountServices = async (id: string) => {
+        setisLoading(true);
+        try {
             // setaccountStaments(data);
         } catch (error) {
             setmessageSnack("Ha ocurrido un error");
@@ -139,10 +151,11 @@ const AccountResumePage = (props: AccountResumePageProps) => {
                             defaultValue={currentIndex}
                             onChange={(value) => setcurrentIndex(value)} />
                         {currentIndex === 0 && <OnConstructionMolecule />}
-                        {currentIndex === 1 && <AccountStatmentOrganism
+                        {currentIndex === 1 && <AccountStatementOrganism
                             onSelect={(id) => openInNewTab(id)}
                             onClick={() => openInNewTab(`1-${codeLocalAccountSelected}`)}
                             accountStatements={accountStaments} />}
+                        {currentIndex === 2 && <OnConstructionMolecule />}
                     </>
                 }
             </>
