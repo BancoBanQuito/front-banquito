@@ -26,11 +26,8 @@ const tabData: { label: string, value: any }[] = [
     label: 'Servicios',
     value: 2
   }, {
-    label: 'Consultas',
-    value: 3
-  }, {
     label: 'Solicitudes',
-    value: 4
+    value: 3
   }
 ]
 
@@ -115,8 +112,7 @@ const HomeClient = () => {
               {currentIndex === 0 && <AccountResumePage accounts={userAccounts} />}
               {currentIndex === 1 && <TransactionPage onComplete={handleCompleteTransaction} accounts={userAccounts} />}
               {currentIndex === 2 && <AccountServicesPage accounts={userAccounts} />}
-              {currentIndex === 3 && <OnConstructionMolecule />}
-              {currentIndex === 4 && <AccountApplicationPage accounts={userAccounts} />}
+              {currentIndex === 3 && <AccountApplicationPage accounts={userAccounts} />}
             </Box>
           </Grid>
           <Grid item xs={3}>
