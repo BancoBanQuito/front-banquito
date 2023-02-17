@@ -10,6 +10,7 @@ import TextAreaAtom from '../../atoms/TextAreaAtom';
 interface TransactionFormProps {
     items: { name: string; value: any; }[];
     onSubmit?: (data: TransferenceFormData) => void;
+    onAccountChange?: (id: string) => void;
 }
 
 interface TransferenceFormData {
@@ -64,7 +65,10 @@ const TransactionForm = (props: TransactionFormProps) => {
                 defaultValue={props.items[0].value}
                 height={'auto'}
                 required
-                onChange={(value) => formData.currentAccount = value} />
+                onChange={(value) => {
+                    formData.currentAccount = value;
+                    props.onAccountChange?.(value);
+                }} />
             <TextFieldAtom
                 label='Monto'
                 name='amount'

@@ -1,11 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { RSAccount } from '../../../services/account/dto/RSAccount';
-import AccountsTableOrganism from '../../../components/organisms/Account/AccountsTableOrganism';
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material';
-import { Facebook, Instagram, Twitter } from '@mui/icons-material';
+import { Box, Grid, Typography } from '@mui/material';
 import OnConstructionMolecule from '../../../components/molecules/OnConstructionMolecule';
 import AccountCard from '../../../components/molecules/AccountCard';
-import AccountStatmentOrganism from '../../../components/organisms/Account/AccountStatementOrganism';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
 import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList';
@@ -13,11 +10,10 @@ import { AlertColor } from '@mui/lab';
 import { AccountStatementService } from '../../../services/account/AccountStatementService';
 import { Dropdown } from '../../../components/atoms/Dropdown';
 import ModalOrganism from '../../../components/organisms/ModalOrganism';
-import { TransactionService } from '../../../services/transaction/TransactionService';
-import { RSTransaction } from '../../../services/transaction/dto/RSTransaction';
 import { useUser } from '../../../context/UserContext';
-import ClockMolecule from '../../../components/molecules/ClockMolecule';
 import TabsMolecule from '../../../components/molecules/TabsMolecule';
+import AccountMovementPage from './AccountMovementPage';
+import AccountStatementPage from '../../../components/organisms/Account/AccountStatementPage';
 
 interface AccountResumePageProps {
     accounts: RSAccount[];
@@ -27,7 +23,7 @@ const accountToDropdown = (accounts: RSAccount[]) => {
     return accounts.map(account => {
         return {
             name: account.codeLocalAccount,
-            value: account,
+            value: account.codeLocalAccount,
         }
     })
 }
@@ -39,14 +35,16 @@ const tabData: { label: string, value: any }[] = [
     }, {
         label: 'Estado de cuenta',
         value: 1
+    }, {
+        label: 'Servicios',
+        value: 2
     }
 ];
 
 const AccountResumePage = (props: AccountResumePageProps) => {
 
 
-    const [accountSelected, setaccountSelected] = useState<RSAccount | undefined>();
-    const [accountStaments, setaccountStaments] = useState<RSAccountStatementList[]>([]);
+    const [codeLocalAccountSelected, setaccountSelected] = useState<string | undefined>();
 
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [messageLoading, setmessageLoading] = useState<string | undefined>();
@@ -62,15 +60,13 @@ const AccountResumePage = (props: AccountResumePageProps) => {
 
     const user = useUser();
 
-    const handleAccountSelection = (account: RSAccount) => {
-        setaccountSelected(account);
-        retriveAccountStatementList(account.codeLocalAccount);
+    const handleAccountSelection = (codeLocalAccount: string) => {
+        setaccountSelected(codeLocalAccount);
     }
 
-    const retriveAccountMovements = async (id: string) => {
+    const retriveAccountServices = async (id: string) => {
         setisLoading(true);
         try {
-            const data: RSTransaction[] = (await TransactionService.getTransaction(id, "", "")).data.data || [];
             // setaccountStaments(data);
         } catch (error) {
             setmessageSnack("Ha ocurrido un error");
@@ -82,61 +78,65 @@ const AccountResumePage = (props: AccountResumePageProps) => {
         }
     }
 
-    const retriveAccountStatementList = async (id: string) => {
-        setisLoading(true);
-        try {
-            const data: RSAccountStatementList[] = (await AccountStatementService.getStatementList(id)).data.data || [];
-            setaccountStaments(data);
-        } catch (error) {
-            setmessageSnack("Ha ocurrido un error");
-            settitleSnack("Error");
-            setcolorSnack('error');
-            setopenSnack(true);
-        } finally {
-            setisLoading(false);
-        }
-    }
-
-    const openInNewTab = (id: string) => {
-        window.open(`/cliente/cuenta/estado/${id}`, '_blank');
-    }
-
     return (
         <>
             <>
-                <Typography variant='h5' fontWeight='bold' textTransform='uppercase' color='secondary' marginBottom={5}>Cuentas</Typography>
-                {!accountSelected && <div style={{ marginLeft: '1rem', marginRight: '1rem' }}>
-                    <Grid container spacing={5}>
-                        {
-                            props.accounts.map(account => {
-                                return <Grid item sm={6}><AccountCard username={user.username?.split("@")[0] || ''} account={account} onClick={handleAccountSelection} /></Grid>
-                            })
-                        }
-                    </Grid>
-                </div>}
-                {
-                    !!accountSelected &&
-                    <>
-                        <Dropdown
-                            backgroundColor='white'
-                            label={''}
-                            defaultValue={accountSelected.codeLocalAccount}
-                            items={accountToDropdown(props.accounts)}
-                            width={'100%'}
-                            onChange={handleAccountSelection}
-                            height={'auto'} />
-                        <TabsMolecule
-                            items={tabData}
-                            orientation='horizontal'
-                            defaultValue={currentIndex}
-                            onChange={(value) => setcurrentIndex(value)} />
-                        {currentIndex === 0 && <OnConstructionMolecule />}
-                        {currentIndex === 1 && <AccountStatmentOrganism
-                            onSelect={(id) => openInNewTab(id)}
-                            onClick={() => openInNewTab(`1-${accountSelected.codeLocalAccount}`)}
-                            accountStatements={accountStaments} />}
-                    </>
-                }
+                <Typography
+                    variant='h5'
+                    fontWeight='bold'
+                    textTransform='uppercase'
+                    color='secondary'
+                    marginBottom={5}>Cuentas</Typography>
+                {!codeLocalAccountSelected &&
+                    <div style={{
+                        width: '100%',
+                        marginLeft: '1rem',
+                        marginRight: '1rem'
+                    }}>
+                        <Grid container spacing={5}>
+                            {
+                                props.accounts.map(account => {
+                                    return <Grid item sm={6}>
+                                        <AccountCard
+                                            username={user.username?.split("@")[0] || ''}
+                                            account={account}
+                                            onClick={(account) => handleAccountSelection(account.codeLocalAccount)} />
+                                    </Grid>
+                                })
+                            }
+                        </Grid>
+                    </div>}
+                <Box
+                    sx={{
+                        width: '100%',
+                        maxWidth: 700
+                    }}>
+                    {
+                        !!codeLocalAccountSelected &&
+                        <>
+                            <Dropdown
+                                backgroundColor='white'
+                                label={''}
+                                defaultValue={codeLocalAccountSelected}
+                                items={accountToDropdown(props.accounts)}
+                                width={'100%'}
+                                onChange={handleAccountSelection}
+                                height={'auto'} />
+                            <TabsMolecule
+                                items={tabData}
+                                orientation='horizontal'
+                                defaultValue={currentIndex}
+                                onChange={(value) => setcurrentIndex(value)} />
+                            {currentIndex === 0 && <AccountMovementPage
+                                fromDate={(new Date()).setMonth((new Date()).getMonth() - 1)}
+                                toDate={Date.now()}
+                                codeLocalAccount={codeLocalAccountSelected} />}
+                            {currentIndex === 1 && <AccountStatementPage
+                                codeLocalAccount={codeLocalAccountSelected} />}
+                            {currentIndex === 2 && <OnConstructionMolecule />}
+                        </>
+                    }
+                </Box>
             </>
             <ModalOrganism
                 open={openAccountStatementModal}
