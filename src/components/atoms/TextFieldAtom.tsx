@@ -16,6 +16,7 @@ interface Props {
     required?: boolean;
     error?: boolean;
     helperText?: string;
+    step?: string | number;
 }
 
 const TextFieldStyle: SxProps = {
@@ -40,6 +41,9 @@ const TextFieldAtom = (props: Props) => {
             required={props.required}
             error={props.error}
             helperText={props.helperText}
+            inputProps={{
+                step: props.step
+            }}
             variant='outlined'
             size='small'
         />

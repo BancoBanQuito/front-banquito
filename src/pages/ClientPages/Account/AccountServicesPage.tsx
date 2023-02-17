@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import OnConstructionMolecule from '../../../components/molecules/OnConstructionMolecule'
-import { AlertColor, Box } from '@mui/material'
+import { AlertColor, Box, Typography } from '@mui/material'
 import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule'
 import LoadOrganism from '../../../components/organisms/LoadOrganism'
 import { AssociatedService } from '../../../services/product/AssociatedService.service'
@@ -57,9 +57,11 @@ const AccountServicesPage = (props: AccountServicesPage) => {
                     width: '100%',
                     height: '100%',
                     display: 'flex',
-                    justifyContent: 'space-evenly',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
                     alignItems: 'center'
                 }}>
+                <Typography variant='h6' color='secondary' mb={3}>Nuestros Servicios</Typography>
                 {!selectedService ? <Box
                     sx={{
                         width: '100%',
