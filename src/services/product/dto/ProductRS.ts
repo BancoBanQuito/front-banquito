@@ -2,11 +2,11 @@ export interface ProductRS {
     id: string,
     name: string,
     status: string,
-    productType: {
+    productType?: {
         id: string,
         name: string
     },
-    associatedService: [
+    associatedService?: [
         {
             id: string,
             name: string,

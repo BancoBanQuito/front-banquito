@@ -8,6 +8,10 @@ import { Dropdown } from "../../atoms/Dropdown";
 import { SizeButton } from "../../atoms/SizeButton";
 import IdentificationTypes from '../../../services/.json/IdentificationType.json'
 import TextFieldAtom from "../../atoms/TextFieldAtom";
+import { ProductRS } from "../../../services/product/dto/ProductRS";
+import { DataToDropdownUtils } from "../../../utils/DataToDropdownUtils";
+import { ProductTypeRS } from "../../../services/product/dto/ProductTypeRS";
+import { RQCreateAccount } from "../../../services/account/dto/RQCreateAccount";
 
 
 const mainBoxStyle = (): SxProps<Theme> => {
@@ -43,41 +47,32 @@ const textHelpers = {
     identificationPlaceholder: 'Identifificación'
 }
 
-interface FormAccountInterface {
-    identification: string,
-    identificationType: string,
-    codeProduct: string,
-    codeBranch: string,
-    entityBankCode: string,
-    internationalBankCode: string,
-}
-
 interface AccountFormProps {
-    onSubmit: (data: any) => void,
-    products: any[],
+    onSubmit: (data: RQCreateAccount) => void;
+    products: ProductTypeRS[];
     identification?: string;
     identificationType?: string;
+    defaultProduct?: string;
 }
+
+const entityBankCode = 'aef0fadf647c8d6f';
+const internationalBankCode = 'c88c1afde4c3a564';
+const codeBranch = '252';
 
 const AccountFormBank = (props: AccountFormProps) => {
 
     const [showIdentificationError, setshowIdentificationError] = useState<boolean>(false)
     const [errorMessage, seterrorMessage] = useState("La identificacion no es correcta");
 
-    const [account, setaccount] = useState<FormAccountInterface>({
+    const [account, setaccount] = useState<RQCreateAccount>({
         identification: props.identification || "",
         identificationType: props.identificationType || "",
-        codeProduct: "",
-        codeBranch: "123",
-        entityBankCode: "12345",
-        internationalBankCode: "12345",
+        codeProduct: props.defaultProduct?.split('-')[1] || "",
+        codeProductType: props.defaultProduct?.split('-')[0] || "",
+        codeBranch: codeBranch,
+        entityBankCode: entityBankCode,
+        internationalBankCode: internationalBankCode,
     });
-
-    useEffect(() => {
-        console.log(props);
-        return () => { }
-    }, [])
-
 
     const submitHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -100,26 +95,18 @@ const AccountFormBank = (props: AccountFormProps) => {
         setaccount({ ...account, [name]: value });
     }
 
-    const getDropdownData = (): { name: string, value: any }[] => {
-        return props.products.map(product => {
-            return {
-                name: product.name,
-                value: product.codeProduct
-            }
-        })
-    }
-
     return (
         <>
             <Box sx={mainBoxStyle()}>
                 <Typography
                     component="h1"
-                    variant="h4"
+                    variant="h6"
                     sx={{
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center'
-                    }}>
+                    }}
+                    color='secondary'>
                     {textHelpers.title}
                 </Typography>
                 <Box
@@ -137,10 +124,15 @@ const AccountFormBank = (props: AccountFormProps) => {
                             width={"100%"}
                             height={"auto"}
                             label="Tipo de Cuenta"
-                            items={getDropdownData()}
-                            backgroundColor={ColorPalette.SECONDARY}
+                            items={DataToDropdownUtils.productToDropdow(props.products)}
+                            backgroundColor='white'
+                            defaultValue={props.defaultProduct}
                             onChange={(value: string) =>
-                                setaccount({ ...account, codeProduct: value })}
+                                setaccount({
+                                    ...account,
+                                    codeProduct: value.split('-')[1],
+                                    codeProductType: value.split('-')[0]
+                                })}
                         />
                     </div>
                     <div style={{
@@ -156,7 +148,8 @@ const AccountFormBank = (props: AccountFormProps) => {
                             height={"auto"}
                             label={textHelpers.typeIdentification}
                             items={IdentificationTypes}
-                            backgroundColor={ColorPalette.SECONDARY}
+                            backgroundColor='white'
+                            disabled={!!props.identificationType}
                             onChange={(value: string) =>
                                 setaccount({ ...account, identificationType: value })}
                         />

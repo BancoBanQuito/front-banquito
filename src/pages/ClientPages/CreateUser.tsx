@@ -7,7 +7,6 @@ import { UserRQ } from '../../services/client/dto/UserRQ'
 import SnackBarMolecule from '../../components/molecules/SnackBarMolecule'
 import LoadOrganism from '../../components/organisms/LoadOrganism'
 import { ClientService } from '../../services/client/ClientService.service'
-import { ProductService } from '../../services/product/productService'
 import AccountFormBank from '../../components/organisms/Account/AccountFormBank'
 import { RQCreateAccount } from '../../services/account/dto/RQCreateAccount'
 import { AccountService } from '../../services/account/AccountService'
@@ -17,10 +16,8 @@ import moment from 'moment'
 import BanQuitoIcon from '../../components/atoms/BanQuitoIcon'
 import CreateClientForm from '../../components/organisms/Login/CreateClientForm'
 import { NewClientRQ } from '../../services/client/dto/NewClientRQ'
-
-const entityBankCode = 'aef0fadf647c8d6f';
-const internationalBankCode = 'c88c1afde4c3a564';
-const codeBranch = '252';
+import { ProductTypeService } from '../../services/product/ProductTypeService.service'
+import { ProductTypeRS } from '../../services/product/dto/ProductTypeRS'
 
 const CreateUser = () => {
 
@@ -34,7 +31,7 @@ const CreateUser = () => {
 
     const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-    const [products, setproducts] = useState<any[] | undefined>([]);
+    const [products, setproducts] = useState<ProductTypeRS>();
 
     const [identification, setidentification] = useState<string | undefined>();
     const [identificationType, setidentificationType] = useState<string | undefined>();
@@ -50,9 +47,20 @@ const CreateUser = () => {
 
     const retriveAllProducts = async (id: string) => {
         setisLoading(true);
-        const productsAsync = await ProductService.getProducts(id);
-        setproducts(productsAsync);
-        setisLoading(false);
+        try {
+            const productsAsync: ProductTypeRS | undefined = (await ProductTypeService.getProductTypes())[0];
+            if (productsAsync) {
+                setproducts(productsAsync);
+            }
+        } catch (error: any) {
+            setmessageSnack(error.message);
+            settitleSnack("Error");
+            setcolorSnack('error');
+            setopenSnack(true);
+        } finally {
+            setisLoading(false);
+        }
+
     }
 
     const handleClientSubmit = async (client: NewClientRQ) => {
@@ -95,19 +103,11 @@ const CreateUser = () => {
         }
     }
 
-    const handleAccountSubmit = async (data: any) => {
+    const handleAccountSubmit = async (account: RQCreateAccount) => {
         setisLoading(true);
         try {
-            const account: RQCreateAccount = {
-                ...data,
-                entityBankCode: entityBankCode,
-                internationalBankCode: internationalBankCode,
-                codeBranch: codeBranch,
-                codeProductType: "6c24027751bc43c5b232242e307880a7",
-            };
             await AccountService.postAccount(account);
             navigate('/cliente/login');
-
         } catch (error: any) {
             setmessageSnack(error.message);
             settitleSnack("Error");
@@ -178,7 +178,7 @@ const CreateUser = () => {
                             }} />}
                         {currentIndex === 2 && <AccountFormBank
                             onSubmit={handleAccountSubmit}
-                            products={products ? products : []}
+                            products={products ? [products] : []}
                             identification={identification}
                             identificationType={identificationType} />
                         }

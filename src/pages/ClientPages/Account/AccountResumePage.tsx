@@ -14,18 +14,10 @@ import { useUser } from '../../../context/UserContext';
 import TabsMolecule from '../../../components/molecules/TabsMolecule';
 import AccountMovementPage from './AccountMovementPage';
 import AccountStatementPage from '../../../components/organisms/Account/AccountStatementPage';
+import { DataToDropdownUtils } from '../../../utils/DataToDropdownUtils';
 
 interface AccountResumePageProps {
     accounts: RSAccount[];
-}
-
-const accountToDropdown = (accounts: RSAccount[]) => {
-    return accounts.map(account => {
-        return {
-            name: account.codeLocalAccount,
-            value: account.codeLocalAccount,
-        }
-    })
 }
 
 const tabData: { label: string, value: any }[] = [
@@ -118,7 +110,7 @@ const AccountResumePage = (props: AccountResumePageProps) => {
                                 backgroundColor='white'
                                 label={''}
                                 defaultValue={codeLocalAccountSelected}
-                                items={accountToDropdown(props.accounts)}
+                                items={DataToDropdownUtils.accountToDropdown(props.accounts)}
                                 width={'100%'}
                                 onChange={handleAccountSelection}
                                 height={'auto'} />
