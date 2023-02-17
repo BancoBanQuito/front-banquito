@@ -19,6 +19,7 @@ interface DropdownProps {
   inputLabelColor?: string | "white";
   inputFocusedLabelColor?: string | "#4B4B4B";
   value?: string;
+  disabled?: boolean;
 }
 
 const formControlStyles = (props: DropdownProps) => ({
@@ -71,7 +72,8 @@ export const Dropdown = (props: DropdownProps) => {
         label={label}
         defaultValue={props.defaultValue}
         onChange={handleChange}
-        value={props.value}>
+        value={props.value}
+        disabled={props.disabled}>
         {items.map((item, index) => (
           <MenuItem key={index} value={item.value}>
             {item.name}

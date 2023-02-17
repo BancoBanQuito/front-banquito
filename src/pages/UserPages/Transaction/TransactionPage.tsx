@@ -14,19 +14,11 @@ import LoadOrganism from '../../../components/organisms/LoadOrganism'
 import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule'
 import ModalOrganism from '../../../components/organisms/ModalOrganism'
 import AllDoneMolecule from '../../../components/molecules/AllDoneMolecule'
+import { DataToDropdownUtils } from '../../../utils/DataToDropdownUtils'
 
 interface TransactionPageProps {
     accounts: RSAccount[];
     onComplete?: () => void;
-}
-
-const accountToDropdown = (accounts: RSAccount[]) => {
-    return accounts.map(account => {
-        return {
-            name: account.codeLocalAccount,
-            value: account.codeLocalAccount,
-        }
-    })
 }
 
 const TransactionPage = (props: TransactionPageProps) => {
@@ -161,9 +153,9 @@ const TransactionPage = (props: TransactionPageProps) => {
                             }}>
                             {currentIndicator === 0 && <TransactionForm
                                 onSubmit={handleSubmit}
-                                items={accountToDropdown(props.accounts)}
+                                items={DataToDropdownUtils.accountToDropdown(props.accounts)}
                                 onAccountChange={(id: string) => {
-                                    setselectedAccount(props.accounts.find(account => account.codeLocalAccount === id)|| props.accounts[0])
+                                    setselectedAccount(props.accounts.find(account => account.codeLocalAccount === id) || props.accounts[0])
                                 }} />}
                             {currentIndicator === 1 && <TransactionCheckForm
                                 accountOrigin={transactionOrigin.codeLocalAccount}
