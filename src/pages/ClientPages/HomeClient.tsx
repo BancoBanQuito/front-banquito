@@ -118,7 +118,10 @@ const HomeClient = () => {
             <Box
               sx={{
                 padding: '3.5rem 1rem',
-                width: '100%'
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'
               }}>
               {currentIndex === 0 && <AccountResumePage accounts={userAccounts} />}
               {currentIndex === 1 && <TransactionPage onComplete={handleCompleteTransaction} accounts={userAccounts} />}

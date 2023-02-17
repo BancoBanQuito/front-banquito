@@ -41,6 +41,8 @@ const TransactionPage = (props: TransactionPageProps) => {
     const [titleSnack, settitleSnack] = useState<string | undefined>();
     const [colorSnack, setcolorSnack] = useState<AlertColor>('info');
 
+    const [selectedAccount, setselectedAccount] = useState<RSAccount>(props.accounts[0]);
+
     const [openSuccessModal, setopenSuccessModal] = useState<boolean>(false);
 
     const [currentIndicator, setcurrentIndicator] = useState<number>(0)
@@ -133,7 +135,8 @@ const TransactionPage = (props: TransactionPageProps) => {
             <div style={{
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                width: '100%'
             }}>
                 <Card
                     sx={{
@@ -143,6 +146,8 @@ const TransactionPage = (props: TransactionPageProps) => {
                     variant='outlined'>
                     <CardContent>
                         <Typography variant='h6' color='secondary'>Transferencia</Typography>
+                        <Typography variant='body1' color='secondary'>Saldo Disponible: $
+                            {(Math.round(selectedAccount.availableBalance * 100) / 100).toFixed(2)}</Typography>
                         <hr />
                         <ProgressButtonMolecule
                             spotSize={10}
@@ -154,7 +159,12 @@ const TransactionPage = (props: TransactionPageProps) => {
                             sx={{
                                 width: '100%'
                             }}>
-                            {currentIndicator === 0 && <TransactionForm onSubmit={handleSubmit} items={accountToDropdown(props.accounts)} />}
+                            {currentIndicator === 0 && <TransactionForm
+                                onSubmit={handleSubmit}
+                                items={accountToDropdown(props.accounts)}
+                                onAccountChange={(id: string) => {
+                                    setselectedAccount(props.accounts.find(account => account.codeLocalAccount === id)|| props.accounts[0])
+                                }} />}
                             {currentIndicator === 1 && <TransactionCheckForm
                                 accountOrigin={transactionOrigin.codeLocalAccount}
                                 accountReceipt={transactionOrigin.recipientAccountNumber}
