@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { AlertColor, Box, Card, CardContent, Grid } from '@mui/material'
 import { Facebook, Instagram, Twitter } from '@mui/icons-material'
-import '@coreui/coreui/dist/css/coreui.min.css'
 import { useUser } from '../../context/UserContext'
 import SnackBarMolecule from '../../components/molecules/SnackBarMolecule'
 import TabsMolecule from '../../components/molecules/TabsMolecule';
