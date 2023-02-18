@@ -61,6 +61,7 @@ const ATMFormOrganism = (props: ATMFormOrganismProps) => {
                 onChange={handleChange}
                 value={data}
                 fullWidth
+                required
                 type={props.type === 'text' ? 'text' : props.type === 'money' ? 'number' : 'password'}
                 step={props.type === 'money' ? 0.01 : undefined} />
 

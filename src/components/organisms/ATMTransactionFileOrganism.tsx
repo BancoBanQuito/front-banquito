@@ -5,7 +5,7 @@ import BanQuitoIcon from '../atoms/BanQuitoIcon'
 import moment from 'moment'
 
 interface ATMTransactionFileOrganismProps {
-    type: 'deposit' | 'withdraw',
+    type: 'deposit' | 'withdraw' | 'info',
     value: number,
     account: string,
     fileValue: number
@@ -38,7 +38,7 @@ const ATMTransactionFileOrganism = React.forwardRef((props: ATMTransactionFileOr
                 <div style={{ margin: '0.25rem' }} />
                 <Typography variant='body1' >Banco BanQuito</Typography>
             </div>
-            <Typography variant='body1' mb={5}>{`En la fecha ${moment(transactionDate).format('YYYY-MM-DD')} se realizo un ${props.type === 'deposit' ? 'deposito a la cuenta' : 'retiro de la'} cuenta ${props.account} a las ${moment(transactionDate).format('hh:mm:ss')}`}</Typography>
+            <Typography variant='body1' mb={5}>{`En la fecha ${moment(transactionDate).format('YYYY-MM-DD')} se realizo ${props.type === 'deposit' ? 'un deposito a la cuenta' : props.type === 'withdraw' ? 'un retiro de la' : 'una consulta de la'} cuenta ${props.account} a las ${moment(transactionDate).format('hh:mm:ss')}`}</Typography>
 
             <div
                 style={{
@@ -49,7 +49,7 @@ const ATMTransactionFileOrganism = React.forwardRef((props: ATMTransactionFileOr
                     marginBottom: '7rem',
                     marginTop: '5rem'
                 }}>
-                <Typography variant='body1' alignSelf='center'>{`${props.type === 'deposit' ? 'Deposito' : 'Retiro..'}............................................$${(Math.round(100 * props.value) / 100).toFixed(2)}`}</Typography>
+                <Typography variant='body1' alignSelf='center'>{`${props.type === 'deposit' ? 'Deposito' : props.type === 'withdraw' ? 'Retiro..' : 'Tu saldo actual es'}............................................$${(Math.round(100 * props.value) / 100).toFixed(2)}`}</Typography>
                 <Typography variant='body1' alignSelf='center'>{`Valor del comprobante.....................$${(Math.round(100 * props.fileValue) / 100).toFixed(2)}`}</Typography>
             </div>
         </div>
