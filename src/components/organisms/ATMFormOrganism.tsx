@@ -5,10 +5,11 @@ import ATMButtonAtom from '../atoms/ATMButtonAtom';
 import { ChevronRight } from '@mui/icons-material';
 import { ColorPalette } from '../../style/ColorPalette';
 import TextFieldAtom from '../atoms/TextFieldAtom';
+import BanQuitoIcon from '../atoms/BanQuitoIcon';
 
 interface ATMFormOrganismProps {
     title: string;
-    type: 'text' | 'money';
+    type: 'text' | 'money' | 'password';
     label?: string;
     placeholder?: string;
     onSubmit?: (data: any) => void;
@@ -40,6 +41,19 @@ const ATMFormOrganism = (props: ATMFormOrganismProps) => {
                 alignItems: 'center'
             }}>
 
+            <div style={{
+                position: 'absolute',
+                top: 10,
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
+                <BanQuitoIcon />
+                <div style={{ margin: '0.25rem' }} />
+                <Typography variant='body1'>Banco BanQuito</Typography>
+            </div>
+
             <Typography variant='h5' color='secondary' mb={5}>{props.title}</Typography>
             <TextFieldAtom
                 label={props.label}
@@ -47,7 +61,7 @@ const ATMFormOrganism = (props: ATMFormOrganismProps) => {
                 onChange={handleChange}
                 value={data}
                 fullWidth
-                type={props.type === 'text' ? 'text' : 'number'}
+                type={props.type === 'text' ? 'text' : props.type === 'money' ? 'number' : 'password'}
                 step={props.type === 'money' ? 0.01 : undefined} />
 
             <ATMButtonContainerMolecule

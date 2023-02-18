@@ -39,7 +39,7 @@ const ATMPrintOrganism = (props: ATMPrintOrganismProps) => {
         justifyContent: 'center',
         alignItems: 'center'
       }}>
-      <Typography variant='h5' textTransform='capitalize' color='secondary' mb={4}>{`Se imprimira tu comprobante de ${props.type === 'deposit' ? 'Deposito' : 'Retiro'}`}</Typography>
+      <Typography variant='h5' color='secondary' mb={4}>{`Se imprimira tu comprobante de ${props.type === 'deposit' ? 'Deposito' : 'Retiro'}`}</Typography>
       <Typography variant='body1' mb={4}>{`Esta accion tiene un valor de $${(Math.round(100 * props.fileValue) / 100).toFixed(2)}`}</Typography>
       <Typography variant='body1' mb={4}>{`Esta seguro/a?`}</Typography>
       <ATMButtonContainerMolecule
