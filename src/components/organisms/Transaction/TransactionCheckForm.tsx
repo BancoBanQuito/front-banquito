@@ -10,6 +10,7 @@ interface TransactionCheckForm {
     username: string,
     amount: number,
     accountReceipt: string,
+    type?: 'deposit' | 'withdraw';
     onEdit?: () => void;
     onCancel?: () => void;
     onTransfer?: () => void;
@@ -23,7 +24,8 @@ const TransactionCheckForm = (props: TransactionCheckForm) => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                padding: '2rem'
+                padding: '2rem',
+                width: '100%'
             }}>
             <Card
                 sx={{ width: '100%' }}
@@ -34,8 +36,8 @@ const TransactionCheckForm = (props: TransactionCheckForm) => {
                 </CardContent>
             </Card>
             <div style={{ margin: '1rem', width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-                {/* <Straight /> */}
-                <Straight sx={{ transform: 'rotateZ(180deg)' }} />
+                {props.type === 'withdraw' && <Straight />}
+                {!props.type || props.type === 'deposit' && <Straight sx={{ transform: 'rotateZ(180deg)' }} />}
                 <Typography color='secondary' variant='body1'>${(Math.round(props.amount * 100) / 100).toFixed(2)}</Typography>
             </div>
             <Card
@@ -46,19 +48,23 @@ const TransactionCheckForm = (props: TransactionCheckForm) => {
                 </CardContent>
             </Card>
             <div style={{ margin: '1rem', width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
-                <SizeButton
-                    text={'Cancelar'}
-                    onClick={props.onCancel}
-                    style={ButtonStyle.MEDIUM} palette={{
-                        backgroundColor: ColorPalette.SECONDARY,
-                    }} />
+                {
+                    props.onCancel && <SizeButton
+                        text={'Cancelar'}
+                        onClick={props.onCancel}
+                        style={ButtonStyle.MEDIUM} palette={{
+                            backgroundColor: ColorPalette.SECONDARY,
+                        }} />
+                }
                 <div style={{ margin: '0.5rem' }} />
-                <SizeButton
-                    text={'Transferir'}
-                    onClick={props.onTransfer}
-                    style={ButtonStyle.MEDIUM} palette={{
-                        backgroundColor: ColorPalette.PRIMARY,
-                    }} />
+                {
+                    props.onTransfer && <SizeButton
+                        text={'Transferir'}
+                        onClick={props.onTransfer}
+                        style={ButtonStyle.MEDIUM} palette={{
+                            backgroundColor: ColorPalette.PRIMARY,
+                        }} />
+                }
             </div>
         </Box>
     )

@@ -32,13 +32,18 @@ const AppATM = () => {
     return (
         <Box
             sx={{
+                width: '100%',
                 height: '100vh',
                 padding: 0,
                 margin: 0,
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                overflowX: 'hidden',
+                overflowY: 'hidden',
+                position: 'absolute',
+                top: 0,
             }}>
             <Outlet />
         </Box>

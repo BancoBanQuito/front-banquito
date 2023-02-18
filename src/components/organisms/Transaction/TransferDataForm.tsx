@@ -71,7 +71,9 @@ const TransferDataForm = (props: TransferFormProps) => {
                 onSubmit={submitHandler}
                 sx={{
                     overflowX: 'hidden',
-                    overflowY: 'hidden'
+                    overflowY: 'hidden',
+                    width: '100%',
+                    height: '100%'
                 }}>
                 <Box>
                     <Typography
