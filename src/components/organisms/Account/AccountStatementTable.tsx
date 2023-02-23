@@ -1,6 +1,8 @@
 import { Search, Visibility } from '@mui/icons-material';
 import { Typography, Box, TextField, InputAdornment } from '@mui/material';
 import React, { FormEvent, useEffect, useState } from 'react';
+import { AccountStatementService } from '../../../services/account/AccountStatementService';
+import { RSAccountStatement } from '../../../services/account/dto/RSAccountStatement';
 import { RSAccountStatementList } from '../../../services/account/dto/RSAccountStatementList';
 import { ButtonStyle } from '../../../style/ButtonStyle';
 import { ColorPalette } from '../../../style/ColorPalette';
@@ -30,6 +32,15 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
     const [lastArrayState, setlastArrayState] = useState<RSAccountStatementList[]>([])
     const [actualArrayState, setactualArrayState] = useState<RSAccountStatementList[]>(props.data);
 
+    const [isLoading, setisLoading] = useState<boolean>(false);
+    const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
+    const [errorMessage, seterrorMessage] = useState<string>("");
+    const [activeAccountStatement, setactiveAccountStatement] = useState<boolean>(false);
+    const [activeAccountStatementTable, setactiveAccountStatementTable] = useState<boolean>(false);
+    const [selectedAccountStatement, setselectedAccountStatement] = useState<RSAccountStatement>();
+    const [codeLocalAccount, setcodeLocalAccount] = useState<string>("");
+    const [accounts, setaccounts] = useState<{ name: string, value: string }[]>([]);
+
     useEffect(() => {
         setactualArrayState(props.data);
         return () => { }
@@ -53,6 +64,26 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
         setsearchString("");
     }
 
+    const generateAccountStatement = async () => {
+        setisLoading(true);
+        try {
+            const data: RSAccountStatement | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount)).data.data;
+            if (data) {
+                setactiveAccountStatementTable(false);
+                setselectedAccountStatement(data);
+                setactiveAccountStatement(true);
+            } else {
+                setactiveErrorModal(true);
+                seterrorMessage("No se han encontrado datos");
+            }
+        } catch (error: any) {
+            setactiveErrorModal(true);
+            seterrorMessage(error.message);
+        } finally {
+            setisLoading(false);
+        }
+    }
+
     const getRow = (data: RSAccountStatementList) => {
         return [
             <Typography>{data.currentCutOffDate.toString()}</Typography>,
@@ -71,7 +102,7 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
             width: '100%'
         }}>
             <Box
-                mb={5}
+                mb={2}
                 component='form'
                 onSubmit={!hasSearch ? handleSearch : restoreAccountStatements}
                 style={{
@@ -101,6 +132,19 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
                         )
                     }}
                 />
+            </Box>
+
+            <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+                <SizeButton
+                    text={'Ver Estado de Cuenta'}
+                    style={ButtonStyle.BIG}
+
+                    onClick={() => generateAccountStatement()}
+                    palette={{
+                        backgroundColor: ColorPalette.PRIMARY
+                    }} />
+            </div>
+            <Box sx={{ height: 10 }}>
             </Box>
             <TableMolecule color={ColorPalette.SECONDARY}
                 headers={headers}

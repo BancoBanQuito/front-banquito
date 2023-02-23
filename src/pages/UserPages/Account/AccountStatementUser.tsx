@@ -1,4 +1,4 @@
-import { ChevronLeft, Print } from '@mui/icons-material';
+import { ChevronLeft, Facebook, Instagram, Print, Twitter } from '@mui/icons-material';
 import { Box, Fade, Card, CardContent, Typography } from '@mui/material';
 import React, { ReactInstance, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +20,8 @@ import { useUser } from '../../../context/UserContext';
 import { AccountService } from '../../../services/account/AccountService';
 import { RSAccount } from '../../../services/account/dto/RSAccount';
 import InfoModalOrganism from '../../../components/organisms/InfoModalOrganism';
+import Grid from '@mui/material/Grid';
+import ClockMolecule from '../../../components/molecules/ClockMolecule';
 
 interface AccountStatementBankUserProps {
     client?: boolean;
@@ -130,162 +132,188 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
         }
     }
 
-    const generateAccountStatement = async () => {
-        setisLoading(true);
-        try {
-            const data: RSAccountStatement | undefined = (await AccountStatementService.getStatementCurrent(codeLocalAccount)).data.data;
-            if (data) {
-                setactiveAccountStatementTable(false);
-                setselectedAccountStatement(data);
-                setactiveAccountStatement(true);
-            } else {
-                setactiveErrorModal(true);
-                seterrorMessage("No se han encontrado datos");
-            }
-        } catch (error: any) {
-            setactiveErrorModal(true);
-            seterrorMessage(error.message);
-        } finally {
-            setisLoading(false);
-        }
-    }
+
 
     return (
         <>
-            <Box sx={{
-                position: 'relative',
-                top: 50
-            }}>
-                {!!props.client ? <div style={{
-                    position: 'absolute',
-                    width: '100%',
-                    height: '80vh',
-                    top: 0,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    zIndex: activeSearchBox ? '100' : '0'
-                }}>
-                    <Fade in={activeSearchBox}>
-                        <Card sx={{ minWidth: '450px', maxWidth: '750px' }}>
-                            <CardContent>
-                                {accounts.length <= 0 ? <Typography variant='h6'>Es necesario crear una cuenta</Typography> :
-                                    <>
-                                        <Box mb={2} sx={{ fontStyle: 'italic', color: ColorPalette.SECONDARY }}>
-                                            <Typography variant='h4' component='h6'>
-                                                Selector de cuentas
-                                            </Typography>
-                                            <Typography variant='body1' component='h6'>
-                                                Buscador
-                                            </Typography>
-                                        </Box>
-                                        <Dropdown
-                                            label={'Cuentas'}
-                                            items={accounts}
-                                            onChange={handleSearch}
-                                            width={'100%'}
-                                            height={'auto'} />
-                                    </>}
-                            </CardContent>
-                        </Card>
-                    </Fade>
-                </div> : <div style={{
-                    position: 'absolute',
-                    width: '100%',
-                    height: '80vh',
-                    top: 0,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    zIndex: activeSearchBox ? '100' : '0'
-                }}>
-                    <Fade in={activeSearchBox}>
-                        <Card sx={{ minWidth: '450px', maxWidth: '750px' }}>
-                            <CardContent>
-                                <SearchAccount
-                                    color={ColorPalette.SECONDARY}
-                                    label='Numero de Cuenta'
-                                    title='Estado de Cuenta'
-                                    onSubmit={handleSearch} />
-                            </CardContent>
-                        </Card>
-                    </Fade>
-                </div>}
-                <div style={{
-                    position: 'absolute',
-                    width: '100%',
-                    top: '5rem',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    zIndex: activeAccountStatementTable ? '100' : '0',
-                    textTransform: 'uppercase'
-                }}>
-                    <Fade in={activeAccountStatementTable}>
-                        <div>
-                            <div style={{ position: 'absolute', top: 0, right: 0 }}>
-                                <SizeButton
-                                    text={'Generar Estado de Cuenta'}
-                                    style={ButtonStyle.BIG} palette={{
-                                        backgroundColor: ColorPalette.PRIMARY,
-                                    }}
-                                    size={{
-                                        width: 'auto',
-                                        height: 'auto'
-                                    }}
-                                    onClick={() => generateAccountStatement()} />
-                            </div>
-                            <AccountStatementTable
-                                data={accountStatementList || []}
-                                onSelection={handleAccountStatementSelection} />
-                        </div>
-                    </Fade>
-                </div>
-                <div style={{
-                    position: 'absolute',
-                    width: '100%',
-                    top: 0,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    zIndex: activeAccountStatement ? '100' : '0'
-                }}>
-                    <Fade in={activeAccountStatement}>
-                        <div>
-                            <ButtonIcon
-                                color={ColorPalette.PRIMARY}
-                                icon={<ChevronLeft />}
-                                onClick={handleBackEvent} />
-
-                            <ReactToPrint
-                                trigger={() => <ButtonIcon
-                                    float
-                                    bottom
-                                    right
-                                    color={ColorPalette.PRIMARY}
-                                    icon={<Print />} />}
-                                content={() => printRef.current as unknown as ReactInstance | null} />
-                            <AccountStatementBody
-                                accountStatement={selectedAccountStatement}
-                                ref={printRef} />
-                        </div>
-                    </Fade>
-                </div>
+            <Box sx={{ height: 10 }}>
             </Box>
-            <InfoModalOrganism
-                active={infoModal}
-                onDeactive={() => { }}
-                text={infoMessage}
-                onClick={() => { navigate('/cliente') }} />
-            <LoadOrganism active={isLoading} />
-            <ErrorModalOrganism
-                active={activeErrorModal}
-                onDeactive={() => { setactiveErrorModal(false); navigate('/cliente') }}
-                text={`${errorMessage}. ¿Desea volver a intentar?`}
-                enableButtonBox
-                onConfirm={() => codeLocalAccount && searchAccountStamentsList(codeLocalAccount)}
-                onReject={() => navigate('/cliente')}
-            />
+
+            <Grid container spacing={5}>
+                <Grid item xs={9}>
+                <Box sx={{ height: 25 }}>
+            </Box>
+                    <Typography
+                        align='center'
+                        variant='h5'
+                        fontWeight='bold'
+                        textTransform='uppercase'
+                        color='secondary'
+                        >Estado de cuenta</Typography>
+
+                    <Box sx={{
+                        position: 'relative',
+
+                    }}>
+                        {!!props.client ? <div style={{
+                            position: 'absolute',
+                            width: '100%',
+                            height: '80vh',
+                            top: 0,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            zIndex: activeSearchBox ? '100' : '0'
+                        }}>
+                            <Fade in={activeSearchBox}>
+                                <Card sx={{ minWidth: '450px', maxWidth: '750px' }}>
+                                    <CardContent>
+                                        {accounts.length <= 0 ? <Typography variant='h6'>Es necesario crear una cuenta</Typography> :
+                                            <>
+                                                <Box mb={2} sx={{ fontStyle: 'italic', color: ColorPalette.SECONDARY }}>
+                                                    <Typography variant='h4' component='h6'>
+                                                        Selector de cuentas
+                                                    </Typography>
+                                                    <Typography variant='body1' component='h6'>
+                                                        Buscador
+                                                    </Typography>
+                                                </Box>
+                                                <Dropdown
+                                                    label={'Cuentas'}
+                                                    items={accounts}
+                                                    onChange={handleSearch}
+                                                    width={'100%'}
+                                                    height={'auto'} />
+                                            </>}
+                                    </CardContent>
+                                </Card>
+                            </Fade>
+                        </div> : <div style={{
+                            position: 'absolute',
+                            width: '100%',
+                            height: '80vh',
+                            top: 0,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            zIndex: activeSearchBox ? '100' : '0'
+                        }}>
+                            <Fade in={activeSearchBox}>
+                                <Card sx={{ minWidth: '450px', maxWidth: '750px' }}>
+                                    <CardContent>
+                                        <SearchAccount
+                                            color={ColorPalette.SECONDARY}
+                                            label='Numero de Cuenta'
+                                            title='Buscar cuenta'
+                                            onSubmit={handleSearch} />
+                                    </CardContent>
+                                </Card>
+                            </Fade>
+                        </div>}
+                        <div style={{
+                            position: 'absolute',
+                            width: '100%',
+                            top: '5rem',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            zIndex: activeAccountStatementTable ? '100' : '0',
+                            textTransform: 'uppercase'
+                        }}>
+                            <Fade in={activeAccountStatementTable}>
+                                <div>
+                                    <AccountStatementTable
+                                        data={accountStatementList || []}
+                                        onSelection={handleAccountStatementSelection} />
+                                </div>
+                            </Fade>
+                        </div>
+                        <div style={{
+                            position: 'absolute',
+                            width: '100%',
+                            top: 0,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            zIndex: activeAccountStatement ? '100' : '0'
+                        }}>
+                            <Fade in={activeAccountStatement}>
+                                <div>
+                                    <ButtonIcon
+                                        color={ColorPalette.PRIMARY}
+                                        icon={<ChevronLeft />}
+                                        onClick={handleBackEvent} />
+
+                                    <ReactToPrint
+                                        trigger={() => <ButtonIcon
+                                            float
+                                            bottom
+                                            right
+                                            color={ColorPalette.PRIMARY}
+                                            icon={<Print />} />}
+                                        content={() => printRef.current as unknown as ReactInstance | null} />
+                                    <AccountStatementBody
+                                        accountStatement={selectedAccountStatement}
+                                        ref={printRef} />
+                                </div>
+                            </Fade>
+                        </div>
+                    </Box>
+                    <InfoModalOrganism
+                        active={infoModal}
+                        onDeactive={() => { }}
+                        text={infoMessage}
+                        onClick={() => { navigate('/cliente') }} />
+                    <LoadOrganism active={isLoading} />
+                    <ErrorModalOrganism
+                        active={activeErrorModal}
+                        onDeactive={() => { setactiveErrorModal(false); navigate('/cliente') }}
+                        text={`${errorMessage}. ¿Desea volver a intentar?`}
+                        enableButtonBox
+                        onConfirm={() => codeLocalAccount && searchAccountStamentsList(codeLocalAccount)}
+                        onReject={() => navigate('/cliente')}
+                    />
+                </Grid>
+                <Grid item xs={3}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column'
+                        }}>
+                        <Card sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            marginBottom: '1rem'
+                        }}
+                            variant='outlined'>
+                            <CardContent>
+                                <ClockMolecule />
+                            </CardContent>
+                        </Card>
+                        <Card sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            marginBottom: '1rem'
+                        }}
+                            variant='outlined'>
+                            <div style={{ margin: '1rem' }}>
+                                <Twitter color='secondary' />
+                            </div>
+                            <div style={{ margin: '1rem' }}>
+                                <Instagram color='secondary' />
+                            </div>
+                            <div style={{ margin: '1rem' }}>
+                                <Facebook color='secondary' />
+                            </div>
+                        </Card>
+                    </Box>
+                </Grid>
+
+            </Grid>
+
+
         </>
     )
 }

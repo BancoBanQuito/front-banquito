@@ -21,7 +21,7 @@ const AppUser = () => {
         return () => { }
     }, []);
 
-    useEffect(() => {
+    /* useEffect(() => {
         const role = getSession(SessionVariable.ROLE);
         if (user.role !== 'user' && role !== 'user') {
             navigate('/');
@@ -29,7 +29,7 @@ const AppUser = () => {
             navigate('inicio');
         }
         return () => { }
-    }, [])
+    }, []) */
 
     return (
         <Box

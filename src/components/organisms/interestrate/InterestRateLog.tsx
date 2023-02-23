@@ -1,4 +1,4 @@
-import { Typography, Tooltip, Container } from '@mui/material';
+import { Typography, Tooltip, Container, Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import InterestRateService from '../../../services/product/interestrate/interestRate.service';
 import IInterestRate from '../../../services/product/models/interestRate.model';
@@ -185,41 +185,45 @@ const InterestRateLog = () => {
     return (
         <Container>
             {activateSpinner ? <Spinner /> : null}
-            <Content>
-                <ReturnButton>
-                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspace />} onClick={() => console.log('Buscar')} top={true} />
-                </ReturnButton>
-                <div>
-                    <h1>Registros de Tasas de Interés</h1>
-                </div>
-                {/* Buscar tasa de interes */}
+            <Content>      
+                <Box sx={{ p: 2, mr: 5 }}> 
+                    <Typography variant='h4' align='left' sx={{fontStyle:"oblique", fontSize:30}}>
+                        Registros de Tasas de Interés
+                    </Typography>
+                </Box>
                 <div>
                     <SearchContainer>
-                        <span>Buscar por Nombre: </span>
-                        <TextFieldAtom
-                            id="id"
-                            label="Nombre tasa de interes"
-                            color="primary"
-                            type="text"
-                            placeholder="id"
-                            onChange={(event) => setName(event.target.value)}
-                            value={name}
-                            name={'interest-rate'} />
+                        <Box sx={{ flexDirection: 'row', display: 'flex',alignItems: 'center' }}>
+                            <Typography variant='subtitle1'>
+                                Buscar por Nombre:
+                            </Typography>
+                            <TextFieldAtom
+                                id="id"
+                                label="Nombre tasa de interes"
+                                color="primary"
+                                type="text"
+                                placeholder="id"
+                                onChange={(event) => setName(event.target.value)}
+                                value={name}
+                                name={'interest-rate'} /> 
+                        </Box>
+
                     </SearchContainer>
                     <ContentButtonAddRight>
                         <ButtonIcon color={ColorPalette.TERNARY} icon={<AddCircle />} onClick={() => addValue()} top={true} />
-                        <span>Agregar Valor de Interés</span>
+                        <Typography>Agregar Valor de Interés</Typography>
                     </ContentButtonAddRight>
                     <div>
                         <TableMolecule headers={headers} rows={rows} />
                     </div>
-
+                    <Box sx={{height:20}}></Box>
                     <ContentButtonAddRight>
                         <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
                             icon={<Add />}
                             onClick={() => addInteresRate()}
-                            text="Agregar"
+                            text="Tasa de interés"
                             style={ButtonStyle.BIG}
+                            size={{ width: 200, height: 50 }}
                         />
                     </ContentButtonAddRight>
                 </div>

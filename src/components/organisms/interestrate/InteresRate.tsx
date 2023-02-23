@@ -21,7 +21,10 @@ display: relative;
     `;
 
 export const Content = styled.div`
-    margin-left: 9rem;`;
+    margin-left: 1rem;
+    margin-bottom: 5rem;
+    margin-top: 1rem;`;
+    
 
 // Container for the search
 export const SearchContainer = styled.div`
@@ -33,7 +36,7 @@ export const SearchContainer = styled.div`
     height: 100%;
     padding: 20px;
     max-width: 360px;
-    margin-bottom: 2rem;
+   
     margin-top: 2rem;
     `;
 

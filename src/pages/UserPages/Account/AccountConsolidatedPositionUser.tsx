@@ -1,4 +1,4 @@
-import { Typography, Fade, Card, CardContent } from '@mui/material';
+import { Typography, Fade, Card, CardContent, Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import TableMolecule from '../../../components/molecules/TableMolecule';
 import SearchAccount from '../../../components/organisms/Account/SearchAccount';
@@ -9,11 +9,12 @@ import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
 import { useNavigate } from 'react-router-dom';
 import ButtonIcon from '../../../components/atoms/ButtonIcon';
-import { Close, Edit } from '@mui/icons-material';
+import { Close, Edit, KeyboardBackspace } from '@mui/icons-material';
 import { Dropdown } from '../../../components/atoms/Dropdown';
 import StatesType from '../../../services/.json/StateType.json';
 import LoadSpinner from '../../../components/atoms/LoadSpinner';
 import { Spinner } from '../../../components/atoms/Spinner';
+import { ReturnButton } from '../../../components/organisms/interestrate/InteresRate';
 
 const headersMock = [
   <Typography>No Cuenta</Typography>,
@@ -155,6 +156,10 @@ const AccountConsolidatedPositionUser = () => {
       }
       {
         !activeSearch && <>
+        <Box sx={{height:30}}></Box>
+        <ReturnButton>
+                    <ButtonIcon color={ColorPalette.PRIMARY} icon={<KeyboardBackspace />} onClick={() => navigate('../inicio')} top={true} />
+                </ReturnButton>
           <Typography variant='h4' align='center'>Posicion Consolidada</Typography>
           <br></br>
           <TableMolecule
@@ -169,7 +174,7 @@ const AccountConsolidatedPositionUser = () => {
         active={showErrorModal}
         onDeactive={() => { }}
         enableButtonBox
-        onReject={() => navigate('../..')}
+        onReject={() => navigate('../inicio')}
         text={errorMessage} />
     </>
   );
