@@ -151,7 +151,7 @@ const CreateUser = () => {
                 <Card sx={{
                     width: '100%',
                     maxWidth: 500,
-                    padding: '1rem'
+                    padding: '1rem',
                 }}
                     variant='outlined'>
                     <CardContent>
@@ -177,6 +177,7 @@ const CreateUser = () => {
                                 })
                             }} />}
                         {currentIndex === 2 && <AccountFormBank
+                            defaultProduct={products?.id || ''}
                             onSubmit={handleAccountSubmit}
                             products={products ? [products] : []}
                             identification={identification}
