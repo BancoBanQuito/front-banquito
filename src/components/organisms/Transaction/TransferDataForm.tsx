@@ -119,7 +119,9 @@ const TransferDataForm = (props: TransferFormProps) => {
                     }
                 </Box>
                 {!!props.atm ?
-                    <ATMButtonContainerMolecule position="right">
+                    
+                    <ATMButtonContainerMolecule position="left">
+
                         <ATMButtonAtom
                             submit
                             icon={<ChevronRight />}
@@ -131,7 +133,7 @@ const TransferDataForm = (props: TransferFormProps) => {
                     : <Box>
                         <SizeButton
                             palette={{
-                                backgroundColor: ColorPalette.PRIMARY
+                                backgroundColor: ColorPalette.SECONDARY
                             }}
                             size={{
                                 height: 'auto',

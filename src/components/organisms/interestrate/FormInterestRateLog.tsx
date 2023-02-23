@@ -1,4 +1,4 @@
-import { Snackbar, Alert, TextField, Box } from '@mui/material';
+import { Snackbar, Alert, TextField, Box, Typography, Card } from '@mui/material';
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import styled from 'styled-components';
 import InterestRateService from '../../../services/product/interestrate/interestRate.service';
@@ -29,7 +29,7 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
     const [itemsSelect, setItemsSelect] = useState<any>([]);
     const [activateSpinner, setActivateSpinner] = useState(false);
     const getItems = async () => {
-        /* setActivateSpinner(true);
+        setActivateSpinner(true);
         let data = await InterestRateService.getInterestRateAll();
         setItems(data);
         setActivateSpinner(false);
@@ -40,7 +40,7 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
             }
         }
         )
-        setItemsSelect(itemsDropdown); */
+        setItemsSelect(itemsDropdown);
     }
 
 
@@ -58,7 +58,7 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
     }, [value, nameSelect])
 
     const createInterestRateLog = async () => {
-        /* if (isDisabled) {
+        if (isDisabled) {
             setMessage('Debe llenar todos los campos');
             setSeverity('error');
             setOpen(true);
@@ -91,71 +91,85 @@ const FormInterestRateLog = ({ action, setVal, isCreate }: FormInterestRateLogPr
                 setSeverity('error');
                 setOpen(true);
             }
-        } */
+        } 
     }
 
     return (
         <>
             {activateSpinner ? <Spinner /> : null}
-            <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <h1>Formulario de Registro Tasa de Interes</h1>
-                <Box
-                    component='form'
-                    onSubmit={createInterestRateLog}
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                    <Dropdown
-                        label='Seleccionar'
-                        items={itemsSelect}
-                        width={'100%'}
-                        height={'auto'}
-                        required
-                        onChange={(value: string) => setNameSelect(value)}
-                        selectedTextColor={ColorPalette.TERNARY}
-                    />
-                    <TextFieldAtom
-                        type='number'
-                        name="value-field"
-                        color='primary'
-                        label="Valor"
-                        value={value}
-                        required
-                        fullWidth
-                        onChange={(event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value as unknown as number)}
-                    />
-
+            <Box sx={{ height: 50 }}>
+            </Box>
+            <Card sx={{
+                width: '100%',
+                height: '100%',
+                padding: 2,
+                maxWidth: 600,
+                maxHeight: 400
+            }}
+                variant='outlined'>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <Typography variant='h5' sx={{ p: 5}}>
+                        Formulario de Registro Tasa de Interes
+                    </Typography>
                     <Box
+                        component='form'
+                        onSubmit={createInterestRateLog}
                         sx={{
                             display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-around'
+                            flexDirection: 'column',
+                            justifyContent: 'space-around',
+                            alignItems: 'center'
                         }}>
-                        <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
-                            submit
-                            text='Crear'
-                            style={ButtonStyle.BIG}
+                        <Dropdown
+                            label={'Seleccionar interés'}
+                            items={itemsSelect}
+                            width={'100%'}
+                            height={'auto'}
+                            required
+                            onChange={(value: string) => setNameSelect(value)}
+                            selectedTextColor={ColorPalette.TERNARY}
                         />
+                        <TextFieldAtom
+                            type='number'
+                            name="value-field"
+                            color='primary'
+                            label="Valor"
+                            value={value}
+                            required
+                            fullWidth
+                            onChange={(event: ChangeEvent<HTMLInputElement>) => setValue(event.target.value as unknown as number)}
+                        />
+                        <div style={{
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            alignItems: 'center',
+                            marginTop: '1.5rem'
+                        }}>
+                            <SizeButton palette={{ backgroundColor: ColorPalette.TERNARY }}
+                                submit
+                                text='Crear'
+                                style={ButtonStyle.BIG}
+                            />
+                            <div style={{ margin: '0.5rem' }} />
+                            <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
+                                onClick={() => action()}
+                                text='Cancelar'
+                                style={ButtonStyle.BIG}
+                            />
+                        </div>
 
-                        <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
-                            onClick={() => action()}
-                            text='Cancelar'
-                            style={ButtonStyle.BIG}
-                        />
+
                     </Box>
 
-
                 </Box>
+            </Card>
 
-            </Box>
 
             <Snackbar
                 open={open}

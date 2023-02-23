@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Box, Card, CardContent, Fade, Typography } from '@mui/material';
+import { Box, Card, CardContent, Fade, Grid, Typography } from '@mui/material';
 import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
 import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransferUserForm';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
@@ -15,6 +15,8 @@ import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import InfoModalOrganism from '../../../components/organisms/InfoModalOrganism';
 import { Dropdown } from '../../../components/atoms/Dropdown';
 import { useUser } from '../../../context/UserContext';
+import { Facebook, Instagram, Twitter } from '@mui/icons-material';
+import ClockMolecule from '../../../components/molecules/ClockMolecule';
 
 interface ITransaction {
     codeInternationalAccount: string,
@@ -106,7 +108,7 @@ const TransferUser = (props: TransferUserProps) => {
             const accountOwner: RSAccount | undefined = (await AccountService.getAccountByCode(transactionData.codeLocalAccount)).data.data;
             const accountRecipient: RSAccount | undefined = (await AccountService.getAccountByCode(recipient.recipientAccountNumber)).data.data;
             if (!accountOwner || !accountRecipient) {
-                console.log("Ha ocurrido un error");
+                //console.log("Ha ocurrido un error");
                 return;
             }
             setloadMessage("Realizando Transaccion")
@@ -154,140 +156,183 @@ const TransferUser = (props: TransferUserProps) => {
     }
 
     const handleDecline = () => {
-        navigate('/usuario');
+        navigate('/banca/inicio');
     }
 
     return (
         <>
-            <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}>
-                <div style={{ marginBottom: 50 }}>
-                    <ProgressButtonMolecule
-                        color={ColorPalette.PRIMARY}
-                        itemsCount={4}
-                        current={indexForm}
-                        onUpdate={(value) => setindexForm(value)}
-                    />
-                </div>
-                <Box sx={{
-                    width: 500,
-                }}>
-                    {indexForm === 0 ?
-                        !!props.client ? < div style={{
-                            position: 'absolute',
-                            width: '100%',
-                            height: '80vh',
-                            top: 0,
+            <Box sx={{ height: 15 }}>
+            </Box>
+            <Grid container spacing={5}>
+                <Grid item xs={9}>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <div style={{ marginBottom: 10 }}>
+                            <ProgressButtonMolecule
+                                color={ColorPalette.SECONDARY}
+                                itemsCount={4}
+                                current={indexForm}
+                                onUpdate={(value) => setindexForm(value)}
+                            />
+                        </div>
+                        <Box sx={{
+                            width: 500,
+                        }}>
+                            {indexForm === 0 ?
+                                !!props.client ? < div style={{
+                                    position: 'absolute',
+                                    width: '100%',
+                                    height: '80vh',
+                                    top: 0,
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}>
+                                    <Card sx={{ minWidth: '450px', maxWidth: '750px' }}>
+                                        <CardContent>
+                                            {accounts.length <= 0 ? <Typography variant='h6'>Es necesario crear una cuenta</Typography> :
+                                                <>
+                                                    <Box mb={2} sx={{ fontStyle: 'italic', color: ColorPalette.SECONDARY }}>
+                                                        <Typography variant='h4' component='h6'>
+                                                            Selector de cuentas
+                                                        </Typography>
+                                                        <Typography variant='body1' component='h6'>
+                                                            Buscador
+                                                        </Typography>
+                                                    </Box>
+                                                    <Dropdown
+                                                        label={'Cuentas'}
+                                                        items={accounts}
+                                                        onChange={(data: string) => {
+                                                            setindexForm(1);
+                                                            settransactionData({
+                                                                ...transactionData,
+                                                                concept: "",
+                                                                description: "",
+                                                                codeLocalAccount: data,
+                                                                type: "",
+                                                                bank: "BANQUITO"
+                                                            });
+                                                        }}
+                                                        width={'100%'}
+                                                        height={'auto'} />
+                                                </>}
+                                        </CardContent>
+                                    </Card>
+                                </div>
+                                    :
+                                    <TransferDataForm
+                                        key={1}
+                                        showAccountCode
+                                        showConcept
+                                        showDescription
+                                        onSubmit={(data: any) => {
+                                            setindexForm(1);
+                                            settransactionData({
+                                                ...transactionData,
+                                                concept: data.concept,
+                                                description: data.description,
+                                                codeLocalAccount: data.accountNumber,
+                                                type: data.type,
+                                                bank: data.bank,
+                                            });
+                                        }}
+                                        title='Cuenta Origen' /> :
+                                indexForm === 1 ?
+                                    <TransferDataForm
+                                        key={2}
+                                        showAccountCode
+                                        onSubmit={(data: any) => {
+                                            setindexForm(2);
+                                            setrecipient({
+                                                ...recipient,
+                                                recipientBank: data.bank,
+                                                recipientAccountNumber: data.accountNumber,
+                                                recipientType: data.type
+                                            });
+                                        }}
+                                        title='Cuenta Destino' /> :
+                                    indexForm === 2 ?
+                                        <TransferAmountForm
+                                            onSubmit={(data: any) => {
+                                                setindexForm(3);
+                                                settransactionData({
+                                                    ...transactionData,
+                                                    value: data.amount
+                                                })
+                                            }} />
+                                        :
+                                        <ConfirmTransferUserForm
+                                            title='Transferir'
+                                            showField
+                                            showAccountReceptor
+                                            onAccept={() => handleAccept()}
+                                            onDecline={() => handleDecline()}
+                                            data={{
+                                                value: transactionData.value,
+                                                codeLocalAccount: transactionData.codeLocalAccount,
+                                                recipientAccountNumber: recipient.recipientAccountNumber
+                                            }} />}
+                        </Box>
+                    </div >
+                    <InfoModalOrganism
+                        active={showInfoModal}
+                        text={infoMessage}
+                        onDeactive={() => { }}
+                        buttonText='Ok'
+                        onClick={() => navigate('/banca/inicio')} />
+                    <LoadOrganism
+                        active={isLoading}
+                        text={loadMessage} />
+                    <ErrorModalOrganism
+                        active={activeErrorModal}
+                        text={errorMessage}
+                        enableButtonBox
+                        onReject={() => navigate('/banca/inicio')}
+                        onDeactive={() => { }} />
+                </Grid>
+
+                <Grid item xs={3}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column'
+                        }}>
+                        <Card sx={{
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
-                        }}>
-                            <Card sx={{ minWidth: '450px', maxWidth: '750px' }}>
-                                <CardContent>
-                                    {accounts.length <= 0 ? <Typography variant='h6'>Es necesario crear una cuenta</Typography> :
-                                        <>
-                                            <Box mb={2} sx={{ fontStyle: 'italic', color: ColorPalette.SECONDARY }}>
-                                                <Typography variant='h4' component='h6'>
-                                                    Selector de cuentas
-                                                </Typography>
-                                                <Typography variant='body1' component='h6'>
-                                                    Buscador
-                                                </Typography>
-                                            </Box>
-                                            <Dropdown
-                                                label={'Cuentas'}
-                                                items={accounts}
-                                                onChange={(data: string) => {
-                                                    setindexForm(1);
-                                                    settransactionData({
-                                                        ...transactionData,
-                                                        concept: "",
-                                                        description: "",
-                                                        codeLocalAccount: data,
-                                                        type: "",
-                                                        bank: "BANQUITO"
-                                                    });
-                                                }}
-                                                width={'100%'}
-                                                height={'auto'} />
-                                        </>}
-                                </CardContent>
-                            </Card>
-                        </div>
-                            :
-                            <TransferDataForm
-                                key={1}
-                                showAccountCode
-                                showConcept
-                                showDescription
-                                onSubmit={(data: any) => {
-                                    setindexForm(1);
-                                    settransactionData({
-                                        ...transactionData,
-                                        concept: data.concept,
-                                        description: data.description,
-                                        codeLocalAccount: data.accountNumber,
-                                        type: data.type,
-                                        bank: data.bank,
-                                    });
-                                }}
-                                title='Cuenta(Emisor)' /> :
-                        indexForm === 1 ?
-                            <TransferDataForm
-                                key={2}
-                                showAccountCode
-                                onSubmit={(data: any) => {
-                                    setindexForm(2);
-                                    setrecipient({
-                                        ...recipient,
-                                        recipientBank: data.bank,
-                                        recipientAccountNumber: data.accountNumber,
-                                        recipientType: data.type
-                                    });
-                                }}
-                                title='Cuenta(Receptor)' /> :
-                            indexForm === 2 ?
-                                <TransferAmountForm
-                                    onSubmit={(data: any) => {
-                                        setindexForm(3);
-                                        settransactionData({
-                                            ...transactionData,
-                                            value: data.amount
-                                        })
-                                    }} />
-                                :
-                                <ConfirmTransferUserForm
-                                    title='Transferir'
-                                    showField
-                                    showAccountReceptor
-                                    onAccept={() => handleAccept()}
-                                    onDecline={() => handleDecline()}
-                                    data={{
-                                        value: transactionData.value,
-                                        codeLocalAccount: transactionData.codeLocalAccount,
-                                        recipientAccountNumber: recipient.recipientAccountNumber
-                                    }} />}
-                </Box>
-            </div >
-            <InfoModalOrganism
-                active={showInfoModal}
-                text={infoMessage}
-                onDeactive={() => { }}
-                buttonText='Ok'
-                onClick={() => navigate('/usuario')} />
-            <LoadOrganism
-                active={isLoading}
-                text={loadMessage} />
-            <ErrorModalOrganism
-                active={activeErrorModal}
-                text={errorMessage}
-                enableButtonBox
-                onReject={() => navigate('/usuario')}
-                onDeactive={() => { }} />
+                            marginBottom: '1rem'
+                        }}
+                            variant='outlined'>
+                            <CardContent>
+                                <ClockMolecule />
+                            </CardContent>
+                        </Card>
+                        <Card sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            marginBottom: '1rem'
+                        }}
+                            variant='outlined'>
+                            <div style={{ margin: '1rem' }}>
+                                <Twitter color='secondary' />
+                            </div>
+                            <div style={{ margin: '1rem' }}>
+                                <Instagram color='secondary' />
+                            </div>
+                            <div style={{ margin: '1rem' }}>
+                                <Facebook color='secondary' />
+                            </div>
+                        </Card>
+                    </Box>
+                </Grid>
+            </Grid>
         </>
     )
 }
