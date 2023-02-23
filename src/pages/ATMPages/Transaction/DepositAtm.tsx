@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
@@ -13,6 +13,13 @@ import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
 import { ColorPalette } from '../../../style/ColorPalette';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import InfoModalOrganism from '../../../components/organisms/InfoModalOrganism';
+import ATMFormOrganism from '../../../components/organisms/ATMFormOrganism';
+import ATMConfirmOrganism from '../../../components/organisms/ATMConfirmOrganism';
+import OnConstructionMolecule from '../../../components/molecules/OnConstructionMolecule';
+import ATMPrintOrganism from '../../../components/organisms/ATMPrintFormOrganism';
+import ATMTransactionFileOrganism from '../../../components/organisms/ATMTransactionFileOrganism';
+
+const fileValue = 0;
 
 const DepositAtm = () => {
 
@@ -22,7 +29,10 @@ const DepositAtm = () => {
     const [showInfoModal, setshowInfoModal] = useState<boolean>(false)
     const [isLoading, setisLoading] = useState<boolean>(false);
 
+    const [canPrint, setcanPrint] = useState<boolean>(false);
+
     const navigate = useNavigate();
+    const printRef = useRef();
 
     const [value, setvalue] = useState<RQTransaction>({
         codeInternationalAccount: "",
@@ -60,12 +70,17 @@ const DepositAtm = () => {
     }
 
     const handleDecline = () => {
-        navigate('/usuario');
+        navigate('/atm');
+    }
+
+    const handlePrint = () => {
+        handleAccept();
     }
 
     return (
         <>
             <div style={{
+                width: '100%',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -73,10 +88,14 @@ const DepositAtm = () => {
                 overflowX: 'hidden',
                 overflowY: 'hidden'
             }}>
-                <div style={{ marginBottom: 50 }}>
+                <div style={{
+                    marginBottom: 50,
+                    position: 'absolute',
+                    bottom: 0
+                }}>
                     <ProgressButtonMolecule
                         color={ColorPalette.PRIMARY}
-                        itemsCount={4}
+                        itemsCount={3}
                         current={indexForm}
                         onUpdate={(value) => setindexForm(value)}
                     />
@@ -84,38 +103,65 @@ const DepositAtm = () => {
                 <Box sx={{
                     width: 500,
                 }}>
-                    {indexForm === 0 ?
-                        <TransferDataForm
-                            atm
-                            key={0}
-                            showAccountCode
-                            onSubmit={(data: any) => {
-                                setindexForm(1);
-                                setvalue({
-                                    ...value,
-                                    codeLocalAccount: data.accountNumber
-                                });
-                            }}
-                            title='Cuenta Depósito' /> :
-                        indexForm === 1 ?
-                            <TransferAmountForm
-                                atm
-                                onSubmit={(data: any) => {
-                                    setindexForm(3);
-                                    setvalue({
-                                        ...value,
-                                        value: data.amount
-                                    })
-                                }} />
-                            :
-                            <ConfirmTransferUserForm
-                                atm
-                                title="Depositar"
-                                showField
-                                onAccept={() => handleAccept()}
-                                onDecline={() => handleDecline()}
-                                data={value} />}
+                    {
+                        !canPrint ? <>
+                            {indexForm === 0 ?
+                                <ATMFormOrganism
+                                    key={0}
+                                    title='Cuenta Depósito'
+                                    type={'text'}
+                                    label='Tu cuenta'
+                                    onSubmit={(data: any) => {
+                                        setindexForm(1);
+                                        setvalue({
+                                            ...value,
+                                            codeLocalAccount: data
+                                        });
+                                    }} />
+                                :
+                                indexForm === 1 ?
+                                    <ATMFormOrganism
+                                        key={1}
+                                        title='Monto a depositar'
+                                        type='money'
+                                        label='Monto'
+                                        placeholder='0.00'
+                                        onSubmit={(data: any) => {
+                                            setindexForm(2);
+                                            setvalue({
+                                                ...value,
+                                                value: data
+                                            });
+                                        }} />
+                                    :
+                                    <ATMConfirmOrganism
+                                        title='Confirme su deposito'
+                                        onReject={handleDecline}
+                                        onAccept={handleAccept}
+                                        onPrint={() => {
+                                            setcanPrint(true);
+                                        }}
+                                        type='deposit'
+                                        amount={value.value}
+                                        label={'ATM'}
+                                        accountTarget={value.codeLocalAccount} />}
+                        </>
+                            : <ATMPrintOrganism
+                                fileValue={fileValue}
+                                printRef={printRef}
+                                onAccept={handlePrint}
+                                onReject={() => setcanPrint(false)}
+                                type={'deposit'} />
+                    }
                 </Box>
+            </div>
+            <div style={{ display: 'none' }}>
+                <ATMTransactionFileOrganism
+                    ref={printRef}
+                    type='deposit'
+                    account={value.codeLocalAccount}
+                    value={value.value}
+                    fileValue={fileValue} />
             </div>
             <InfoModalOrganism
                 active={showInfoModal}
@@ -129,7 +175,7 @@ const DepositAtm = () => {
                 text='Depositando...' />
             <ErrorModalOrganism
                 active={activeErrorModal}
-                onDeactive={() => {}}
+                onDeactive={() => { }}
                 enableButtonBox
                 onReject={() => { navigate('/atm') }}
                 text={errorMessage} />
