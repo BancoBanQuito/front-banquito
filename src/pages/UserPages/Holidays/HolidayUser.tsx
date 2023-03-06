@@ -20,7 +20,7 @@ const HolidayUser: React.FC = () => {
       <div style={{
         marginRight: '1rem',
         position: "absolute",
-        top: 0,
+        top: '5rem',
         left: 0,
         width: "20%"
       }}>
@@ -28,7 +28,7 @@ const HolidayUser: React.FC = () => {
           items={[
             { label: "Ver", value: "Ver" },
             { label: "Fines de Semana", value: "CrearA" },
-            { label: "Feriados", value: "CrearD" },
+            { label: "Crear Feriados", value: "CrearD" },
             { label: "Actualizar Informacion", value: "Actualizar" },
             { label: "Eliminar", value: "Eliminar" },
           ]}
@@ -44,7 +44,7 @@ const HolidayUser: React.FC = () => {
         overflowX: 'hidden',
         overflowY: 'auto',
         padding: '2rem',
-        top: 0,
+        top: '4rem',
         right: 0,
       }}>
         {tabValue === "Ver" && <Holiday />}

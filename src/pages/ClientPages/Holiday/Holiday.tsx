@@ -6,6 +6,10 @@ import { IHoliday } from "../../../components/organisms/Holiday/Types";
 import EnvManager from "../../../config/EnvManager";
 import TextFieldAtom from "../../../components/atoms/TextFieldAtom";
 import axios from "axios";
+import { ColorPalette } from "../../../style/ColorPalette";
+import { SizeButton } from "../../../components/atoms/SizeButton";
+import { ButtonStyle } from "../../../style/ButtonStyle";
+import styled from "styled-components";
 
 const Holiday: React.FC = () => {
   const [holidays, setHolidays] = useState<IHoliday[]>([]);
@@ -26,22 +30,59 @@ const Holiday: React.FC = () => {
       .then((data) => setHolidays(data))
       .catch((error) => console.log(error));
   }, []);
+  const StyledButton = styled.span`
+  margin-left: 10px;
+  `;
 
-  const headers = [<>Fecha</>, <>Codigo</>, <>Nombre</>, <>Tipo</>];
+  const headers = [<>Fecha</>, <>Codigo</>, <>Nombre</>, <>Tipo</>, <>Acción</>];
+  const setHoliday = (holiday: IHoliday) => {
+  }
+  const rows = filteredHolidays.map((holiday) => {
+    // 2023-01-03T00:00:00.000+00:00
+    // 2023-01-03
+    let date = new Date(holiday.date);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    let dateAux = `${year}-${month}-${day}`;
+    if (month < 10) {
+      dateAux = `${year}-0${month}-${day}`;
+    }
+    if (day < 10) {
+      dateAux = `${year}-${month}-0${day}`;
+    }
+    if (month < 10 && day < 10) {
+      dateAux = `${year}-0${month}-0${day}`;
+    }
 
-  const rows = filteredHolidays.map((holiday) => [
-    <>{holiday.date}</>,
-    <>{holiday.code}</>,
-    <>{holiday.name}</>,
-    <>{holiday.type}</>,
-  ]);
+    return [
+      <>{dateAux}</>,
+      <>{holiday.code}</>,
+      <>{holiday.name}</>,
+      <>{holiday.type}</>,
+      <>
+        <SizeButton palette={{ backgroundColor: ColorPalette.SECONDARY }}
+          text="Editar"
+          onClick={() => { setHoliday(holiday) }}
+          style={ButtonStyle.SMALL}
+        />
+        <StyledButton>
+          <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
+            text="Eliminar"
+            onClick={() => { setHoliday(holiday) }}
+            style={ButtonStyle.SMALL}
+          />
+        </StyledButton>
+      </>
+    ]
+  });
 
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        width: "100%"
+        width: "80%"
       }}>
       <Container style={{ textAlign: "center" }}>
         <Typography variant="h4" align="center">

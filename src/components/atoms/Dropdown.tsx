@@ -73,6 +73,7 @@ export const Dropdown = (props: DropdownProps) => {
         defaultValue={props.defaultValue}
         onChange={handleChange}
         value={props.value}
+        fullWidth
         disabled={props.disabled}>
         {items.map((item, index) => (
           <MenuItem key={index} value={item.value}>

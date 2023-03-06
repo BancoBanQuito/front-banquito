@@ -13,6 +13,7 @@ import { SizeButton } from "../../atoms/SizeButton";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import { ColorPalette } from "../../../style/ColorPalette";
 import axios from "axios";
+import { Dropdown } from "../../atoms/Dropdown";
 
 const CreateHoliday: React.FC = () => {
   const [activateSpinner, setActivateSpinner] = useState(false);
@@ -86,12 +87,18 @@ const CreateHoliday: React.FC = () => {
           onChange={(event) => setName(event.target.value)}
           type='text'
           fullWidth />
-        <TextFieldAtom
-          label="Tipo"
-          value={type}
-          onChange={(event) => setType(event.target.value)}
-          type='text'
-          fullWidth />
+        <Dropdown
+          label='Tipo'
+          items={[{ name: 'Nacional', value: 'NAT' }, { name: 'Regional', value: 'REG' }]}
+          width='100%'
+          height={'auto'}
+          required
+          onChange={(value: string) => setType(value)}
+          selectedTextColor={ColorPalette.TERNARY}
+          inputLabelColor={ColorPalette.TERNARY}
+        
+        />
+
         <TextFieldAtom
           label="Codigo"
           value={code}
