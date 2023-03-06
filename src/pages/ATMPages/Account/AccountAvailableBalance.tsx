@@ -1,6 +1,6 @@
 import { Paid, PrintRounded, Close, ChevronLeft } from '@mui/icons-material'
 import { Box, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SizeButton } from '../../../components/atoms/SizeButton'
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism'
@@ -15,16 +15,20 @@ import { RSAtmLogin } from '../../../services/login/dto/RSAtmLogin'
 import { Spinner } from '../../../components/atoms/Spinner'
 import ATMButtonAtom from '../../../components/atoms/ATMButtonAtom'
 import ATMButtonContainerMolecule from '../../../components/molecules/ATMButtonContainerMolecule'
+import ATMFormOrganism from '../../../components/organisms/ATMFormOrganism'
+import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule'
+import ATMTransactionFileOrganism from '../../../components/organisms/ATMTransactionFileOrganism'
+import ATMPrintOrganism from '../../../components/organisms/ATMPrintFormOrganism'
+import { RQTransaction } from '../../../services/transaction/dto/RQTransaction'
+import { TransactionService } from '../../../services/transaction/TransactionService'
+import InfoModalOrganism from '../../../components/organisms/InfoModalOrganism'
 
 interface ATMLoginForm {
   codeLocalAccount: string,
   password: string,
 }
 
-const buttonSize = {
-  height: 75,
-  width: 200
-}
+const fileValue = 0.5;
 
 const AccountAvailableBalance = () => {
 
@@ -32,12 +36,18 @@ const AccountAvailableBalance = () => {
   const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false)
   const [isLoading, setisLoading] = useState<boolean>(false);
   const [errorMessage, seterrorMessage] = useState<string>("");
+
+  const [showInfoModal, setshowInfoModal] = useState<boolean>(false);
+
+  const [canPrint, setcanPrint] = useState<boolean>(false);
+
   const [indexForm, setindexForm] = useState<number>(0);
+
   const [login, setlogin] = useState<ATMLoginForm>({
     codeLocalAccount: "",
     password: ""
   });
-  const [activateSpinner, setActivateSpinner] = useState(false);
+
   const [account, setaccount] = useState<RSAccount>({
     codeLocalAccount: '',
     codeInternationalAccount: '',
@@ -49,6 +59,7 @@ const AccountAvailableBalance = () => {
     availableBalance: 0,
   });
 
+  const printRef = useRef();
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -59,18 +70,14 @@ const AccountAvailableBalance = () => {
     setisLoading(true);
     try {
       setloadingMessage("Validando cuenta...")
-      setActivateSpinner(true);
       const account: RSAccount | undefined = (await AccountService.getAccountByCode(login.codeLocalAccount)).data.data;
-      setActivateSpinner(false);
       if (account) {
         setloadingMessage("Validando contraseña...")
-        setActivateSpinner(true);
         const user: RSAtmLogin | undefined = (await (AtmLoginService.getLoginCredentials(account.identification))).data;
-        setActivateSpinner(false);
         if (user) {
           if (user.user.password === password) {
             setaccount(account);
-            setindexForm(2);
+            setindexForm(3);
           } else {
             seterrorMessage("Contraseña invalida");
             setactiveErrorModal(true);
@@ -84,131 +91,162 @@ const AccountAvailableBalance = () => {
         setactiveErrorModal(true);
       }
     } catch (error: any) {
-      setActivateSpinner(false);
       seterrorMessage(error.message);
       setactiveErrorModal(true);
     } finally {
-      setActivateSpinner(false);
+      setisLoading(false);
+    }
+  }
+
+  const handlePrint = () => {
+    const data: RQTransaction = {
+      codeInternationalAccount: account.codeInternationalAccount,
+      codeLocalAccount: account.codeLocalAccount,
+      concept: "Retiro cajero",
+      description: "",
+      movement: "NOTA DEBITO",
+      recipientAccountNumber: "",
+      recipientBank: "",
+      recipientType: "",
+      type: "RETIRO",
+      value: fileValue
+    };
+    handleAccept(data);
+  }
+
+  const handleAccept = async (data: RQTransaction) => {
+    setisLoading(true);
+    try {
+      setloadingMessage("Validando pago...");
+      await TransactionService.postTransaction(data);
+      setshowInfoModal(true);
+    } catch (error: any) {
+      setactiveErrorModal(true);
+      seterrorMessage(error.message);
+    } finally {
       setisLoading(false);
     }
   }
 
   return (
     <>
-      {activateSpinner ? <Spinner /> : null}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          overflowX: 'hidden',
-          overflowY: 'auto'
-        }}>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        <div style={{ position: 'absolute', bottom: 0 }}>
+          <ProgressButtonMolecule
+            color={ColorPalette.PRIMARY}
+            itemsCount={3}
+            current={indexForm}
+            onUpdate={(value) => setindexForm(value)}
+          />
+        </div>
         {
-          indexForm === 0 ?
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: '6rem',
-            }}>
-              <Box sx={{
-                width: 500,
-              }}>
-                <AtmLoginForm
-                  atm
-                  codeLocalAccount
+          !canPrint ? <Box sx={{
+            width: 500,
+          }}>
+            {indexForm === 0 ?
+              <ATMFormOrganism
+                key={0}
+                title={"Ingresa tu cuenta"}
+                type={"text"}
+                label="Cuenta"
+                onSubmit={(data: any) => {
+                  setindexForm(1);
+                  setlogin({
+                    ...login,
+                    codeLocalAccount: data
+                  });
+                }} />
+              : indexForm === 1 ?
+                <ATMFormOrganism
+                  key={1}
+                  title={"Contraseña"}
+                  type={"password"}
+                  label="Contraseña"
                   onSubmit={(data: any) => {
-                    setindexForm(1);
                     setlogin({
                       ...login,
-                      codeLocalAccount: data.codeLocalAccount
+                      password: data
                     });
-                  }} />
-              </Box>
-            </div>
-            : indexForm === 1 ?
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginTop: '6rem'
-              }}>
-                <Box sx={{
-                  width: 500,
-                }}>
-                  <AtmLoginForm
-                    atm
-                    password
-                    title="Contraseña"
-                    onSubmit={(data: any) => {
-                      setlogin({
-                        ...login,
-                        password: data.password
-                      });
-                      handleLogin(data.password);
-                    }} />
-                </Box>
-              </div>
-              :
-              <div
-                style={{
-                  position: 'relative',
-                  width: '90vw',
-                  height: '97vh'
-                }}>
-                <Box
-                  component="div"
-                  sx={{
-                    position: 'absolute',
-                    top: '50%',
+                    handleLogin(data);
+                  }} /> :
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
                     display: 'flex',
-                    flexDirection: 'column',
                     justifyContent: 'center',
-                    alignContent: 'center',
-                    textAlign: 'center',
-                    width: '100%'
+                    alignItems: 'center',
                   }}>
-                  <Typography
+                  <Box
+                    component="div"
                     sx={{
-                      fontSize: '1.5rem'
-                    }}>Tu saldo disponible es</Typography>
-                  <Typography
-                    sx={{
-                      fontWeight: 'bold',
-                      fontSize: '3rem'
-                    }}
-                  >$ {(Math.round(account.availableBalance * 100) / 100).toFixed(2)}</Typography>
-                </Box>
-                <ATMButtonContainerMolecule position='right'>
-                  <ATMButtonAtom
-                    icon={<PrintRounded />}
-                    text={'Imprimir'}
-                    onClick={handleClose}
-                    palette={{
-                      backgroundColor: ColorPalette.PRIMARY
-                    }} />
-                  <ATMButtonAtom
-                    icon={<Close />}
-                    text={'Salir'}
-                    onClick={handleClose}
-                    palette={{
-                      backgroundColor: ColorPalette.PRIMARY
-                    }} />
-                </ATMButtonContainerMolecule>
-                <ATMButtonContainerMolecule position='left'>
-                  <ATMButtonAtom
-                    icon={<ChevronLeft />}
-                    text={'Volver'}
-                    onClick={handleClose}
-                    palette={{
-                      backgroundColor: ColorPalette.PRIMARY
-                    }} />
-                </ATMButtonContainerMolecule>
-              </div>
-        }
+                      position: 'absolute',
+                      top: '50%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignContent: 'center',
+                      textAlign: 'center',
+                      width: '100%'
+                    }}>
+                    <Typography
+                      sx={{
+                        fontSize: '1.5rem'
+                      }}>Tu saldo disponible es</Typography>
+                    <Typography
+                      sx={{
+                        fontWeight: 'bold',
+                        fontSize: '3rem'
+                      }}
+                    >$ {(Math.round(account.availableBalance * 100) / 100).toFixed(2)}</Typography>
+                  </Box>
+                  <ATMButtonContainerMolecule position='right'>
+                    <ATMButtonAtom
+                      icon={<PrintRounded />}
+                      text={'Imprimir'}
+                      onClick={() => {
+                        setcanPrint(true);
+                      }}
+                      palette={{
+                        backgroundColor: ColorPalette.SECONDARY
+                      }} />
+                    <ATMButtonAtom
+                      icon={<Close />}
+                      text={'Salir'}
+                      onClick={handleClose}
+                      palette={{
+                        backgroundColor: ColorPalette.PRIMARY
+                      }} />
+                  </ATMButtonContainerMolecule>
+                </div>}
+          </Box> :
+            <ATMPrintOrganism
+              fileValue={fileValue}
+              printRef={printRef}
+              onAccept={handlePrint}
+              onReject={() => setcanPrint(false)}
+              type={'info'} />}
       </div>
+      <div style={{ display: 'none' }}>
+        <ATMTransactionFileOrganism
+          ref={printRef}
+          type='info'
+          account={login.codeLocalAccount}
+          value={account.availableBalance}
+          fileValue={fileValue} />
+      </div>
+      <InfoModalOrganism
+        active={showInfoModal}
+        onDeactive={() => { }}
+        title='Pago Completo'
+        text={''}
+        buttonText='Ok'
+        onClick={() => navigate('/atm')} />
       <LoadOrganism
         active={isLoading}
         text={loadingMessage} />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import ProgressButtonMolecule from "../../../components/molecules/ProgressButtonMolecule";
@@ -16,11 +16,17 @@ import InfoModalOrganism from "../../../components/organisms/InfoModalOrganism";
 import AtmLoginForm from "../../../components/organisms/AtmLoginForm";
 import { AtmLoginService } from "../../../services/login/AtmLoginService";
 import { RSAtmLogin } from "../../../services/login/dto/RSAtmLogin";
+import ATMFormOrganism from "../../../components/organisms/ATMFormOrganism";
+import ATMConfirmOrganism from "../../../components/organisms/ATMConfirmOrganism";
+import ATMTransactionFileOrganism from "../../../components/organisms/ATMTransactionFileOrganism";
+import ATMPrintOrganism from "../../../components/organisms/ATMPrintFormOrganism";
 
 interface ATMLoginForm {
     codeLocalAccount: string,
     password: string,
 }
+
+const fileValue = 0.5;
 
 const WithdrawAtm = () => {
 
@@ -30,6 +36,7 @@ const WithdrawAtm = () => {
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
+    const [canPrint, setcanPrint] = useState<boolean>(false);
 
     const [login, setlogin] = useState<ATMLoginForm>({
         codeLocalAccount: "",
@@ -48,6 +55,8 @@ const WithdrawAtm = () => {
         type: "RETIRO",
         value: 0
     });
+
+    const printRef = useRef();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -66,10 +75,6 @@ const WithdrawAtm = () => {
         } finally {
             setisLoading(false);
         }
-    }
-
-    const handleDecline = () => {
-        navigate('/atm');
     }
 
     const handleLogin = async (password: string) => {
@@ -114,6 +119,19 @@ const WithdrawAtm = () => {
         }
     }
 
+    const handlePrint = () => {
+        setvalue({
+            ...value,
+            value: value.value + fileValue
+        })
+        handleAccept();
+    }
+
+    const handleDecline = () => {
+        navigate('/atm');
+    }
+
+
     return (
         <>
             <div style={{
@@ -122,7 +140,7 @@ const WithdrawAtm = () => {
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>
-                <div style={{ marginBottom: 50 }}>
+                <div style={{ position: 'absolute', bottom: 0 }}>
                     <ProgressButtonMolecule
                         color={ColorPalette.PRIMARY}
                         itemsCount={3}
@@ -133,48 +151,74 @@ const WithdrawAtm = () => {
                 <Box sx={{
                     width: 500,
                 }}>
-                    {indexForm === 0 ?
-                        <AtmLoginForm
-                            atm
-                            codeLocalAccount
-                            onSubmit={(data: any) => {
-                                setindexForm(1);
-                                setlogin({
-                                    ...login,
-                                    codeLocalAccount: data.codeLocalAccount
-                                });
-                            }} />
-                        : indexForm === 1 ?
-                            <AtmLoginForm
-                                atm
-                                password
-                                title="Contraseña"
-                                onSubmit={(data: any) => {
-                                    setlogin({
-                                        ...login,
-                                        password: data.password
-                                    });
-                                    handleLogin(data.password);
-                                }} />
-                            : indexForm === 2 ?
-                                <TransferAmountForm
-                                    atm
+                    {
+                        !canPrint ? <>
+                            {indexForm === 0 ?
+                                <ATMFormOrganism
+                                    key={0}
+                                    title={"Ingresa tu cuenta"}
+                                    type={"text"}
+                                    label="Cuenta"
                                     onSubmit={(data: any) => {
-                                        setindexForm(3);
-                                        setvalue({
-                                            ...value,
-                                            value: data.amount
-                                        })
+                                        setindexForm(1);
+                                        setlogin({
+                                            ...login,
+                                            codeLocalAccount: data
+                                        });
                                     }} />
-                                :
-                                <ConfirmTransferUserForm
-                                    atm
-                                    title="Retirar"
-                                    showField
-                                    onAccept={() => handleAccept()}
-                                    onDecline={() => handleDecline()}
-                                    data={value} />}
+                                : indexForm === 1 ?
+                                    <ATMFormOrganism
+                                        key={1}
+                                        title={"Contraseña"}
+                                        type={"password"}
+                                        label="Contraseña"
+                                        onSubmit={(data: any) => {
+                                            setlogin({
+                                                ...login,
+                                                password: data
+                                            });
+                                            handleLogin(data);
+                                        }} />
+                                    : indexForm === 2 ?
+                                        <ATMFormOrganism
+                                            key={2}
+                                            title={"Monto"}
+                                            type={"money"}
+                                            label="Monto"
+                                            onSubmit={(data: any) => {
+                                                setindexForm(3);
+                                                setvalue({
+                                                    ...value,
+                                                    value: data
+                                                })
+                                            }} />
+                                        :
+                                        <ATMConfirmOrganism
+                                            title='Confirme su retiro'
+                                            onReject={handleDecline}
+                                            onAccept={handleAccept}
+                                            onPrint={() => {
+                                                setcanPrint(true);
+                                            }}
+                                            type='withdraw'
+                                            amount={value.value}
+                                            label={'ATM'}
+                                            accountTarget={value.codeLocalAccount} />}
+                        </> : <ATMPrintOrganism
+                            fileValue={fileValue}
+                            printRef={printRef}
+                            onAccept={handlePrint}
+                            onReject={() => setcanPrint(false)}
+                            type={'withdraw'} />}
                 </Box>
+            </div>
+            <div style={{ display: 'none' }}>
+                <ATMTransactionFileOrganism
+                    ref={printRef}
+                    type='withdraw'
+                    account={value.codeLocalAccount}
+                    value={value.value}
+                    fileValue={fileValue} />
             </div>
             <InfoModalOrganism
                 active={showInfoModal}
@@ -182,7 +226,7 @@ const WithdrawAtm = () => {
                 title='Retiro Completo'
                 text={'Puede retirar su dinero'}
                 buttonText='Ok'
-                onClick={() => navigate('/atm/load')} />
+                onClick={() => navigate('/atm')} />
             <LoadOrganism
                 active={isLoading}
                 text={loadingMessage} />

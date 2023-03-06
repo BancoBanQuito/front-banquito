@@ -8,10 +8,11 @@ import { ColorType } from "../../types/ColorType";
 
 interface Props {
   label: string;
-  value: number | Dayjs | null;
+  value: number | string | Dayjs | null;
   color?: ColorType;
   onChange: (newValue: Dayjs | null) => void;
   fullWidth?: boolean;
+  required?: boolean;
 }
 
 
@@ -29,6 +30,7 @@ const DatePickerAtom = (props: Props) => {
         renderInput={(params) => <TextField
           sx={{ margin: 1 }}
           color={props.color}
+          required={!!props.required}
           fullWidth={!!props.fullWidth} {...params} />}
       />
     </LocalizationProvider>
