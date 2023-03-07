@@ -87,17 +87,30 @@ const CreateHoliday: React.FC = () => {
           onChange={(event) => setName(event.target.value)}
           type='text'
           fullWidth />
-        <Dropdown
-          label='Tipo'
-          items={[{ name: 'Nacional', value: 'NAT' }, { name: 'Regional', value: 'REG' }]}
-          width='100%'
-          height={'auto'}
-          required
-          onChange={(value: string) => setType(value)}
-          selectedTextColor={ColorPalette.TERNARY}
-          inputLabelColor={ColorPalette.TERNARY}
-        
-        />
+        <Box
+          component='form'
+          onSubmit={handleSubmit}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            maxWidth: 500,
+            marginLeft: '-15px'
+          }}>
+          <Dropdown
+            label='Tipo'
+            items={[{ name: 'Nacional', value: 'NAT' }, { name: 'Regional', value: 'REG' }]}
+            width='100%'
+            height={'auto'}
+            required
+            onChange={(value: string) => setType(value)}
+            selectedTextColor={ColorPalette.TERNARY}
+            inputLabelColor={ColorPalette.TERNARY}
+
+          />
+        </Box>
 
         <TextFieldAtom
           label="Codigo"
