@@ -15,6 +15,7 @@ import TabsMolecule from '../../../components/molecules/TabsMolecule';
 import AccountMovementPage from './AccountMovementPage';
 import AccountStatementPage from '../../../components/organisms/Account/AccountStatementPage';
 import { DataToDropdownUtils } from '../../../utils/DataToDropdownUtils';
+import AccountInterestPage from './AccountInterestPage';
 
 interface AccountResumePageProps {
     accounts: RSAccount[];
@@ -30,6 +31,9 @@ const tabData: { label: string, value: any }[] = [
     }, {
         label: 'Servicios',
         value: 2
+    }, {
+        label: 'Intereses',
+        value: 3
     }
 ];
 
@@ -126,6 +130,8 @@ const AccountResumePage = (props: AccountResumePageProps) => {
                             {currentIndex === 1 && <AccountStatementPage
                                 codeLocalAccount={codeLocalAccountSelected} />}
                             {currentIndex === 2 && <OnConstructionMolecule />}
+                            {currentIndex === 3 && <AccountInterestPage
+                                codeLocalAccount={codeLocalAccountSelected} />}
                         </>
                     }
                 </Box>
