@@ -46,9 +46,6 @@ const TextFieldAtom = (props: Props) => {
             }}
             variant='outlined'
             size='small'
-            inputProps={{
-                step: props.step
-            }}
         />
 
     );
