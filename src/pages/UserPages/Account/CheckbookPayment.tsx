@@ -82,12 +82,7 @@ const PaymentCheckbook = () => {
   }
   return (
     <>
-    <SnackBarMolecule
-                open={openSnack}
-                message={messageSnack}
-                title={titleSnack}
-                severity={colorSnack}
-                onClose={() => setopenSnack(false)} />
+  
       {activateSpinner ? <Spinner /> : null}
       {
         activeSearch && <div style={{
