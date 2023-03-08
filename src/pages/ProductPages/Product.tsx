@@ -6,6 +6,8 @@ import { ActivateDialog } from "./dialog/ActivateDialog";
 import { CreateProduct } from "./dialog/CreateProduct";
 import axios from "axios";
 import { Spinner } from "../../components/atoms/Spinner";
+import { AlertColor } from "@mui/material";
+import SnackBarMolecule from "../../components/molecules/SnackBarMolecule";
 
 const table: any = {
     headers: [
@@ -16,6 +18,11 @@ const table: any = {
         <Typography>Habilitación</Typography>,
     ]
 }
+
+const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
 
 export const Product = () => {
 
@@ -57,9 +64,17 @@ export const Product = () => {
             })
             setProducts(rows);
             setActivateSpinner(false);
+            settitleSnack("Productos");
+            setmessageSnack("Productos obtenidos correctamente");
+            setcolorSnack("success");
+            setopenSnack(true);
         } catch (error) {
             setActivateSpinner(false);
             console.log(error);
+            settitleSnack("Productos");
+            setmessageSnack("Error al obtener los productos");
+            setcolorSnack("error");
+            setopenSnack(true);
         }
     }
 
@@ -98,6 +113,12 @@ export const Product = () => {
 
     return (
         <Stack direction="row" spacing={2} >
+            <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
             {activateSpinner ? <Spinner /> : null}
             <Stack direction="column" spacing={2} sx={{ width: "100%", margin: '4rem' }} alignItems='center'>
                 <Typography variant="h4" align="center">Productos</Typography>

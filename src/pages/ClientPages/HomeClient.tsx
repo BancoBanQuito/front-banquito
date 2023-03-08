@@ -69,6 +69,10 @@ const HomeClient = () => {
     try {
       const data: RSAccount[] = (await AccountService.getAccountsById(identificationType, identification)).data.data || [];
       setuserAccounts(data);
+      settitleSnack('Cuentas');
+      setmessageSnack('Se han cargado las cuentas');
+      setcolorSnack('success');
+      setopenSnack(true);
     } catch (error: any) {
       settitleSnack('Error');
       setmessageSnack('Se ha producido un error');

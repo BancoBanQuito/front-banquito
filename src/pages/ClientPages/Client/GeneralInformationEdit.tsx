@@ -10,6 +10,8 @@ import Button from "@mui/material/Button";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
 import axios from "axios";
+import SnackBarMolecule from "../../../components/molecules/SnackBarMolecule";
+import { AlertColor } from "@mui/material";
 
 export const GeneralInformation = () => {
   const [identification, setIdentification] = useState<string>("");
@@ -53,6 +55,10 @@ export const GeneralInformation = () => {
   const [endDate, setEndDate] = useState<string>("");
   const [code, setCode] = useState<string>("");
   const [status, setStatus] = useState<string>("");
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
   const [activateSpinner, setActivateSpinner] = useState(false);
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -134,14 +140,28 @@ export const GeneralInformation = () => {
       }
       setActivateSpinner(false);
       alert("Creado con éxito");
+      settitleSnack("Creado con éxito");
+      setmessageSnack("El usuario se ha creado con éxito");
+      setcolorSnack("success");
+      setopenSnack(true);
     } catch (error) {
       setActivateSpinner(false);
       console.error(error);
+      settitleSnack("Error");
+      setmessageSnack("Ha ocurrido un error al crear el usuario");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   };
 
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {activateSpinner ? <Spinner /> : null}
       <Container sx={containertTitleStyles}>
         <Typography variant="h5" align="center">

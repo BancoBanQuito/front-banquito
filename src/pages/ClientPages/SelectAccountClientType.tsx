@@ -16,6 +16,8 @@ const SelectAccountClientType = () => {
   const [titleInfoModal, settitleInfoModal] = useState<string>("");
   const [openInfoModal, setopenInfoModal] = useState<boolean>(false);
 
+  
+
   const navigate = useNavigate();
   const user = useUser();
 

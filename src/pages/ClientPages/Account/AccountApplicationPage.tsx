@@ -18,6 +18,7 @@ import { useUser } from '../../../context/UserContext'
 import { RQCreateAccount } from '../../../services/account/dto/RQCreateAccount'
 import { DataToDropdownUtils } from '../../../utils/DataToDropdownUtils'
 
+
 interface AccountApplicationPageProps {
     accounts: RSAccount[]
 }
@@ -54,6 +55,7 @@ const AccountApplicationPage = (props: AccountApplicationPageProps) => {
         try {
             const data: ProductTypeRS[] = (await ProductTypeService.getProductTypes()) || [];
             setproductTypes(data);
+
         } catch (error) {
             setmessageSnack("Ha ocurrido un error");
             settitleSnack("Error");

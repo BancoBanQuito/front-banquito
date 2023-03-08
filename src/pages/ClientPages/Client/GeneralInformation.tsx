@@ -13,6 +13,8 @@ import DatePickerAtom from "../../../components/atoms/DatePickerAtom";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
 import axios from "axios";
+import { AlertColor } from "@mui/material";
+import SnackBarMolecule from "../../../components/molecules/SnackBarMolecule";
 
 export const GeneralInformation = () => {
   const [identification, setIdentification] = useState<string>("");
@@ -57,6 +59,10 @@ export const GeneralInformation = () => {
   const [code, setCode] = useState<string>("");
   const [status, setStatus] = useState<string>("");
   const [activateSpinner, setActivateSpinner] = useState(false);
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
   const maritalItems = [
     {
       name: "Casado",
@@ -221,14 +227,28 @@ export const GeneralInformation = () => {
       }
       setActivateSpinner(false);
       alert("Creado con éxito");
+      settitleSnack("Creado con éxito");
+      setmessageSnack("El cliente se ha creado con éxito");
+      setcolorSnack("success");
+      setopenSnack(true);
     } catch (error) {
       setActivateSpinner(false);
       console.error(error);
+      settitleSnack("Error");
+      setmessageSnack("Ha ocurrido un error al crear el cliente");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   };
 
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {activateSpinner ? <Spinner /> : null}
       <Container sx={containertTitleStyles}>
         <Typography variant="h5" align="center">

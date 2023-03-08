@@ -13,6 +13,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import EnvManager from "../config/EnvManager";
 import { Spinner } from "../components/atoms/Spinner";
 import axios from "axios";
+import SnackBarMolecule from "../components/molecules/SnackBarMolecule";
+import { AlertColor } from "@mui/material";
 
 // Styles
 export const Container = styled.div`
@@ -92,6 +94,11 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
   const [products, setProducts] = useState<any>([]);
   const [dialog, setDialog] = useState(false);
 
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
+
   const headers = [
     <Typography>Nombre del Producto</Typography>,
     <Typography>Tipo</Typography>,
@@ -125,6 +132,10 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
           method: "GET",
         }
       );
+      settitleSnack("Servicios asociados");
+      setmessageSnack("Servicios asociados obtenidos correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
       const data = await response.data;
       setActivateSpinner(false);
       const services = data.map((service: any) => {
@@ -157,6 +168,10 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
     } catch (error) {
       setActivateSpinner(false)
       console.log(error);
+      settitleSnack("Error");
+      setmessageSnack("Error al obtener los servicios asociados");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   };
 
@@ -232,17 +247,31 @@ const ProductLinkAssociatedService = (props: ProductLinkAssociatedService) => {
           data: '{"products":' + JSON.stringify(products) + ',"associatedServices":' + JSON.stringify(associatedServices) + '}'
         }
       );
+      settitleSnack("Servicios asociados");
+      setmessageSnack("Servicios asociados actualizados correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
 
       setActivateSpinner(false);
 
     } catch (error) {
       setActivateSpinner(false);
       console.error(error);
+      settitleSnack("Error");
+      setmessageSnack("Error al actualizar los servicios asociados");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   };
 
   return (
     <Container>
+      <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {activateSpinner? <Spinner /> : null}
       <Content>
         <SearchProductDialog

@@ -5,6 +5,9 @@ import TableMolecule from "../../components/molecules/TableMolecule";
 import EnvManager from "../../config/EnvManager";
 import { CreateTypeProduct } from "./dialog/CreateTypeProduct";
 import axios from "axios";
+import SnackBarMolecule from "../../components/molecules/SnackBarMolecule";
+import { AlertColor } from "@mui/material";
+
 
 const table: any = {
     headers: [
@@ -20,6 +23,10 @@ export const ProductType = () => {
     const [products, setProducts] = useState<any>([]);
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
+    const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
     const [activateSpinner, setActivateSpinner] = useState(false);
     const getTypeProducts = async () => {
         try {
@@ -41,10 +48,18 @@ export const ProductType = () => {
             })
             setProducts(rows);
             setActivateSpinner(false);
+            settitleSnack('Tipos de Productos');
+            setmessageSnack('Tipos de Productos cargados correctamente');
+            setcolorSnack('success');
+            setopenSnack(true);
 
         } catch (error) {
             setActivateSpinner(false);
             console.log(error);
+            settitleSnack('Tipos de Productos');
+            setmessageSnack('Error al cargar los tipos de productos');
+            setcolorSnack('error');
+            setopenSnack(true);
         }
     }
 
@@ -71,6 +86,12 @@ export const ProductType = () => {
 
     return (
         <Stack direction="row" spacing={2} >
+            <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
             {activateSpinner ? <Spinner /> : null}
             <Stack direction="column" spacing={2} sx={{ width: "100%", margin: '4rem' }} alignItems='center'>
                 <Typography variant="h4" align="center">Tipos de Productos</Typography>

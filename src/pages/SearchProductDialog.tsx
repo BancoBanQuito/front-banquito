@@ -20,6 +20,8 @@ import { useEffect, useState } from "react";
 import EnvManager from "../config/EnvManager";
 import { Spinner } from "../components/atoms/Spinner";
 import axios from "axios";
+import { AlertColor } from "@mui/material";
+import SnackBarMolecule from "../components/molecules/SnackBarMolecule";
 
 
 // Container for the search
@@ -61,6 +63,10 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
   const [productsArray, setProductsArray] = useState<any>([]);
   const [productName, setProductName] = useState<string>("");
   const [activateSpinner, setActivateSpinner] = useState(false);
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
   const handleClose = () => {
     onClose();
   };
@@ -80,6 +86,11 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
           method: "GET",
         }
       );
+      settitleSnack("Producto encontrado");
+      setmessageSnack("El producto se ha encontrado correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
+
       const data = await response.data;
       setActivateSpinner(false);
       const product = {
@@ -105,6 +116,10 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
     } catch (error) {
       setActivateSpinner(false);
       console.log(error);
+      settitleSnack("Producto no encontrado");
+      setmessageSnack("El producto no se ha encontrado");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   }
 
@@ -117,6 +132,10 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
           method: "GET",
         }
       );
+      settitleSnack("Productos encontrados");
+      setmessageSnack("Los productos se han encontrado correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
       const data = await response.data;
       setActivateSpinner(false);
       const products = data.map((prod: any) => {
@@ -146,6 +165,10 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
     } catch (error) {
       setActivateSpinner(false);
       console.log(error);
+      settitleSnack("Productos no encontrados");
+      setmessageSnack("Los productos no se han encontrado");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   };
 
@@ -172,6 +195,12 @@ const SearchProductDialog = (props: SimpleDialogProps) => {
 
   return (
     <Dialog onClose={handleClose} open={open} fullWidth={true}>
+      <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {activateSpinner ? <Spinner /> : null}
       <DialogTitle>Seleccionar producto</DialogTitle>
       <FormContainer>

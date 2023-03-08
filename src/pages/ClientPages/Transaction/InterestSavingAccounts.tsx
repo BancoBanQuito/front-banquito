@@ -11,6 +11,8 @@ import { InterestService } from '../../../services/transaction/InterestService';
 import { RSSavingsAccountInterest } from '../../../services/transaction/dto/RSSavingsAccountInterest';
 import moment from 'moment';
 import { Spinner } from '../../../components/atoms/Spinner';
+import { AlertColor } from '@mui/material';
+import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
 
 const headersMock = [
   <Typography>Fecha</Typography>,
@@ -25,6 +27,10 @@ const InterestSavingAccounts = () => {
   const [dateFrom, setDateFrom] = useState<Dayjs | null>(null);
   const [dateTo, setDateTo] = useState<Dayjs | null>(null);
   const [activateSpinner, setActivateSpinner] = useState(false);
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
   const searchInterestSavingAccounts = async (codeLocalAccount: string, from: string, to: string) => {
 
     try {
@@ -37,12 +43,25 @@ const InterestSavingAccounts = () => {
         setInterestSavingAccounts(data);
       } else {
         console.log("No hay datos disponibles");
+        settitleSnack("Datos no disponibles");
+        setmessageSnack("No hay datos disponibles");
+        setcolorSnack('error');
+        setopenSnack(true);
 
       }
       setActivateSpinner(false);
+      settitleSnack("Datos encontrados");
+      setmessageSnack("Datos encontrados");
+      setcolorSnack('success');
+      setopenSnack(true);
+
     } catch (error: any) {
       setActivateSpinner(false);
       console.log(error);
+      settitleSnack("Error");
+      setmessageSnack("Error al buscar datos");
+      setcolorSnack('error');
+      setopenSnack(true);
     }
   }
 
@@ -64,6 +83,12 @@ const InterestSavingAccounts = () => {
 
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {activateSpinner ? <Spinner /> : null}
       {
         activeSearch && <div style={{

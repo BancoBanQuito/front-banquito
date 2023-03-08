@@ -12,6 +12,8 @@ import { ColorPalette } from '../../../style/ColorPalette';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import { Spinner } from '../../../components/atoms/Spinner';
 import { useUser } from '../../../context/UserContext';
+import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
+import { AlertColor } from '@mui/material';
 
 
 const entityBankCode = 'aef0fadf647c8d6f';
@@ -29,6 +31,10 @@ const AccountCreateClient = () => {
     const [accountData, setaccountData] = useState<RQCreateAccount>();
     const [activateSpinner, setActivateSpinner] = useState(false);
     const navigate = useNavigate();
+    const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
 
     useEffect(() => {
         getProducts("6c24027751bc43c5b232242e307880a7");
@@ -39,6 +45,10 @@ const AccountCreateClient = () => {
     const getProducts = async (id: string) => {
         setActivateSpinner(true);
         const productsAsync = await ProductService.getProducts(id);
+        settitleSnack("Productos");
+        setmessageSnack("Productos cargados correctamente");
+        setcolorSnack("success");
+        setopenSnack(true);
         setproducts(productsAsync);
         setActivateSpinner(false);
     }
@@ -60,17 +70,31 @@ const AccountCreateClient = () => {
         try {
             console.log(data);
             await AccountService.postAccount(data);
+            settitleSnack("Cuenta");
+            setmessageSnack("Cuenta creada correctamente");
+            setcolorSnack("success");
+            setopenSnack(true);
             navigate('/cliente');
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
+            settitleSnack("Cuenta");
+            setmessageSnack("Error al crear la cuenta");
+            setcolorSnack("error");
+            setopenSnack(true);
         } finally {
             setisLoading(false);
         }
     }
 
-    return (
+    return (        
         <>
+        <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
             {activateSpinner ? <Spinner /> : null}
             <div style={{
                 display: 'flex',

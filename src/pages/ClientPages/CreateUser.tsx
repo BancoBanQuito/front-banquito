@@ -49,6 +49,11 @@ const CreateUser = () => {
         setisLoading(true);
         try {
             const productsAsync: ProductTypeRS | undefined = (await ProductTypeService.getProductTypes())[0];
+            settitleSnack("Exito");
+            setcolorSnack('success');
+            setmessageSnack("Productos obtenidos con exito");
+            setopenSnack(true);
+            
             if (productsAsync) {
                 setproducts(productsAsync);
             }
@@ -78,6 +83,11 @@ const CreateUser = () => {
             setidentificationType(client.identificationType);
             setemail(client.email);
             setCurrentIndex(1);
+            settitleSnack("Exito");
+            setcolorSnack('success');
+            setmessageSnack("Cliente creado con exito");
+            setopenSnack(true);
+
         } catch (error: any) {
             setmessageSnack(error.message);
             settitleSnack("Error");
@@ -93,6 +103,10 @@ const CreateUser = () => {
         try {
             await ClientService.postClientSignUp(user);
             setCurrentIndex(2);
+            settitleSnack("Exito");
+            setcolorSnack('success');
+            setmessageSnack("Usuario creado con exito");
+            setopenSnack(true);
         } catch (error: any) {
             setmessageSnack(error.message);
             settitleSnack("Error");
@@ -108,6 +122,10 @@ const CreateUser = () => {
         try {
             await AccountService.postAccount(account);
             navigate('/cliente/login');
+            settitleSnack("Cuenta creada");
+            setcolorSnack('success');
+            setopenSnack(true);
+
         } catch (error: any) {
             setmessageSnack(error.message);
             settitleSnack("Error");
