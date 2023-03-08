@@ -5,9 +5,8 @@ import TableMolecule from "../../components/molecules/TableMolecule";
 import EnvManager from "../../config/EnvManager";
 import { CreateTypeProduct } from "./dialog/CreateTypeProduct";
 import axios from "axios";
-import SnackBarMolecule from "../../components/molecules/SnackBarMolecule";
 import { AlertColor } from "@mui/material";
-
+import SnackBarMolecule from "../../components/molecules/SnackBarMolecule";
 
 const table: any = {
     headers: [
@@ -20,13 +19,14 @@ const table: any = {
 
 export const ProductType = () => {
 
-    const [products, setProducts] = useState<any>([]);
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
     const [openSnack, setopenSnack] = useState<boolean>(false);
     const [titleSnack, settitleSnack] = useState<string | undefined>();
     const [messageSnack, setmessageSnack] = useState<string>("");
     const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
+    
+    const [products, setProducts] = useState<any>([]);
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
     const [activateSpinner, setActivateSpinner] = useState(false);
     const getTypeProducts = async () => {
         try {
@@ -48,18 +48,20 @@ export const ProductType = () => {
             })
             setProducts(rows);
             setActivateSpinner(false);
-            settitleSnack('Tipos de Productos');
-            setmessageSnack('Tipos de Productos cargados correctamente');
+            settitleSnack("Exito");
+            setmessageSnack("Tipos de productos cargados correctamente");
             setcolorSnack('success');
             setopenSnack(true);
+
 
         } catch (error) {
             setActivateSpinner(false);
             console.log(error);
-            settitleSnack('Tipos de Productos');
-            setmessageSnack('Error al cargar los tipos de productos');
+            settitleSnack("Error");
+            setmessageSnack("Error al cargar los tipos de productos");
             setcolorSnack('error');
             setopenSnack(true);
+            
         }
     }
 

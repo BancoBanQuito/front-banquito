@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
 import axios from "axios";
+import { AlertColor } from "@mui/material";
+import SnackBarMolecule from "../../../components/molecules/SnackBarMolecule";
 
 const urlCloud = `${EnvManager.CLIENT_URL}/api/client/`;
 
@@ -38,6 +40,10 @@ const SearchClientDataForm: React.FC = () => {
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
   const [activateSpinner, setActivateSpinner] = useState(false);
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
   const formatDate = (date: Date) => {
     return date.toLocaleDateString("es-ES", {
       day: "2-digit",
@@ -66,9 +72,18 @@ const SearchClientDataForm: React.FC = () => {
       setEstadoCivil(data.maritalStatus);
       setStatus(data.status);
       setActivateSpinner(false);
+      settitleSnack("Información");
+      setmessageSnack("Datos cargados correctamente");  
+      setcolorSnack("success");
+      setopenSnack(true);
     } catch (error) {
       setActivateSpinner(false);
       console.error(error);
+      settitleSnack("Error");
+      setmessageSnack("Error al cargar los datos");
+      setcolorSnack("error");
+      setopenSnack(true);
+      
     }
   };
 
@@ -78,6 +93,12 @@ const SearchClientDataForm: React.FC = () => {
 
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {activateSpinner ? <Spinner /> : null}
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">

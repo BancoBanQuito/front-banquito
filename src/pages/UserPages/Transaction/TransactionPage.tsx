@@ -23,6 +23,8 @@ interface TransactionPageProps {
 
 const TransactionPage = (props: TransactionPageProps) => {
 
+
+    
     const user = useUser();
 
     const [isLoading, setisLoading] = useState<boolean>(false);
@@ -103,6 +105,10 @@ const TransactionPage = (props: TransactionPageProps) => {
             await TransactionService.postTransaction(transactionOrigin);
             await TransactionService.postTransaction(transactionReceipt);
             handleSucced();
+            settitleSnack('Exito');
+            setcolorSnack('success');
+            setmessageSnack('La transeferencia se ha realizado con exito');
+            setopenSnack(true);
         } catch (error: any) {
             settitleSnack('Error');
             setcolorSnack('error');

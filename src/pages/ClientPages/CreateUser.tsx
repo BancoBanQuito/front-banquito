@@ -76,7 +76,7 @@ const CreateUser = () => {
             setopenSnack(true);
             return;
         }
-        setisLoading(true);
+        setisLoading(true);``
         try {
             await ClientService.postClient(client);
             setidentification(client.identification);

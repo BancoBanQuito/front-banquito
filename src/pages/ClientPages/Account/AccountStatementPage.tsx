@@ -27,6 +27,8 @@ const AccountStatementPage = () => {
     const navigate = useNavigate();
     const printRef = useRef();
 
+    
+
     useEffect(() => {
         const id = params.id;
         if (id) {
@@ -53,6 +55,11 @@ const AccountStatementPage = () => {
             if (currentAccountStatement) {
                 setaccountStatement(currentAccountStatement);
             }
+            settitleSnack("Estado de cuenta");
+            setmessageSnack("Estado de cuenta generado correctamente");
+            setcolorSnack('success');
+            setopenSnack(true);
+
         } catch (error) {
             setmessageSnack("Ha ocurrido un error");
             settitleSnack("Error");
@@ -70,6 +77,10 @@ const AccountStatementPage = () => {
             if (currentAccountStatement) {
                 setaccountStatement(currentAccountStatement);
             }
+            settitleSnack("Estado de cuenta");
+            setmessageSnack("Estado de cuenta generado correctamente");
+            setcolorSnack('success');
+            setopenSnack(true);
         } catch (error) {
             setmessageSnack("Ha ocurrido un error");
             settitleSnack("Error");

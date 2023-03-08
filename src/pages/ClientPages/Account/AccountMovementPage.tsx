@@ -62,6 +62,11 @@ const AccountMovementPage = (props: AccountMovementOranismProps) => {
             const data: RSTransaction[] = (await TransactionService
                 .getTransaction(id, fromDate?.format('YYYY-MM-DDThh:mm:ss') || '', toDate?.format('YYYY-MM-DDThh:mm:ss') || '')).data.data || [];
             settransactions(data);
+            settitleSnack("Movimientos");
+            setmessageSnack("Movimientos cargados correctamente");
+            setcolorSnack('success');
+            setopenSnack(true);
+
         } catch (error) {
             setmessageSnack("Ha ocurrido un error");
             settitleSnack("Error");

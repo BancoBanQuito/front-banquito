@@ -19,13 +19,13 @@ const table: any = {
     ]
 }
 
-const [openSnack, setopenSnack] = useState<boolean>(false);
+export const Product = () => {
+
+    const [openSnack, setopenSnack] = useState<boolean>(false);
     const [titleSnack, settitleSnack] = useState<string | undefined>();
     const [messageSnack, setmessageSnack] = useState<string>("");
     const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
-
-export const Product = () => {
-
+    
     const [products, setProducts] = useState<any>([]);
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -66,14 +66,14 @@ export const Product = () => {
             setActivateSpinner(false);
             settitleSnack("Productos");
             setmessageSnack("Productos obtenidos correctamente");
-            setcolorSnack("success");
+            setcolorSnack('success');
             setopenSnack(true);
         } catch (error) {
             setActivateSpinner(false);
             console.log(error);
             settitleSnack("Productos");
             setmessageSnack("Error al obtener los productos");
-            setcolorSnack("error");
+            setcolorSnack('error');
             setopenSnack(true);
         }
     }

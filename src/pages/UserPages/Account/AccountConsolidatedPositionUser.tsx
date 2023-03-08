@@ -15,6 +15,8 @@ import StatesType from '../../../services/.json/StateType.json';
 import LoadSpinner from '../../../components/atoms/LoadSpinner';
 import { Spinner } from '../../../components/atoms/Spinner';
 import { ReturnButton } from '../../../components/organisms/interestrate/InteresRate';
+import { AlertColor } from '@mui/material';
+import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
 
 const headersMock = [
   <Typography>No Cuenta</Typography>,
@@ -38,6 +40,11 @@ const AccountConsolidatedPositionUser = () => {
   const [loadIndex, setloadIndex] = useState<number | undefined>();
   const [activateSpinner, setActivateSpinner] = useState(false);
 
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
+
   const navigate = useNavigate();
 
   const searchAccountStatement = async (typeIdentification: string, identification: string) => {
@@ -51,9 +58,19 @@ const AccountConsolidatedPositionUser = () => {
         seterrorMessage("No hay datos disponibles");
         setshowErrorModal(true);
       }
+      settitleSnack("Cuentas");
+      setmessageSnack("Cuentas encontradas");
+      setcolorSnack("success");
+      setopenSnack(true);
+
     } catch (error: any) {
       seterrorMessage(error.message);
       setshowErrorModal(true);
+      settitleSnack("Cuentas");
+      setmessageSnack("No se encontraron cuentas");
+      setcolorSnack("error");
+      setopenSnack(true);
+
     } finally {
       setisLoading(false);
     }
@@ -80,10 +97,18 @@ const AccountConsolidatedPositionUser = () => {
       consolidatedPosition[selectedIndex].status = status;
       setselectedIndex(undefined);
       setActivateSpinner(false);
+      settitleSnack("Cuentas");
+      setmessageSnack("Cuenta actualizada");
+      setcolorSnack("success");
+      setopenSnack(true);
     } catch (error: any) {
       setActivateSpinner(false);
       seterrorMessage(error.message);
       setshowErrorModal(true);
+      settitleSnack("Cuentas");
+      setmessageSnack("No se pudo actualizar la cuenta");
+      setcolorSnack("error");
+      setopenSnack(true);
     } finally {
       setActivateSpinner(false);
       setloadIndex(undefined);
@@ -130,6 +155,12 @@ const AccountConsolidatedPositionUser = () => {
 
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {activateSpinner ? <Spinner /> : null}
       {
         activeSearch && <div style={{

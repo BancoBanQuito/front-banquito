@@ -15,7 +15,6 @@ export const ActivateDialog = ({ openDialog, name, state }: Props) => {
 
     const [open, setOpen] = useState(openDialog);
     const [newState, setNewState] = useState('');
-    
     const [activateSpinner, setActivateSpinner] = useState(false);
     const handleClose = () => {
         setOpen(false);

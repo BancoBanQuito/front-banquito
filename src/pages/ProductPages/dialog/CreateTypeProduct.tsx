@@ -4,8 +4,6 @@ import { useForm, FormProvider } from "react-hook-form";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
 import axios from "axios";
-import SnackBarMolecule from "../../../components/molecules/SnackBarMolecule";
-import { AlertColor } from "@mui/material";
 
 interface Props {
     openDialog: boolean;
@@ -15,10 +13,6 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
     const [open, setOpen] = useState(openDialog);
     const [products, setProducts] = useState<any[]>([]);
     const methods = useForm();
-    const [openSnack, setopenSnack] = useState<boolean>(false);
-    const [titleSnack, settitleSnack] = useState<string | undefined>();
-    const [messageSnack, setmessageSnack] = useState<string>("");
-    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
     const { register, handleSubmit } = methods;
     const [activateSpinner, setActivateSpinner] = useState(false);
     const handleClose = () => {
@@ -45,17 +39,9 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
                 return [];
             }
             return [productTyp]
-            settitleSnack('Producto no encontrado');
-            setmessageSnack('El producto no se encuentra registrado');
-            setcolorSnack('error');
-            setopenSnack(true);
         } catch (error) {
             setActivateSpinner(false);
             console.log(error);
-            settitleSnack('Producto no encontrado');
-            setmessageSnack('El producto no se encuentra registrado');
-            setcolorSnack('error');
-            setopenSnack(true);
         }
     }
 
@@ -68,17 +54,9 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
             const data = await response.data;
             setProducts(data);
             setActivateSpinner(false);
-            settitleSnack('Productos encontrados');
-            setmessageSnack('Los productos se encontraron correctamente');
-            setcolorSnack('success');
-            setopenSnack(true);
         } catch (error) {
             setActivateSpinner(false);
             console.log(error);
-            settitleSnack('Productos no encontrados');
-            setmessageSnack('Los productos no se encontraron');
-            setcolorSnack('error');
-            setopenSnack(true);
         }
     }
 
@@ -104,17 +82,9 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
             })
             handleClose();
             setActivateSpinner(false);
-            settitleSnack('Tipo de producto creado');
-            setmessageSnack('El tipo de producto se creo correctamente');
-            setcolorSnack('success');
-            setopenSnack(true);
         } catch (error) {
             setActivateSpinner(false);
             console.log(error);
-            settitleSnack('Tipo de producto no creado');
-            setmessageSnack('El tipo de producto no se creo correctamente');
-            setcolorSnack('error');
-            setopenSnack(true);
         }
     }
 
@@ -130,12 +100,6 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
 
     return (
         <Dialog open={open} onClose={handleClose} fullWidth maxWidth="lg">
-            <SnackBarMolecule
-                open={openSnack}
-                message={messageSnack}
-                title={titleSnack}
-                severity={colorSnack}
-                onClose={() => setopenSnack(false)} />
             {activateSpinner? <Spinner /> : null}
             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ p: 2, margin: 5 }}>
                 <Stack direction="column" spacing={2} sx={{ width: "100%" }}>

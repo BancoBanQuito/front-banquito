@@ -6,8 +6,14 @@ import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
 import { Dropdown } from "../../../components/atoms/Dropdown";
 import axios from "axios";
+import { AlertColor } from "@mui/material";
+import SnackBarMolecule from "../../../components/molecules/SnackBarMolecule";
 
 const CreateSegment: React.FC = () => {
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
   const [idSegment, setIdSegment] = useState<string>("");
   const [nameSegment, setNameSegment] = useState<string>("");
   const [statustSegment, setStatusSegment] = useState<string>("Inactivo");
@@ -53,9 +59,18 @@ const CreateSegment: React.FC = () => {
       setActivateSpinner(false);
       alert("Segmento actualizado");
       fetchSegment();
+      settitleSnack("Segmento actualizado");
+      setmessageSnack("El segmento se actualizó correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
+
     } catch (error) {
       setActivateSpinner(false);
       console.error(error);
+      settitleSnack("Error al actualizar el segmento");
+      setmessageSnack("El segmento no se actualizó correctamente");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   };
 
@@ -83,9 +98,19 @@ const CreateSegment: React.FC = () => {
       });
       setActivateSpinner(false);
       setRows(rows);
+      settitleSnack("Segmentos obtenidos");
+      setmessageSnack("Los segmentos se obtuvieron correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
+
     } catch (error) {
       setActivateSpinner(false);
       console.error(error);
+      settitleSnack("Error al obtener los segmentos");
+      setmessageSnack("Los segmentos no se obtuvieron correctamente");
+      setcolorSnack("error");
+      setopenSnack(true);
+
     }
   };
   useEffect(() => {
@@ -123,14 +148,29 @@ const CreateSegment: React.FC = () => {
       setActivateSpinner(false);
       fetchSegment();
       alert("Segmento creado con éxito");
+      settitleSnack("Segmento creado");
+      setmessageSnack("El segmento se creó correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
+
     } catch (error) {
       setActivateSpinner(false);
       console.error(error);
+      settitleSnack("Error al crear el segmento");
+      setmessageSnack("El segmento no se creó correctamente");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   };
 
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {activateSpinner ? <Spinner /> : null}
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">

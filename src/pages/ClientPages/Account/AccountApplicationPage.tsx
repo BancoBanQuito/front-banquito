@@ -55,6 +55,10 @@ const AccountApplicationPage = (props: AccountApplicationPageProps) => {
         try {
             const data: ProductTypeRS[] = (await ProductTypeService.getProductTypes()) || [];
             setproductTypes(data);
+            settitleSnack("Éxito");
+            setmessageSnack("Se han cargado los productos");
+            setcolorSnack('success');
+            setopenSnack(true);
 
         } catch (error) {
             setmessageSnack("Ha ocurrido un error");
@@ -72,6 +76,10 @@ const AccountApplicationPage = (props: AccountApplicationPageProps) => {
             await AccountService.putAccountStatus(id, {
                 status: 'INA'
             })
+            settitleSnack("Éxito");
+            setmessageSnack("Se ha cerrado la cuenta");
+            setcolorSnack('success');
+            setopenSnack(true);
         } catch (error) {
             setmessageSnack("Ha ocurrido un error");
             settitleSnack("Error");
@@ -87,6 +95,10 @@ const AccountApplicationPage = (props: AccountApplicationPageProps) => {
         try {
             await AccountService.postAccount(account);
             window.location.reload();
+            settitleSnack("Éxito");
+            setmessageSnack("Se ha creado la cuenta");
+            setcolorSnack('success');
+            setopenSnack(true);
         } catch (error: any) {
             setmessageSnack(error.message);
             settitleSnack("Error");
