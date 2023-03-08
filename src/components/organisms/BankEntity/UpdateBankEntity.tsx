@@ -32,8 +32,13 @@ export const UpdateBankEntity = () => {
   return (
     <Container
       sx={{
-        width: '100%',
-        maxWidth: 500
+        width: '700px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '20px',
+
       }}>
       {activateSpinner ? <Spinner /> : null}
       <h1>INFORMACION DEL {nameBank}</h1>
@@ -45,6 +50,8 @@ export const UpdateBankEntity = () => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          width: '60%',
+          
         }}>
         <TextFieldAtom
           id="internacionalBankCode"
