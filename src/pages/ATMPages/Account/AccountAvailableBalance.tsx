@@ -22,6 +22,8 @@ import ATMPrintOrganism from '../../../components/organisms/ATMPrintFormOrganism
 import { RQTransaction } from '../../../services/transaction/dto/RQTransaction'
 import { TransactionService } from '../../../services/transaction/TransactionService'
 import InfoModalOrganism from '../../../components/organisms/InfoModalOrganism'
+import { AlertColor } from '@mui/material'
+import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule'
 
 interface ATMLoginForm {
   codeLocalAccount: string,
@@ -37,6 +39,10 @@ const AccountAvailableBalance = () => {
   const [isLoading, setisLoading] = useState<boolean>(false);
   const [errorMessage, seterrorMessage] = useState<string>("");
 
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
   const [showInfoModal, setshowInfoModal] = useState<boolean>(false);
 
   const [canPrint, setcanPrint] = useState<boolean>(false);
@@ -74,6 +80,7 @@ const AccountAvailableBalance = () => {
       if (account) {
         setloadingMessage("Validando contraseña...")
         const user: RSAtmLogin | undefined = (await (AtmLoginService.getLoginCredentials(account.identification))).data;
+        
         if (user) {
           if (user.user.password === password) {
             setaccount(account);
@@ -93,6 +100,9 @@ const AccountAvailableBalance = () => {
     } catch (error: any) {
       seterrorMessage(error.message);
       setactiveErrorModal(true);
+      settitleSnack("Error");
+      setmessageSnack(error.message);
+      
     } finally {
       setisLoading(false);
     }
@@ -130,6 +140,12 @@ const AccountAvailableBalance = () => {
 
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       <div style={{
         display: 'flex',
         flexDirection: 'column',

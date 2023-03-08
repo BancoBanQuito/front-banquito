@@ -8,6 +8,8 @@ import { TransactionService } from '../../../services/transaction/TransactionSer
 import { RSTransaction } from '../../../services/transaction/dto/RSTransaction';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { Spinner } from '../../../components/atoms/Spinner';
+import { AlertColor } from '@mui/material';
+import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
 
 const headersMock = [
   <Typography>Fecha</Typography>,
@@ -25,6 +27,10 @@ const PaymentDebitCard = () => {
   const [dateFrom, setDateFrom] = useState<Dayjs | null>(null);
   const [dateTo, setDateTo] = useState<Dayjs | null>(null);
   const [activateSpinner, setActivateSpinner] = useState(false);
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
   const searchInterestSavingAccounts = async (codeLocalAccount: string, from: string, to: string) => {
 
     try {
@@ -42,9 +48,18 @@ const PaymentDebitCard = () => {
 
       }
       setActivateSpinner(false);
+      settitleSnack("Busqueda exitosa");
+      setmessageSnack("Se encontraron los pagos realizados por tarjeta de débito");
+      setcolorSnack("success");
+      setopenSnack(true);
+
     } catch (error: any) {
       setActivateSpinner(false);
       console.log(error);
+      settitleSnack("Error");
+      setmessageSnack("No se encontraron los pagos realizados por tarjeta de débito");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   }
 
@@ -68,6 +83,12 @@ const PaymentDebitCard = () => {
 
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {activateSpinner ? <Spinner /> : null}
       {
         activeSearch && <div style={{

@@ -15,10 +15,16 @@ import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
 import { Dropdown } from "../../../components/atoms/Dropdown";
 import axios from "axios";
+import { AlertColor } from "@mui/material";
+import SnackBarMolecule from "../../../components/molecules/SnackBarMolecule";
 
 const urlCloud = `${EnvManager.CLIENT_URL}/api/client/`;
 const segmentUrl = `${EnvManager.SEGMENT_URL}/api/segments`;
 const isAvailable = true;
+const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
 
 const UpdateClientDataForm: React.FC = () => {
   const [isStatusSelected, setIsStatusSelected] = useState<boolean>(true);
@@ -136,9 +142,17 @@ const UpdateClientDataForm: React.FC = () => {
       const data = await response.data;
       setSegments(data);
       setActivateSpinner(false);
+      settitleSnack("Segmentos");
+      setmessageSnack("Segmentos cargados correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
     } catch (error) {
       setActivateSpinner(false);
       console.error(error)
+      settitleSnack("Segmentos");
+      setmessageSnack("Error al cargar los segmentos");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   };
 
@@ -210,9 +224,18 @@ const UpdateClientDataForm: React.FC = () => {
       setStatusSegment(data.segment.status);
       setActivateSpinner(false);
 
+      settitleSnack("Cliente");
+      setmessageSnack("Cliente cargado correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
+
     } catch (error) {
       setActivateSpinner(false);
       console.error(error)
+      settitleSnack("Cliente");
+      setmessageSnack("Error al cargar el cliente");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   };
 
@@ -284,9 +307,18 @@ const UpdateClientDataForm: React.FC = () => {
       );
       const data = await response.data;
       setActivateSpinner(false);
+      settitleSnack("Cliente");
+      setmessageSnack("Cliente actualizado correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
+
     } catch (error) {
       setActivateSpinner(false);
       console.error(error)
+      settitleSnack("Cliente");
+      setmessageSnack("Error al actualizar el cliente");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   };
 
@@ -296,6 +328,12 @@ const UpdateClientDataForm: React.FC = () => {
   }, []);
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {activateSpinner ? <Spinner /> : null}
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">

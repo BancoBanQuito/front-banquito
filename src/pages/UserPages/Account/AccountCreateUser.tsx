@@ -11,6 +11,8 @@ import SelectAccountTypeForm from '../../../components/organisms/SelectAccountTy
 import { ProductService } from '../../../services/product/productService';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { AccountService } from '../../../services/account/AccountService';
+import { AlertColor } from '@mui/material';
+import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
 
 const entityBankCode = 'aef0fadf647c8d6f';
 const internationalBankCode = 'c88c1afde4c3a564';
@@ -26,12 +28,19 @@ const AccountCreateUser = () => {
   const [accountData, setaccountData] = useState<any>();
   const [activateSpinner, setActivateSpinner] = useState(false);
   const navigate = useNavigate();
-
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
   const getProducts = async (id: string) => {
     setActivateSpinner(true);
     const productsAsync = await ProductService.getProducts(id);
     setproducts(productsAsync);
     setActivateSpinner(false);
+    settitleSnack("Productos");
+    setmessageSnack("Productos obtenidos correctamente");
+    setcolorSnack("success");
+    setopenSnack(true);
   }
 
   const handleTypeAccountButton = (data: string) => {
@@ -58,9 +67,17 @@ const AccountCreateUser = () => {
     try {
       await AccountService.postAccount(data);
       navigate('/usuario');
+      settitleSnack("Cuenta");
+      setmessageSnack("Cuenta creada correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
     } catch (error: any) {
       setactiveErrorModal(true);
       seterrorMessage(error.message);
+      settitleSnack("Cuenta");
+      setmessageSnack("Error al crear la cuenta");
+      setcolorSnack("error");
+      setopenSnack(true);
     } finally {
       setisLoading(false);
     }
@@ -68,6 +85,12 @@ const AccountCreateUser = () => {
 
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       <ProgressButtonMolecule
         color={ColorPalette.PRIMARY}
         itemsCount={2}

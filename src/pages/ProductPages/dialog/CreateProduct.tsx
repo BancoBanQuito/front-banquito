@@ -7,8 +7,6 @@ import Swal from 'sweetalert2'
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
 import axios from "axios";
-import { AlertColor } from "@mui/material";
-import SnackBarMolecule from "../../../components/molecules/SnackBarMolecule";
 
 interface Props {
     openDialog: boolean;
@@ -16,11 +14,6 @@ interface Props {
 
 export const CreateProduct = ({ openDialog }: Props) => {
     const [open, setOpen] = useState(openDialog);
-
-    const [openSnack, setopenSnack] = useState<boolean>(false);
-    const [titleSnack, settitleSnack] = useState<string | undefined>();
-    const [messageSnack, setmessageSnack] = useState<string>("");
-    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
     const [products, setProducts] = useState<any[]>([]);
     const [interest, setInterest] = useState<any[]>([]);
     const [associatedServices, setAssociatedServices] = useState<any[]>([]);
@@ -56,17 +49,9 @@ export const CreateProduct = ({ openDialog }: Props) => {
             const data = await response.data;
             setInterest(data);
             setActivateSpinner(false);
-            settitleSnack('Exito');
-            setmessageSnack('Se ha creado el producto correctamente');
-            setcolorSnack('success');
-            setopenSnack(true);
         } catch (error) {
             setActivateSpinner(false);
             console.log(error);
-            settitleSnack('Error');
-            setmessageSnack('Ha ocurrido un error al crear el producto');
-            setcolorSnack('error');
-            setopenSnack(true);
         }
     }
 
@@ -79,17 +64,9 @@ export const CreateProduct = ({ openDialog }: Props) => {
             const data = await response.data;
             setAssociatedServices(data);
             setActivateSpinner(false);
-            settitleSnack('Exito');
-            setmessageSnack('Se ha creado el producto correctamente');
-            setcolorSnack('success');
-            setopenSnack(true);
         } catch (error) {
             setActivateSpinner(false);
             console.log(error);
-            settitleSnack('Error');
-            setmessageSnack('Ha ocurrido un error al crear el producto');
-            setcolorSnack('error');
-            setopenSnack(true);
         }
     }
 
@@ -102,18 +79,9 @@ export const CreateProduct = ({ openDialog }: Props) => {
             const data = await response.data;
             setProducts(data);
             setActivateSpinner(false);
-            settitleSnack('Exito');
-            setmessageSnack('Se ha ha cargado lo datos');
-            setcolorSnack('success');
-            setopenSnack(true);
         } catch (error) {
             setActivateSpinner(false);
             console.log(error);
-            settitleSnack('Error');
-            setmessageSnack('Ha ocurrido un error al cargar los datos');
-            setcolorSnack('error');
-            setopenSnack(true);
-
         }
     }
 
@@ -185,10 +153,6 @@ export const CreateProduct = ({ openDialog }: Props) => {
                 icon: 'success',
                 showConfirmButton: true,
             })
-            settitleSnack('Exito');
-            setmessageSnack('Se ha creado el producto correctamente');
-            setcolorSnack('success');
-            setopenSnack(true);
         } catch (error) {
             setActivateSpinner(false);
             console.log(error);
@@ -197,11 +161,6 @@ export const CreateProduct = ({ openDialog }: Props) => {
                 icon: 'error',
                 showConfirmButton: true,
             })
-            settitleSnack('Error');
-            setmessageSnack('Ha ocurrido un error al crear el producto');
-            setcolorSnack('error');
-            setopenSnack(true);
-
         }
     }
 
@@ -219,12 +178,6 @@ export const CreateProduct = ({ openDialog }: Props) => {
 
     return (
         <Dialog open={open} onClose={handleClose} fullWidth maxWidth="lg">
-            <SnackBarMolecule
-                open={openSnack}
-                message={messageSnack}
-                title={titleSnack}
-                severity={colorSnack}
-                onClose={() => setopenSnack(false)} />
             {activateSpinner ? <Spinner /> : null}
             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ p: 2, margin: 3 }}>
                 <Stack direction="column" spacing={2} sx={{ width: "100%" }} >

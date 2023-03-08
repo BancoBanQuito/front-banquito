@@ -36,6 +36,10 @@ const AccountServicesPage = (props: AccountServicesPage) => {
         try {
             const data: AssociatedServiceRSRQ[] = (await AssociatedService.getAssociatedServices())
             setservices(data);
+            settitleSnack("Exito");
+            setmessageSnack("Servicios cargados correctamente");
+            setcolorSnack('success');
+            setopenSnack(true);
         } catch (error: any) {
             setmessageSnack("Ha ocurrido un error");
             settitleSnack("Error");

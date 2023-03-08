@@ -8,6 +8,8 @@ import { TransactionService } from '../../../services/transaction/TransactionSer
 import { RSTransaction } from '../../../services/transaction/dto/RSTransaction';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { Spinner } from '../../../components/atoms/Spinner';
+import { AlertColor } from '@mui/material';
+import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
 
 const headersMock = [
   <Typography>Fecha</Typography>,
@@ -27,6 +29,11 @@ const PaymentCheckbook = () => {
   const [activateSpinner, setActivateSpinner] = useState(false);
   const searchInterestSavingAccounts = async (codeLocalAccount: string, from: string, to: string) => {
 
+    const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
+    
     try {
       setActivateSpinner(true);
       const data: RSTransaction[] | undefined = (await TransactionService.getTransaction(codeLocalAccount, from, to)).data.data;
@@ -42,9 +49,18 @@ const PaymentCheckbook = () => {
 
       }
       setActivateSpinner(false);
+      settitleSnack("Consulta exitosa");
+      setmessageSnack("Consulta exitosa");
+      setcolorSnack("success");
+      setopenSnack(true);
+
     } catch (error: any) {
       setActivateSpinner(false);
       console.log(error);
+      settitleSnack("Error");
+      setmessageSnack("Error al consultar");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   }
 
@@ -66,6 +82,12 @@ const PaymentCheckbook = () => {
   }
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {activateSpinner ? <Spinner /> : null}
       {
         activeSearch && <div style={{

@@ -19,8 +19,6 @@ import EnvManager from '../config/EnvManager';
 import { useForm, FormProvider } from "react-hook-form";
 import { Spinner } from "../components/atoms/Spinner";
 import axios from "axios";
-import { AlertColor } from "@mui/material";
-import SnackBarMolecule from "../components/molecules/SnackBarMolecule";
 
 // Styles
 export const Container = styled.div`
@@ -100,10 +98,6 @@ const CreateRequestService = ({ openDialog }: Props) => {
     const methods = useForm();
     const { register, handleSubmit } = methods;
     const [accountdata, setAccountData] = useState<account>();
-    const [openSnack, setopenSnack] = useState<boolean>(false);
-    const [titleSnack, settitleSnack] = useState<string | undefined>();
-    const [messageSnack, setmessageSnack] = useState<string>("");
-    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
     const [product, setProduct] = useState<any[]>([]);
     const [id, setId] = useState("");
     const [nameProduct, setNameProduct] = useState<nameProduct>();
@@ -131,19 +125,10 @@ const CreateRequestService = ({ openDialog }: Props) => {
             if (account.codeLocalAccount === undefined) {
                 return [];
             } setAccountData(account)
-            settitleSnack("Cuenta encontrada");
-            setmessageSnack("La cuenta fue encontrada con exito");
-            setcolorSnack('success');
-            setopenSnack(true);
             return [account]
-            
         } catch (error) {
             setActivateSpinner(false);
             console.log("Error", error);
-            settitleSnack("Cuenta no encontrada");
-            setmessageSnack("La cuenta no fue encontrada");
-            setcolorSnack('error');
-            setopenSnack(true);
 
         }
     }
@@ -161,20 +146,11 @@ const CreateRequestService = ({ openDialog }: Props) => {
             setActivateSpinner(false);
 
             setNameProduct(account);
-
-            settitleSnack("Cuenta encontrada");
-            setmessageSnack("La cuenta fue encontrada con exito");
-            setcolorSnack('success');
-            setopenSnack(true);
             return [account]
-            
         } catch (error) {
             setActivateSpinner(false);
             console.log("Error", error);
-            settitleSnack("Cuenta no encontrada");
-            setmessageSnack("La cuenta no fue encontrada");
-            setcolorSnack('error');
-            setopenSnack(true);
+
         }
     }
 
@@ -192,18 +168,10 @@ const CreateRequestService = ({ openDialog }: Props) => {
             )
             setActivateSpinner(false);
             setProduct(account);
-            settitleSnack("Producto encontrada");
-            setmessageSnack("El producto fue encontrado con exito");
-            setcolorSnack('success');
-            setopenSnack(true);
 
         } catch (error) {
             setActivateSpinner(false);
             console.log(error);
-            settitleSnack("Producto no encontrado");
-            setmessageSnack("El producto no fue encontrado");
-            setcolorSnack('error');
-            setopenSnack(true);
         }
     }
 
@@ -230,18 +198,10 @@ const CreateRequestService = ({ openDialog }: Props) => {
             setActivateSpinner(false);
 
             handleClose();
-            settitleSnack("Solicitud de servicio creada");
-            setmessageSnack("La solicitud de servicio fue creada con exito");
-            setcolorSnack('success');
-            setopenSnack(true);
         } catch (error) {
             setActivateSpinner(false);
             console.log("estas mal")
             console.log(error);
-            settitleSnack("Solicitud de servicio no creada");
-            setmessageSnack("La solicitud de servicio no fue creada");
-            setcolorSnack('error');
-            setopenSnack(true);
         }
     }
 
@@ -261,12 +221,6 @@ const CreateRequestService = ({ openDialog }: Props) => {
 
     return (
         <Container>
-            <SnackBarMolecule
-                open={openSnack}
-                message={messageSnack}
-                title={titleSnack}
-                severity={colorSnack}
-                onClose={() => setopenSnack(false)} />
             {activateSpinner? <Spinner /> : null}
             <Content>
                 <ReturnButton>

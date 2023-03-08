@@ -17,6 +17,8 @@ import { Dropdown } from '../../../components/atoms/Dropdown';
 import { useUser } from '../../../context/UserContext';
 import { Facebook, Instagram, Twitter } from '@mui/icons-material';
 import ClockMolecule from '../../../components/molecules/ClockMolecule';
+import { AlertColor } from '@mui/material';
+import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
 
 interface ITransaction {
     codeInternationalAccount: string,
@@ -49,7 +51,10 @@ const TransferUser = (props: TransferUserProps) => {
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
     const [accounts, setaccounts] = useState<{ name: string, value: string }[]>([]);
-
+    const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
     const [transactionData, settransactionData] = useState<ITransaction>({
         codeInternationalAccount: "",
         codeLocalAccount: "",
@@ -93,9 +98,17 @@ const TransferUser = (props: TransferUserProps) => {
                 }
             });
             setaccounts(dropAccounts);
+            settitleSnack("Cuentas encontradas");
+            setmessageSnack("Se han encontrado " + dropAccounts.length + " cuentas asociadas");
+            setcolorSnack("success");
+            setopenSnack(true);
         } catch (error: any) {
             seterrorMessage(error.message);
             setactiveErrorModal(true);
+            settitleSnack("Error");
+            setmessageSnack("Ha ocurrido un error al obtener las cuentas");
+            setcolorSnack("error");
+            setopenSnack(true);
         } finally {
             setisLoading(false);
         }
@@ -117,9 +130,17 @@ const TransferUser = (props: TransferUserProps) => {
             await TransactionService.postTransaction(getAccountRecipient(accountRecipient.codeInternationalAccount));
             setinfoMessage('La transferencia ha sido completada');
             setshowInfoModal(true);
+            settitleSnack("Transaccion completada");
+            setmessageSnack("La transferencia ha sido completada");
+            setcolorSnack("success");
+            setopenSnack(true);
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
+            settitleSnack("Error");
+            setmessageSnack("Ha ocurrido un error al realizar la transaccion");
+            setcolorSnack("error");
+            setopenSnack(true);
         } finally {
             setisLoading(false);
         }
@@ -161,6 +182,12 @@ const TransferUser = (props: TransferUserProps) => {
 
     return (
         <>
+        <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
             <Box sx={{ height: 15 }}>
             </Box>
             <Grid container spacing={5}>
