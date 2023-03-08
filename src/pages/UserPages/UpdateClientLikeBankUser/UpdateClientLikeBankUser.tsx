@@ -20,7 +20,7 @@ const urlCloud = `${EnvManager.CLIENT_URL}/api/client/`;
 const segmentUrl = `${EnvManager.SEGMENT_URL}/api/segments`;
 const isAvailable = true;
 
-const UpdateClientDataForm: React.FC = () => {
+const  UpdateClientDataForm: React.FC = () => {
   const [isStatusSelected, setIsStatusSelected] = useState<boolean>(true);
   const [idCliente, setIdCliente] = useState<string | null>(
     localStorage.getItem("identification")

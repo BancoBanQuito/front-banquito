@@ -82,6 +82,7 @@ export const Product = () => {
         setOpen(true);
         setId(id);
         setStatus(status);
+        getProducts();
     }
 
     useEffect(() => {
@@ -89,12 +90,12 @@ export const Product = () => {
     }, [])
 
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            getProducts();
-        }, 5000);
-        return () => clearInterval(interval);
-    }, []);
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         getProducts();
+    //     }, 5000);
+    //     return () => clearInterval(interval);
+    // }, []);
 
     useEffect(() => {
         if (open) {
@@ -118,12 +119,12 @@ export const Product = () => {
                 message={messageSnack}
                 title={titleSnack}
                 severity={colorSnack}
-                onClose={() => setopenSnack(false)} />
+                onClose={() => setopenSnack(false)}/>
             {activateSpinner ? <Spinner /> : null}
             <Stack direction="column" spacing={2} sx={{ width: "100%", margin: '4rem' }} alignItems='center'>
                 <Typography variant="h4" align="center">Productos</Typography>
 
-                <Stack direction="row" spacing={2} sx={{ width: "80%" }}>
+                <Stack direction="row" spacing={2} sx={{ width: "100%" }}>
                     <TableMolecule headers={table.headers} rows={products} />
                 </Stack>
                 <Stack direction="column" spacing={2} sx={{ width: "100%" }} alignItems='center'>
