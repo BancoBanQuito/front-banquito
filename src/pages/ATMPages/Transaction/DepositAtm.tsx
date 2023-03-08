@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { AlertColor, Box } from '@mui/material';
 import ProgressButtonMolecule from '../../../components/molecules/ProgressButtonMolecule';
 import ConfirmTransferUserForm from '../../../components/organisms/ConfirmTransferUserForm';
 import ErrorModalOrganism from '../../../components/organisms/ErrorModalOrganism';
@@ -18,6 +18,7 @@ import ATMConfirmOrganism from '../../../components/organisms/ATMConfirmOrganism
 import OnConstructionMolecule from '../../../components/molecules/OnConstructionMolecule';
 import ATMPrintOrganism from '../../../components/organisms/ATMPrintFormOrganism';
 import ATMTransactionFileOrganism from '../../../components/organisms/ATMTransactionFileOrganism';
+import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
 
 const fileValue = 0;
 
@@ -28,7 +29,10 @@ const DepositAtm = () => {
     const [indexForm, setindexForm] = useState<number>(0);
     const [showInfoModal, setshowInfoModal] = useState<boolean>(false)
     const [isLoading, setisLoading] = useState<boolean>(false);
-
+    const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error')
     const [canPrint, setcanPrint] = useState<boolean>(false);
 
     const navigate = useNavigate();
@@ -53,6 +57,10 @@ const DepositAtm = () => {
             const accountSimple: RSAccount | undefined = (await AccountService.getAccountByCode(value.codeLocalAccount)).data.data;
             if (!accountSimple) {
                 seterrorMessage('Cuenta no encontrada');
+                settitleSnack('Error');
+                setmessageSnack('Cuenta no encontrada');
+                setcolorSnack('error');
+                setopenSnack(true);
                 return;
             }
             const depositAccount = {
@@ -61,9 +69,18 @@ const DepositAtm = () => {
             }
             await TransactionService.postTransaction(depositAccount);
             setshowInfoModal(true);
+            settitleSnack('Deposito realizado');
+            setmessageSnack('El deposito se realizo correctamente');
+            setcolorSnack('success');
+            setopenSnack(true);
+
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
+            settitleSnack('Error');
+            setmessageSnack('Ocurrio un error al realizar el deposito');
+            setcolorSnack('error');
+            setopenSnack(true);
         } finally {
             setisLoading(false);
         }
@@ -76,9 +93,17 @@ const DepositAtm = () => {
     const handlePrint = () => {
         handleAccept();
     }
+   
+
 
     return (
         <>
+            <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
             <div style={{
                 width: '100%',
                 display: 'flex',

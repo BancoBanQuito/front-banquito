@@ -10,10 +10,20 @@ import { ColorPalette } from "../../../style/ColorPalette";
 import { SizeButton } from "../../../components/atoms/SizeButton";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import styled from "styled-components";
+import UpdateHoliday from "../../../components/organisms/Holiday/UpdateHoliday";
+// Dayjs
+import dayjs from "dayjs";
 
 const Holiday: React.FC = () => {
   const [holidays, setHolidays] = useState<IHoliday[]>([]);
   const [searchText, setSearchText] = useState("");
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [selectHoliday, setSelectHoliday] = useState<IHoliday>({} as IHoliday);
+  //   name:'holiday',
+  //   code:23,
+  //   date: new Date(),
+  //   type:'ACT'
+  // });
   const filteredHolidays =
     holidays.filter(
       (holiday) => holiday.name.includes(searchText.toUpperCase()),
@@ -36,6 +46,10 @@ const Holiday: React.FC = () => {
 
   const headers = [<>Fecha</>, <>Codigo</>, <>Nombre</>, <>Tipo</>, <>Acción</>];
   const setHoliday = (holiday: IHoliday) => {
+    setSelectHoliday(holiday);
+    setIsUpdate(true);
+  }
+  const deleteHoliday = (holiday: IHoliday) => {
   }
   const rows = filteredHolidays.map((holiday) => {
     // 2023-01-03T00:00:00.000+00:00
@@ -76,6 +90,19 @@ const Holiday: React.FC = () => {
       </>
     ]
   });
+
+  if (isUpdate) {
+    return <>
+      <UpdateHoliday
+        nameU={selectHoliday?.name}
+        codeU={selectHoliday?.code.toString()}
+        dateU={dayjs(selectHoliday?.date)}
+        typeU={selectHoliday?.type}
+        setUpdate={setIsUpdate}
+      />
+    </>
+  }
+
 
   return (
     <Box

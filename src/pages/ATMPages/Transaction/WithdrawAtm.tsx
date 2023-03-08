@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box } from "@mui/material";
+import { AlertColor, Box } from "@mui/material";
 import ProgressButtonMolecule from "../../../components/molecules/ProgressButtonMolecule";
 import ConfirmTransferUserForm from "../../../components/organisms/ConfirmTransferUserForm";
 import ErrorModalOrganism from "../../../components/organisms/ErrorModalOrganism";
@@ -20,6 +20,7 @@ import ATMFormOrganism from "../../../components/organisms/ATMFormOrganism";
 import ATMConfirmOrganism from "../../../components/organisms/ATMConfirmOrganism";
 import ATMTransactionFileOrganism from "../../../components/organisms/ATMTransactionFileOrganism";
 import ATMPrintOrganism from "../../../components/organisms/ATMPrintFormOrganism";
+import SnackBarMolecule from "../../../components/molecules/SnackBarMolecule";
 
 interface ATMLoginForm {
     codeLocalAccount: string,
@@ -37,7 +38,10 @@ const WithdrawAtm = () => {
     const [errorMessage, seterrorMessage] = useState<string>("");
     const [indexForm, setindexForm] = useState<number>(0);
     const [canPrint, setcanPrint] = useState<boolean>(false);
-
+    const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error')
     const [login, setlogin] = useState<ATMLoginForm>({
         codeLocalAccount: "",
         password: ""
@@ -69,9 +73,17 @@ const WithdrawAtm = () => {
             setloadingMessage("Validando transaccion...");
             await TransactionService.postTransaction(value);
             setshowInfoModal(true);
+            settitleSnack("Transaccion exitosa");
+            setmessageSnack("Transaccion exitosa");
+            setcolorSnack('success');
+            setopenSnack(true);
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
+            settitleSnack("Error");
+            setmessageSnack(error.message);
+            setcolorSnack('error');
+            setopenSnack(true);
         } finally {
             setisLoading(false);
         }
@@ -99,21 +111,42 @@ const WithdrawAtm = () => {
                             codeInternationalAccount: account.codeInternationalAccount
                         });
                         setindexForm(2);
+                        settitleSnack("Bienvenido");
+                        setmessageSnack("Bienvenido");
+                        setcolorSnack('success');
+                        setopenSnack(true);
                     } else {
                         seterrorMessage("Contraseña invalida");
                         setactiveErrorModal(true);
+                        settitleSnack("Error");
+                        setmessageSnack("Contraseña invalida");
+                        setcolorSnack('error');
+                        setopenSnack(true);
                     }
                 } else {
                     seterrorMessage("Cuenta no encontrada");
                     setactiveErrorModal(true);
+                    settitleSnack("Error");
+                    setmessageSnack("Cuenta no encontrada");
+                    setcolorSnack('error');
+                    setopenSnack(true);
                 }
             } else {
                 seterrorMessage("Cuenta no encontrada");
                 setactiveErrorModal(true);
+                settitleSnack("Error");
+                setmessageSnack("Cuenta no encontrada");
+                setcolorSnack('error');
+                setopenSnack(true);
             }
+            
         } catch (error: any) {
             seterrorMessage(error.message);
             setactiveErrorModal(true);
+            settitleSnack("Error");
+            setmessageSnack(error.message);
+            setcolorSnack('error');
+            setopenSnack(true);
         } finally {
             setisLoading(false);
         }
@@ -134,6 +167,12 @@ const WithdrawAtm = () => {
 
     return (
         <>
+        <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',

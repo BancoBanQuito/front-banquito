@@ -12,11 +12,25 @@ import { ButtonStyle } from "../../../style/ButtonStyle";
 import { ColorPalette } from "../../../style/ColorPalette";
 import axios from "axios";
 
-const UpdateHoliday: React.FC = () => {
-  const [name, setName] = useState<string>("");
-  const [type, setType] = useState<string>("");
-  const [code, setCode] = useState<string>("");
-  const [date, setDate] = useState<Dayjs | null>(null);
+// Props
+// const [name, setName] = useState<string>("");
+// const [type, setType] = useState<string>("");
+// const [code, setCode] = useState<string>("");
+// const [date, setDate] = useState<Dayjs | null>(null);
+interface Props {
+  nameU: string;
+  typeU: string;
+  codeU: string;
+  dateU: Dayjs | null;
+  setUpdate: (updating: boolean) => void;
+}
+
+
+const UpdateHoliday: React.FC<Props> = ({ nameU, typeU, codeU, dateU, setUpdate }) => {
+  const [name, setName] = useState<string>(nameU);
+  const [type, setType] = useState<string>(typeU);
+  const [code, setCode] = useState<string>(codeU);
+  const [date, setDate] = useState<Dayjs | null>(dateU);
   const [activateSpinner, setActivateSpinner] = useState(false);
   const handleSubmit = async () => {
     if (date && name && type && code) {
@@ -101,8 +115,30 @@ const UpdateHoliday: React.FC = () => {
           submit
           text={"Actualizar"}
           style={ButtonStyle.BIG} palette={{
-            backgroundColor: ColorPalette.PRIMARY,
+            backgroundColor: ColorPalette.TERNARY,
           }} />
+        <Box
+          component='form'
+          onSubmit={handleSubmit}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            maxWidth: 500,
+            marginTop: 1
+          }}>
+          <SizeButton
+            text={"Cancelar"}
+            style={ButtonStyle.BIG} palette={{
+              backgroundColor: ColorPalette.PRIMARY,
+            }}
+            onClick={() => {
+              setUpdate(false)
+            }}
+          />
+        </Box>
       </Box>
     </>
   );
