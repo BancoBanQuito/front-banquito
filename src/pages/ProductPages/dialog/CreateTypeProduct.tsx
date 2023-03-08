@@ -4,6 +4,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
 import axios from "axios";
+import { ColorPalette } from '../../../style/ColorPalette';
 
 interface Props {
     openDialog: boolean;
@@ -103,7 +104,7 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
             {activateSpinner? <Spinner /> : null}
             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ p: 2, margin: 5 }}>
                 <Stack direction="column" spacing={2} sx={{ width: "100%" }}>
-                    <Typography variant="h5">Crear Producto</Typography>
+                    <Typography variant="h5">Crear Tipo de Producto</Typography>
                     <Divider sx={{ margin: 1, color: "black" }} />
                     <FormProvider {...methods}>
                         <form onSubmit={handleSubmit((data) => handleSubmitForm(data))}>
@@ -186,7 +187,10 @@ export const CreateTypeProduct = ({ openDialog }: Props) => {
 
 
                                 <Stack direction="row" spacing={2} justifyContent="center">
-                                    <Button variant="contained" type="submit">Crear</Button>
+                                    <Button variant="contained" type="submit"
+                                    color="secondary"
+                                        
+                                    >Crear</Button>
                                     <Button variant="contained" onClick={handleClose} color="error">Cancelar</Button>
                                 </Stack>
                             </Stack>

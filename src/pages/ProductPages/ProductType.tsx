@@ -26,7 +26,7 @@ export const ProductType = () => {
     
     const [products, setProducts] = useState<any>([]);
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const handleOpen = () => {setOpen(true);}
     const [activateSpinner, setActivateSpinner] = useState(false);
     const getTypeProducts = async () => {
         try {
@@ -71,12 +71,7 @@ export const ProductType = () => {
         getTypeProducts();
     }, [])
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            getTypeProducts();
-        }, 5000);
-        return () => clearInterval(interval);
-    }, []);
+    
 
     useEffect(() => {
         if (open) {
