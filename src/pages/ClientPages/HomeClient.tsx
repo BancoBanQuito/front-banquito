@@ -85,6 +85,7 @@ const HomeClient = () => {
 
   return (
     <>
+    {userAccounts.length > 0?
       <Box
         sx={{
           width: "100%",
@@ -162,6 +163,7 @@ const HomeClient = () => {
         </Grid>
 
       </Box>
+      :null}
       <SnackBarMolecule
         open={openSnack}
         message={messageSnack}
