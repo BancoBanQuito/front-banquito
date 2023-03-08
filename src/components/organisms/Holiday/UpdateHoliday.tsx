@@ -11,6 +11,7 @@ import { SizeButton } from "../../atoms/SizeButton";
 import { ButtonStyle } from "../../../style/ButtonStyle";
 import { ColorPalette } from "../../../style/ColorPalette";
 import axios from "axios";
+import { Dropdown } from "../../atoms/Dropdown";
 
 // Props
 // const [name, setName] = useState<string>("");
@@ -96,13 +97,30 @@ const UpdateHoliday: React.FC<Props> = ({ nameU, typeU, codeU, dateU, setUpdate 
           value={name}
           onChange={(event) => setName(event.target.value)}
           type='text' />
-        <TextFieldAtom
-          required
-          fullWidth
-          label="Tipo"
-          value={type}
-          onChange={(event) => setType(event.target.value)}
-          type='text' />
+        <Box
+          component='form'
+          onSubmit={handleSubmit}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            maxWidth: 500,
+            marginLeft: '-15px'
+          }}>
+          <Dropdown
+            label='Tipo'
+            items={[{ name: 'Nacional', value: 'NAT' }, { name: 'Regional', value: 'REG' }]}
+            width='100%'
+            height={'auto'}
+            required
+            onChange={(value: string) => setType(value)}
+            selectedTextColor={ColorPalette.TERNARY}
+            inputLabelColor={ColorPalette.TERNARY}
+            defaultValue={type}
+          />
+        </Box>
         <TextFieldAtom
           required
           fullWidth

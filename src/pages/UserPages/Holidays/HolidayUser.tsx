@@ -27,9 +27,7 @@ const HolidayUser: React.FC = () => {
         <TabsMolecule
           items={[
             { label: "Ver", value: "Ver" },
-            { label: "Fines de Semana", value: "CrearA" },
             { label: "Crear Feriados", value: "CrearD" },
-            { label: "Actualizar Informacion", value: "Actualizar" },
             { label: "Eliminar", value: "Eliminar" },
           ]}
           onChange={handleChange} />
@@ -50,7 +48,6 @@ const HolidayUser: React.FC = () => {
         {tabValue === "Ver" && <Holiday />}
         {tabValue === "CrearA" && <CreateHolidayY />}
         {tabValue === "CrearD" && <CreateHolidayD />}
-        {tabValue === "Actualizar" && <UpdateHoliday />}
         {tabValue === "Eliminar" && <DeleteHoliday />}
       </Box>
     </Box>

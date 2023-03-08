@@ -50,6 +50,27 @@ const Holiday: React.FC = () => {
     setIsUpdate(true);
   }
   const deleteHoliday = (holiday: IHoliday) => {
+    axios(`${EnvManager.SETTINGS_URL}/api/holiday`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: JSON.stringify({
+        name: holiday.name,
+        type: holiday.type,
+        date: holiday.date,
+        code: holiday.code,
+      }),
+    }).then((response) => {
+      if (response.status !== 200) {
+        throw Error(response.statusText);
+      }
+      return response.data;
+    }).then((data) => {
+      const newHolidays = holidays.filter((holiday) => holiday.code !== data.code);
+      setHolidays(newHolidays);
+    }).catch((error) => console.log(error));
   }
   const rows = filteredHolidays.map((holiday) => {
     // 2023-01-03T00:00:00.000+00:00
@@ -73,7 +94,7 @@ const Holiday: React.FC = () => {
       <>{dateAux}</>,
       <>{holiday.code}</>,
       <>{holiday.name}</>,
-      <>{holiday.type}</>,
+      <>{holiday.type=='NAT'?'Nacional':'Regional'}</>,
       <>
         <SizeButton palette={{ backgroundColor: ColorPalette.SECONDARY }}
           text="Editar"
@@ -83,7 +104,7 @@ const Holiday: React.FC = () => {
         <StyledButton>
           <SizeButton palette={{ backgroundColor: ColorPalette.PRIMARY }}
             text="Eliminar"
-            onClick={() => { setHoliday(holiday) }}
+            onClick={() => { deleteHoliday(holiday) }}
             style={ButtonStyle.SMALL}
           />
         </StyledButton>
