@@ -23,7 +23,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
         dayjs('2022-08-18'),
     );
     const [capitalization, setCapitalization] = useState<any>('');
-    const [productType, setProductType] = useState<any>('');
+    const [productType1, setProductType] = useState<any>('');
     const [selectedEndDate, setSelectedEndDate] = useState<Dayjs | null>(
         dayjs('2022-08-18'),
     );
@@ -341,14 +341,15 @@ export const CreateProduct = ({ openDialog }: Props) => {
                                             {...register("productType", { required: false })}
                                             onChange={(e) => {
                                                 console.log(e.target.value)
-                                                setProductType(e.target.value)
+                                                const product = e.target.value.split('/')
+                                                setProductType(product[1])
                                             }}
                                         >
                                             {products.map((product: any) => (
                                                 <MenuItem
                                                     id={product.id}
                                                     key={product.id}
-                                                    value={product.name}
+                                                    value={product.id+'/'+product.name}
                                                 >
                                                     {product.name}
                                                 </MenuItem>
@@ -391,11 +392,11 @@ export const CreateProduct = ({ openDialog }: Props) => {
                                                 e.target.value
                                             }}
                                         >
-                                            {productType == "Cuenta de ahorros" ?
-                                                <Box><MenuItem value={"Mensual"} key={"m"}>Mensual</MenuItem><MenuItem value={"Diario"} key={"d"}>Diario</MenuItem></Box>
-                                                : productType == "Cuenta corriente" ? (
+                                            {productType1 == "Cuenta de ahorros" ?
+                                                [<MenuItem value={"Mensual"} key={"m"}>Mensual</MenuItem>,<MenuItem value={"Diario"} key={"d"}>Diario</MenuItem>]
+                                                : productType1 == "Cuenta corriente" ? (
                                                     <MenuItem value={"NoAplica"} key={"c"}>No Aplica</MenuItem>)
-                                                    : productType == "Inversiones" ?
+                                                    : productType1 == "Inversiones" ?
                                                         <MenuItem value={"FinDePeriodo"} key={"i"}>Fin de periodo</MenuItem>
 
                                                         : null}
