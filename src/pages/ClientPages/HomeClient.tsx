@@ -8,14 +8,13 @@ import TabsMolecule from '../../components/molecules/TabsMolecule';
 import { RSAccount } from '../../services/account/dto/RSAccount'
 import { AccountService } from '../../services/account/AccountService'
 import LoadOrganism from '../../components/organisms/LoadOrganism'
-import AccountResumePage from './Account/AccountResumePage'
-import OnConstructionMolecule from '../../components/molecules/OnConstructionMolecule'
-import TransactionPage from '../UserPages/Transaction/TransactionPage'
-import AccountServicesPage from './Account/AccountServicesPage'
 import ClockMolecule from '../../components/molecules/ClockMolecule'
-import AccountApplicationPage from './Account/AccountApplicationPage'
 import CardMolecule from '../../components/molecules/CardMolecule'
 import CalculateInterestFormOrganism from '../../components/organisms/CalculateInterestFormOrganism'
+import AccountResumePage from './Account/AccountResumePage'
+import TransactionPage from '../UserPages/Transaction/TransactionPage'
+import AccountServicesPage from './Account/AccountServicesPage'
+import AccountApplicationPage from './Account/AccountApplicationPage'
 
 const tabData: { label: string, value: any }[] = [
   {
@@ -29,7 +28,7 @@ const tabData: { label: string, value: any }[] = [
     value: 2
   }, {
     label: 'Solicitudes',
-    value: 4
+    value: 3
   }
 ]
 
