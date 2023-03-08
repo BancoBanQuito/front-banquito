@@ -15,18 +15,19 @@ interface ProgressButtonMoleculeProps {
     indicatorHidden?: boolean
 }
 
-const spanChild = (color: string, opacity: number | string, spotSize?: number | string, select?: boolean, onClick?: () => void) => <span
-    style={{
-        marginLeft: '1px',
-        marginRight: '1px',
-        width: spotSize || '20px',
-        height: spotSize || '20px',
-        backgroundColor: color,
-        opacity: opacity,
-        borderRadius: '100%',
-        cursor: (!!select) ? 'pointer' : 'auto'
-    }}
-    onClick={onClick && onClick} />
+const spanChild = (color: string, opacity: number | string, spotSize?: number | string, select?: boolean, index?: number, onClick?: () => void) =>
+    <span key={index}
+        style={{
+            marginLeft: '1px',
+            marginRight: '1px',
+            width: spotSize || '20px',
+            height: spotSize || '20px',
+            backgroundColor: color,
+            opacity: opacity,
+            borderRadius: '100%',
+            cursor: (!!select) ? 'pointer' : 'auto'
+        }}
+        onClick={onClick && onClick} />
 
 const ProgressButtonMolecule = (props: ProgressButtonMoleculeProps) => {
 
@@ -88,12 +89,13 @@ const ProgressButtonMolecule = (props: ProgressButtonMoleculeProps) => {
                 </div>
             }
             {
-                !!!props.indicatorHidden && [...Array(props.itemsCount).keys()].map(value => {
+                !!!props.indicatorHidden && [...Array(props.itemsCount).keys()].map((value, index) => {
                     return spanChild(
                         props.color,
                         manageOpacity(value),
                         props.spotSize,
                         props.select,
+                        index,
                         () => { props.select && updateIndex(value) }
                     );
                 })

@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import OnConstructionMolecule from '../../../components/molecules/OnConstructionMolecule'
 import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule'
 import LoadOrganism from '../../../components/organisms/LoadOrganism'
 import { AlertColor, Box, Grid, IconButton, Typography } from '@mui/material'
-import { ProductRS } from '../../../services/product/dto/ProductRS'
 import { ProductTypeRS } from '../../../services/product/dto/ProductTypeRS'
 import { ProductTypeService } from '../../../services/product/ProductTypeService.service'
-import { ProductService } from '../../../services/product/ProductService.service'
 import CardMolecule from '../../../components/molecules/CardMolecule'
 import { Close } from '@mui/icons-material'
 import AccountCancelForm from '../../../components/organisms/Account/AccountCancelForm'
@@ -16,7 +13,6 @@ import { AccountService } from '../../../services/account/AccountService'
 import AccountFormBank from '../../../components/organisms/Account/AccountFormBank'
 import { useUser } from '../../../context/UserContext'
 import { RQCreateAccount } from '../../../services/account/dto/RQCreateAccount'
-import { DataToDropdownUtils } from '../../../utils/DataToDropdownUtils'
 
 
 interface AccountApplicationPageProps {
@@ -52,7 +48,9 @@ const AccountApplicationPage = (props: AccountApplicationPageProps) => {
 
     const retriveAllProductTypes = async () => {
         setisLoading(true);
+        console.log(1)
         try {
+            console.log(2)
             const data: ProductTypeRS[] = (await ProductTypeService.getProductTypes()) || [];
             setproductTypes(data);
             settitleSnack("Éxito");

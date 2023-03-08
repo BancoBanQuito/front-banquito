@@ -123,7 +123,7 @@ const CalculateInterestFormOrganism = (props: CalculateInterestFormOrganismProps
                         onChange={handleChange}
                         type={'number'} />
                     <TextFieldAtom
-                        label='Ear'
+                        label='Interes Anual'
                         required
                         fullWidth
                         name='ear'

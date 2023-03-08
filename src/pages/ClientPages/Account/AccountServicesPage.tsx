@@ -29,7 +29,8 @@ const AccountServicesPage = (props: AccountServicesPage) => {
     useEffect(() => {
         retriveAllServices();
         return () => { }
-    }, []);
+    }, [])
+
 
     const retriveAllServices = async () => {
         setisLoading(true);
@@ -79,6 +80,7 @@ const AccountServicesPage = (props: AccountServicesPage) => {
                     {
                         services.map((service, index) => {
                             return <ServiceCardOrganism
+                                key={index}
                                 onClick={handleServiceSelection}
                                 service={service} />
                         })
