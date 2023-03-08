@@ -41,11 +41,11 @@ const TextFieldAtom = (props: Props) => {
             required={props.required}
             error={props.error}
             helperText={props.helperText}
-            variant='outlined'
-            size='small'
             inputProps={{
                 step: props.step
             }}
+            variant='outlined'
+            size='small'
         />
 
     );

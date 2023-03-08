@@ -2,10 +2,11 @@ import { Card, CardContent } from '@mui/material'
 import React, { ReactNode } from 'react'
 
 interface CardMoleculeProps {
-    children: ReactNode,
-    width?: number | string,
-    maxWidth?: number | string,
+    children: ReactNode;
+    width?: number | string;
+    maxWidth?: number | string;
     height?: number | string;
+    margin?: number | string;
 }
 
 const CardMolecule = (props: CardMoleculeProps) => {
@@ -16,7 +17,7 @@ const CardMolecule = (props: CardMoleculeProps) => {
                 height: props.height || 'auto',
                 background: 'white',
                 maxWidth: props.maxWidth,
-                margin: '0.5rem 1rem'
+                margin: props.margin || '0.5rem 1rem'
             }}
             variant='outlined'>
             <CardContent
