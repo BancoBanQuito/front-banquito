@@ -50,7 +50,7 @@ const Holiday: React.FC = () => {
     setIsUpdate(true);
   }
   const deleteHoliday = (holiday: IHoliday) => {
-    axios(`${EnvManager.SETTINGS_URL}/api/holiday`, {
+    axios(`${EnvManager.SETTINGS_URL}/api/holiday/`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

@@ -28,7 +28,6 @@ const HolidayUser: React.FC = () => {
           items={[
             { label: "Ver", value: "Ver" },
             { label: "Crear Feriados", value: "CrearD" },
-            { label: "Eliminar", value: "Eliminar" },
           ]}
           onChange={handleChange} />
       </div>

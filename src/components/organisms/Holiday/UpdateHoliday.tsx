@@ -57,6 +57,7 @@ const UpdateHoliday: React.FC<Props> = ({ nameU, typeU, codeU, dateU, setUpdate 
         }
         setActivateSpinner(false);
         alert("Actualizacion exitosa");
+        setUpdate(false);
       } catch (error) {
         setActivateSpinner(false);
         alert("No existe informacion del feriado ingresado");
@@ -130,7 +131,7 @@ const UpdateHoliday: React.FC<Props> = ({ nameU, typeU, codeU, dateU, setUpdate 
           type='text' />
 
         <SizeButton
-          submit
+          onClick={handleSubmit}
           text={"Actualizar"}
           style={ButtonStyle.BIG} palette={{
             backgroundColor: ColorPalette.TERNARY,
