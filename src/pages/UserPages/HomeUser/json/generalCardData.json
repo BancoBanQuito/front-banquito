@@ -3,24 +3,24 @@
     "title": "Ubicaciones",
     "description": "Gestione las ubicaciones del país",
     "imageUrl": "https://images.pexels.com/photos/269790/pexels-photo-269790.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "url": "/usuario/ubicaciones"
+    "url": "/banca/ubicaciones"
   },
   {
     "title": "Sucursales",
     "description": "Gestione las sucursales del banco",
     "imageUrl": "https://images.pexels.com/photos/351264/pexels-photo-351264.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "url": "/usuario/sucursales"
+    "url": "/banca/sucursales"
   },
   {
     "title": "Feriados",
     "description": "Gestione los feriados del país",
     "imageUrl": "https://images.pexels.com/photos/3358727/pexels-photo-3358727.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "url": "/usuario/feriados"
+    "url": "/banca/feriados"
   },
   {
     "title": "Actualizar Entidad",
     "description": "Actualice la entidad financiera",
     "imageUrl": "https://images.pexels.com/photos/7821685/pexels-photo-7821685.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "url": "/usuario/actualizar/entidad"
+    "url": "/banca/actualizar/entidad"
   }
 ]

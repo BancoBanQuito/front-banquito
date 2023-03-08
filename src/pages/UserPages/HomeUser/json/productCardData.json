@@ -3,24 +3,24 @@
     "title": "Productos",
     "description": "Gestionar información de productos",
     "imageUrl": "https://images.pexels.com/photos/50987/money-card-business-credit-card-50987.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "url": "/usuario/producto"
+    "url": "/banca/producto"
   },
   {
     "title": "Tipos de productos",
     "description": "Gestionar información de tipos de productos",
     "imageUrl": "https://images.pexels.com/photos/6214382/pexels-photo-6214382.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "url": "/usuario/producto/tipo"
+    "url": "/banca/producto/tipo"
   },
   {
     "title": "Servicio del Banco",
     "description": "Solicitar un servicio del Banco",
     "imageUrl": "https://images.pexels.com/photos/5849559/pexels-photo-5849559.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "url": "/usuario/producto/servicio"
+    "url": "/banca/producto/servicio"
   },
   {
     "title": "Vincular Servicio",
     "description": "Vincular un servicio del Banco",
     "imageUrl": "https://images.pexels.com/photos/8353790/pexels-photo-8353790.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "url": "/usuario/producto/vincular/servicio"
+    "url": "/banca/producto/vincular/servicio"
   }
 ]
