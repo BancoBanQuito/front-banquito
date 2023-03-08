@@ -24,6 +24,7 @@ const LoginClient = () => {
   const [infoMessage, setinfoMessage] = useState<string>("");
   const [titleInfoModal, settitleInfoModal] = useState<string>("")
   const user = useUser();
+  
   const navigate = useNavigate();
 
   const handleSubmit = async (submitUser: { username: string, password: string }) => {

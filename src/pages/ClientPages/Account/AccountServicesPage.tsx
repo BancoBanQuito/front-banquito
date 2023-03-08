@@ -29,13 +29,18 @@ const AccountServicesPage = (props: AccountServicesPage) => {
     useEffect(() => {
         retriveAllServices();
         return () => { }
-    }, []);
+    }, [])
+
 
     const retriveAllServices = async () => {
         setisLoading(true);
         try {
             const data: AssociatedServiceRSRQ[] = (await AssociatedService.getAssociatedServices())
             setservices(data);
+            settitleSnack("Exito");
+            setmessageSnack("Servicios cargados correctamente");
+            setcolorSnack('success');
+            setopenSnack(true);
         } catch (error: any) {
             setmessageSnack("Ha ocurrido un error");
             settitleSnack("Error");
@@ -75,6 +80,7 @@ const AccountServicesPage = (props: AccountServicesPage) => {
                     {
                         services.map((service, index) => {
                             return <ServiceCardOrganism
+                                key={index}
                                 onClick={handleServiceSelection}
                                 service={service} />
                         })

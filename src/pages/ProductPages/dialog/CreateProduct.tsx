@@ -1,4 +1,4 @@
-import { Dialog, Stack, Typography, Divider, TextField, Select, MenuItem, Button } from "@mui/material";
+import { Dialog, Stack, Typography, Divider, TextField, Select, MenuItem, Button, Box } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
 import { useState, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
@@ -7,6 +7,7 @@ import Swal from 'sweetalert2'
 import EnvManager from "../../../config/EnvManager";
 import { Spinner } from "../../../components/atoms/Spinner";
 import axios from "axios";
+import { Product } from '../Product';
 
 interface Props {
     openDialog: boolean;
@@ -21,6 +22,8 @@ export const CreateProduct = ({ openDialog }: Props) => {
     const [selectedDate, setSelectedDate] = useState<Dayjs | null>(
         dayjs('2022-08-18'),
     );
+    const [capitalization, setCapitalization] = useState<any>('');
+    const [productType1, setProductType] = useState<any>('');
     const [selectedEndDate, setSelectedEndDate] = useState<Dayjs | null>(
         dayjs('2022-08-18'),
     );
@@ -77,6 +80,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
                 method: 'GET',
             });
             const data = await response.data;
+            console.log(data)
             setProducts(data);
             setActivateSpinner(false);
         } catch (error) {
@@ -126,6 +130,7 @@ export const CreateProduct = ({ openDialog }: Props) => {
                 interestRate: { ...prepareInterest },
                 associatedService: [{ ...prepareAssociated }],
                 productType: { ...prepareType },
+                capitalization: data.capitalization,
 
             }
 
@@ -334,13 +339,17 @@ export const CreateProduct = ({ openDialog }: Props) => {
                                             variant="outlined"
                                             defaultValue={""}
                                             {...register("productType", { required: false })}
-                                            onChange={(e) => e.target.value}
+                                            onChange={(e) => {
+                                                console.log(e.target.value)
+                                                const product = e.target.value.split('/')
+                                                setProductType(product[1])
+                                            }}
                                         >
                                             {products.map((product: any) => (
                                                 <MenuItem
                                                     id={product.id}
                                                     key={product.id}
-                                                    value={product.id + "/" + product.name}
+                                                    value={product.id+'/'+product.name}
                                                 >
                                                     {product.name}
                                                 </MenuItem>
@@ -371,10 +380,37 @@ export const CreateProduct = ({ openDialog }: Props) => {
 
                                 </Stack>
                                 <Stack direction="row" spacing={3} sx={{ width: "100%" }} justifyContent="center">
+                                    <Stack direction="column" spacing={3} sx={{ width: "100%" }} justifyContent="center">
+                                        <Typography variant="body1">Capitalización</Typography>
+                                        <Select
+                                            label="Capitalización"
+                                            placeholder="Capitalización"
+                                            variant="outlined"
+                                            defaultValue={""}
+                                            {...register("capitalization", { required: false })}
+                                            onChange={(e) => {
+                                                e.target.value
+                                            }}
+                                        >
+                                            {productType1 == "Cuenta de ahorros" ?
+                                                [<MenuItem value={"Mensual"} key={"m"}>Mensual</MenuItem>,<MenuItem value={"Diario"} key={"d"}>Diario</MenuItem>]
+                                                : productType1 == "Cuenta corriente" ? (
+                                                    <MenuItem value={"NoAplica"} key={"c"}>No Aplica</MenuItem>)
+                                                    : productType1 == "Inversiones" ?
+                                                        <MenuItem value={"FinDePeriodo"} key={"i"}>Fin de periodo</MenuItem>
+
+                                                        : null}
+                                        </Select>
+
+
+                                    </Stack>
+                                </Stack>
+                                <Stack direction="row" spacing={3} sx={{ width: "100%" }} justifyContent="center">
                                     <Button variant="contained" type="submit">Crear</Button>
                                     <Button variant="contained" onClick={handleClose} color="error">Cancelar</Button>
                                 </Stack>
                             </Stack>
+
                         </form>
                     </FormProvider>
                 </Stack>

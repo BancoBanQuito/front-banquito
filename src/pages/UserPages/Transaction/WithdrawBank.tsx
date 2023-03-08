@@ -13,6 +13,8 @@ import { TransactionService } from '../../../services/transaction/TransactionSer
 import { ColorPalette } from '../../../style/ColorPalette';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import InfoModalOrganism from '../../../components/organisms/InfoModalOrganism';
+import { AlertColor } from '@mui/material';
+import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
 
 const WithdrawBank = () => {
 
@@ -22,7 +24,10 @@ const WithdrawBank = () => {
     const [isLoading, setisLoading] = useState<boolean>(false);
     const [loadMessage, setloadMessage] = useState<string>();
     const [showInfoModal, setshowInfoModal] = useState<boolean>(false);
-
+    const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
     const navigate = useNavigate();
 
     const [value, setvalue] = useState<RQTransaction>({
@@ -54,9 +59,17 @@ const WithdrawBank = () => {
             setloadMessage("Contando su dinero...");
             await TransactionService.postTransaction(depositAccount);
             setshowInfoModal(true);
+            settitleSnack("Retiro Exitoso");
+            setmessageSnack("Puede retirar su dinero");
+            setcolorSnack('success');
+            setopenSnack(true);
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
+            settitleSnack("Error");
+            setmessageSnack(error.message);
+            setcolorSnack('error');
+            setopenSnack(true);
         } finally {
             setisLoading(false);
         }
@@ -68,6 +81,12 @@ const WithdrawBank = () => {
 
     return (
         <>
+        <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',

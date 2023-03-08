@@ -15,6 +15,8 @@ import { Dropdown } from "../../../components/atoms/Dropdown";
 import { useUser } from "../../../context/UserContext";
 import { AccountService } from "../../../services/account/AccountService";
 import { RSAccount } from "../../../services/account/dto/RSAccount";
+import { AlertColor } from "@mui/material";
+import SnackBarMolecule from "../../../components/molecules/SnackBarMolecule";
 
 const headersMock = [
   <Typography>Fecha</Typography>,
@@ -45,6 +47,11 @@ const TransactionBeetwenDates = (props: TransactionBeetwenDatesProps) => {
   const navigate = useNavigate();
   const user = useUser();
 
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
+
   useEffect(() => {
     if (!!props.client) {
       retriveAllAccounts(user.identification || '', user.identificationType || '');
@@ -68,9 +75,18 @@ const TransactionBeetwenDates = (props: TransactionBeetwenDatesProps) => {
         }
       });
       setaccounts(dropAccounts);
+      settitleSnack("Cuentas encontradas");
+      setmessageSnack(`Se han encontrado ${dropAccounts.length} cuentas`);
+      setcolorSnack('success');
+      setopenSnack(true);
+
     } catch (error: any) {
       seterrorMessage(error.message);
       setshowerrorModal(true);
+      settitleSnack("Error");
+      setmessageSnack(error.message);
+      setcolorSnack('error');
+      setopenSnack(true);
     } finally {
       setisLoading(false);
     }
@@ -102,9 +118,18 @@ const TransactionBeetwenDates = (props: TransactionBeetwenDatesProps) => {
         seterrorMessage("No se han encontrado datos");
         setshowerrorModal(true);
       }
+      settitleSnack("Transacciones encontradas");
+      setmessageSnack(`Se han encontrado ${transaction?.length} transacciones`);
+      setcolorSnack('success');
+      setopenSnack(true);
+
     } catch (error: any) {
       seterrorMessage(error.message);
       setshowerrorModal(true);
+      settitleSnack("Error");
+      setmessageSnack(error.message);
+      setcolorSnack('error');
+      
     } finally {
       setisLoading(false);
     }
@@ -112,6 +137,12 @@ const TransactionBeetwenDates = (props: TransactionBeetwenDatesProps) => {
 
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       <div>
         <Box component="form" onSubmit={handleSubmit} >
           <Box

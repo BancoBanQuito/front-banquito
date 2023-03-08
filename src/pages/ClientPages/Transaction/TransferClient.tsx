@@ -12,6 +12,8 @@ import { TransactionService } from '../../../services/transaction/TransactionSer
 import { RQTransaction } from '../../../services/transaction/dto/RQTransaction';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { Spinner } from '../../../components/atoms/Spinner';
+import { AlertColor } from '@mui/material';
+import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
 
 
 const TransferClient = () => {
@@ -21,6 +23,11 @@ const TransferClient = () => {
     const [indexForm, setindexForm] = useState<number>(0);
 
     const navigate = useNavigate();
+
+    const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
 
     const [value, setvalue] = useState<RQTransaction>({
         codeInternationalAccount: "db6dae82faeff5f13d9d0ecb6e0b7d5f49",
@@ -44,6 +51,10 @@ const TransferClient = () => {
                 setActivateSpinner(false);
                 console.log("Ha ocurrido un error");
                 return;
+                settitleSnack("Error");
+                setmessageSnack("Ha ocurrido un error");
+                setcolorSnack('error');
+                setopenSnack(true);
             }
             await TransactionService.postTransaction(value);
             const aux = value;
@@ -52,15 +63,28 @@ const TransferClient = () => {
             aux.recipientAccountNumber = value.codeLocalAccount;
             aux.movement = 'NOTA CREDITO';
             aux.value = value.value;
+            settitleSnack("Exito");
+            setmessageSnack("Se ha realizado la transferencia");
+            setcolorSnack('success');
+            setopenSnack(true);
 
             await TransactionService.postTransaction(aux);
             console.log(value);
             navigate('/cliente');
             setActivateSpinner(false);
+            settitleSnack("Exito");
+            setmessageSnack("Se ha realizado la transferencia");
+            setcolorSnack('success');
+            setopenSnack(true);
+
         } catch (error: any) {
             setActivateSpinner(false);
             setactiveErrorModal(true);
             seterrorMessage(error.message);
+            settitleSnack("Error");
+            setmessageSnack("Ha ocurrido un error");
+            setcolorSnack('error');
+            setopenSnack(true);
         }
     }
 
@@ -70,6 +94,12 @@ const TransferClient = () => {
 
     return (
         <>
+        <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
             {activateSpinner ? <Spinner /> : null}
             <div style={{
                 display: 'flex',

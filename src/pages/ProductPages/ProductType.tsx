@@ -5,6 +5,8 @@ import TableMolecule from "../../components/molecules/TableMolecule";
 import EnvManager from "../../config/EnvManager";
 import { CreateTypeProduct } from "./dialog/CreateTypeProduct";
 import axios from "axios";
+import { AlertColor } from "@mui/material";
+import SnackBarMolecule from "../../components/molecules/SnackBarMolecule";
 
 const table: any = {
     headers: [
@@ -17,9 +19,14 @@ const table: any = {
 
 export const ProductType = () => {
 
+    const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
+    
     const [products, setProducts] = useState<any>([]);
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const handleOpen = () => {setOpen(true);}
     const [activateSpinner, setActivateSpinner] = useState(false);
     const getTypeProducts = async () => {
         try {
@@ -41,10 +48,20 @@ export const ProductType = () => {
             })
             setProducts(rows);
             setActivateSpinner(false);
+            settitleSnack("Exito");
+            setmessageSnack("Tipos de productos cargados correctamente");
+            setcolorSnack('success');
+            setopenSnack(true);
+
 
         } catch (error) {
             setActivateSpinner(false);
             console.log(error);
+            settitleSnack("Error");
+            setmessageSnack("Error al cargar los tipos de productos");
+            setcolorSnack('error');
+            setopenSnack(true);
+            
         }
     }
 
@@ -54,12 +71,7 @@ export const ProductType = () => {
         getTypeProducts();
     }, [])
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            getTypeProducts();
-        }, 5000);
-        return () => clearInterval(interval);
-    }, []);
+    
 
     useEffect(() => {
         if (open) {
@@ -71,6 +83,12 @@ export const ProductType = () => {
 
     return (
         <Stack direction="row" spacing={2} >
+            <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
             {activateSpinner ? <Spinner /> : null}
             <Stack direction="column" spacing={2} sx={{ width: "100%", margin: '4rem' }} alignItems='center'>
                 <Typography variant="h4" align="center">Tipos de Productos</Typography>

@@ -21,6 +21,8 @@ import { Checkbox } from "../../components/atoms/Checkbox";
 import EnvManager from "../../config/EnvManager";
 import { Spinner } from "../../components/atoms/Spinner";
 import axios from "axios";
+import { AlertColor } from "@mui/material";
+import SnackBarMolecule from "../../components/molecules/SnackBarMolecule";
 // Styles
 export const Container = styled.div`
   display: relative;
@@ -107,6 +109,10 @@ const CreateAssociatedService = (props: AssociatedServiceProps) => {
   const [cost, setcost] = useState(0);
   const handleChange = (value: boolean) => setIsCheck(value);
   const [activateSpinner, setActivateSpinner] = useState(false);
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
   const [service, setservice] = useState<FormAssociatedService>({
     name: "pepe1",
     allowPayment: "N",
@@ -136,15 +142,30 @@ const CreateAssociatedService = (props: AssociatedServiceProps) => {
       });
       props.onSubmit(associatedService);
       setActivateSpinner(false);
+      settitleSnack("Servicio asociado creado");
+      setmessageSnack("El servicio asociado se creo correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
     } catch (error) {
       setActivateSpinner(false);
       console.error(error);
+      settitleSnack("Error al crear el servicio asociado");
+      setmessageSnack("El servicio asociado no se creo correctamente");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
 
   };
 
   return (
+
     <Container>
+      <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {activateSpinner ? <Spinner /> : null}
       <Content>
         <ReturnButton>

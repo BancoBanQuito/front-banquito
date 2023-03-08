@@ -22,6 +22,8 @@ import { RSAccount } from '../../../services/account/dto/RSAccount';
 import InfoModalOrganism from '../../../components/organisms/InfoModalOrganism';
 import Grid from '@mui/material/Grid';
 import ClockMolecule from '../../../components/molecules/ClockMolecule';
+import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
+import { AlertColor } from '@mui/material';
 
 interface AccountStatementBankUserProps {
     client?: boolean;
@@ -40,6 +42,10 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
     const [selectedAccountStatement, setselectedAccountStatement] = useState<RSAccountStatement>();
     const [codeLocalAccount, setcodeLocalAccount] = useState<string>("");
     const [accounts, setaccounts] = useState<{ name: string, value: string }[]>([]);
+    const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
 
     const user = useUser();
     const navigate = useNavigate();
@@ -68,9 +74,17 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
                 }
             });
             setaccounts(dropAccounts);
+            settitleSnack("Cuentas encontradas");
+            setmessageSnack("Se han encontrado " + dropAccounts.length + " cuentas asociadas");
+            setcolorSnack("success");
+            setopenSnack(true);
         } catch (error: any) {
             seterrorMessage(error.message);
             setactiveErrorModal(true);
+            settitleSnack("Error");
+            setmessageSnack("No se han podido obtener las cuentas asociadas");
+            setcolorSnack("error");
+            setopenSnack(true);
         } finally {
             setisLoading(false);
         }
@@ -100,9 +114,17 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
                 setactiveErrorModal(true);
                 seterrorMessage("No se han encontrado datos");
             }
+            settitleSnack("Estado de cuenta");
+            setmessageSnack("Se han encontrado " + data?.length + " estados de cuenta");
+            setcolorSnack("success");
+            setopenSnack(true);
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
+            settitleSnack("Error");
+            setmessageSnack("No se han podido obtener los estados de cuenta");
+            setcolorSnack("error");
+            setopenSnack(true);
         } finally {
             setisLoading(false);
         }
@@ -124,9 +146,18 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
                 setactiveErrorModal(true);
                 seterrorMessage("No se han encontrado datos");
             }
+            settitleSnack("Estado de cuenta");
+            setmessageSnack("Se ha encontrado el estado de cuenta");
+            setcolorSnack("success");
+            setopenSnack(true);
+
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
+            settitleSnack("Error");
+            setmessageSnack("No se ha podido obtener el estado de cuenta");
+            setcolorSnack("error");
+            setopenSnack(true);
         } finally {
             setisLoading(false);
         }
@@ -136,6 +167,12 @@ const AccountStatementBankUser = (props: AccountStatementBankUserProps) => {
 
     return (
         <>
+        <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
             <Box sx={{ height: 10 }}>
             </Box>
 

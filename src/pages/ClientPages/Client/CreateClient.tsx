@@ -11,6 +11,8 @@ import { ButtonStyle } from "../../../style/ButtonStyle";
 import { Canton, Province } from "../../../components/organisms/Location/types";
 import { Dropdown } from "../../../components/atoms/Dropdown";
 import axios from "axios";
+import { AlertColor } from "@mui/material";
+import SnackBarMolecule from "../../../components/molecules/SnackBarMolecule";
 
 const CreateClient: React.FC = () => {
   const [isNatural, setIsNatural] = useState<boolean>(true);
@@ -24,6 +26,7 @@ const CreateClient: React.FC = () => {
   const [emailError, setEmailError] = useState("");
   const [birthDate, setBirthDate] = useState<Date | null>(null);
   const [birthDateState, setBirthDateState] = useState<{
+
     date: Date | null;
     error: boolean;
   }>({ date: null, error: false });
@@ -49,6 +52,10 @@ const CreateClient: React.FC = () => {
   const [tinDocument, setTinDocument] = useState<string>("");
   const [workStatus, setWorkStatus] = useState<string>("Otro");
   const [creationDate, setCreationDate] = useState<Date>(new Date());
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
   const phone =
   {
     phoneNumber: "",
@@ -273,10 +280,18 @@ const CreateClient: React.FC = () => {
         throw new Error(response.statusText);
       }
       setActivateSpinner(false);
+      settitleSnack("Cliente creado");
+      setmessageSnack("Se ha creado al cliente satisfactoriamente!");
+      setcolorSnack("success");
+      setopenSnack(true);
       alert("Se ha creado al cliente satisfactoriamente!");
     } catch (error) {
       setActivateSpinner(false);
       console.log(error);
+      settitleSnack("Error");
+      setmessageSnack("No se ha podido crear al cliente");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   };
 
@@ -385,12 +400,20 @@ const CreateClient: React.FC = () => {
       const response = await axios(
         segmentUrl
       );
+      settitleSnack("Segmentos");
+      setmessageSnack("Se han obtenido los segmentos satisfactoriamente!");
+      setcolorSnack("success");
+      setopenSnack(true);
       const data = await response.data;
       setActivateSpinner(false);
       setSegments(data);
     } catch (error) {
       setActivateSpinner(false);
       console.error(error)
+      settitleSnack("Error");
+      setmessageSnack("No se han podido obtener los segmentos");
+      setcolorSnack("error");
+      setopenSnack(true);
     }
   };
   getSegmentNames(segments);
@@ -422,9 +445,17 @@ const CreateClient: React.FC = () => {
         const data = await response.data
         setProvincesData(data)
         setActivateSpinner(false)
+        settitleSnack("Provincias");
+        setmessageSnack("Se han obtenido las provincias satisfactoriamente!");
+        setcolorSnack("success");
+        setopenSnack(true);
       } catch (error) {
         console.error(error)
         setActivateSpinner(false)
+        settitleSnack("Error");
+        setmessageSnack("No se han podido obtener las provincias");
+        setcolorSnack("error");
+        setopenSnack(true);
       }
     }
     fetchProvinces()
@@ -454,10 +485,18 @@ const CreateClient: React.FC = () => {
           const data = await response.data
           setCantonsData(data)
           setActivateSpinner(false)
+          settitleSnack("Cantones");
+          setmessageSnack("Se han obtenido los cantones satisfactoriamente!");
+          setcolorSnack("success");
+          setopenSnack(true);
         }
       } catch (error) {
         setActivateSpinner(false)
         console.error(error)
+        settitleSnack("Error");
+        setmessageSnack("No se han podido obtener los cantones");
+        setcolorSnack("error");
+        setopenSnack(true);
       }
     }
     fetchCantons()
@@ -481,10 +520,18 @@ const CreateClient: React.FC = () => {
           const data = await response.data
           setParishesData(data)
           setActivateSpinner(false)
+          settitleSnack("Parroquias");
+          setmessageSnack("Se han obtenido las parroquias satisfactoriamente!");
+          setcolorSnack("success");
+          setopenSnack(true);
         }
       } catch (error) {
         setActivateSpinner(false)
         console.error(error)
+        settitleSnack("Error");
+        setmessageSnack("No se han podido obtener las parroquias");
+        setcolorSnack("error");
+        setopenSnack(true);
       }
     }
     fetchParishes()
@@ -492,6 +539,12 @@ const CreateClient: React.FC = () => {
 
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {activateSpinner ? <Spinner /> : null}
       <Typography
         variant="h3"

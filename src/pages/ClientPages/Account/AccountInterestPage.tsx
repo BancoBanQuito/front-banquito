@@ -54,6 +54,10 @@ const AccountInterestPage = (props: AccountInterestPageProps) => {
         try {
             const data: RSSavingsAccountInterest[] | undefined = (await InterestService.getInterest(id, fromDate?.format('YYYY-MM-DDThh:mm:ss') || '', toDate?.format('YYYY-MM-DDThh:mm:ss') || '')).data.data || [];
             console.log(data);
+            settitleSnack("Exito");
+            setmessageSnack("Se han cargado los intereses");
+            setcolorSnack('success');
+            setopenSnack(true);
         } catch (error) {
             setmessageSnack("Ha ocurrido un error");
             settitleSnack("Error");

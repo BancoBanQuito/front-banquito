@@ -13,9 +13,15 @@ import { TransactionService } from '../../../services/transaction/TransactionSer
 import { ColorPalette } from '../../../style/ColorPalette';
 import LoadOrganism from '../../../components/organisms/LoadOrganism';
 import InfoModalOrganism from '../../../components/organisms/InfoModalOrganism';
+import { AlertColor } from '@mui/material';
+import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
 
 const DepositBank = () => {
 
+    const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
     const [showInfoModal, setshowInfoModal] = useState(false);
     const [activeErrorModal, setactiveErrorModal] = useState<boolean>(false);
     const [errorMessage, seterrorMessage] = useState<string>("");
@@ -55,9 +61,18 @@ const DepositBank = () => {
             setloadMessage("Depositando...");
             await TransactionService.postTransaction(depositAccount);
             setshowInfoModal(true);
+            settitleSnack("Deposito");
+            setmessageSnack("Deposito realizado con exito");
+            setcolorSnack("success");
+            setopenSnack(true);
         } catch (error: any) {
             setactiveErrorModal(true);
             seterrorMessage(error.message);
+            settitleSnack("Deposito");
+            setmessageSnack("Error al realizar el deposito");
+            setcolorSnack("error");
+            setopenSnack(true);
+            
         } finally {
             setisLoading(false);
         }
@@ -69,6 +84,12 @@ const DepositBank = () => {
 
     return (
         <>
+        <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
             <div style={{
                 display: 'flex',
                 flexDirection: 'column',

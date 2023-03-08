@@ -8,6 +8,8 @@ import { TransactionService } from '../../../services/transaction/TransactionSer
 import { RSTransaction } from '../../../services/transaction/dto/RSTransaction';
 import { ColorPalette } from '../../../style/ColorPalette';
 import { Spinner } from '../../../components/atoms/Spinner';
+import SnackBarMolecule from '../../../components/molecules/SnackBarMolecule';
+import { AlertColor } from '@mui/material';
 
 const headersMock = [
   <Typography>Fecha</Typography>,
@@ -33,26 +35,48 @@ const InterestInvestmentPolicies = () => {
   const [dateFrom, setDateFrom] = useState<Dayjs | null>(null);
   const [dateTo, setDateTo] = useState<Dayjs | null>(null);
   const [activateSpinner, setActivateSpinner] = useState(false);
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
   const searchInterestSavingAccounts = async (codeLocalAccount: string, from: string, to: string) => {
 
     try {
       setActivateSpinner(true);
       const data: RSTransaction[] | undefined = (await TransactionService.getTransaction(codeLocalAccount, from, to)).data.data;
+
       if (data) {
         const result = data.filter((item: RSTransaction) => {
           if (item.concept === 'Calculo interes, inversion estandar') {
             return item;
+            settitleSnack("Busqueda exitosa");
+            setmessageSnack("Se encontraron los datos");
+            setcolorSnack("success");
+            setopenSnack(true);
           }
         });
         setInterestInvestmentPolicies(result);
       } else {
         console.log("No hay datos disponibles");
+        settitleSnack("Busqueda exitosa");
+        setmessageSnack("No hay datos disponibles");
+        setcolorSnack("error");
+        setopenSnack(true);
 
       }
       setActivateSpinner(false);
+      settitleSnack("Busqueda exitosa");
+      setmessageSnack("Se encontraron los datos");
+      setcolorSnack("success");
+      setopenSnack(true);
     } catch (error: any) {
       setActivateSpinner(false);
       console.log(error);
+      settitleSnack("Busqueda exitosa");
+      setmessageSnack("No hay datos disponibles");
+      setcolorSnack("error");
+      setopenSnack(true);
+      
     }
   }
 
@@ -76,6 +100,12 @@ const InterestInvestmentPolicies = () => {
 
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {activateSpinner ? <Spinner /> : null}
       {
         activeSearch && <div style={{

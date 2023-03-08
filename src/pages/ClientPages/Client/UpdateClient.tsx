@@ -4,6 +4,8 @@ import Button from "@mui/material/Button";
 import BranchBox from "./ClientBox";
 import EnvManager from "../../../config/EnvManager";
 import axios from "axios";
+import { AlertColor } from "@mui/material";
+import SnackBarMolecule from "../../../components/molecules/SnackBarMolecule";
 
 export const UpdateClient: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -16,6 +18,10 @@ export const UpdateClient: React.FC = () => {
   const [lineTwo, setLineTwo] = useState<string>("");
   const [identification, setIdentification] = useState<string>("");
   const [typeIdentification, setTypeIdentification] = useState<string>("");
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
 
   const [isStatusSelected, setIsStatusSelected] = useState<boolean>(true);
 
@@ -157,6 +163,12 @@ export const UpdateClient: React.FC = () => {
 
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       <Grid container>
         <Grid item xs={6}>
           <Container sx={containertTitleStyles}>

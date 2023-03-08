@@ -14,6 +14,8 @@ import AccountSignatureEditForm from "../../../components/organisms/Account/Acco
 import { RQSignatureRoleStatus } from "../../../services/account/dto/RQSignatureRoleStatus";
 import ButtonIcon from "../../../components/atoms/ButtonIcon";
 import { Add } from "@mui/icons-material";
+import { AlertColor } from "@mui/material";
+import SnackBarMolecule from "../../../components/molecules/SnackBarMolecule";
 
 const AccountCreateSignatureUser = () => {
 
@@ -28,6 +30,10 @@ const AccountCreateSignatureUser = () => {
   const [selectedSignature, setselectedSignature] = useState<RSSignature | undefined>();
   const [codeLocalAccount, setcodeLocalAccount] = useState<string>();
 
+  const [openSnack, setopenSnack] = useState<boolean>(false);
+    const [titleSnack, settitleSnack] = useState<string | undefined>();
+    const [messageSnack, setmessageSnack] = useState<string>("");
+    const [colorSnack, setcolorSnack] = useState<AlertColor>('error');
   const navigate = useNavigate();
 
   const handleSubmitCreateSignature = async (signature: RQSignature) => {
@@ -43,9 +49,17 @@ const AccountCreateSignatureUser = () => {
       }
       await AccountSignatureService.postAccountSignature(auxSignature);
       setactiveCreateModal(false);
+      settitleSnack("Firma creada");
+      setmessageSnack("La firma ha sido creada correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
     } catch (error: any) {
       seterrorMessage(error.message);
       setactiveErrorModal(true);
+      settitleSnack("Error al crear la firma");
+      setmessageSnack("Ha ocurrido un error al crear la firma");
+      setcolorSnack("error");
+      setopenSnack(true);
     } finally {
       setisLoading(false);
     }
@@ -62,9 +76,17 @@ const AccountCreateSignatureUser = () => {
         await AccountSignatureService.putAccountSignature(selectedSignature.identificationType, selectedSignature.identification, codeLocalAccount || "", signature);
         setactiveEditModal(false);
       }
+      settitleSnack("Firma actualizada");
+      setmessageSnack("La firma ha sido actualizada correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
     } catch (error: any) {
       seterrorMessage(error.message);
       setactiveErrorModal(true);
+      settitleSnack("Error al actualizar la firma");
+      setmessageSnack("Ha ocurrido un error al actualizar la firma");
+      setcolorSnack("error");
+      setopenSnack(true);
     } finally {
       setisLoading(false);
     }
@@ -83,9 +105,18 @@ const AccountCreateSignatureUser = () => {
         setcodeLocalAccount(data);
         setactiveSearchBox(false);
       }
+      settitleSnack("Firmas encontradas");
+      setmessageSnack("Las firmas han sido encontradas correctamente");
+      setcolorSnack("success");
+      setopenSnack(true);
+
     } catch (error: any) {
       seterrorMessage(error.message);
       setactiveErrorModal(true);
+      settitleSnack("Error al buscar las firmas");
+      setmessageSnack("Ha ocurrido un error al buscar las firmas");
+      setcolorSnack("error");
+      setopenSnack(true);
     } finally {
       setisLoading(false);
     }
@@ -103,6 +134,12 @@ const AccountCreateSignatureUser = () => {
 
   return (
     <>
+    <SnackBarMolecule
+                open={openSnack}
+                message={messageSnack}
+                title={titleSnack}
+                severity={colorSnack}
+                onClose={() => setopenSnack(false)} />
       {
         activeSearchBox && <div style={{
           position: 'absolute',
