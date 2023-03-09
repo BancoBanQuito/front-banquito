@@ -165,45 +165,49 @@ const CreateSegment: React.FC = () => {
 
   return (
     <>
-    <SnackBarMolecule
-                open={openSnack}
-                message={messageSnack}
-                title={titleSnack}
-                severity={colorSnack}
-                onClose={() => setopenSnack(false)} />
+      <SnackBarMolecule
+        open={openSnack}
+        message={messageSnack}
+        title={titleSnack}
+        severity={colorSnack}
+        onClose={() => setopenSnack(false)}
+      />
       {activateSpinner ? <Spinner /> : null}
       <Container sx={containertTitleStyles}>
         <Typography variant="h4" align="center">
           Crear Segmento
         </Typography>
       </Container>
-      <Container sx={containerTextFieldStyles}>
-        <FormLabel sx={formLabelStyles}>Nombre:</FormLabel>
-        <TextField
-          value={nameSegment}
-          onChange={(event) => setNameSegment(event.target.value)}
-          variant="standard"
-        />
-      </Container>
-      <Container sx={containerTextFieldStyles}>
-        <div style={{ marginRight: "10px" }}>
+      <Container sx={containerStyles}>
+        <div style={{ display: "flex", flexDirection: "column", width: "50%",marginTop: "5%" }}>
+          <FormLabel sx={formLabelStyles}>Nombre:</FormLabel>
+          <TextField
+            value={nameSegment}
+            onChange={(event) => setNameSegment(event.target.value)}
+            variant="standard"
+          />
+          <div style={{ marginTop: "13%" }}></div>
+          <FormLabel sx={formLabelStyles}>Estado:</FormLabel>
           <Dropdown
             label="Selecciona el estado:"
             value={statustSegment}
             items={optionsStatus}
             onChange={onChangeStatus}
             width={"100%"}
-            height={"auto"} />
+            height={"auto"}
+          />
+          <div style={{ marginTop: "8%" }}></div>
+          <Button onClick={handleSubmit} sx={buttonStyles}>
+            Crear segmento
+          </Button>
+        </div>
+        <div style={{ width: "80%", marginLeft: "20%", marginTop: "5%" }}>
+          <TableMolecule headers={headers} rows={rows} />
         </div>
       </Container>
-      <Container sx={containerTextFieldStyles}>
-        <Button onClick={handleSubmit} sx={buttonStyles}>
-          Crear segmento
-        </Button>
-      </Container>
-      <TableMolecule headers={headers} rows={rows} />
     </>
   );
+  
 };
 
 export default CreateSegment;
