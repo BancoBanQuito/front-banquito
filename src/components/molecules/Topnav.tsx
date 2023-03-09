@@ -43,7 +43,6 @@ const Topnav = ({ to }: TopnavProps) => {
     setAnchorEl(null);
   };
 
-
   const handleLogout = () => {
     logout();
     user.identification = '';
