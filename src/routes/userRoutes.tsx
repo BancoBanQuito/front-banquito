@@ -13,6 +13,7 @@ import AccountConsolidatedPositionUser from "../pages/UserPages/Account/AccountC
 import AccountCreateSignatureUser from "../pages/UserPages/Account/AccountCreateSignatureUser";
 import AccountCreateUser from "../pages/UserPages/Account/AccountCreateUser";
 import AccountStatementBankUser from "../pages/UserPages/Account/AccountStatementUser";
+import AccountStatementPage from "../pages/ClientPages/Account/AccountStatementPage";
 import BranchUser from "../pages/UserPages/Branches/BranchUser";
 import HolidayUser from "../pages/UserPages/Holidays/HolidayUser";
 import HomeUser from "../pages/UserPages/HomeUser/HomeUser";
@@ -42,6 +43,10 @@ export const userRoutes = [
     {
         path: "cuenta/estado",
         element: <AccountStatementBankUser />,
+    },
+    {
+        path: "cuenta/estado/:id",
+        element: <AccountStatementPage />,
     },
     {
         path: "cuenta/transaccion",

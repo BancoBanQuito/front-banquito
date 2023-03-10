@@ -215,7 +215,7 @@ const SearchClientDataForm: React.FC = () => {
         <Container sx={containerTextFieldStyles}>
           <Button
             onClick={() => {
-              navigate("/usuario");
+              navigate("/banca/inicio");
             }}
             sx={buttonStyles}
           >

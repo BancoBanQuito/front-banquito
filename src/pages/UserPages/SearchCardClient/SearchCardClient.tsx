@@ -32,7 +32,7 @@ const SearchCardClient: React.FC = () => {
     try {
       localStorage.setItem("identification", identification);
       localStorage.setItem("typeIdentification", typeIdentification);
-      navigate("/usuario/info-cliente");
+      navigate("/banca/info-cliente");
     } catch (error) {
       console.error(error);
     }
@@ -42,7 +42,7 @@ const SearchCardClient: React.FC = () => {
     try {
       localStorage.setItem("identification", identification);
       localStorage.setItem("typeIdentification", typeIdentification);
-      navigate("/usuario/actualizar-info-cliente");
+      navigate("/banca/actualizar-info-cliente");
     } catch (error) {
       console.error(error);
     }

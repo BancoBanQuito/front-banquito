@@ -15,6 +15,13 @@ interface AccountStatementTableProps {
     onSelection: (data: any) => void;
 }
 
+interface AccountStatementOrganismProps {
+    codeLocalAccount: string;
+    onClick?: () => void;
+    onSelect?: (id: string) => void;
+}
+
+
 const headers = [
     <Typography>fecha</Typography>,
     <Typography>debito/creditos</Typography>,
@@ -24,8 +31,10 @@ const headers = [
     <Typography>abrir</Typography>
 ]
 
-const AccountStatementTable = (props: AccountStatementTableProps) => {
+const AccountStatementTable = (props: AccountStatementTableProps, prop: AccountStatementOrganismProps) => {
 
+
+    
 
     const [searchString, setsearchString] = useState<string>("");
     const [hasSearch, sethasSearch] = useState<boolean>(false);
@@ -40,6 +49,10 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
     const [selectedAccountStatement, setselectedAccountStatement] = useState<RSAccountStatement>();
     const [codeLocalAccount, setcodeLocalAccount] = useState<string>("");
     const [accounts, setaccounts] = useState<{ name: string, value: string }[]>([]);
+
+    const openInNewTab = (id: string) => {
+        window.open(`/banca/cuenta/estado/${id}`, '_blank');
+    }
 
     useEffect(() => {
         setactualArrayState(props.data);
@@ -139,7 +152,7 @@ const AccountStatementTable = (props: AccountStatementTableProps) => {
                     text={'Ver Estado de Cuenta'}
                     style={ButtonStyle.BIG}
 
-                    onClick={() => generateAccountStatement()}
+                    onClick={() => openInNewTab(`1-${prop.codeLocalAccount}`)}
                     palette={{
                         backgroundColor: ColorPalette.PRIMARY
                     }} />
