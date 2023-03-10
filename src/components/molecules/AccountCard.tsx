@@ -11,6 +11,7 @@ interface AccountCardProps {
 
 const AccountCard = (props: AccountCardProps) => {
     return (
+        
         <Card sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -28,7 +29,7 @@ const AccountCard = (props: AccountCardProps) => {
                     </div>
                     <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }} >
                         <Typography fontSize='1rem' variant='body1' alignSelf={'flex-end'}>{props.account.codeLocalAccount}</Typography>
-                        <Typography variant='body1' fontSize={'0.75rem'} alignSelf={'flex-end'}>{props.account.product}</Typography>
+                        <Typography variant='body1' fontSize={'0.75rem'} alignSelf={'flex-end'}>N. Cuenta</Typography>
                     </div>
                 </div>
                 <hr />

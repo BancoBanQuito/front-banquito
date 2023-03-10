@@ -92,12 +92,14 @@ const AccountResumePage = (props: AccountResumePageProps) => {
                         <Grid container spacing={5}>
                             {
                                 props.accounts.map((account, key) => {
+                                    if(account.status != null){
                                     return <Grid item sm={6} key={key}>
                                         <AccountCard
                                             username={user.username?.split("@")[0] || ''}
                                             account={account}
                                             onClick={(account) => handleAccountSelection(account.codeLocalAccount)} />
                                     </Grid>
+                                    }
                                 })
                             }
                         </Grid>
